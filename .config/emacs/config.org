@@ -737,6 +737,16 @@ candidate filtering.  I personally prefer to use the ~orderless-prefixes~
 completion style where entering the string “foo bar baz” will match the options
 that have components beginning with /foo/, /bar/, and /baz/ in that order.
 
+#+BEGIN_SRC elisp
+
+  (use-package orderless
+    :custom
+    (completion-styles '(orderless basic))
+    (orderless-matching-styles '(orderless-prefixes))
+    (completion-category-overrides '((file (styles basic partial-completion)))))
+
+#+END_SRC
+
 *** Company
 
 Company is a package to give me actual completion popups; it’s super useful for
