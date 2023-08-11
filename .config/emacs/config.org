@@ -185,7 +185,7 @@ make it just that little bit easier for me:
 #+BEGIN_SRC elisp
 
   (defmacro mm-for-each (sequence &rest body)
-    "Execute BODY for each element of SEQUENCE.  The variable ‘_’ is automatically
+    "Execute BODY for each element of SEQUENCE.  The variable ‘x’ is automatically
   set to the current subject of the iteration."
     (declare (indent defun))
     `(mapc (lambda (x) ,@body) ,sequence))
