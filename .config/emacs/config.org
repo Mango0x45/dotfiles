@@ -772,41 +772,48 @@ with a custom function that reads a list of mode-specific indentation settings.
 #+BEGIN_SRC elisp
 
   (setq-default tab-width 8
-		evil-shift-width 8
-		indent-tabs-mode t)
+                evil-shift-width 8
+                indent-tabs-mode t)
 
   (defvar mm-indentation-settings
-    '((c-mode :extra-vars (c-basic-offset))
+    '((c-mode :width 8 :extra-vars (c-basic-offset))
       (css-mode :extra-vars (css-basic-offset))
-      (emacs-lisp-mode :tabs nil)
-      (lisp-mode :tabs nil)
-      (org-mode :tabs nil)
-      (python-mode :width 4 :tabs t :extra-vars (python-indent-offset))
-      (rust-mode :width 4 :tabs t)
-      (sgml-mode :width 4 :tabs t :extra-vars (sgml-basic-offset))
-      (xml-mode :width 4 :tabs t))
-    "A list of per-mode indentation settings.  Each list contains a major-mode, a
-  tab-width, whether or not to indent using tabs, and an optional list of
-  addtional mode-specific indentation variables to set.  When calling
-  ‘mm-set-indetation-settings’ these settings are also automatically applied for
-  the corresponding tree-sitter mode.")
+      (emacs-lisp-mode :spaces t)
+      (lisp-mode :spaces t)
+      (org-mode :spaces t)
+      (python-mode :width 4 :spaces nil :extra-vars (python-indent-offset))
+      (rust-mode :width 4 :spaces nil)
+      (sgml-mode :width 4 :spaces nil :extra-vars (sgml-basic-offset))
+      (xml-mode :width 4 :spaces nil))
+    "A list of per-mode indentation settings.  Each list contains a major-mode and
+  the 3 optional keyword arguments of :spaces, :width, and :extra-vars.  When
+  setting the settings for a given major-mode, the settings will also be applied
+  for that modes tree-sitter variant.
+
+  If :spaces is non-nil, then indentation will be performed with spaces instead of
+  tabs characters.
+
+  If :width is non-nil, then it will override the modes given tab-width.
+
+  If :extra-vars is non-nill, then it shall be a list of additional mode-specific
+  variables that need to be assigned the desired indentation-width.")
 
   (defun mm-set-indentation-settings ()
     "Apply the indentation settings specified by ‘mm-indentation-settings’."
     (interactive)
     (mm-for-each mm-indentation-settings
       (let* ((mode (car x))
-	     (args (cdr x))
-	     (width (or (plist-get args :width) (default-value 'tab-width)))
-	     (tabs (or (plist-get args :tabs) (default-value 'indent-tabs-mode)))
-	     (extra (plist-get args :extra-vars))
-	     (callback
-	      (λ (indent-tabs-mode (or tabs -1))
-		 (setq-local tab-width width
-			     evil-shift-width width)
-		 (mm-for-each extra (setq x width)))))
-	(add-hook (mm-mode-to-hook mode) callback 95)
-	(add-hook (mm-mode-to-ts-mode mode) callback 95))))
+             (args (cdr x))
+             (width (or (plist-get args :width) (default-value 'tab-width)))
+             (spaces (or (plist-get args :spaces) (not (default-value 'indent-tabs-mode))))
+             (extra (plist-get args :extra-vars))
+             (callback
+              (λ (indent-tabs-mode (when spaces -1))
+                 (setq-local tab-width width
+                             evil-shift-width width)
+                 (mm-for-each extra (setq x width)))))
+        (add-hook (mm-mode-to-hook mode) callback 95)
+        (add-hook (mm-mode-to-ts-mode mode) callback 95))))
 
   (mm-set-indentation-settings)
 
