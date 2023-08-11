@@ -954,3 +954,16 @@ org-buffer to keep everything looking nice and structured.
   (add-hook 'org-mode-hook #'org-indent-mode)
 
 #+END_SRC
+
+*** Auto-Fill-Mode
+
+I do like to use this mode, especially when writing.  I also want it when coding
+/sometimes/, but not always.  Overall it’s a pretty useful mode — but I am super
+mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
+
+#+BEGIN_SRC elisp
+
+  (setq fill-column 80)
+  (add-hook 'org-mode-hook #'auto-fill-mode)
+
+#+END_SRC
