@@ -1,4 +1,7 @@
 #+TITLE: Emacs Configuration
+#+AUTHOR: Thomas Voss
+#+DATE: <2023-08-09 Wed>
+#+DESCRIPTION: My Emacs configuration — before I ran ‘rm -rf ~/.config’ that is
 #+STARTUP: overview
 
 * Headers
