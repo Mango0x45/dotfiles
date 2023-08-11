@@ -572,7 +572,7 @@ display line numbers in certain modes.
 
   (mm-for-each (mapcar #'mm-mode-to-hook mm-enable-line-numbers-modes)
     (add-hook _ #'display-line-numbers-mode))
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes))
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes)
     (add-hook _ (λ (display-line-numbers-mode -1))))
 
 #+END_SRC
