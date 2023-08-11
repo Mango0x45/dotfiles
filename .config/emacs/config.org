@@ -769,20 +769,13 @@ with a custom function that reads a list of mode-specific indentation settings.
 		indent-tabs-mode t)
 
   (defvar mm-indentation-settings
-    '((c-mode :width 8 :tabs t
-	      :extra-vars (c-basic-offset))
-      (css-mode :width 8 :tabs t
-		:extra-vars (css-basic-offset))
-      (emacs-lisp-mode :width 8 :tabs nil)
-      (go-mode :width 8 :tabs t)
-      (json-mode :width 8 :tabs t)
-      (lisp-mode :width 8 :tabs nil)
-      (makefile-mode :width 8 :tabs t)
-      (python-mode :width 4 :tabs t
-		   :extra-vars (python-indent-offset))
+    '((c-mode :extra-vars (c-basic-offset))
+      (css-mode :extra-vars (css-basic-offset))
+      (emacs-lisp-mode :tabs nil)
+      (lisp-mode :tabs nil)
+      (python-mode :width 4 :tabs t :extra-vars (python-indent-offset))
       (rust-mode :width 4 :tabs t)
-      (sgml-mode :width 4 :tabs t
-		 :extra-vars (sgml-basic-offset))
+      (sgml-mode :width 4 :tabs t :extra-vars (sgml-basic-offset))
       (xml-mode :width 4 :tabs t))
     "A list of per-mode indentation settings.  Each list contains a major-mode, a
   tab-width, whether or not to indent using tabs, and an optional list of
@@ -796,8 +789,8 @@ with a custom function that reads a list of mode-specific indentation settings.
     (mm-for-each mm-indentation-settings
       (let* ((mode (car x))
 	     (args (cdr x))
-	     (width (plist-get args :width))
-	     (tabs (plist-get args :tabs))
+	     (width (or (plist-get args :width) (default-value 'tab-width)))
+	     (tabs (or (plist-get args :tabs) (default-value 'indent-tabs-mode)))
 	     (extra (plist-get args :extra-vars))
 	     (callback
 	      (λ (indent-tabs-mode (or tabs -1))
