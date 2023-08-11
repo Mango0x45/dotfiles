@@ -40,7 +40,7 @@ is simply because I need to use them here.
 
 #+END_SRC
 
-** TODO XDG Directories
+** XDG Directories
 
 We want to define variables for the main XDG directories for Emacs to use.
 These are nice for keeping things organized and out of the way.
@@ -83,8 +83,6 @@ We also need to ensure our directories actually exist.
 
 We don’t want to have all sorts of random garbage populating the configuartion
 directory; let’s throw it all in the cache directory instead.
-
-# TODO: https://stackoverflow.com/a/151946
 
 #+BEGIN_SRC elisp
 
@@ -919,3 +917,17 @@ this file.
 
 #+END_SRC
 
+** Backup Files
+
+It’s always good to have backups.  I would know — I’ve wiped both =~= and
+=~/.config= before!  Despite the name, ~version-control~ actually just adds
+version numbers to the backup names — it doesn’t start using a VCS.
+
+#+BEGIN_SRC elisp
+
+  (setq delete-old-versions t
+	version-control t
+	kept-new-versions 2
+	kept-old-versions 6)
+
+#+END_SRC
