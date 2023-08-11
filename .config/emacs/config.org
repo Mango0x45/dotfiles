@@ -901,8 +901,7 @@ Some modes aren’t installed by default with Emacs, so let’s fetch them
 
 #+END_SRC
 
-** Miscellaneous Settings
-*** Customization Settings
+** Customization Settings
 
 Emacs has a /customization variable/ that contains various configuration-related
 settings that are set by different commands, as well as the customization UI.  I
