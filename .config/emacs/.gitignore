@@ -1,2 +1,7 @@
+# Org-Tangle generated files
 early-init.el
 init.el
+
+# Emacs auto-generated files
+*~
+.#*
