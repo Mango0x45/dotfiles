@@ -698,11 +698,11 @@ that’s what the ~mm-minibuffer-backward-kill~ is for.
 
   (use-package vertico
     :bind (:map vertico-map
-                ("C-j" . vertico-next)
-                ("C-k" . vertico-previous)
-                ("C-l" . vertico-insert)
-                :map minibuffer-local-map
-                ("C-h" . mm-minibuffer-backward-kill))
+           ("C-j" . vertico-next)
+           ("C-k" . vertico-previous)
+           ("C-l" . vertico-insert)
+           :map minibuffer-local-map
+           ("C-h" . mm-minibuffer-backward-kill))
     :custom
     (vertico-cycle t)
     :custom-face
