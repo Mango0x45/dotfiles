@@ -136,7 +136,7 @@ use an actual lambda.  If I ever forget how to enter a lambda, it’s =C-x 8 RET
     "Convenience macro to create lambda functions that take no arguments with much
   short and concise syntax.  Calling ‘λ’ with BODY is equivalent to calling
   ‘lambda’ with an empty argument list and BODY."
-    (declare (side-effect-free t))
+    (declare (pure t) (side-effect-free t))
     `(lambda () ,@body))
 
 #+END_SRC
@@ -151,7 +151,7 @@ here.
 
   (defun mm-mode-to-hook (mode)
     "Get the hook corresponding to MODE."
-    (declare (side-effect-free t))
+    (declare (pure t) (side-effect-free t))
     (intern (concat (symbol-name mode) "-hook")))
 
 #+END_SRC
@@ -168,7 +168,7 @@ grab one from the other.
 
   (defun mm-mode-to-ts-mode (mode)
     "Get the tree-sitter mode corresponding to MODE."
-    (declare (side-effect-free t))
+    (declare (pure t) (side-effect-free t))
     (intern (concat
              (string-remove-suffix "-mode" (symbol-name mode))
              "-ts-mode")))
