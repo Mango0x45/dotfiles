@@ -592,8 +592,8 @@ why not make it random?
   (use-package color-theme-sanityinc-tomorrow
     :config
     (let ((n (random 2)))
-      (cond ((eq n 0) (color-theme-sanityinc-tomorrow-night))
-	    ((eq n 1) (color-theme-sanityinc-tomorrow-eighties)))))
+      (cond ((eq n 0) (load-theme 'sanityinc-tomorrow-night t))
+            ((eq n 1) (load-theme 'sanityinc-tomorrow-eighties t)))))
 
 #+END_SRC
 
