@@ -187,7 +187,7 @@ make it just that little bit easier for me:
     "Execute BODY for each element of SEQUENCE.  The variable ‘_’ is automatically
   set to the current subject of the iteration."
     (declare (indent defun))
-    `(mapc (lambda (_) ,@body) ,sequence))
+    `(mapc (lambda (x) ,@body) ,sequence))
 
 #+END_SRC
 
@@ -542,7 +542,7 @@ want this /everywhere/.
   (show-paren-mode -1)
 
   (mm-for-each (mapcar #'mm-mode-to-hook mm-highlight-matching-parenthesis-modes)
-    (add-hook _ #'show-paren-local-mode))
+    (add-hook x #'show-paren-local-mode))
 
 #+END_SRC
 
@@ -571,9 +571,9 @@ display line numbers in certain modes.
     "A list of modes for which line numbers shouldn’t be displayed.")
 
   (mm-for-each (mapcar #'mm-mode-to-hook mm-enable-line-numbers-modes)
-    (add-hook _ #'display-line-numbers-mode))
+    (add-hook x #'display-line-numbers-mode))
   (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes)
-    (add-hook _ (λ (display-line-numbers-mode -1))))
+    (add-hook x (λ (display-line-numbers-mode -1))))
 
 #+END_SRC
 
@@ -790,8 +790,8 @@ with a custom function that reads a list of mode-specific indentation settings.
     "Apply the indentation settings specified by ‘mm-indentation-settings’."
     (interactive)
     (mm-for-each mm-indentation-settings
-      (let* ((mode (car _))
-	     (args (cdr _))
+      (let* ((mode (car x))
+	     (args (cdr x))
 	     (width (plist-get args :width))
 	     (tabs (plist-get args :tabs))
 	     (extra (plist-get args :extra-vars))
@@ -799,7 +799,7 @@ with a custom function that reads a list of mode-specific indentation settings.
 	      (λ (indent-tabs-mode (or tabs -1))
 		 (setq-local tab-width width
 			     evil-shift-width width)
-		 (mm-for-each extra (setq _ width)))))
+		 (mm-for-each extra (setq x width)))))
 	(add-hook (mm-mode-to-hook mode) callback 95)
 	(add-hook (mm-mode-to-ts-mode mode) callback 95))))
 
