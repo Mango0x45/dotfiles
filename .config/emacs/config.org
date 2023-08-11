@@ -1,0 +1,914 @@
+#+TITLE: Emacs Configuration
+#+STARTUP: overview
+
+* Headers
+
+The first thing we need in any configuration is a header setting
+~lexical-binding~ to ~t~.  This will allow us to have non-autistic behavior when
+scoping variables.
+
+#+BEGIN_SRC elisp :tangle early-init.el
+  ;;; early-init.el --- Emacs early configuration file  -*- lexical-binding: t -*-
+#+END_SRC
+
+#+BEGIN_SRC elisp :tangle init.el
+  ;;; init.el --- Emacs configuration file  -*- lexical-binding: t -*-
+#+END_SRC
+
+* Early Init File
+:PROPERTIES:
+:header-args: :tangle early-init.el
+:END:
+
+** Numerical Constants
+
+These are not really important, but nice to have to make the following
+configuration more readable.  The reason they’re defined in the ~early-init.el~
+is simply because I need to use them here.
+
+#+BEGIN_SRC elisp
+
+  ;; Basic numerical constants
+  (defconst 1-KiB 1024
+    "The number of bytes in 1 kibibyte.")
+
+  (defconst 1-MiB (* 1-KiB 1024)
+    "The number of bytes in 1 mebibyte.")
+
+  (defconst 1-GiB (* 1-MiB 1024)
+    "The number of bytes in 1 gibibyte.")
+
+#+END_SRC
+
+** XDG Directories
+
+We want to define variables for the main XDG directories for Emacs to use.
+These are nice for keeping things organized and out of the way.
+
+#+BEGIN_SRC elisp
+
+  (defconst mm-cache-directory
+    (expand-file-name
+     "emacs"
+     (or (getenv "XDG_CACHE_HOME")
+	 (expand-file-name ".cache" (getenv "HOME"))))
+    "The XDG-conformant cache directory that Emacs should use.")
+
+  (defconst mm-config-directory
+    (expand-file-name
+     "emacs"
+     (or (getenv "XDG_CONFIG_HOME")
+	 (expand-file-name ".config" (getenv "HOME"))))
+    "The XDG-conformant config directory that Emacs should use.")
+
+  (defconst mm-data-directory
+    (expand-file-name
+     "emacs"
+     (or (getenv "XDG_DATA_HOME")
+	 (expand-file-name ".local/share" (getenv "HOME"))))
+    "The XDG-conformant data directory that Emacs should use.")
+
+#+END_SRC
+
+We also need to ensure our directories actually exist.
+
+#+BEGIN_SRC elisp
+
+  (mapc (lambda (x) (make-directory x t))
+	(list mm-cache-directory
+	      mm-config-directory
+	      mm-data-directory))
+
+#+END_SRC
+
+We don’t want to have all sorts of random garbage populating the configuartion
+directory; let’s throw it all in the cache directory instead.
+
+#+BEGIN_SRC elisp
+
+  (setq user-emacs-directory mm-cache-directory
+	auto-save-list-file-prefix (expand-file-name "auto-save-list"
+						     mm-cache-directory))
+
+#+END_SRC
+
+** Default Limits
+
+These are just some limits Emacs abides by as far as garbage-collection and
+process communication go.  They’re pretty low by default though; any modern
+system is capable of much higher.
+
+#+BEGIN_SRC elisp
+
+  (setq gc-cons-threshold (* 512 1-MiB)
+	read-process-output-max 1-MiB)
+
+#+END_SRC
+
+** Package Management
+
+Finally, we want to completely disable ~package.el~ since we’re going to be
+using ~straight.el~ in the main configuration.
+
+#+BEGIN_SRC elisp
+
+  (setq package-enable-at-startup nil)
+
+#+END_SRC
+
+* Init File
+:PROPERTIES:
+:header-args: :tangle init.el
+:END:
+
+** Helper Functions and -Macros
+
+*** Shorter Lambdas
+
+It’s annoying to have to write out ~(lambda () BODY)~ every time I want to write
+a lambda that takes no args — a very common operation.  The solution is to just
+use an actual lambda.  If I ever forget how to enter a lambda, it’s =C-x 8 RET=.
+
+#+BEGIN_SRC elisp
+
+  (defmacro λ (&rest body)
+    "Convenience macro to create lambda functions that take no arguments with much
+  short and concise syntax.  Calling ‘λ’ with BODY is equivalent to calling
+  ‘lambda’ with an empty argument list and BODY."
+    (declare (side-effect-free t))
+    `(lambda () ,@body))
+
+#+END_SRC
+
+*** Hooks from Modes
+
+It is very often that I have a mode symbol and I want to extract the
+corresponding hook from it.  Luckily there’s a pretty standard naming convention
+here.
+
+#+BEGIN_SRC elisp
+
+  (defun mm-mode-to-hook (mode)
+    "Get the hook corresponding to MODE."
+    (declare (side-effect-free t))
+    (intern (concat (symbol-name mode) "-hook")))
+
+#+END_SRC
+
+*** Tree-Sitter Modes
+
+As I was writing this configuration, Emacs 29 released on the Arch repositories
+with native support for ~tree-sitter~.  As a result many major-modes now have two
+versions — a regular version and a ~tree-sitter~ version.  I should have pretty
+equal configurations for both versions of a mode so it’s useful to be able to
+grab one from the other.
+
+#+BEGIN_SRC elisp
+
+  (defun mm-mode-to-ts-mode (mode)
+    "Get the tree-sitter mode corresponding to MODE."
+    (declare (side-effect-free t))
+    (intern (concat
+	     (string-remove-suffix "-mode" (symbol-name mode))
+	     "-ts-mode")))
+
+#+END_SRC
+
+*** Less-Verbose Mapc
+
+One pattern that I need to do a lot is running a ~dolist~ over a list of items,
+and performing some action for each of them.  This could also be done with
+~mapcar~.  Since this is such a common task, I should probably make a macro to
+make it just that little bit easier for me:
+
+#+BEGIN_SRC elisp
+
+  (defmacro mm-for-each (sequence &rest body)
+    "Execute BODY for each element of SEQUENCE.  The variable ‘_’ is automatically
+  set to the current subject of the iteration."
+    (declare (indent defun))
+    `(mapc (lambda (_) ,@body) ,sequence))
+
+#+END_SRC
+
+** Package Management
+
+For package management I like to use ~straight.el~.  Before setting that up
+though it’s probably best to disable native-compilation warnings; we’ll get a
+whole lot of those when ~straight.el~ is installing packages.
+
+#+BEGIN_SRC elisp
+
+  (setq comp-async-report-warnings-errors nil)
+
+#+END_SRC
+
+After doing that, we can bootstrap ~straight.el~.  The two options enabled at
+the end are just configuring ~use-package~ to always use ~straight.el~ by
+default, and to always ensure packages unless stated otherwise.
+
+#+BEGIN_SRC elisp
+
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+	 (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+	(bootstrap-version 6))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+	  (url-retrieve-synchronously
+	   "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+	   'silent 'inhibit-cookies)
+	(goto-char (point-max))
+	(eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  (setq straight-use-package-by-default t
+	use-package-always-ensure t)
+
+#+END_SRC
+
+** Documentation
+
+Documentation is absolutely essential.  The ~helpful~ package gives us much
+better documentation for things, so let’s use it.  I’m mostly just overriding
+the bindings for the standard ~describe-*~ functions.
+
+#+BEGIN_SRC elisp
+
+  (use-package helpful
+    :bind (("C-h f"   . #'helpful-callable)
+	   ("C-h v"   . #'helpful-variable)
+	   ("C-h k"   . #'helpful-key)
+	   ("C-h o"   . #'helpful-symbol)
+	   ("C-c C-d" . #'helpful-at-point)))
+
+#+END_SRC
+
+** Key Bindings
+
+*** Editing This Config
+
+This configuration is one of the files I visit the most.  Not just for making
+large customizations, but also for simply editing the tab-width for a mode I
+happen to be using.  For that reason there should probably be a binding to get
+here.
+
+#+BEGIN_SRC elisp
+
+  (global-set-key
+   (kbd "C-c e")
+   (λ (interactive)
+      (find-file (expand-file-name "config.org" mm-config-directory))))
+
+#+END_SRC
+
+*** Evil Mode
+
+The default Emacs keybindings are horrible and dangerous.  Feel free to use them
+if you want to develop genuine problems with your hands.  For this reason,
+~evil-mode~ bindings are the way to go.  Also as I was writing this, Bram
+Moolenaar, the creator of Vim died.  RIP.
+
+Here we setup bindings in the ~:bind~ section; the functions bound to that don’t
+exist yet will be created shortly.  You also need to set all these variables
+/before/ ~evil-mode~ is loaded — it’s just how ~evil~ works I suppose.  Finally
+I like to have ~visual-line-mode~ enabled as I find it far more intuitive.
+
+#+BEGIN_SRC elisp
+
+  (use-package evil
+    :bind (:map evil-normal-state-map
+	   ("€"         . #'evil-end-of-visual-line)
+	   ("<leader>h" . #'evil-window-left)
+	   ("<leader>j" . #'evil-window-down)
+	   ("<leader>k" . #'evil-window-up)
+	   ("<leader>l" . #'evil-window-right)
+	   ("<leader>a" . #'mm--evil-align-regexp)
+	   ("<leader>s" . #'mm--evil-sort-lines)
+	   ("<leader>;" . #'mm--evil-comment-or-uncomment-region))
+    :init
+    ;; We need to set these variables before loading ‘evil-mode’
+    (setq evil-want-Y-yank-to-eol t
+	  evil-search-wrap nil
+	  evil-v$-excludes-newline t
+	  evil-respect-visual-line-mode t
+	  evil-split-window-below t
+	  evil-vsplit-window-right t
+	  evil-want-fine-undo t
+	  evil-undo-system 'undo-redo
+	  evil-want-keybinding nil)
+    (evil-mode)
+    (global-visual-line-mode)
+    :config
+    (evil-set-leader nil (kbd "SPC")))
+
+#+END_SRC
+
+*** Evil Surround
+
+This is probably one of the more useful Vim/Emacs extensions out there.  It
+let’s you easy add-, remove-, and change surrounding pairs such as quotation
+marks and parenthesis from a /text object/.  I like to use unicode single- and
+double quotation marks — so we also want to add support for those.
+
+#+BEGIN_SRC elisp
+
+  (use-package evil-surround
+    :after evil
+    :config
+    (global-evil-surround-mode))
+
+#+END_SRC
+
+Supporting custom pairs is a bit tricky since we need to define an evil /text
+object/ to make them work properly.  Also we add some custom Jinja pairs!
+
+#+BEGIN_SRC elisp
+
+  (defmacro mm--evil-define-and-bind-quoted-text-object (name key start-regex end-regex)
+    (let ((inner-name (make-symbol (concat "evil-inner-" name)))
+	  (outer-name (make-symbol (concat "evil-a-" name))))
+      `(progn
+	 (evil-define-text-object ,inner-name (count &optional beg end type)
+	   (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+	 (evil-define-text-object ,outer-name (count &optional beg end type)
+	   (evil-select-paren ,start-regex ,end-regex beg end type count t))
+	 (define-key evil-inner-text-objects-map ,key #',inner-name)
+	 (define-key evil-outer-text-objects-map ,key #',outer-name))))
+
+  (mm--evil-define-and-bind-quoted-text-object "single-quote-open"  "‘" "‘" "’")
+  (mm--evil-define-and-bind-quoted-text-object "single-quote-close" "’" "‘" "’")
+  (mm--evil-define-and-bind-quoted-text-object "double-quote-open"  "“" "“" "”")
+  (mm--evil-define-and-bind-quoted-text-object "double-quote-close" "”" "“" "”")
+
+  (setq-default
+   evil-surround-pairs-alist
+   (append
+    '((?‘ . ("‘ " . " ’"))
+      (?’ . ("‘"  .  "’"))
+      (?“ . ("“ " . " ”"))
+      (?“ . ("“"  .  "”")))
+    evil-surround-pairs-alist))
+
+  (add-hook
+   'html-mode-hook
+   (λ (setq-local
+       evil-surround-pairs-alist
+       (append
+	'((?% . ("{% " . " %}"))
+	  (?# . ("{# " . " #}"))
+	  (?{ . ("{{ " . " }}")))
+	evil-surround-pairs-alist))
+      (mm--evil-define-and-bind-quoted-text-object "jinja-action"  "%" "{%" "%}")
+      (mm--evil-define-and-bind-quoted-text-object "jinja-comment" "#" "{#" "#}")
+      (mm--evil-define-and-bind-quoted-text-object "jinja-code"    "{" "{{" "}}")))
+
+#+END_SRC
+
+*** Evil Collection
+
+This is a super-simple to setup package that adds ~evil~ bindings to many other
+custom packages like ~magit~ and ~mu4e~.
+
+#+BEGIN_SRC elisp
+
+  (use-package evil-collection
+    :after evil
+    :config
+    (evil-collection-init))
+
+#+END_SRC
+
+*** Aligning Text
+
+I absolutely love aligning text with ~align-regexp~.  It is in my opinion one of
+the most underrated Emacs functions.  Unfortunately, it aligns with tabs or
+-spaces based on the setting of ~indent-tabs-mode~.  Personally I am almost
+always indenting with tabs, but I prefer to align with spaces.  Luckily we can
+use some advice to force the usage of spaces.
+
+#+BEGIN_SRC elisp
+
+  (defadvice align-regexp (around align-regexp-with-spaces preactivate compile)
+    "Advice to force ‘align-regexp’ to always align with spaces, regardless of the
+  value of ‘indent-tabs-mode’."
+    (let ((indent-tabs-mode nil))
+      ad-do-it))
+
+#+END_SRC
+
+Now that it’s behaving properly, it should also be turned into an ~evil~
+operator so it can be used with Vim motions.
+
+#+BEGIN_SRC elisp
+
+    (evil-define-operator mm--evil-align-regexp (beg end regexp repeat)
+      "Wrapper around ‘align-regexp’ to allow for use as an ‘evil-mode’ operator."
+      (interactive (let ((range (evil-operator-range)))
+		     (list (car range)
+			   (cadr range)
+			   (concat "\\(\\s-*\\)"
+				   (read-string "Align regexp: "))
+			   (y-or-n-p "Repeat? "))))
+      (align-regexp beg end regexp 1 1 repeat))
+
+#+END_SRC
+
+*** Sorting Text
+
+Another very common operation is sorting text.  So why not make an operator for
+that too?
+
+#+BEGIN_SRC elisp
+
+  (evil-define-operator mm--evil-sort-lines (beg end)
+    "Wrapper around ‘sort-lines’ to allow for use as an ‘evil-mode’ operator."
+    (sort-lines nil beg end))
+
+#+END_SRC
+
+*** Commenting Code
+
+Commenting code is a super common task — so make it an operator!
+
+#+BEGIN_SRC elisp
+
+  (evil-define-operator mm--evil-comment-or-uncomment-region (beg end)
+    "Wrapper around ‘comment-or-uncomment-region’ to allow for use as
+  an ‘evil-mode’ operator."
+    (comment-or-uncomment-region beg end))
+
+#+END_SRC
+
+** User Interface
+
+The default Emacs UI is fucking atrocious — we need to make it better.
+
+*** Shorter Prompts
+
+For some reason emacs has both the ~y-or-n-p~ and ~yes-or-no-p~ functions.  I do
+not like having to spell out full words — /y/ or /n/ is good enough for me — so
+let’s just redefine ~yes-or-no-p~.
+
+#+BEGIN_SRC elisp
+
+  (fset #'yes-or-no-p #'y-or-n-p)
+
+#+END_SRC
+
+*** Disable Basic UI Modes
+
+Emacs has a lot of UI modes that are enabled by default to make life easier for
+the novice user.  I am not the novice user and would rather these modes never
+turned on ever again.
+
+#+BEGIN_SRC elisp
+
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+
+#+END_SRC
+
+*** Warnings
+
+I am typically not a fan around being warned about things unless something is
+actually breaking or going wrong.
+
+In order, these options disable the following warnings:
+
+1. Opening large files
+2. Following symbolic links
+3. Adding advice to functions
+
+#+BEGIN_SRC elisp
+
+  (setq large-file-warning-threshold nil
+	vc-follow-symlinks t
+	ad-redefinition-action 'accept)
+
+#+END_SRC
+
+*** Visible Bell
+
+Why not?  I might disable this later.
+
+#+BEGIN_SRC elisp
+
+  (setq visible-bell t)
+
+#+END_SRC
+
+*** Scrolling
+
+By default, scrolling is really bad.  Luckily we can improve it a lot; there’s
+even a pixel-precision scrolling mode!
+
+#+BEGIN_SRC elisp
+
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+	mouse-wheel-progressive-speed nil
+	mouse-wheel-follow-mouse t
+	scroll-step 1)
+  (pixel-scroll-precision-mode)
+
+#+END_SRC
+
+*** Auto Reverting Buffers
+
+This is just good to have all of the time; you should never be looking at a file
+whose state was changed by an external process, and not see those changes *instantly*.
+
+#+BEGIN_SRC elisp
+
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode)
+
+#+END_SRC
+
+*** Highlight Matching Parenthesis
+
+This is generally a good thing — especially when writing lisp code — but I don’t
+want this /everywhere/.
+
+#+BEGIN_SRC elisp
+
+  (defvar mm-highlight-matching-parenthesis-modes
+    '(prog-mode conf-mode)
+    "A list of modes for which the parenthesis that pairs up with the parenthesis
+  at point should be highlighted.")
+
+  (show-paren-mode -1)
+
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-highlight-matching-parenthesis-modes)
+    (add-hook _ #'show-paren-local-mode))
+
+#+END_SRC
+
+*** Line- and Column Numbers
+
+It’s a bit tricky to remember, but ~line-number-mode~ and
+~display-line-numbers-mode~ are very different.  The former displays the current
+line number in the modeline while the latter displays line numbers on the left
+of the buffer.  Personally I like to always display the current line number in
+the modeline along with the column number — I find that it helps me wrap text
+properly when I am not using ~auto-fill-mode~ — but I would prefer to only
+display line numbers in certain modes.
+
+#+BEGIN_SRC elisp
+
+  (line-number-mode)
+  (column-number-mode)
+
+  ;; Enable and disable line numbers for some modes
+  (defvar mm-enable-line-numbers-modes
+    '(text-mode prog-mode conf-mode)
+    "A list of modes for which line numbers should be displayed.")
+
+  (defvar mm-disable-line-numbers-modes
+    '(org-mode)
+    "A list of modes for which line numbers shouldn’t be displayed.")
+
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-enable-line-numbers-modes)
+    (add-hook _ #'display-line-numbers-mode))
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes))
+    (add-hook _ (λ (display-line-numbers-mode -1))))
+
+#+END_SRC
+
+*** Emacs Theme
+
+The default theme is a light theme.  I am not one of these weak-eyed retards
+that cannot handle a light theme, but it is really, /really/ bad.  Personally I
+quite enjoy the /Sanity Inc./ themes, and they’re a lot less generic than the
+Doom One theme that everyone and their grandmother uses.
+
+Personally I am not sure if I prefer ~tomorrow-night~ or ~tomorrow-eighties~, so
+why not make it random?
+
+#+BEGIN_SRC elisp
+
+  (use-package color-theme-sanityinc-tomorrow
+    :config
+    (let ((n (random 2)))
+      (cond ((eq n 0) (color-theme-sanityinc-tomorrow-night))
+	    ((eq n 1) (color-theme-sanityinc-tomorrow-eighties)))))
+
+#+END_SRC
+
+*** TODO Fonts
+
+My favorite monospace font has got to be /Iosevka/.  It’s good looking, it’s far
+more compact than the usual american-sized monospace fonts, and you can
+customize just about every character from loads of variants.  I have my own
+custom compiled variant called /Iosevka Smooth/.
+
+On the proportional side of things, I am not really sure what font to use.
+/Vollkorn/ tends to be my go-to font on the web, but I dunno how well it
+translates to Emacs.  I need to play around with this.
+
+#+BEGIN_SRC elisp
+
+  (defvar mm-monospace-font '("Iosevka Smooth" :weight light :height 162)
+    "The default monospace font to use.  This is a list containing a font name,
+  font weight, and font height in that order.")
+
+  (defvar mm-proportional-font '("Vollkorn" :weight light :height 180)
+    "The default proportional font to use.  This is a list containing a font name,
+  font weight, and font height in that order.")
+
+#+END_SRC
+
+Actually /setting/ the fonts is a bit tricky.  I don’t really fully understand
+why it works like this, but something with the whole server/client model of
+Emacs is really fucking with this, so we need to add a hook to set the font for
+every frame.  We also can’t forget the frame that’s actually running this code.
+
+#+BEGIN_SRC elisp
+
+  (defun mm-set-fonts ()
+    "Set the fonts specified by ‘mm-monospace-fonts’ and ‘mm-proportional-font’."
+    (interactive)
+    (let* ((mono-family (car mm-monospace-font))
+	   (mono-props  (cdr mm-monospace-font))
+	   (prop-family (car mm-proportional-font))
+	   (prop-props  (cdr mm-proportional-font))
+	   (mono-weight (plist-get mono-props :weight))
+	   (mono-height (plist-get mono-props :height))
+	   (prop-weight (plist-get prop-props :weight))
+	   (prop-height (plist-get prop-props :height)))
+      (set-face-attribute 'default nil
+			  :font mono-family
+			  :weight mono-weight
+			  :height mono-height)
+      (set-face-attribute 'fixed-pitch nil
+			  :font mono-family
+			  :weight mono-weight
+			  :height mono-height)
+      (set-face-attribute 'variable-pitch nil
+			  :font prop-family
+			  :weight prop-weight
+			  :height prop-height)))
+
+  (defun mm--configure-fonts (_)
+    "Configure font given initial non-daemon FRAME.  Intended for
+  ‘after-make-frame-functions’."
+    (mm-set-fonts)
+    (remove-hook 'after-make-frame-functions #'mm--configure-fonts))
+
+  (add-hook 'after-make-frame-functions #'mm--configure-fonts)
+  (mm-set-fonts)
+
+#+END_SRC
+
+*** Line Highlighting
+
+This is just something I personally like having.  It makes it very easy for me
+to figure out where my point is at all times.
+
+#+BEGIN_SRC elisp
+
+  (global-hl-line-mode)
+
+#+END_SRC
+
+** Completions
+
+*** Vertico & Marginalia
+
+Vertico is a great package for enhanced completions in the minibuffer.  It’s
+minimal and works great.  We also want to configure the highlighting of the
+current line to match up with what is used for ~hl-line-mode~.  Vertico also
+doesn’t offer a builtin function to go up a directory when typing out a path, so
+that’s what the ~mm-minibuffer-backward-kill~ is for.
+
+#+BEGIN_SRC elisp
+
+  (defun mm-minibuffer-backward-kill (arg)
+    "When minibuffer is completing a file name delete up to parent folder,
+  otherwise delete a word."
+    (interactive "p")
+    (if minibuffer-completing-file-name
+	(if (string-match-p "/." (minibuffer-contents))
+	    (zap-up-to-char (- arg) ?/)
+	  (delete-minibuffer-contents))
+      (backward-kill-word arg)))
+
+  (use-package vertico
+    :bind (:map vertico-map
+	   ("C-j" . vertico-next)
+	   ("C-k" . vertico-previous)
+	   ("C-l" . vertico-insert)
+	   :map minibuffer-local-map
+	   ("C-h" . mm-minibuffer-backward-kill))
+    :custom
+    (vertico-cycle t)
+    :custom-face
+    (vertico-current ((t (:background
+			  ,(face-attribute 'hl-line :background nil t)))))
+    :init
+    (vertico-mode))
+
+#+END_SRC
+
+Marginalia is kind of a suppliment I like to use with Vertico.  It adds, well…
+/marginalia/ to the completions in the minibuffer.  This includes things like
+file sizes and permissions when looking at files, function docstrings when
+looking at those, etc.
+
+#+BEGIN_SRC elisp
+
+  (use-package marginalia
+    :after vertico
+    :init
+    (marginalia-mode))
+
+#+END_SRC
+
+*** Orderless
+
+Orderless is another pretty neat package.  It allows for better completion
+candidate filtering.  I personally prefer to use the ~orderless-prefixes~
+completion style where entering the string “foo bar baz” will match the options
+that have components beginning with /foo/, /bar/, and /baz/ in that order.
+
+*** Company
+
+Company is a package to give me actual completion popups; it’s super useful for
+autocompleting code but has other uses too I guess.
+
+#+BEGIN_SRC elisp
+
+  (use-package company
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0)
+    :init
+    (global-company-mode))
+
+#+END_SRC
+
+** Programming
+
+*** Indentation
+
+Indentation in Emacs is a royal pain in the ass.   Not only is there a
+~tab-width~ variable and the ~indent-tabs-mode~ mode, but lots of modes just
+have an extra ~tab-width~-esque variable for some reason?  I try to fix this all
+with a custom function that reads a list of mode-specific indentation settings.
+
+#+BEGIN_SRC elisp
+
+  (setq-default tab-width 8
+		evil-shift-width 8
+		indent-tabs-mode t)
+
+  (defvar mm-indentation-settings
+    '((c-mode :width 8 :tabs t
+	      :extra-vars (c-basic-offset))
+      (css-mode :width 8 :tabs t
+		:extra-vars (css-basic-offset))
+      (emacs-lisp-mode :width 8 :tabs nil)
+      (go-mode :width 8 :tabs t)
+      (json-mode :width 8 :tabs t)
+      (lisp-mode :width 8 :tabs nil)
+      (makefile-mode :width 8 :tabs t)
+      (python-mode :width 4 :tabs t
+		   :extra-vars (python-indent-offset))
+      (rust-mode :width 4 :tabs t)
+      (sgml-mode :width 4 :tabs t
+		 :extra-vars (sgml-basic-offset))
+      (xml-mode :width 4 :tabs t))
+    "A list of per-mode indentation settings.  Each list contains a major-mode, a
+  tab-width, whether or not to indent using tabs, and an optional list of
+  addtional mode-specific indentation variables to set.  When calling
+  ‘mm-set-indetation-settings’ these settings are also automatically applied for
+  the corresponding tree-sitter mode.")
+
+  (defun mm-set-indentation-settings ()
+    "Apply the indentation settings specified by ‘mm-indentation-settings’."
+    (interactive)
+    (mm-for-each mm-indentation-settings
+      (let* ((mode (car _))
+	     (args (cdr _))
+	     (width (plist-get args :width))
+	     (tabs (plist-get args :tabs))
+	     (extra (plist-get args :extra-vars))
+	     (callback
+	      (λ (indent-tabs-mode (or tabs -1))
+		 (setq-local tab-width width
+			     evil-shift-width width)
+		 (mm-for-each extra (setq _ width)))))
+	(add-hook (mm-mode-to-hook mode) callback 95)
+	(add-hook (mm-mode-to-ts-mode mode) callback 95))))
+
+  (mm-set-indentation-settings)
+
+#+END_SRC
+
+*** Git Integration
+
+I like to use Magit for my ~git~ integration.  I do believe it is the best ~git~
+client ever made for any editor ever.  Anyone who disagrees has simply never
+used Emacs before.  The only command that really needs binding is
+~magit-status~.  All other commands I will end up executing from there with the
+transient commands.  I also install ~magit-todos~.  It’s a super minimal package
+that simply finds all the TODOs in a repository and displays them in the
+~magit-status~ buffer so that I don’t forget them.
+
+#+BEGIN_SRC elisp
+
+  (use-package magit
+    :bind ("C-c g" . magit-status)
+    :custom
+    (magit-display-buffer-function
+     #'magit-display-buffer-same-window-except-diff-v1))
+
+  (use-package magit-todos
+    :after magit)
+
+#+END_SRC
+
+*** Tree-Sitter
+
+Emacs 29 brings native support for Tree-Sitter!  This doesn’t just mean better-
+and faster syntax highlighting, but also things such as structured editing.  In
+order to make use of Tree-Sitter the language parsers /do/ need to be installed,
+so let’s do that.  Tree-Sitter doesn’t check to see if the language grammars are
+already installed unfortunately, but it’s easy enough to do manually.
+
+#+BEGIN_SRC elisp
+
+  (setq treesit-language-source-alist
+     '((bash     "https://github.com/tree-sitter/tree-sitter-bash")
+       (c        "https://github.com/tree-sitter/tree-sitter-c")
+       (cpp      "https://github.com/tree-sitter/tree-sitter-cpp")
+       (css      "https://github.com/tree-sitter/tree-sitter-css")
+       (elisp    "https://github.com/Wilfred/tree-sitter-elisp")
+       (go       "https://github.com/tree-sitter/tree-sitter-go")
+       (html     "https://github.com/tree-sitter/tree-sitter-html")
+       (json     "https://github.com/tree-sitter/tree-sitter-json")
+       (make     "https://github.com/alemuller/tree-sitter-make")
+       (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+       (python   "https://github.com/tree-sitter/tree-sitter-python")
+       (toml     "https://github.com/tree-sitter/tree-sitter-toml")))
+
+  ;; Automatically install missing grammars
+  (thread-last
+    (mapcar #'car treesit-language-source-alist)
+    (seq-remove #'treesit-language-available-p)
+    (mapc #'treesit-install-language-grammar))
+
+#+END_SRC
+
+*** Language Server Protocol
+
+LSP is an absolute necessity when programming.  Luckily ~lsp-mode~ has us
+covered.  There is Eglot which is now built in to Emacs 29, but it was giving me
+some really weird issues so I won’t be using that for now.  ~lsp-bridge~ also
+looked promising but I didn’t like it too much.  Also ~yasnippet~ is dead, so
+why they won’t just move on from it I have no idea.  I’ll just disable snippets.
+
+#+BEGIN_SRC elisp
+
+  (use-package lsp-mode
+    :custom
+    (lsp-enable-snippet nil)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :hook ((rust-ts-mode . lsp-deferred))
+    :commands (lsp lsp-deferred))
+
+#+END_SRC
+
+** Extra Modes
+
+Some modes aren’t installed by default with Emacs, so let’s fetch them
+
+#+BEGIN_SRC elisp
+
+  (use-package markdown-mode)
+  (use-package git-modes)
+
+#+END_SRC
+
+** Miscellaneous Settings
+*** Customization Settings
+
+Emacs has a /customization variable/ that contains various configuration-related
+settings that are set by different commands, as well as the customization UI.  I
+would rather have these saved in a temporary file since any customizations I
+make that I would like to have be persistent will be explicitly written into
+this file.
+
+#+BEGIN_SRC elisp
+
+  (setq custom-file
+	(expand-file-name
+	 (format "emacs-custom-%s.el" (user-uid))
+	 temporary-file-directory))
+  (load custom-file t)
+
+#+END_SRC
+
