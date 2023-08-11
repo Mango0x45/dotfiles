@@ -1,0 +1,74 @@
+[user]
+	email      = mail@thomasvoss.com
+	name       = Thomas Voss
+	signingKey = /home/thomas/.ssh/id_rsa.pub
+
+[core]
+	editor = nvim
+
+[init]
+	defaultBranch = master
+
+[alias]
+	a  = add
+	ap = apply
+	b  = branch
+	c  = commit -S -v
+	ca = commit -S -v --amend
+	cg = config
+	cl = clone
+	cm = check-mailmap
+	co = checkout
+	df = diff
+	ds = diff --staged
+	dw = diff --word-diff
+	fp = format-patch
+	i  = init
+	l  = log
+	m  = merge
+	pa = "!f() { git remote | xargs -I% -n1 git push \"%\" \"$@\"; }; f \"$@\""
+	pl = pull
+	ps = push
+	rb = rebase
+	rr = restore
+	rs = reset
+	rt = remote
+	rv = revert
+	se = send-email
+	sh = show
+	sl = log --oneline
+	ss = status --short
+	st = status
+	ta = tag -as
+	t  = tag
+
+[commit]
+	gpgSign = true
+
+[credential]
+	helper = cache --timeout 3600
+
+[gpg]
+	program = gpg2
+	format = ssh
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[sendemail]
+	annotate        = yes
+	confirm         = always
+	from            = Thomas Voss <mail@thomasvoss.com>
+	smtpencryption  = ssl
+	smtpserverport  = 465
+	smtpserver      = smtp.migadu.com
+	smtpuser        = mail@thomasvoss.com
+
+[tag]
+	gpgSign = true
+
+[safe]
+	directory = /opt/flutter
