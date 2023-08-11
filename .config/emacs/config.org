@@ -28,7 +28,6 @@ is simply because I need to use them here.
 
 #+BEGIN_SRC elisp
 
-  ;; Basic numerical constants
   (defconst 1-KiB 1024
     "The number of bytes in 1 kibibyte.")
 
