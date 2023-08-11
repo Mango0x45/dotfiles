@@ -812,7 +812,7 @@ with a custom function that reads a list of mode-specific indentation settings.
                              evil-shift-width width)
                  (mm-for-each extra (setq x width)))))
         (add-hook (mm-mode-to-hook mode) callback 95)
-        (add-hook (mm-mode-to-ts-mode mode) callback 95))))
+        (add-hook (mm-mode-to-hook (mm-mode-to-ts-mode mode)) callback 95))))
 
   (mm-set-indentation-settings)
 
