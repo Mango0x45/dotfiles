@@ -40,7 +40,7 @@ is simply because I need to use them here.
 
 #+END_SRC
 
-** XDG Directories
+** TODO XDG Directories
 
 We want to define variables for the main XDG directories for Emacs to use.
 These are nice for keeping things organized and out of the way.
@@ -84,11 +84,15 @@ We also need to ensure our directories actually exist.
 We don’t want to have all sorts of random garbage populating the configuartion
 directory; let’s throw it all in the cache directory instead.
 
+# TODO: https://stackoverflow.com/a/151946
+
 #+BEGIN_SRC elisp
 
   (setq user-emacs-directory mm-cache-directory
-	auto-save-list-file-prefix (expand-file-name "auto-save-list"
-						     mm-cache-directory))
+	auto-save-list-file-prefix (expand-file-name "auto-save-list/"
+						     mm-cache-directory)
+	backup-directory-alist`(("." . ,(expand-file-name "backups"
+							  mm-cache-directory))))
 
 #+END_SRC
 
