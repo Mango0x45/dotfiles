@@ -1,0 +1,7 @@
+font=Iosevka Smooth 14
+text-color=#C5C8C6
+background-color=#2B303B
+default-timeout=5000
+max-visible=2
+width=500
+height=200
