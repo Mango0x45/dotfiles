@@ -938,3 +938,16 @@ version numbers to the backup names — it doesn’t start using a VCS.
         kept-old-versions 6)
 
 #+END_SRC
+
+** Mode Specific Settings
+
+*** Org-Mode
+
+I really enjoy using ~org-indent-mode~.  It indents the contents of the
+org-buffer to keep everything looking nice and structured.
+
+#+BEGIN_SRC elisp
+
+  (add-hook 'org-mode-hook #'org-indent-mode)
+
+#+END_SRC
