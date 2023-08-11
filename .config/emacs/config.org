@@ -773,6 +773,7 @@ with a custom function that reads a list of mode-specific indentation settings.
       (css-mode :extra-vars (css-basic-offset))
       (emacs-lisp-mode :tabs nil)
       (lisp-mode :tabs nil)
+      (org-mode :tabs nil)
       (python-mode :width 4 :tabs t :extra-vars (python-indent-offset))
       (rust-mode :width 4 :tabs t)
       (sgml-mode :width 4 :tabs t :extra-vars (sgml-basic-offset))
