@@ -51,21 +51,21 @@ These are nice for keeping things organized and out of the way.
     (expand-file-name
      "emacs"
      (or (getenv "XDG_CACHE_HOME")
-	 (expand-file-name ".cache" (getenv "HOME"))))
+         (expand-file-name ".cache" (getenv "HOME"))))
     "The XDG-conformant cache directory that Emacs should use.")
 
   (defconst mm-config-directory
     (expand-file-name
      "emacs"
      (or (getenv "XDG_CONFIG_HOME")
-	 (expand-file-name ".config" (getenv "HOME"))))
+         (expand-file-name ".config" (getenv "HOME"))))
     "The XDG-conformant config directory that Emacs should use.")
 
   (defconst mm-data-directory
     (expand-file-name
      "emacs"
      (or (getenv "XDG_DATA_HOME")
-	 (expand-file-name ".local/share" (getenv "HOME"))))
+         (expand-file-name ".local/share" (getenv "HOME"))))
     "The XDG-conformant data directory that Emacs should use.")
 
 #+END_SRC
@@ -75,9 +75,9 @@ We also need to ensure our directories actually exist.
 #+BEGIN_SRC elisp
 
   (mapc (lambda (x) (make-directory x t))
-	(list mm-cache-directory
-	      mm-config-directory
-	      mm-data-directory))
+        (list mm-cache-directory
+              mm-config-directory
+              mm-data-directory))
 
 #+END_SRC
 
@@ -87,10 +87,10 @@ directory; let’s throw it all in the cache directory instead.
 #+BEGIN_SRC elisp
 
   (setq user-emacs-directory mm-cache-directory
-	auto-save-list-file-prefix (expand-file-name "auto-save-list/"
-						     mm-cache-directory)
-	backup-directory-alist`(("." . ,(expand-file-name "backups"
-							  mm-cache-directory))))
+        auto-save-list-file-prefix (expand-file-name "auto-save-list/"
+                                                     mm-cache-directory)
+        backup-directory-alist`(("." . ,(expand-file-name "backups"
+                                                          mm-cache-directory))))
 
 #+END_SRC
 
@@ -103,7 +103,7 @@ system is capable of much higher.
 #+BEGIN_SRC elisp
 
   (setq gc-cons-threshold (* 512 1-MiB)
-	read-process-output-max 1-MiB)
+        read-process-output-max 1-MiB)
 
 #+END_SRC
 
@@ -171,8 +171,8 @@ grab one from the other.
     "Get the tree-sitter mode corresponding to MODE."
     (declare (side-effect-free t))
     (intern (concat
-	     (string-remove-suffix "-mode" (symbol-name mode))
-	     "-ts-mode")))
+             (string-remove-suffix "-mode" (symbol-name mode))
+             "-ts-mode")))
 
 #+END_SRC
 
@@ -213,19 +213,19 @@ default, and to always ensure packages unless stated otherwise.
 
   (defvar bootstrap-version)
   (let ((bootstrap-file
-	 (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-	(bootstrap-version 6))
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 6))
     (unless (file-exists-p bootstrap-file)
       (with-current-buffer
-	  (url-retrieve-synchronously
-	   "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-	   'silent 'inhibit-cookies)
-	(goto-char (point-max))
-	(eval-print-last-sexp)))
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
 
   (setq straight-use-package-by-default t
-	use-package-always-ensure t)
+        use-package-always-ensure t)
 
 #+END_SRC
 
@@ -239,10 +239,10 @@ the bindings for the standard ~describe-*~ functions.
 
   (use-package helpful
     :bind (("C-h f"   . #'helpful-callable)
-	   ("C-h v"   . #'helpful-variable)
-	   ("C-h k"   . #'helpful-key)
-	   ("C-h o"   . #'helpful-symbol)
-	   ("C-c C-d" . #'helpful-at-point)))
+           ("C-h v"   . #'helpful-variable)
+           ("C-h k"   . #'helpful-key)
+           ("C-h o"   . #'helpful-symbol)
+           ("C-c C-d" . #'helpful-at-point)))
 
 #+END_SRC
 
@@ -280,25 +280,25 @@ I like to have ~visual-line-mode~ enabled as I find it far more intuitive.
 
   (use-package evil
     :bind (:map evil-normal-state-map
-	   ("€"         . #'evil-end-of-visual-line)
-	   ("<leader>h" . #'evil-window-left)
-	   ("<leader>j" . #'evil-window-down)
-	   ("<leader>k" . #'evil-window-up)
-	   ("<leader>l" . #'evil-window-right)
-	   ("<leader>a" . #'mm--evil-align-regexp)
-	   ("<leader>s" . #'mm--evil-sort-lines)
-	   ("<leader>;" . #'mm--evil-comment-or-uncomment-region))
+           ("€"         . #'evil-end-of-visual-line)
+           ("<leader>h" . #'evil-window-left)
+           ("<leader>j" . #'evil-window-down)
+           ("<leader>k" . #'evil-window-up)
+           ("<leader>l" . #'evil-window-right)
+           ("<leader>a" . #'mm--evil-align-regexp)
+           ("<leader>s" . #'mm--evil-sort-lines)
+           ("<leader>;" . #'mm--evil-comment-or-uncomment-region))
     :init
     ;; We need to set these variables before loading ‘evil-mode’
     (setq evil-want-Y-yank-to-eol t
-	  evil-search-wrap nil
-	  evil-v$-excludes-newline t
-	  evil-respect-visual-line-mode t
-	  evil-split-window-below t
-	  evil-vsplit-window-right t
-	  evil-want-fine-undo t
-	  evil-undo-system 'undo-redo
-	  evil-want-keybinding nil)
+          evil-search-wrap nil
+          evil-v$-excludes-newline t
+          evil-respect-visual-line-mode t
+          evil-split-window-below t
+          evil-vsplit-window-right t
+          evil-want-fine-undo t
+          evil-undo-system 'undo-redo
+          evil-want-keybinding nil)
     (evil-mode)
     (global-visual-line-mode)
     :config
@@ -329,14 +329,14 @@ object/ to make them work properly.  Also we add some custom Jinja pairs!
 
   (defmacro mm--evil-define-and-bind-quoted-text-object (name key start-regex end-regex)
     (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-	  (outer-name (make-symbol (concat "evil-a-" name))))
+          (outer-name (make-symbol (concat "evil-a-" name))))
       `(progn
-	 (evil-define-text-object ,inner-name (count &optional beg end type)
-	   (evil-select-paren ,start-regex ,end-regex beg end type count nil))
-	 (evil-define-text-object ,outer-name (count &optional beg end type)
-	   (evil-select-paren ,start-regex ,end-regex beg end type count t))
-	 (define-key evil-inner-text-objects-map ,key #',inner-name)
-	 (define-key evil-outer-text-objects-map ,key #',outer-name))))
+         (evil-define-text-object ,inner-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+         (evil-define-text-object ,outer-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count t))
+         (define-key evil-inner-text-objects-map ,key #',inner-name)
+         (define-key evil-outer-text-objects-map ,key #',outer-name))))
 
   (mm--evil-define-and-bind-quoted-text-object "single-quote-open"  "‘" "‘" "’")
   (mm--evil-define-and-bind-quoted-text-object "single-quote-close" "’" "‘" "’")
@@ -357,10 +357,10 @@ object/ to make them work properly.  Also we add some custom Jinja pairs!
    (λ (setq-local
        evil-surround-pairs-alist
        (append
-	'((?% . ("{% " . " %}"))
-	  (?# . ("{# " . " #}"))
-	  (?{ . ("{{ " . " }}")))
-	evil-surround-pairs-alist))
+        '((?% . ("{% " . " %}"))
+          (?# . ("{# " . " #}"))
+          (?{ . ("{{ " . " }}")))
+        evil-surround-pairs-alist))
       (mm--evil-define-and-bind-quoted-text-object "jinja-action"  "%" "{%" "%}")
       (mm--evil-define-and-bind-quoted-text-object "jinja-comment" "#" "{#" "#}")
       (mm--evil-define-and-bind-quoted-text-object "jinja-code"    "{" "{{" "}}")))
@@ -404,15 +404,15 @@ operator so it can be used with Vim motions.
 
 #+BEGIN_SRC elisp
 
-    (evil-define-operator mm--evil-align-regexp (beg end regexp repeat)
-      "Wrapper around ‘align-regexp’ to allow for use as an ‘evil-mode’ operator."
-      (interactive (let ((range (evil-operator-range)))
-		     (list (car range)
-			   (cadr range)
-			   (concat "\\(\\s-*\\)"
-				   (read-string "Align regexp: "))
-			   (y-or-n-p "Repeat? "))))
-      (align-regexp beg end regexp 1 1 repeat))
+  (evil-define-operator mm--evil-align-regexp (beg end regexp repeat)
+    "Wrapper around ‘align-regexp’ to allow for use as an ‘evil-mode’ operator."
+    (interactive (let ((range (evil-operator-range)))
+                   (list (car range)
+                         (cadr range)
+                         (concat "\\(\\s-*\\)"
+                                 (read-string "Align regexp: "))
+                         (y-or-n-p "Repeat? "))))
+    (align-regexp beg end regexp 1 1 repeat))
 
 #+END_SRC
 
@@ -487,8 +487,8 @@ In order, these options disable the following warnings:
 #+BEGIN_SRC elisp
 
   (setq large-file-warning-threshold nil
-	vc-follow-symlinks t
-	ad-redefinition-action 'accept)
+        vc-follow-symlinks t
+        ad-redefinition-action 'accept)
 
 #+END_SRC
 
@@ -510,9 +510,9 @@ even a pixel-precision scrolling mode!
 #+BEGIN_SRC elisp
 
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
-	mouse-wheel-progressive-speed nil
-	mouse-wheel-follow-mouse t
-	scroll-step 1)
+        mouse-wheel-progressive-speed nil
+        mouse-wheel-follow-mouse t
+        scroll-step 1)
   (pixel-scroll-precision-mode)
 
 #+END_SRC
@@ -633,25 +633,25 @@ every frame.  We also can’t forget the frame that’s actually running this co
     "Set the fonts specified by ‘mm-monospace-fonts’ and ‘mm-proportional-font’."
     (interactive)
     (let* ((mono-family (car mm-monospace-font))
-	   (mono-props  (cdr mm-monospace-font))
-	   (prop-family (car mm-proportional-font))
-	   (prop-props  (cdr mm-proportional-font))
-	   (mono-weight (plist-get mono-props :weight))
-	   (mono-height (plist-get mono-props :height))
-	   (prop-weight (plist-get prop-props :weight))
-	   (prop-height (plist-get prop-props :height)))
+           (mono-props  (cdr mm-monospace-font))
+           (prop-family (car mm-proportional-font))
+           (prop-props  (cdr mm-proportional-font))
+           (mono-weight (plist-get mono-props :weight))
+           (mono-height (plist-get mono-props :height))
+           (prop-weight (plist-get prop-props :weight))
+           (prop-height (plist-get prop-props :height)))
       (set-face-attribute 'default nil
-			  :font mono-family
-			  :weight mono-weight
-			  :height mono-height)
+                          :font mono-family
+                          :weight mono-weight
+                          :height mono-height)
       (set-face-attribute 'fixed-pitch nil
-			  :font mono-family
-			  :weight mono-weight
-			  :height mono-height)
+                          :font mono-family
+                          :weight mono-weight
+                          :height mono-height)
       (set-face-attribute 'variable-pitch nil
-			  :font prop-family
-			  :weight prop-weight
-			  :height prop-height)))
+                          :font prop-family
+                          :weight prop-weight
+                          :height prop-height)))
 
   (defun mm--configure-fonts (_)
     "Configure font given initial non-daemon FRAME.  Intended for
@@ -692,23 +692,23 @@ that’s what the ~mm-minibuffer-backward-kill~ is for.
   otherwise delete a word."
     (interactive "p")
     (if minibuffer-completing-file-name
-	(if (string-match-p "/." (minibuffer-contents))
-	    (zap-up-to-char (- arg) ?/)
-	  (delete-minibuffer-contents))
+        (if (string-match-p "/." (minibuffer-contents))
+            (zap-up-to-char (- arg) ?/)
+          (delete-minibuffer-contents))
       (backward-kill-word arg)))
 
   (use-package vertico
     :bind (:map vertico-map
-	   ("C-j" . vertico-next)
-	   ("C-k" . vertico-previous)
-	   ("C-l" . vertico-insert)
-	   :map minibuffer-local-map
-	   ("C-h" . mm-minibuffer-backward-kill))
+                ("C-j" . vertico-next)
+                ("C-k" . vertico-previous)
+                ("C-l" . vertico-insert)
+                :map minibuffer-local-map
+                ("C-h" . mm-minibuffer-backward-kill))
     :custom
     (vertico-cycle t)
     :custom-face
     (vertico-current ((t (:background
-			  ,(face-attribute 'hl-line :background nil t)))))
+                          ,(face-attribute 'hl-line :background nil t)))))
     :init
     (vertico-mode))
 
@@ -853,18 +853,18 @@ already installed unfortunately, but it’s easy enough to do manually.
 #+BEGIN_SRC elisp
 
   (setq treesit-language-source-alist
-     '((bash     "https://github.com/tree-sitter/tree-sitter-bash")
-       (c        "https://github.com/tree-sitter/tree-sitter-c")
-       (cpp      "https://github.com/tree-sitter/tree-sitter-cpp")
-       (css      "https://github.com/tree-sitter/tree-sitter-css")
-       (elisp    "https://github.com/Wilfred/tree-sitter-elisp")
-       (go       "https://github.com/tree-sitter/tree-sitter-go")
-       (html     "https://github.com/tree-sitter/tree-sitter-html")
-       (json     "https://github.com/tree-sitter/tree-sitter-json")
-       (make     "https://github.com/alemuller/tree-sitter-make")
-       (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-       (python   "https://github.com/tree-sitter/tree-sitter-python")
-       (toml     "https://github.com/tree-sitter/tree-sitter-toml")))
+        '((bash     "https://github.com/tree-sitter/tree-sitter-bash")
+          (c        "https://github.com/tree-sitter/tree-sitter-c")
+          (cpp      "https://github.com/tree-sitter/tree-sitter-cpp")
+          (css      "https://github.com/tree-sitter/tree-sitter-css")
+          (elisp    "https://github.com/Wilfred/tree-sitter-elisp")
+          (go       "https://github.com/tree-sitter/tree-sitter-go")
+          (html     "https://github.com/tree-sitter/tree-sitter-html")
+          (json     "https://github.com/tree-sitter/tree-sitter-json")
+          (make     "https://github.com/alemuller/tree-sitter-make")
+          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+          (python   "https://github.com/tree-sitter/tree-sitter-python")
+          (toml     "https://github.com/tree-sitter/tree-sitter-toml")))
 
   ;; Automatically install missing grammars
   (thread-last
@@ -916,9 +916,9 @@ this file.
 #+BEGIN_SRC elisp
 
   (setq custom-file
-	(expand-file-name
-	 (format "emacs-custom-%s.el" (user-uid))
-	 temporary-file-directory))
+        (expand-file-name
+         (format "emacs-custom-%s.el" (user-uid))
+         temporary-file-directory))
   (load custom-file t)
 
 #+END_SRC
@@ -932,8 +932,8 @@ version numbers to the backup names — it doesn’t start using a VCS.
 #+BEGIN_SRC elisp
 
   (setq delete-old-versions t
-	version-control t
-	kept-new-versions 2
-	kept-old-versions 6)
+        version-control t
+        kept-new-versions 2
+        kept-old-versions 6)
 
 #+END_SRC
