@@ -629,7 +629,7 @@ every frame.  We also can’t forget the frame that’s actually running this co
 #+BEGIN_SRC elisp
 
   (defun mm-set-fonts ()
-    "Set the fonts specified by ‘mm-monospace-fonts’ and ‘mm-proportional-font’."
+    "Set the fonts specified by ‘mm-monospace-font’ and ‘mm-proportional-font’."
     (interactive)
     (let* ((mono-family (car mm-monospace-font))
            (mono-props  (cdr mm-monospace-font))
