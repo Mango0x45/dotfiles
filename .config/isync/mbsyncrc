@@ -1,0 +1,61 @@
+Create Both
+Expunge Both
+SyncState *
+
+# mail@thomasvoss.com
+
+IMAPStore default-remote
+Host imap.migadu.com
+User mail@thomasvoss.com
+PassCmd "enchive extract < /home/thomas/.local/share/vault/mail/mail@thomasvoss.com"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore default-local
+Path ~/mail/mail@thomasvoss.com/
+Inbox ~/mail/mail@thomasvoss.com/Inbox
+SubFolders Verbatim
+
+Channel default
+Far :default-remote:
+Near :default-local:
+Patterns *
+
+# thomasvoss@live.com
+
+IMAPStore legacy-remote
+Host outlook.office365.com
+User thomasvoss@live.com
+PassCmd "enchive extract < /home/thomas/.local/share/vault/mail/thomasvoss@live.com"
+Port 993
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore legacy-local
+Path ~/mail/thomasvoss@live.com/
+Inbox ~/mail/thomasvoss@live.com/Inbox
+SubFolders Verbatim
+
+Channel legacy
+Far :legacy-remote:
+Near :legacy-local:
+Patterns *
+
+# thomas.voss@humanwave.nl
+
+IMAPStore humanwave-remote
+Host imap.gmail.com
+User thomas.voss@humanwave.nl
+PassCmd "enchive extract < /home/thomas/.local/share/vault/mail/thomas.voss@humanwave.nl"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore humanwave-local
+Path ~/mail/thomas.voss@humanwave.nl/
+Inbox ~/mail/thomas.voss@humanwave.nl/Inbox
+SubFolders Verbatim
+
+Channel humanwave
+Far :humanwave-remote:
+Near :humanwave-local:
+Patterns *
