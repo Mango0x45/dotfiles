@@ -965,7 +965,7 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
 
 #+BEGIN_SRC elisp
 
-  (setq fill-column 80)
+  (setq-default fill-column 80)
   (add-hook 'org-mode-hook #'auto-fill-mode)
 
 #+END_SRC
