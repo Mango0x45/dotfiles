@@ -656,13 +656,7 @@ every frame.  We also can’t forget the frame that’s actually running this co
                           :weight prop-weight
                           :height prop-height)))
 
-  (defun mm--configure-fonts (_)
-    "Configure font given initial non-daemon FRAME.  Intended for
-  ‘after-make-frame-functions’."
-    (mm-set-fonts)
-    (remove-hook 'after-make-frame-functions #'mm--configure-fonts))
-
-  (add-hook 'after-make-frame-functions #'mm--configure-fonts)
+  (add-hook 'after-make-frame-functions (λ (mm-set-fonts)))
   (mm-set-fonts)
 
 #+END_SRC
