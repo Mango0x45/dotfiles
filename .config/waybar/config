@@ -1,0 +1,70 @@
+// vi: ft=jsonc
+{
+	"layer": "top",
+	"position": "top",
+	"height": 40,
+	"spacing": 8,
+	"modules-left":   ["wlr/workspaces"],
+	"modules-center": ["clock"],
+	"modules-right":  [
+		"custom/keyboard",
+		"network",
+		"custom/disk",
+		"backlight",
+		"wireplumber",
+		"battery"
+	],
+	"wlr/workspaces": {
+		"sort-by-number": true,
+		"on-click": "activate",
+		"format": " {name} ",
+		"all-outputs": true
+	},
+	"clock": {
+		"interval": 1,
+		// https://www.typeerror.org/docs/cpp/chrono/format
+		"format": "{:%d %B %Y (%a) — %T %Z}"
+	},
+	"custom/keyboard": {
+		"interval": 1,
+		"format": "  {}",
+		"exec": "~/.config/waybar/custom/keyboard"
+	},
+	"network": {
+		"interface": "wlp170s0",
+		"format": "{ifname}",
+		"iterval": 1,
+		"format-wifi": "  {essid}",
+		"format-ethernet": "  {ipaddr}/{cidr}",
+		"format-disconnected": "  No connection"
+	},
+	"custom/disk": {
+		"interval": 30,
+		"format": "  {}",
+		"exec": "~/.config/waybar/custom/disk"
+	},
+	"backlight": {
+		"interval": 1,
+		"format": "{icon}  {percent}%",
+		"format-icons": [""]
+	},
+	"wireplumber": {
+		//"interval": 1,
+		//"exec": "amixer get Master | grep -o '[0-9]*%' -m1 | tr -d %",
+		"format": "<span font='Font Awesome 6 Free'>{icon}</span> {volume}%",
+		"format-muted": "<span font='Font Awesome 6 Free'>{icon}</span> Muted",
+		"format-icons": {
+			"headphone": "",
+			"default": ["", "", ""]
+		}
+	},
+	"battery": {
+		"bat": "BAT1",
+		"states": {
+			"critical": 20
+		},
+		"format": "{icon}   {capacity}%",
+		"format-charging": " {capacity}%",
+		"format-icons": ["", "", "", "", ""]
+	}
+}

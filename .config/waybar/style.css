@@ -1,0 +1,89 @@
+@keyframes blink {
+	to {
+		color: #FFF;
+		box-shadow: inset 0 -3px #FFF;
+	}
+}
+
+* {
+	font-family: "Iosevka Smooth";
+	font-size: 16px;
+}
+
+window#waybar {
+	background-color: rgba(43, 48, 59, 0.5);
+	border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+	transition-property: background-color;
+	transition-duration: .5s;
+}
+
+button {
+	/* Use box-shadow instead of border so the text isn't offset */
+	box-shadow: inset 0 -3px transparent;
+	/* Avoid rounded borders under each button name */
+	border: none;
+	border-radius: 0;
+}
+
+button:hover {
+	background: inherit;
+}
+
+#workspaces {
+	margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+	margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+	margin-right: 0;
+}
+
+#workspaces button {
+	color: #FFF;
+	padding: 0 5px;
+	background-color: transparent;
+}
+
+#workspaces button:hover {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.active {
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+#workspaces button.urgent {
+	background-color: #eb4d4b;
+}
+
+#backlight,
+#battery,
+#clock,
+#custom-disk,
+#custom-keyboard,
+#network,
+#wireplumber {
+	padding: 0 5px;
+	color: #FFF;
+}
+
+button:hover,
+#workspaces button.active {
+	color: #FFF;
+	box-shadow: inset 0 -3px #FAA14F;
+}
+
+#battery.critical:not(.charging) {
+	color: #F53C3C;
+	box-shadow: inset 0 -3px #F53C3C;
+	animation-name: blink;
+	animation-duration: 0.65s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
