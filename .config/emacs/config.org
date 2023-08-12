@@ -609,8 +609,9 @@ customize just about every character from loads of variants.  I have my own
 custom compiled variant called /Iosevka Smooth/.
 
 On the proportional side of things, I am not really sure what font to use.
-/Vollkorn/ tends to be my go-to font on the web, but I dunno how well it
-translates to Emacs.  I need to play around with this.
+/Vollkorn/ tends to be my go-to serif-font on the web, but I dunno how well it
+translates to Emacs.  I am also a bit fan of Ysabeau for sans-serif.  I need to
+play around with this.
 
 #+BEGIN_SRC elisp
 
@@ -618,7 +619,7 @@ translates to Emacs.  I need to play around with this.
     "The default monospace font to use.  This is a list containing a font name,
   font weight, and font height in that order.")
 
-  (defvar mm-proportional-font '("Vollkorn" :weight light :height 180)
+  (defvar mm-proportional-font '("Ysabeau" :weight light :height 180)
     "The default proportional font to use.  This is a list containing a font name,
   font weight, and font height in that order.")
 
