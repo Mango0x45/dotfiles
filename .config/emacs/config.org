@@ -842,7 +842,8 @@ that simply finds all the TODOs in a repository and displays them in the
      #'magit-display-buffer-same-window-except-diff-v1))
 
   (use-package magit-todos
-    :after magit)
+    :after magit
+    :init (magit-todos-mode))
 
 #+END_SRC
 
