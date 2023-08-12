@@ -808,7 +808,7 @@ with a custom function that reads a list of mode-specific indentation settings.
               (λ (indent-tabs-mode (when spaces -1))
                  (setq-local tab-width width
                              evil-shift-width width)
-                 (mm-for-each extra (setq x width)))))
+                 (mm-for-each extra (set x width)))))
         (add-hook (mm-mode-to-hook mode) callback 95)
         (let ((ts-hook (mm-mode-to-hook (mm-mode-to-ts-mode mode))))
           (when (boundp ts-hook)
