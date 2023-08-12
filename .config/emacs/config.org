@@ -774,7 +774,7 @@ with a custom function that reads a list of mode-specific indentation settings.
 
   (defvar mm-indentation-settings
     '((c-mode :width 8 :extra-vars (c-basic-offset))
-      (css-mode :extra-vars (css-basic-offset))
+      (css-mode :extra-vars (css-indent-offset))
       (emacs-lisp-mode :spaces t)
       (lisp-mode :spaces t)
       (org-mode :spaces t)
