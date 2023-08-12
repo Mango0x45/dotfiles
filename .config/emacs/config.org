@@ -894,6 +894,18 @@ why they won’t just move on from it I have no idea.  I’ll just disable snipp
 
 #+END_SRC
 
+*** Emmet-Mode
+
+This mode is super useful for writing HTML.  It lets me expand something like
+‘figure>(figcaption>code)+pre’ into an actual HTML structure.
+
+#+BEGIN_SRC elisp
+
+  (use-package emmet-mode
+    :hook (html-mode . emmet-mode))
+
+#+END_SRC
+
 ** Extra Modes
 
 Some modes aren’t installed by default with Emacs, so let’s fetch them
