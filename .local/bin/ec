@@ -3,7 +3,8 @@
 (menu-bar-mode -1)
 
 (setq select-enable-primary t
-      help-window-select t)
+      help-window-select t
+      calc-display-trail nil)
 
 (full-calc)
 (keymap-set calc-mode-map "q" #'kill-emacs)

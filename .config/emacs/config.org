@@ -543,6 +543,18 @@ autocompleting code but has other uses too I guess.
 
 #+END_SRC
 
+** Mathematics
+
+The built-in emacs calculator ~calc~ is genuinely the best calculator program I
+have ever used.  Annoyingly though, it has a ‘trail’ that is always around.  I
+don’t like it.
+
+#+BEGIN_SRC elisp
+
+  (setq calc-display-trail nil)
+
+#+END_SRC
+
 ** Programming
 
 *** Indentation
