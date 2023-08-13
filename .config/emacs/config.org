@@ -446,6 +446,17 @@ Commenting code is a super common task — so make it an operator!
 
 ** Completions
 
+*** Savehist-Mode
+
+This mode is super handy.  It let’s you preserve your history in minibuffer
+prompts.
+
+#+BEGIN_SRC elisp
+
+  (savehist-mode)
+
+#+END_SRC
+
 *** Vertico & Marginalia
 
 Vertico is a great package for enhanced completions in the minibuffer.  It’s
