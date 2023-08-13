@@ -444,234 +444,6 @@ Commenting code is a super common task — so make it an operator!
 
 #+END_SRC
 
-** User Interface
-
-The default Emacs UI is fucking atrocious — we need to make it better.
-
-*** Shorter Prompts
-
-For some reason emacs has both the ~y-or-n-p~ and ~yes-or-no-p~ functions.  I do
-not like having to spell out full words — /y/ or /n/ is good enough for me — so
-let’s just redefine ~yes-or-no-p~.
-
-#+BEGIN_SRC elisp
-
-  (fset #'yes-or-no-p #'y-or-n-p)
-
-#+END_SRC
-
-*** Disable Basic UI Modes
-
-Emacs has a lot of UI modes that are enabled by default to make life easier for
-the novice user.  I am not the novice user and would rather these modes never
-turned on ever again.
-
-#+BEGIN_SRC elisp
-
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-
-#+END_SRC
-
-*** Warnings
-
-I am typically not a fan around being warned about things unless something is
-actually breaking or going wrong.
-
-In order, these options disable the following warnings:
-
-1. Opening large files
-2. Following symbolic links
-3. Adding advice to functions
-
-#+BEGIN_SRC elisp
-
-  (setq large-file-warning-threshold nil
-        vc-follow-symlinks t
-        ad-redefinition-action 'accept)
-
-#+END_SRC
-
-*** Visible Bell
-
-Why not?  I might disable this later.
-
-#+BEGIN_SRC elisp
-
-  (setq visible-bell t)
-
-#+END_SRC
-
-*** Scrolling
-
-By default, scrolling is really bad.  Luckily we can improve it a lot; there’s
-even a pixel-precision scrolling mode!
-
-#+BEGIN_SRC elisp
-
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
-        mouse-wheel-progressive-speed nil
-        mouse-wheel-follow-mouse t
-        scroll-step 1)
-  (pixel-scroll-precision-mode)
-
-#+END_SRC
-
-*** Auto Reverting Buffers
-
-This is just good to have all of the time; you should never be looking at a file
-whose state was changed by an external process, and not see those changes *instantly*.
-
-#+BEGIN_SRC elisp
-
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode)
-
-#+END_SRC
-
-*** Highlight Matching Parenthesis
-
-This is generally a good thing — especially when writing lisp code — but I don’t
-want this /everywhere/.
-
-#+BEGIN_SRC elisp
-
-  (defvar mm-highlight-matching-parenthesis-modes
-    '(prog-mode conf-mode)
-    "A list of modes for which the parenthesis that pairs up with the parenthesis
-  at point should be highlighted.")
-
-  (show-paren-mode -1)
-
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-highlight-matching-parenthesis-modes)
-    (add-hook x #'show-paren-local-mode))
-
-#+END_SRC
-
-*** Line- and Column Numbers
-
-It’s a bit tricky to remember, but ~line-number-mode~ and
-~display-line-numbers-mode~ are very different.  The former displays the current
-line number in the modeline while the latter displays line numbers on the left
-of the buffer.  Personally I like to always display the current line number in
-the modeline along with the column number — I find that it helps me wrap text
-properly when I am not using ~auto-fill-mode~ — but I would prefer to only
-display line numbers in certain modes.
-
-#+BEGIN_SRC elisp
-
-  (line-number-mode)
-  (column-number-mode)
-
-  ;; Enable and disable line numbers for some modes
-  (defvar mm-enable-line-numbers-modes
-    '(text-mode prog-mode conf-mode)
-    "A list of modes for which line numbers should be displayed.")
-
-  (defvar mm-disable-line-numbers-modes
-    '(org-mode)
-    "A list of modes for which line numbers shouldn’t be displayed.")
-
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-enable-line-numbers-modes)
-    (add-hook x #'display-line-numbers-mode))
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes)
-    (add-hook x (λ (display-line-numbers-mode -1))))
-
-#+END_SRC
-
-*** Emacs Theme
-
-The default theme is a light theme.  I am not one of these weak-eyed retards
-that cannot handle a light theme, but it is really, /really/ bad.  Personally I
-quite enjoy the /Sanity Inc./ themes, and they’re a lot less generic than the
-Doom One theme that everyone and their grandmother uses.
-
-Personally I am not sure if I prefer ~tomorrow-night~ or ~tomorrow-eighties~, so
-why not make it random?
-
-#+BEGIN_SRC elisp
-
-  (use-package color-theme-sanityinc-tomorrow
-    :config
-    (let ((n (random 2)))
-      (cond ((eq n 0) (load-theme 'sanityinc-tomorrow-night t))
-            ((eq n 1) (load-theme 'sanityinc-tomorrow-eighties t)))))
-
-#+END_SRC
-
-*** TODO Fonts
-
-My favorite monospace font has got to be /Iosevka/.  It’s good looking, it’s far
-more compact than the usual american-sized monospace fonts, and you can
-customize just about every character from loads of variants.  I have my own
-custom compiled variant called /Iosevka Smooth/.
-
-On the proportional side of things, I am not really sure what font to use.
-/Vollkorn/ tends to be my go-to serif-font on the web, but I dunno how well it
-translates to Emacs.  I am also a bit fan of Ysabeau for sans-serif.  I need to
-play around with this.
-
-#+BEGIN_SRC elisp
-
-  (defvar mm-monospace-font '("Iosevka Smooth" :weight light :height 162)
-    "The default monospace font to use.  This is a list containing a font name,
-  font weight, and font height in that order.")
-
-  (defvar mm-proportional-font '("Ysabeau" :weight light :height 180)
-    "The default proportional font to use.  This is a list containing a font name,
-  font weight, and font height in that order.")
-
-#+END_SRC
-
-Actually /setting/ the fonts is a bit tricky.  I don’t really fully understand
-why it works like this, but something with the whole server/client model of
-Emacs is really fucking with this, so we need to add a hook to set the font for
-every frame.  We also can’t forget the frame that’s actually running this code.
-
-#+BEGIN_SRC elisp
-
-  (defun mm-set-fonts ()
-    "Set the fonts specified by ‘mm-monospace-font’ and ‘mm-proportional-font’."
-    (interactive)
-    (let* ((mono-family (car mm-monospace-font))
-           (mono-props  (cdr mm-monospace-font))
-           (prop-family (car mm-proportional-font))
-           (prop-props  (cdr mm-proportional-font))
-           (mono-weight (plist-get mono-props :weight))
-           (mono-height (plist-get mono-props :height))
-           (prop-weight (plist-get prop-props :weight))
-           (prop-height (plist-get prop-props :height)))
-      (set-face-attribute 'default nil
-                          :font mono-family
-                          :weight mono-weight
-                          :height mono-height)
-      (set-face-attribute 'fixed-pitch nil
-                          :font mono-family
-                          :weight mono-weight
-                          :height mono-height)
-      (set-face-attribute 'variable-pitch nil
-                          :font prop-family
-                          :weight prop-weight
-                          :height prop-height)))
-
-  (add-hook 'after-make-frame-functions (lambda (_) (mm-set-fonts)))
-  (mm-set-fonts)
-
-#+END_SRC
-
-*** Line Highlighting
-
-This is just something I personally like having.  It makes it very easy for me
-to figure out where my point is at all times.
-
-#+BEGIN_SRC elisp
-
-  (global-hl-line-mode)
-
-#+END_SRC
-
 ** Completions
 
 *** Vertico & Marginalia
@@ -703,11 +475,14 @@ that’s what the ~mm-minibuffer-backward-kill~ is for.
            ("C-h" . mm-minibuffer-backward-kill))
     :custom
     (vertico-cycle t)
-    :custom-face
-    (vertico-current ((t (:background
-                          ,(face-attribute 'hl-line :background nil t)))))
     :init
-    (vertico-mode))
+    (vertico-mode)
+    (add-hook
+     'mm-after-load-theme-hook
+     (λ (face-spec-set
+         'vertico-current
+         `((t (:background
+               ,(face-attribute 'hl-line :background nil t))))))))
 
 #+END_SRC
 
@@ -903,6 +678,250 @@ This mode is super useful for writing HTML.  It lets me expand something like
 
   (use-package emmet-mode
     :hook (html-mode . emmet-mode))
+
+#+END_SRC
+
+** User Interface
+
+The default Emacs UI is fucking atrocious — we need to make it better.
+
+*** Shorter Prompts
+
+For some reason emacs has both the ~y-or-n-p~ and ~yes-or-no-p~ functions.  I do
+not like having to spell out full words — /y/ or /n/ is good enough for me — so
+let’s just redefine ~yes-or-no-p~.
+
+#+BEGIN_SRC elisp
+
+  (fset #'yes-or-no-p #'y-or-n-p)
+
+#+END_SRC
+
+*** Disable Basic UI Modes
+
+Emacs has a lot of UI modes that are enabled by default to make life easier for
+the novice user.  I am not the novice user and would rather these modes never
+turned on ever again.
+
+#+BEGIN_SRC elisp
+
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+
+#+END_SRC
+
+*** Warnings
+
+I am typically not a fan around being warned about things unless something is
+actually breaking or going wrong.
+
+In order, these options disable the following warnings:
+
+1. Opening large files
+2. Following symbolic links
+3. Adding advice to functions
+
+#+BEGIN_SRC elisp
+
+  (setq large-file-warning-threshold nil
+        vc-follow-symlinks t
+        ad-redefinition-action 'accept)
+
+#+END_SRC
+
+*** Visible Bell
+
+Why not?  I might disable this later.
+
+#+BEGIN_SRC elisp
+
+  (setq visible-bell t)
+
+#+END_SRC
+
+*** Scrolling
+
+By default, scrolling is really bad.  Luckily we can improve it a lot; there’s
+even a pixel-precision scrolling mode!
+
+#+BEGIN_SRC elisp
+
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+        mouse-wheel-progressive-speed nil
+        mouse-wheel-follow-mouse t
+        scroll-step 1)
+  (pixel-scroll-precision-mode)
+
+#+END_SRC
+
+*** Auto Reverting Buffers
+
+This is just good to have all of the time; you should never be looking at a file
+whose state was changed by an external process, and not see those changes *instantly*.
+
+#+BEGIN_SRC elisp
+
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode)
+
+#+END_SRC
+
+*** Highlight Matching Parenthesis
+
+This is generally a good thing — especially when writing lisp code — but I don’t
+want this /everywhere/.
+
+#+BEGIN_SRC elisp
+
+  (defvar mm-highlight-matching-parenthesis-modes
+    '(prog-mode conf-mode)
+    "A list of modes for which the parenthesis that pairs up with the parenthesis
+  at point should be highlighted.")
+
+  (show-paren-mode -1)
+
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-highlight-matching-parenthesis-modes)
+    (add-hook x #'show-paren-local-mode))
+
+#+END_SRC
+
+*** Line- and Column Numbers
+
+It’s a bit tricky to remember, but ~line-number-mode~ and
+~display-line-numbers-mode~ are very different.  The former displays the current
+line number in the modeline while the latter displays line numbers on the left
+of the buffer.  Personally I like to always display the current line number in
+the modeline along with the column number — I find that it helps me wrap text
+properly when I am not using ~auto-fill-mode~ — but I would prefer to only
+display line numbers in certain modes.
+
+#+BEGIN_SRC elisp
+
+  (line-number-mode)
+  (column-number-mode)
+
+  ;; Enable and disable line numbers for some modes
+  (defvar mm-enable-line-numbers-modes
+    '(text-mode prog-mode conf-mode)
+    "A list of modes for which line numbers should be displayed.")
+
+  (defvar mm-disable-line-numbers-modes
+    '(org-mode)
+    "A list of modes for which line numbers shouldn’t be displayed.")
+
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-enable-line-numbers-modes)
+    (add-hook x #'display-line-numbers-mode))
+  (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes)
+    (add-hook x (λ (display-line-numbers-mode -1))))
+
+#+END_SRC
+
+*** Emacs Theme
+
+The default theme is a light theme.  I am not one of these weak-eyed retards
+that cannot handle a light theme, but it is really, /really/ bad.  Personally I
+quite enjoy the /Sanity Inc./ themes, and they’re a lot less generic than the
+Doom One theme that everyone and their grandmother uses.
+
+Personally I am not sure if I prefer ~tomorrow-night~ or ~tomorrow-eighties~, so
+why not make it random?
+
+#+BEGIN_SRC elisp
+
+  (use-package color-theme-sanityinc-tomorrow
+    :config
+    (let ((n (random 2)))
+      (cond ((eq n 0) (load-theme 'sanityinc-tomorrow-night t))
+            ((eq n 1) (load-theme 'sanityinc-tomorrow-eighties t)))))
+
+#+END_SRC
+
+There is one issue though.  I like to have ~vertico~ use the same color when
+highlighting my current selection as I use to highlight the current line, and
+that changes with each theme I use.  For this reason we need some advice around
+the ~load-theme~ function to fire a hook.
+
+#+BEGIN_SRC elisp
+
+  (defvar mm-after-load-theme-hook nil
+    "Hook called after ‘load-theme’ is run.")
+
+  (defadvice load-theme (after load-theme-with-hooks preactivate compile)
+    "Advice to run ‘mm-after-load-theme-hook’ hooks after loading a custom theme."
+    (run-hooks 'mm-after-load-theme-hook))
+
+#+END_SRC
+
+*** TODO Fonts
+
+My favorite monospace font has got to be /Iosevka/.  It’s good looking, it’s far
+more compact than the usual american-sized monospace fonts, and you can
+customize just about every character from loads of variants.  I have my own
+custom compiled variant called /Iosevka Smooth/.
+
+On the proportional side of things, I am not really sure what font to use.
+/Vollkorn/ tends to be my go-to serif-font on the web, but I dunno how well it
+translates to Emacs.  I am also a bit fan of Ysabeau for sans-serif.  I need to
+play around with this.
+
+#+BEGIN_SRC elisp
+
+  (defvar mm-monospace-font '("Iosevka Smooth" :weight light :height 162)
+    "The default monospace font to use.  This is a list containing a font name,
+  font weight, and font height in that order.")
+
+  (defvar mm-proportional-font '("Ysabeau" :weight light :height 180)
+    "The default proportional font to use.  This is a list containing a font name,
+  font weight, and font height in that order.")
+
+#+END_SRC
+
+Actually /setting/ the fonts is a bit tricky.  I don’t really fully understand
+why it works like this, but something with the whole server/client model of
+Emacs is really fucking with this, so we need to add a hook to set the font for
+every frame.  We also can’t forget the frame that’s actually running this code.
+
+#+BEGIN_SRC elisp
+
+  (defun mm-set-fonts ()
+    "Set the fonts specified by ‘mm-monospace-font’ and ‘mm-proportional-font’."
+    (interactive)
+    (let* ((mono-family (car mm-monospace-font))
+           (mono-props  (cdr mm-monospace-font))
+           (prop-family (car mm-proportional-font))
+           (prop-props  (cdr mm-proportional-font))
+           (mono-weight (plist-get mono-props :weight))
+           (mono-height (plist-get mono-props :height))
+           (prop-weight (plist-get prop-props :weight))
+           (prop-height (plist-get prop-props :height)))
+      (set-face-attribute 'default nil
+                          :font mono-family
+                          :weight mono-weight
+                          :height mono-height)
+      (set-face-attribute 'fixed-pitch nil
+                          :font mono-family
+                          :weight mono-weight
+                          :height mono-height)
+      (set-face-attribute 'variable-pitch nil
+                          :font prop-family
+                          :weight prop-weight
+                          :height prop-height)))
+
+  (add-hook 'after-make-frame-functions (lambda (_) (mm-set-fonts)))
+  (mm-set-fonts)
+
+#+END_SRC
+
+*** Line Highlighting
+
+This is just something I personally like having.  It makes it very easy for me
+to figure out where my point is at all times.
+
+#+BEGIN_SRC elisp
+
+  (global-hl-line-mode)
 
 #+END_SRC
 
