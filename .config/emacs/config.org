@@ -936,6 +936,26 @@ to figure out where my point is at all times.
 
 #+END_SRC
 
+*** Frame Management
+
+Prot has made a fantastic package known as ~beframe~.  It allows you to have
+each frame have its own buffer list.  This is insanely useful for keeping my
+buffers nice and organized.  It’s also useful for having a way to (for example)
+kill all buffers you were using in a frame before closing it.
+
+#+BEGIN_SRC elisp
+
+  (use-package beframe
+    :init
+    (beframe-mode))
+
+  (defun mm-beframe-kill-frame ()
+    (interactive)
+    (mapc #'kill-buffer (beframe-buffer-list))
+    (save-buffers-kill-terminal))
+
+#+END_SRC
+
 ** Extra Modes
 
 Some modes aren’t installed by default with Emacs, so let’s fetch them
