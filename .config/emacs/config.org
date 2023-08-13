@@ -975,3 +975,37 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
   (add-hook 'org-mode-hook #'auto-fill-mode)
 
 #+END_SRC
+
+** Email
+
+#+BEGIN_SRC elisp
+
+  (use-package mu4e
+    :ensure nil
+    :custom
+    (mu4e-change-filenames-when-moving t)
+    (mu4e-get-mail-command "mbsync -a -c /home/thomas/.config/isync/mbsyncrc")
+    (mu4e-maildir "~/mail")
+    :config
+    (setq mm--mu4e-personal-context
+          (make-mu4e-context
+           :name "Personal"
+           :match-func
+           (lambda (msg)
+             (when msg
+               (string-prefix-p "/mail@thomasvoss.com" (mu4e-message-field msg :maildir))))
+           :vars '((user-mail-address  . "mail@thomasvoss.com")
+                   (user-full-name     . "Thomas Voss")
+                   (mu4e-drafts-folder . "/Drafts")
+                   (mu4e-sent-folder   . "/Sent")
+                   (mu4e-refile-folder . "/Archive")
+                   (mu4e-trash-folder  . "/Junk")
+                   (mu4e-maildir-shortcuts . '(("/Inbox"   . ?i)
+                                               ("/Sent"    . ?s)
+                                               ("/Archive" . ?a)
+                                               ("/Drafts"  . ?d)
+                                               ("/Junk"    . ?j))))))
+
+    (setq mu4e-contexts (list mm--mu4e-personal-context)))
+
+#+END_SRC
