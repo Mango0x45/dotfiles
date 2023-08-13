@@ -1060,7 +1060,46 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
                                                (:name "Drafts"  :maildir "/mail@thomasvoss.com/Drafts"  :key ?d)
                                                (:name "Sent"    :maildir "/mail@thomasvoss.com/Sent"    :key ?s)
                                                (:name "Junk"    :maildir "/mail@thomasvoss.com/Junk"    :key ?j))))))
+    (setq mm--mu4e-legacy-context
+          (make-mu4e-context
+           :name "Legacy"
+           :match-func
+           (lambda (msg)
+             (when msg
+               (string-prefix-p "/thomasvoss@live.com" (mu4e-message-field msg :maildir))))
+           :vars '((user-mail-address  . "thomasvoss@live.com")
+                   (user-full-name     . "Thomas Voss")
+                   (mu4e-drafts-folder . "/thomasvoss@live.com/Drafts")
+                   (mu4e-sent-folder   . "/thomasvoss@live.com/Sent")
+                   (mu4e-refile-folder . "/thomasvoss@live.com/Archive")
+                   (mu4e-trash-folder  . "/thomasvoss@live.com/Junk")
+                   (mu4e-maildir-shortcuts . '((:name "Inbox"   :maildir "/thomasvoss@live.com/Inbox"   :key ?i)
+                                               (:name "POP"     :maildir "/thomasvoss@live.com/POP"     :key ?p)
+                                               (:name "Archive" :maildir "/thomasvoss@live.com/Archive" :key ?a)
+                                               (:name "Drafts"  :maildir "/thomasvoss@live.com/Drafts"  :key ?d)
+                                               (:name "Sent"    :maildir "/thomasvoss@live.com/Sent"    :key ?s)
+                                               (:name "Junk"    :maildir "/thomasvoss@live.com/Junk"    :key ?j))))))
+    (setq mm--mu4e-humanwave-context
+          (make-mu4e-context
+           :name "Humanwave"
+           :match-func
+           (lambda (msg)
+             (when msg
+               (string-prefix-p "/thomas.voss@humanwave.nl" (mu4e-message-field msg :maildir))))
+           :vars '((user-mail-address  . "thomas.voss@humanwave.nl")
+                   (user-full-name     . "Thomas Voss")
+                   (mu4e-drafts-folder . "/thomas.voss@humanwave.nl/[Gmail]/Drafts")
+                   (mu4e-sent-folder   . "/thomas.voss@humanwave.nl/[Gmail]/Sent Mail")
+                   (mu4e-refile-folder . "/thomas.voss@humanwave.nl/[Gmail]/All Mail")
+                   (mu4e-trash-folder  . "/thomas.voss@humanwave.nl/[Gmail]/Trash")
+                   (mu4e-maildir-shortcuts . '((:name "Inbox"   :maildir "/thomas.voss@humanwave.nl/Inbox"             :key ?i)
+                                               (:name "Archive" :maildir "/thomas.voss@humanwave.nl/[Gmail]/All Mail"  :key ?a)
+                                               (:name "Drafts"  :maildir "/thomas.voss@humanwave.nl/[Gmail]/Drafts"    :key ?d)
+                                               (:name "Sent"    :maildir "/thomas.voss@humanwave.nl/[Gmail]/Sent Mail" :key ?s)
+                                               (:name "Junk"    :maildir "/thomas.voss@humanwave.nl/[Gmail]/Junk"      :key ?j))))))
 
-    (setq mu4e-contexts (list mm--mu4e-personal-context)))
+    (setq mu4e-contexts (list mm--mu4e-personal-context
+                              mm--mu4e-legacy-context
+                              mm--mu4e-humanwave-context)))
 
 #+END_SRC
