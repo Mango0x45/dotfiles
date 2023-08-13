@@ -1033,9 +1033,15 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
   (use-package mu4e
     :ensure nil
     :custom
+    (user-full-name "Thomas Voss")
     (mu4e-change-filenames-when-moving t)
     (mu4e-get-mail-command "mbsync -a -c /home/thomas/.config/isync/mbsyncrc")
     (mu4e-maildir "~/mail")
+    (sendmail-program "/usr/bin/msmtp")
+    (send-mail-function 'smtpmail-send-it)
+    (message-sendmail-f-is-evil t)
+    (message-sendmail-extra-arguments '("--read-envelope-from"))
+    (message-send-mail-function 'message-send-mail-with-sendmail)
     :config
     (setq mm--mu4e-personal-context
           (make-mu4e-context
@@ -1045,7 +1051,6 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
              (when msg
                (string-prefix-p "/mail@thomasvoss.com" (mu4e-message-field msg :maildir))))
            :vars '((user-mail-address  . "mail@thomasvoss.com")
-                   (user-full-name     . "Thomas Voss")
                    (mu4e-drafts-folder . "/mail@thomasvoss.com/Drafts")
                    (mu4e-sent-folder   . "/mail@thomasvoss.com/Sent")
                    (mu4e-refile-folder . "/mail@thomasvoss.com/Archive")
