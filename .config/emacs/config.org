@@ -1000,11 +1000,11 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
                    (mu4e-sent-folder   . "/mail@thomasvoss.com/Sent")
                    (mu4e-refile-folder . "/mail@thomasvoss.com/Archive")
                    (mu4e-trash-folder  . "/mail@thomasvoss.com/Junk")
-                   (mu4e-maildir-shortcuts . '(("/mail@thomasvoss.com/Inbox"   . ?i)
-                                               ("/mail@thomasvoss.com/Sent"    . ?s)
-                                               ("/mail@thomasvoss.com/Archive" . ?a)
-                                               ("/mail@thomasvoss.com/Drafts"  . ?d)
-                                               ("/mail@thomasvoss.com/Junk"    . ?j))))))
+                   (mu4e-maildir-shortcuts . '((:name "Inbox"   :maildir "/mail@thomasvoss.com/Inbox"   :key ?i)
+                                               (:name "Archive" :maildir "/mail@thomasvoss.com/Archive" :key ?a)
+                                               (:name "Drafts"  :maildir "/mail@thomasvoss.com/Drafts"  :key ?d)
+                                               (:name "Sent"    :maildir "/mail@thomasvoss.com/Sent"    :key ?s)
+                                               (:name "Junk"    :maildir "/mail@thomasvoss.com/Junk"    :key ?j))))))
 
     (setq mu4e-contexts (list mm--mu4e-personal-context)))
 
