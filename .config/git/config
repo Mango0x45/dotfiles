@@ -72,3 +72,6 @@
 
 [safe]
 	directory = /opt/flutter
+
+[transfer]
+	fsckObjects = true
