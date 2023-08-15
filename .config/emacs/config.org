@@ -517,12 +517,14 @@ that have components beginning with /foo/, /bar/, and /baz/ in that order.
 
 #+END_SRC
 
-*** Company
+*** TODO Company
 
 Company is a package to give me actual completion popups; it’s super useful for
 autocompleting code but has other uses too I guess.
 
 #+BEGIN_SRC elisp
+
+  ;; TODO: Properly configure ‘company’
 
   (use-package company
     :hook ((conf-mode prog-mode) . company-mode)
