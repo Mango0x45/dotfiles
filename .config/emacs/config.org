@@ -203,7 +203,8 @@ whole lot of those when ~straight.el~ is installing packages.
 
 #+BEGIN_SRC elisp
 
-  (setq comp-async-report-warnings-errors nil)
+  (setq comp-async-report-warnings-errors nil
+        native-comp-async-report-warnings-errors nil)
 
 #+END_SRC
 
