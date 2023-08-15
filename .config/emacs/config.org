@@ -972,6 +972,8 @@ kill all buffers you were using in a frame before closing it.
     (beframe-mode))
 
   (defun mango-beframe-kill-frame ()
+    "Kill all the buffers within the current beframe buffer list and then destroy
+  the frame."
     (interactive)
     (mapc #'kill-buffer (beframe-buffer-list))
     (save-buffers-kill-terminal))
