@@ -986,6 +986,39 @@ kill all buffers you were using in a frame before closing it.
 
 #+END_SRC
 
+*** TODO Transparency
+
+Transparency is totally useless, but it looks cool.  Luckily transparent
+background support was added in Emacs 29!
+
+TODO: Why doesn’t ~mm--set-frame-alpha-background~ get run automatically?
+
+#+BEGIN_SRC elisp
+
+  (defun mm--set-frame-alpha-background (&optional frame)
+    "Set the background opacity of FRAME to ‘mm-alpha-background’.  If FRAME is
+  nil then the selected frame is used."
+    (when (display-graphic-p)
+      (set-frame-parameter frame 'alpha-background mm-alpha-background)))
+
+  (defcustom mm-alpha-background 90
+    "The opacity of a graphical Emacs frame, ranging from 0–100.  This variable
+  should customized via ‘setopt’ so that the correct setter gets executed.  For
+  interactive customization you can use ‘mm-set-alpha-background’."
+    :type '(natnum)
+    :set (lambda (symbol value)
+           (set symbol value)
+           (mm--set-frame-alpha-background)))
+
+  (defun mm-set-alpha-background (val)
+    "Set the current frames background opacity to VAL."
+    (interactive "NOpacity: ")
+    (setopt mm-alpha-background val))
+
+  (add-hook 'after-make-frame-functions #'mm--set-frame-alpha-background)
+
+#+END_SRC
+
 ** Extra Modes
 
 Some modes aren’t installed by default with Emacs, so let’s fetch them
