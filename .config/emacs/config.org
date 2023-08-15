@@ -245,10 +245,11 @@ here.
 
 #+BEGIN_SRC elisp
 
-  (global-set-key
-   (kbd "C-c e")
+  (keymap-global-set
+   "C-c e"
    (λ (interactive)
-      (find-file (expand-file-name "config.org" mango-config-directory))))
+      (find-file
+       (expand-file-name "config.org" mango-config-directory))))
 
 #+END_SRC
 
