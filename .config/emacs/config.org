@@ -1022,8 +1022,8 @@ file with a certain file extension.
   (require 'rust-ts-mode)
   (require 'yaml-ts-mode)
 
-  (cl-dolist (pair `((,(rx ".rs" eos)           . rust-ts-mode)
-                     (,(rx (or ".yml" ".yaml")) . yaml-ts-mode)))
+  (cl-dolist (pair '(("\\.rs\\'"    . rust-ts-mode)
+                     ("\\.ya?ml\\'" . yaml-ts-mode)))
     (add-to-list 'auto-mode-alist pair))
 
 #+END_SRC
