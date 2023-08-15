@@ -1031,6 +1031,18 @@ Some modes aren’t installed by default with Emacs, so let’s fetch them
 
 #+END_SRC
 
+** Auto-Start Modes
+
+Some modes need to be manually configured to automatically start when opening a
+file with a certain file extension.
+
+#+BEGIN_SRC elisp
+
+  (require 'rust-ts-mode)
+  (add-to-list 'auto-mode-alist '("\\.rsl\\'" . rust-ts-mode))
+
+#+END_SRC
+
 ** Customization Settings
 
 Emacs has a /customization variable/ that contains various configuration-related
