@@ -254,7 +254,6 @@ here.
 #+END_SRC
 
 *** Evil Mode
-DEADLINE: <2023-08-16 Wed>
 
 The default Emacs keybindings are horrible and dangerous.  Feel free to use them
 if you want to develop genuine problems with your hands.  For this reason,
