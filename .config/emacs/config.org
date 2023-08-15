@@ -49,21 +49,21 @@ These are nice for keeping things organized and out of the way.
 
 #+BEGIN_SRC elisp
 
-  (defconst mm-cache-directory
+  (defconst mango-cache-directory
     (expand-file-name
      "emacs"
      (or (getenv "XDG_CACHE_HOME")
          (expand-file-name ".cache" (getenv "HOME"))))
     "The XDG-conformant cache directory that Emacs should use.")
 
-  (defconst mm-config-directory
+  (defconst mango-config-directory
     (expand-file-name
      "emacs"
      (or (getenv "XDG_CONFIG_HOME")
          (expand-file-name ".config" (getenv "HOME"))))
     "The XDG-conformant config directory that Emacs should use.")
 
-  (defconst mm-data-directory
+  (defconst mango-data-directory
     (expand-file-name
      "emacs"
      (or (getenv "XDG_DATA_HOME")
@@ -77,9 +77,9 @@ We also need to ensure our directories actually exist.
 #+BEGIN_SRC elisp
 
   (mapc (lambda (x) (make-directory x t))
-        (list mm-cache-directory
-              mm-config-directory
-              mm-data-directory))
+        (list mango-cache-directory
+              mango-config-directory
+              mango-data-directory))
 
 #+END_SRC
 
@@ -88,11 +88,11 @@ directory; let’s throw it all in the cache directory instead.
 
 #+BEGIN_SRC elisp
 
-  (setq user-emacs-directory mm-cache-directory
+  (setq user-emacs-directory mango-cache-directory
         auto-save-list-file-prefix (expand-file-name "auto-save-list/"
-                                                     mm-cache-directory)
+                                                     mango-cache-directory)
         backup-directory-alist`(("." . ,(expand-file-name "backups"
-                                                          mm-cache-directory))))
+                                                          mango-cache-directory))))
 
 #+END_SRC
 
@@ -152,7 +152,7 @@ here.
 
 #+BEGIN_SRC elisp
 
-  (defun mm-mode-to-hook (mode)
+  (defun mango-mode-to-hook (mode)
     "Get the hook corresponding to MODE."
     (declare (pure t) (side-effect-free t))
     (intern (concat (symbol-name mode) "-hook")))
@@ -169,7 +169,7 @@ grab one from the other.
 
 #+BEGIN_SRC elisp
 
-  (defun mm-mode-to-ts-mode (mode)
+  (defun mango-mode-to-ts-mode (mode)
     "Get the tree-sitter mode corresponding to MODE."
     (declare (pure t) (side-effect-free t))
     (intern (concat
@@ -187,7 +187,7 @@ make it just that little bit easier for me:
 
 #+BEGIN_SRC elisp
 
-  (defmacro mm-for-each (sequence &rest body)
+  (defmacro mango-for-each (sequence &rest body)
     "Execute BODY for each element of SEQUENCE.  The variable ‘x’ is automatically
   set to the current subject of the iteration."
     (declare (indent defun))
@@ -263,11 +263,12 @@ here.
   (global-set-key
    (kbd "C-c e")
    (λ (interactive)
-      (find-file (expand-file-name "config.org" mm-config-directory))))
+      (find-file (expand-file-name "config.org" mango-config-directory))))
 
 #+END_SRC
 
 *** Evil Mode
+DEADLINE: <2023-08-16 Wed>
 
 The default Emacs keybindings are horrible and dangerous.  Feel free to use them
 if you want to develop genuine problems with your hands.  For this reason,
@@ -288,9 +289,9 @@ I like to have ~visual-line-mode~ enabled as I find it far more intuitive.
            ("<leader>j" . #'evil-window-down)
            ("<leader>k" . #'evil-window-up)
            ("<leader>l" . #'evil-window-right)
-           ("<leader>a" . #'mm--evil-align-regexp)
-           ("<leader>s" . #'mm--evil-sort-lines)
-           ("<leader>;" . #'mm--evil-comment-or-uncomment-region))
+           ("<leader>a" . #'mango--evil-align-regexp)
+           ("<leader>s" . #'mango--evil-sort-lines)
+           ("<leader>;" . #'mango--evil-comment-or-uncomment-region))
     :init
     ;; We need to set these variables before loading ‘evil-mode’
     (setq evil-want-Y-yank-to-eol t
@@ -330,7 +331,7 @@ object/ to make them work properly.  Also we add some custom Jinja pairs!
 
 #+BEGIN_SRC elisp
 
-  (defmacro mm--evil-define-and-bind-quoted-text-object (name key start-regex end-regex)
+  (defmacro mango--evil-define-and-bind-quoted-text-object (name key start-regex end-regex)
     (let ((inner-name (make-symbol (concat "evil-inner-" name)))
           (outer-name (make-symbol (concat "evil-a-" name))))
       `(progn
@@ -341,10 +342,10 @@ object/ to make them work properly.  Also we add some custom Jinja pairs!
          (define-key evil-inner-text-objects-map ,key #',inner-name)
          (define-key evil-outer-text-objects-map ,key #',outer-name))))
 
-  (mm--evil-define-and-bind-quoted-text-object "single-quote-open"  "‘" "‘" "’")
-  (mm--evil-define-and-bind-quoted-text-object "single-quote-close" "’" "‘" "’")
-  (mm--evil-define-and-bind-quoted-text-object "double-quote-open"  "“" "“" "”")
-  (mm--evil-define-and-bind-quoted-text-object "double-quote-close" "”" "“" "”")
+  (mango--evil-define-and-bind-quoted-text-object "single-quote-open"  "‘" "‘" "’")
+  (mango--evil-define-and-bind-quoted-text-object "single-quote-close" "’" "‘" "’")
+  (mango--evil-define-and-bind-quoted-text-object "double-quote-open"  "“" "“" "”")
+  (mango--evil-define-and-bind-quoted-text-object "double-quote-close" "”" "“" "”")
 
   (setq-default
    evil-surround-pairs-alist
@@ -364,9 +365,9 @@ object/ to make them work properly.  Also we add some custom Jinja pairs!
           (?# . ("{# " . " #}"))
           (?{ . ("{{ " . " }}")))
         evil-surround-pairs-alist))
-      (mm--evil-define-and-bind-quoted-text-object "jinja-action"  "%" "{%" "%}")
-      (mm--evil-define-and-bind-quoted-text-object "jinja-comment" "#" "{#" "#}")
-      (mm--evil-define-and-bind-quoted-text-object "jinja-code"    "{" "{{" "}}")))
+      (mango--evil-define-and-bind-quoted-text-object "jinja-action"  "%" "{%" "%}")
+      (mango--evil-define-and-bind-quoted-text-object "jinja-comment" "#" "{#" "#}")
+      (mango--evil-define-and-bind-quoted-text-object "jinja-code"    "{" "{{" "}}")))
 
 #+END_SRC
 
@@ -407,7 +408,7 @@ operator so it can be used with Vim motions.
 
 #+BEGIN_SRC elisp
 
-  (evil-define-operator mm--evil-align-regexp (beg end regexp repeat)
+  (evil-define-operator mango--evil-align-regexp (beg end regexp repeat)
     "Wrapper around ‘align-regexp’ to allow for use as an ‘evil-mode’ operator."
     (interactive (let ((range (evil-operator-range)))
                    (list (car range)
@@ -426,7 +427,7 @@ that too?
 
 #+BEGIN_SRC elisp
 
-  (evil-define-operator mm--evil-sort-lines (beg end)
+  (evil-define-operator mango--evil-sort-lines (beg end)
     "Wrapper around ‘sort-lines’ to allow for use as an ‘evil-mode’ operator."
     (sort-lines nil beg end))
 
@@ -438,7 +439,7 @@ Commenting code is a super common task — so make it an operator!
 
 #+BEGIN_SRC elisp
 
-  (evil-define-operator mm--evil-comment-or-uncomment-region (beg end)
+  (evil-define-operator mango--evil-comment-or-uncomment-region (beg end)
     "Wrapper around ‘comment-or-uncomment-region’ to allow for use as
   an ‘evil-mode’ operator."
     (comment-or-uncomment-region beg end))
@@ -464,11 +465,11 @@ Vertico is a great package for enhanced completions in the minibuffer.  It’s
 minimal and works great.  We also want to configure the highlighting of the
 current line to match up with what is used for ~hl-line-mode~.  Vertico also
 doesn’t offer a builtin function to go up a directory when typing out a path, so
-that’s what the ~mm-minibuffer-backward-kill~ is for.
+that’s what the ~mango-minibuffer-backward-kill~ is for.
 
 #+BEGIN_SRC elisp
 
-  (defun mm-minibuffer-backward-kill (arg)
+  (defun mango-minibuffer-backward-kill (arg)
     "When minibuffer is completing a file name delete up to parent folder,
   otherwise delete a word."
     (interactive "p")
@@ -484,13 +485,13 @@ that’s what the ~mm-minibuffer-backward-kill~ is for.
            ("C-k" . vertico-previous)
            ("C-l" . vertico-insert)
            :map minibuffer-local-map
-           ("C-h" . mm-minibuffer-backward-kill))
+           ("C-h" . mango-minibuffer-backward-kill))
     :custom
     (vertico-cycle t)
     :init
     (vertico-mode)
     (add-hook
-     'mm-after-load-theme-hook
+     'mango-after-load-theme-hook
      (λ (face-spec-set
          'vertico-current
          `((t (:background
@@ -571,7 +572,7 @@ with a custom function that reads a list of mode-specific indentation settings.
                 evil-shift-width 8
                 indent-tabs-mode t)
 
-  (defvar mm-indentation-settings
+  (defvar mango-indentation-settings
     '((c-mode :width 8 :extra-vars (c-basic-offset))
       (css-mode :extra-vars (css-indent-offset))
       (emacs-lisp-mode :spaces t)
@@ -595,10 +596,10 @@ with a custom function that reads a list of mode-specific indentation settings.
   If :extra-vars is non-nill, then it shall be a list of additional mode-specific
   variables that need to be assigned the desired indentation-width.")
 
-  (defun mm-set-indentation-settings ()
-    "Apply the indentation settings specified by ‘mm-indentation-settings’."
+  (defun mango-set-indentation-settings ()
+    "Apply the indentation settings specified by ‘mango-indentation-settings’."
     (interactive)
-    (mm-for-each mm-indentation-settings
+    (mango-for-each mango-indentation-settings
       (let* ((mode (car x))
              (args (cdr x))
              (width (or (plist-get args :width) (default-value 'tab-width)))
@@ -608,11 +609,11 @@ with a custom function that reads a list of mode-specific indentation settings.
               (λ (indent-tabs-mode (when spaces -1))
                  (setq-local tab-width width
                              evil-shift-width width)
-                 (mm-for-each extra (set x width)))))
-        (add-hook (mm-mode-to-hook mode) callback 95)
-        (add-hook (mm-mode-to-hook (mm-mode-to-ts-mode mode)) callback 95))))
+                 (mango-for-each extra (set x width)))))
+        (add-hook (mango-mode-to-hook mode) callback 95)
+        (add-hook (mango-mode-to-hook (mango-mode-to-ts-mode mode)) callback 95))))
 
-  (mm-set-indentation-settings)
+  (mango-set-indentation-settings)
 
 #+END_SRC
 
@@ -816,14 +817,14 @@ want this /everywhere/.
 
 #+BEGIN_SRC elisp
 
-  (defvar mm-highlight-matching-parenthesis-modes
+  (defvar mango-highlight-matching-parenthesis-modes
     '(prog-mode conf-mode)
     "A list of modes for which the parenthesis that pairs up with the parenthesis
   at point should be highlighted.")
 
   (show-paren-mode -1)
 
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-highlight-matching-parenthesis-modes)
+  (mango-for-each (mapcar #'mango-mode-to-hook mango-highlight-matching-parenthesis-modes)
     (add-hook x #'show-paren-local-mode))
 
 #+END_SRC
@@ -844,17 +845,17 @@ display line numbers in certain modes.
   (column-number-mode)
 
   ;; Enable and disable line numbers for some modes
-  (defvar mm-enable-line-numbers-modes
+  (defvar mango-enable-line-numbers-modes
     '(text-mode prog-mode conf-mode)
     "A list of modes for which line numbers should be displayed.")
 
-  (defvar mm-disable-line-numbers-modes
+  (defvar mango-disable-line-numbers-modes
     '(org-mode)
     "A list of modes for which line numbers shouldn’t be displayed.")
 
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-enable-line-numbers-modes)
+  (mango-for-each (mapcar #'mango-mode-to-hook mango-enable-line-numbers-modes)
     (add-hook x #'display-line-numbers-mode))
-  (mm-for-each (mapcar #'mm-mode-to-hook mm-disable-line-numbers-modes)
+  (mango-for-each (mapcar #'mango-mode-to-hook mango-disable-line-numbers-modes)
     (add-hook x (λ (display-line-numbers-mode -1))))
 
 #+END_SRC
@@ -886,12 +887,12 @@ the ~load-theme~ function to fire a hook.
 
 #+BEGIN_SRC elisp
 
-  (defvar mm-after-load-theme-hook nil
+  (defvar mango-after-load-theme-hook nil
     "Hook called after ‘load-theme’ is run.")
 
   (defadvice load-theme (after load-theme-with-hooks preactivate compile)
-    "Advice to run ‘mm-after-load-theme-hook’ hooks after loading a custom theme."
-    (run-hooks 'mm-after-load-theme-hook))
+    "Advice to run ‘mango-after-load-theme-hook’ hooks after loading a custom theme."
+    (run-hooks 'mango-after-load-theme-hook))
 
 #+END_SRC
 
@@ -909,11 +910,11 @@ play around with this.
 
 #+BEGIN_SRC elisp
 
-  (defvar mm-monospace-font '("Iosevka Smooth" :weight light :height 162)
+  (defvar mango-monospace-font '("Iosevka Smooth" :weight light :height 162)
     "The default monospace font to use.  This is a list containing a font name,
   font weight, and font height in that order.")
 
-  (defvar mm-proportional-font '("Ysabeau" :weight light :height 180)
+  (defvar mango-proportional-font '("Ysabeau" :weight light :height 180)
     "The default proportional font to use.  This is a list containing a font name,
   font weight, and font height in that order.")
 
@@ -926,13 +927,13 @@ every frame.  We also can’t forget the frame that’s actually running this co
 
 #+BEGIN_SRC elisp
 
-  (defun mm-set-fonts ()
-    "Set the fonts specified by ‘mm-monospace-font’ and ‘mm-proportional-font’."
+  (defun mango-set-fonts ()
+    "Set the fonts specified by ‘mango-monospace-font’ and ‘mango-proportional-font’."
     (interactive)
-    (let* ((mono-family (car mm-monospace-font))
-           (mono-props  (cdr mm-monospace-font))
-           (prop-family (car mm-proportional-font))
-           (prop-props  (cdr mm-proportional-font))
+    (let* ((mono-family (car mango-monospace-font))
+           (mono-props  (cdr mango-monospace-font))
+           (prop-family (car mango-proportional-font))
+           (prop-props  (cdr mango-proportional-font))
            (mono-weight (plist-get mono-props :weight))
            (mono-height (plist-get mono-props :height))
            (prop-weight (plist-get prop-props :weight))
@@ -950,8 +951,8 @@ every frame.  We also can’t forget the frame that’s actually running this co
                           :weight prop-weight
                           :height prop-height)))
 
-  (add-hook 'after-make-frame-functions (lambda (_) (mm-set-fonts)))
-  (mm-set-fonts)
+  (add-hook 'after-make-frame-functions (lambda (_) (mango-set-fonts)))
+  (mango-set-fonts)
 
 #+END_SRC
 
@@ -979,7 +980,7 @@ kill all buffers you were using in a frame before closing it.
     :init
     (beframe-mode))
 
-  (defun mm-beframe-kill-frame ()
+  (defun mango-beframe-kill-frame ()
     (interactive)
     (mapc #'kill-buffer (beframe-buffer-list))
     (save-buffers-kill-terminal))
@@ -993,16 +994,16 @@ background support was added in Emacs 29!
 
 #+BEGIN_SRC elisp
 
-  (defvar mm-alpha-background 90
+  (defvar mango-alpha-background 90
     "The opacity of a graphical Emacs frame, ranging from 0–100.  A value of 0 is
   fully transparent while a value of 100 is fully opaque.")
 
-  (defun mm-set-alpha-background (value)
+  (defun mango-set-alpha-background (value)
     "Set the current frames background opacity to VALUE."
     (interactive "NOpacity: ")
     (set-frame-parameter nil 'alpha-background value))
 
-  (add-to-list 'default-frame-alist (cons 'alpha-background mm-alpha-background))
+  (add-to-list 'default-frame-alist (cons 'alpha-background mango-alpha-background))
 
 #+END_SRC
 
@@ -1028,7 +1029,7 @@ file with a certain file extension.
   (require 'rust-ts-mode)
   (require 'yaml-ts-mode)
 
-  (mm-for-each `((,(rx ".rs" eos) . rust-ts-mode)
+  (mango-for-each `((,(rx ".rs" eos) . rust-ts-mode)
                  (,(rx (or ".yml" ".yaml")) . yaml-ts-mode))
     (add-to-list 'auto-mode-alist x))
 
@@ -1134,7 +1135,7 @@ directories just get created automatically.
                     t t)
           (add-hook 'after-save-hook #'mango--remove-auto-directory-hooks t t)))))
 
-  (mm-for-each #'(find-file
+  (mango-for-each #'(find-file
                   find-alternate-file
                   write-file)
     (advice-add x :around #'mango--auto-create-directories))
@@ -1176,7 +1177,7 @@ directories just get created automatically.
     (message-sendmail-extra-arguments '("--read-envelope-from"))
     (message-send-mail-function 'message-send-mail-with-sendmail)
     :config
-    (setq mm--mu4e-personal-context
+    (setq mango--mu4e-personal-context
           (make-mu4e-context
            :name "Personal"
            :match-func
@@ -1193,7 +1194,7 @@ directories just get created automatically.
                                                (:name "Drafts"  :maildir "/mail@thomasvoss.com/Drafts"  :key ?d)
                                                (:name "Sent"    :maildir "/mail@thomasvoss.com/Sent"    :key ?s)
                                                (:name "Junk"    :maildir "/mail@thomasvoss.com/Junk"    :key ?j))))))
-    (setq mm--mu4e-legacy-context
+    (setq mango--mu4e-legacy-context
           (make-mu4e-context
            :name "Legacy"
            :match-func
@@ -1212,7 +1213,7 @@ directories just get created automatically.
                                                (:name "Drafts"  :maildir "/thomasvoss@live.com/Drafts"  :key ?d)
                                                (:name "Sent"    :maildir "/thomasvoss@live.com/Sent"    :key ?s)
                                                (:name "Junk"    :maildir "/thomasvoss@live.com/Junk"    :key ?j))))))
-    (setq mm--mu4e-humanwave-context
+    (setq mango--mu4e-humanwave-context
           (make-mu4e-context
            :name "Humanwave"
            :match-func
@@ -1231,8 +1232,8 @@ directories just get created automatically.
                                                (:name "Sent"    :maildir "/thomas.voss@humanwave.nl/[Gmail]/Sent Mail" :key ?s)
                                                (:name "Junk"    :maildir "/thomas.voss@humanwave.nl/[Gmail]/Junk"      :key ?j))))))
 
-    (setq mu4e-contexts (list mm--mu4e-personal-context
-                              mm--mu4e-legacy-context
-                              mm--mu4e-humanwave-context)))
+    (setq mu4e-contexts (list mango--mu4e-personal-context
+                              mango--mu4e-legacy-context
+                              mango--mu4e-humanwave-context)))
 
 #+END_SRC
