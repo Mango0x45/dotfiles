@@ -706,8 +706,8 @@ every time.  I would like to have this buffer, but only when things go wrong.
   (add-hook 'compilation-finish-functions
             (lambda (buffer _)
               (with-current-buffer buffer
-                (unless (or (> compilation-num-warnings-found 0)
-                            (> compilation-num-errors-found   0))
+                (when (= 0 compilation-num-errors-found
+                         compilation-num-warnings-found)
                   (kill-buffer buffer)))))
 
 #+END_SRC
