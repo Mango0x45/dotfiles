@@ -574,6 +574,7 @@ with a custom function that reads a list of mode-specific indentation settings.
     '((c-mode :width 8 :extra-vars (c-basic-offset))
       (css-mode :extra-vars (css-indent-offset))
       (emacs-lisp-mode :spaces t)
+      (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
       (lisp-mode :spaces t)
       (org-mode :spaces t)
       (python-mode :width 4 :spaces nil :extra-vars (python-indent-offset))
@@ -974,8 +975,9 @@ Some modes aren’t installed by default with Emacs, so let’s fetch them
 
 #+BEGIN_SRC elisp
 
-  (use-package markdown-mode)
   (use-package git-modes)
+  (use-package graphviz-dot-mode)
+  (use-package markdown-mode)
 
 #+END_SRC
 
