@@ -1102,6 +1102,73 @@ mixed on when I do and -don’t want it.  I always want it in ~org-mode~ though.
 
 #+END_SRC
 
+** Auto-Directories
+
+When creating new files, the parent directories often don’t exist and I need to
+make them manually with =M-x make-directory RET RET=.  I would prefer that these
+directories just get created automatically.
+
+#+BEGIN_SRC elisp
+
+  (defun mango--auto-create-directories
+      (original-function filename &rest args)
+    "Automatically create and delete parent directories of files.  This is an
+  ‘:override’ advice for ‘find-file’ and friends.  It automatically creates the
+  parent directory (or directories) of the file being visited, if necessary.  It
+  also sets a buffer-local variable so that the user will be prompted to delete
+  the newly created directories if they kill the buffer without saving it."
+    (let (dirs-to-delete)
+      (unless (file-exists-p filename)
+        (let* ((dir-to-create (file-name-directory filename))
+               (current-dir dir-to-create))
+          ;; We want to go up each directory component and add them to
+          ;; ‘dirs-to-delete’ individually.
+          (while (not (file-exists-p current-dir))
+            (push current-dir dirs-to-delete)
+            (setq current-dir (file-name-directory
+                               (directory-file-name current-dir))))
+
+          (unless (file-exists-p dir-to-create)
+            (make-directory dir-to-create t))))
+
+      ;; Use ‘prog1’ so that we maintain the original return value
+      (prog1 (apply original-function filename args)
+        (when dirs-to-delete
+          (setq-local mango--dirs-to-delete (reverse dirs-to-delete))
+
+          ;; When we kill the buffer we want to ask if we should delete parent
+          ;; directories *unless* the buffer was saved, in which case we don’t
+          ;; want to do anything.
+          (add-hook 'kill-buffer-hook #'mango--delete-directories-if-appropriate
+                    t t)
+          (add-hook 'after-save-hook #'mango--remove-auto-directory-hooks t t)))))
+
+  (mm-for-each #'(find-file
+                  find-alternate-file
+                  write-file
+                  project-find-file)
+    (advice-add x :around #'mango--auto-create-directories))
+
+  (defun mango--delete-directories-if-appropriate ()
+    "Delete parent directories if appropriate.  This is a function for
+  ‘kill-buffer-hook’.  If ‘mango--auto-create-directories’ created the directory
+  containing the file for the current buffer automatically, then offer to delete
+  it.  Otherwise, do nothing.  Also clean up related hooks."
+    (when (not (file-exists-p buffer-file-name))
+      (cl-dolist (dir-to-delete mango--dirs-to-delete)
+        (when (and (stringp dir-to-delete)
+                   (file-exists-p dir-to-delete))
+          (when (y-or-n-p (format "Also delete directory ‘%s’?"
+                                  (directory-file-name dir-to-delete)))
+            (delete-directory dir-to-delete))))))
+
+  (defun mango--remove-auto-directory-hooks ()
+    "Clean up directory-deletion hooks, if necessary."
+    (remove-hook 'kill-buffer-hook #'mango--delete-directories-if-appropriate t)
+    (remove-hook 'after-save-hook #'mango--remove-auto-directory-hooks t))
+
+#+END_SRC
+
 ** Email
 
 #+BEGIN_SRC elisp
