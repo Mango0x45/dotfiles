@@ -1137,8 +1137,7 @@ directories just get created automatically.
 
   (mm-for-each #'(find-file
                   find-alternate-file
-                  write-file
-                  project-find-file)
+                  write-file)
     (advice-add x :around #'mango--auto-create-directories))
 
   (defun mango--delete-directories-if-appropriate ()
