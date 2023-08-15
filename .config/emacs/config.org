@@ -887,7 +887,7 @@ the ~load-theme~ function to fire a hook.
 
 #+END_SRC
 
-*** TODO Fonts
+*** Fonts
 
 My favorite monospace font has got to be /Iosevka/.  It’s good looking, it’s far
 more compact than the usual american-sized monospace fonts, and you can
