@@ -89,10 +89,12 @@ directory; let’s throw it all in the cache directory instead.
 #+BEGIN_SRC elisp
 
   (setq user-emacs-directory mango-cache-directory
-        auto-save-list-file-prefix (expand-file-name "auto-save-list/"
-                                                     mango-cache-directory)
-        backup-directory-alist`(("." . ,(expand-file-name "backups"
-                                                          mango-cache-directory))))
+        auto-save-list-file-prefix (expand-file-name
+                                    "auto-save-list/"
+                                    mango-cache-directory)
+        backup-directory-alist `(("." . ,(expand-file-name
+                                          "backups"
+                                          mango-cache-directory))))
 
 #+END_SRC
 
@@ -316,7 +318,7 @@ object/ to make them work properly.  Also we add some custom Jinja pairs!
 
   (defmacro mango--evil-define-and-bind-quoted-text-object (name key start-regex end-regex)
     (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-          (outer-name (make-symbol (concat "evil-a-" name))))
+          (outer-name (make-symbol (concat "evil-a-"     name))))
       `(progn
          (evil-define-text-object ,inner-name (count &optional beg end type)
            (evil-select-paren ,start-regex ,end-regex beg end type count nil))
