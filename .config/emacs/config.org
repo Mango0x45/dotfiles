@@ -705,6 +705,23 @@ This mode is super useful for writing HTML.  It lets me expand something like
 
 #+END_SRC
 
+*** Compilation Buffer
+
+Emacs allows you to compile your project with =C-x p c= which is cool and all,
+but it annoyingly creates a compilation buffer that I need to manually close
+every time.  I would like to have this buffer, but only when things go wrong.
+
+#+BEGIN_SRC elisp
+
+  (add-hook 'compilation-finish-functions
+            (lambda (buffer _)
+              (with-current-buffer buffer
+                (unless (or (> compilation-num-warnings-found 0)
+                            (> compilation-num-errors-found   0))
+                  (kill-buffer buffer)))))
+
+#+END_SRC
+
 ** User Interface
 
 The default Emacs UI is fucking atrocious — we need to make it better.
