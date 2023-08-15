@@ -380,11 +380,13 @@ use some advice to force the usage of spaces.
 
 #+BEGIN_SRC elisp
 
-  (defadvice align-regexp (around align-regexp-with-spaces preactivate compile)
+  (defun mango--align-regexp-with-spaces (old-function &rest args)
     "Advice to force ‘align-regexp’ to always align with spaces, regardless of the
   value of ‘indent-tabs-mode’."
-    (let ((indent-tabs-mode nil))
-      ad-do-it))
+    (let (indent-tabs-mode)
+      (apply old-function args)))
+
+  (advice-add 'align-regexp :around #'mango--align-regexp-with-spaces)
 
 #+END_SRC
 
@@ -875,9 +877,11 @@ the ~load-theme~ function to fire a hook.
   (defvar mango-after-load-theme-hook nil
     "Hook called after ‘load-theme’ is run.")
 
-  (defadvice load-theme (after load-theme-with-hooks preactivate compile)
-    "Advice to run ‘mango-after-load-theme-hook’ hooks after loading a custom theme."
+  (defun mango--run-after-load-theme-hook (&rest unused)
+    "Run the hooks in ‘mango-after-load-theme-hook’ after we load a new theme."
     (run-hooks 'mango-after-load-theme-hook))
+
+  (advice-add 'load-theme :after #'mango--run-after-load-theme-hook)
 
 #+END_SRC
 
