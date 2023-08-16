@@ -1019,10 +1019,12 @@ file with a certain file extension.
 
 #+BEGIN_SRC elisp
 
+  (require 'python-ts-mode)
   (require 'rust-ts-mode)
   (require 'yaml-ts-mode)
 
-  (cl-dolist (pair '(("\\.rs\\'"    . rust-ts-mode)
+  (cl-dolist (pair '(("\\.py\\'"    . python-ts-mode)
+                     ("\\.rs\\'"    . rust-ts-mode)
                      ("\\.ya?ml\\'" . yaml-ts-mode)))
     (add-to-list 'auto-mode-alist pair))
 
