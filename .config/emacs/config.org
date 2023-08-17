@@ -476,13 +476,7 @@ that’s what the ~mango-minibuffer-backward-kill~ is for.
     :custom
     (vertico-cycle t)
     :init
-    (vertico-mode)
-    (add-hook
-     'mango-after-load-theme-hook
-     (λ (face-spec-set
-         'vertico-current
-         `((t (:background
-               ,(face-attribute 'hl-line :background nil t))))))))
+    (vertico-mode))
 
 #+END_SRC
 
@@ -910,24 +904,6 @@ custom theme.  I do like to keep the older theme around though as a reference.
 
   (use-package color-theme-sanityinc-tomorrow)
   (load-theme 'mango t)
-
-#+END_SRC
-
-There is one issue though.  I like to have ~vertico~ use the same color when
-highlighting my current selection as I use to highlight the current line, and
-that changes with each theme I use.  For this reason we need some advice around
-the ~load-theme~ function to fire a hook.
-
-#+BEGIN_SRC elisp
-
-  (defvar mango-after-load-theme-hook nil
-    "Hook called after ‘load-theme’ is run.")
-
-  (defun mango--run-after-load-theme-hook (&rest unused)
-    "Run the hooks in ‘mango-after-load-theme-hook’ after we load a new theme."
-    (run-hooks 'mango-after-load-theme-hook))
-
-  (advice-add 'load-theme :after #'mango--run-after-load-theme-hook)
 
 #+END_SRC
 

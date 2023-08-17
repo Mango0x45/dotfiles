@@ -127,4 +127,8 @@ graphically, so I shouldn’t need to have multiple specs per face.
 
   ;; Info Page
   (Info-quoted
-   :inherit default))
+   :inherit default)
+
+  ;; Vertico
+  (vertico-current
+   :inherit hl-line))
