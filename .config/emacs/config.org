@@ -931,6 +931,16 @@ the ~load-theme~ function to fire a hook.
 
 #+END_SRC
 
+*** Fringes
+
+It’s also nice to have fringes!
+
+#+BEGIN_SRC elisp
+
+  (set-fringe-style (cons 32 32))
+
+#+END_SRC
+
 *** Line Highlighting
 
 This is just something I personally like having.  It makes it very easy for me
