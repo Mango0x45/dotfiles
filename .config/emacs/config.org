@@ -952,16 +952,22 @@ kill all buffers you were using in a frame before closing it.
 
 #+BEGIN_SRC elisp
 
-  (use-package beframe
-    :init
-    (beframe-mode))
-
-  (defun mango-beframe-kill-frame ()
+  (defun mango-beframe-delete-frame ()
     "Kill all the buffers within the current beframe buffer list and then destroy
   the frame."
     (interactive)
-    (mapc #'kill-buffer (beframe-buffer-list))
-    (save-buffers-kill-terminal))
+    (cl-loop with buffers = (cl-loop for frame in (frame-list)
+                                     unless (eq frame (selected-frame))
+                                     append (beframe-buffer-list frame))
+             for buffer in (beframe-buffer-list)
+             unless (member buffer buffers)
+             do (kill-buffer buffer))
+    (delete-frame))
+
+  (use-package beframe
+    :bind ([remap delete-frame] . mango-beframe-delete-frame)
+    :init
+    (beframe-mode))
 
 #+END_SRC
 
