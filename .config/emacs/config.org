@@ -859,44 +859,6 @@ display line numbers in certain modes.
 
 #+END_SRC
 
-*** Emacs Theme
-
-The default theme is a light theme.  I am not one of these weak-eyed retards
-that cannot handle a light theme, but it is really, /really/ bad.  Personally I
-quite enjoy the /Sanity Inc./ themes, and they’re a lot less generic than the
-Doom One theme that everyone and their grandmother uses.
-
-Personally I am not sure if I prefer ~tomorrow-night~ or ~tomorrow-eighties~, so
-why not make it random?
-
-#+BEGIN_SRC elisp
-
-  (use-package color-theme-sanityinc-tomorrow
-    :config
-    (let ((n (random 2)))
-      (cond ((eq n 0) (load-theme 'sanityinc-tomorrow-night t))
-            ((eq n 1) (load-theme 'sanityinc-tomorrow-eighties t)))))
-
-#+END_SRC
-
-There is one issue though.  I like to have ~vertico~ use the same color when
-highlighting my current selection as I use to highlight the current line, and
-that changes with each theme I use.  For this reason we need some advice around
-the ~load-theme~ function to fire a hook.
-
-#+BEGIN_SRC elisp
-
-  (defvar mango-after-load-theme-hook nil
-    "Hook called after ‘load-theme’ is run.")
-
-  (defun mango--run-after-load-theme-hook (&rest unused)
-    "Run the hooks in ‘mango-after-load-theme-hook’ after we load a new theme."
-    (run-hooks 'mango-after-load-theme-hook))
-
-  (advice-add 'load-theme :after #'mango--run-after-load-theme-hook)
-
-#+END_SRC
-
 *** Fonts
 
 My favorite monospace font has got to be /Iosevka/.  It’s good looking, it’s far
@@ -954,6 +916,36 @@ every frame.  We also can’t forget the frame that’s actually running this co
 
   (add-hook 'after-make-frame-functions (lambda (_) (mango-set-fonts)))
   (mango-set-fonts)
+
+#+END_SRC
+
+*** Emacs Theme
+
+I previously ran the ~sanityinc-tomorrow-eighties~ theme, but I now run my own
+custom theme.  I do like to keep the older theme around though as a reference.
+
+#+BEGIN_SRC elisp
+
+  (use-package color-theme-sanityinc-tomorrow)
+  (load-theme 'mango t)
+
+#+END_SRC
+
+There is one issue though.  I like to have ~vertico~ use the same color when
+highlighting my current selection as I use to highlight the current line, and
+that changes with each theme I use.  For this reason we need some advice around
+the ~load-theme~ function to fire a hook.
+
+#+BEGIN_SRC elisp
+
+  (defvar mango-after-load-theme-hook nil
+    "Hook called after ‘load-theme’ is run.")
+
+  (defun mango--run-after-load-theme-hook (&rest unused)
+    "Run the hooks in ‘mango-after-load-theme-hook’ after we load a new theme."
+    (run-hooks 'mango-after-load-theme-hook))
+
+  (advice-add 'load-theme :after #'mango--run-after-load-theme-hook)
 
 #+END_SRC
 
