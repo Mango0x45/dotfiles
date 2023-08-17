@@ -663,6 +663,16 @@ already installed unfortunately, but it’s easy enough to do manually.
 
 #+END_SRC
 
+I also prefer to have as many things syntax highlighted as possible when using
+tree-sitter, with the ability to fully customize faces (or turn off faces I
+don’t want highlighted).
+
+#+BEGIN_SRC elisp
+
+  (setq treesit-font-lock-level 4)
+
+#+END_SRC
+
 *** Language Server Protocol
 
 LSP is an absolute necessity when programming.  Luckily ~lsp-mode~ has us
