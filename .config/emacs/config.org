@@ -693,12 +693,11 @@ why they won’t just move on from it I have no idea.  I’ll just disable snipp
 #+BEGIN_SRC elisp
 
   (use-package lsp-mode
+    :commands (lsp lsp-deferred)
     :custom
     (lsp-enable-snippet nil)
     :init
-    (setq lsp-keymap-prefix "C-c l")
-    :hook ((rust-ts-mode . lsp-deferred))
-    :commands (lsp lsp-deferred))
+    (setq lsp-keymap-prefix "C-c l"))
 
 #+END_SRC
 
