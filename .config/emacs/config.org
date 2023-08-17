@@ -830,32 +830,14 @@ want this /everywhere/.
 
 *** Line- and Column Numbers
 
-It’s a bit tricky to remember, but ~line-number-mode~ and
-~display-line-numbers-mode~ are very different.  The former displays the current
-line number in the modeline while the latter displays line numbers on the left
-of the buffer.  Personally I like to always display the current line number in
-the modeline along with the column number — I find that it helps me wrap text
-properly when I am not using ~auto-fill-mode~ — but I would prefer to only
-display line numbers in certain modes.
+I like to have line- and column numbers in my modeline.  I find them to be very
+useful to have.  I used to also like to have the current line number on the left
+of the screen, but I don’t really need that information.
 
 #+BEGIN_SRC elisp
 
   (line-number-mode)
   (column-number-mode)
-
-  ;; Enable and disable line numbers for some modes
-  (defvar mango-enable-line-numbers-modes
-    '(text-mode prog-mode conf-mode)
-    "A list of modes for which line numbers should be displayed.")
-
-  (defvar mango-disable-line-numbers-modes
-    '(org-mode)
-    "A list of modes for which line numbers shouldn’t be displayed.")
-
-  (cl-dolist (mode mango-enable-line-numbers-modes)
-    (add-hook (mango-mode-to-hook mode) #'display-line-numbers-mode))
-  (cl-dolist (mode mango-disable-line-numbers-modes)
-    (add-hook (mango-mode-to-hook mode) (λ (display-line-numbers-mode -1))))
 
 #+END_SRC
 
