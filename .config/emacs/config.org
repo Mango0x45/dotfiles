@@ -721,12 +721,23 @@ every time.  I would like to have this buffer, but only when things go wrong.
 
 #+BEGIN_SRC elisp
 
-  (add-hook 'compilation-finish-functions
-            (lambda (buffer _)
-              (with-current-buffer buffer
-                (when (= 0 compilation-num-errors-found
-                         compilation-num-warnings-found)
-                  (kill-buffer buffer)))))
+  (defun mango--compilation-make-window ()
+    "Make a new vertical split for the compilation buffer if such a buffer doesn’t
+  already exist."
+    (unless (get-buffer "*compilation*")
+      (split-window-vertically)))
+
+  (defun mango--compilation-exit-autoclose (status code msg)
+    "Automatically bury the compilation buffer and delete the compilation window
+  if compilation was successful."
+    (when (and (eq status 'exit)
+               (zerop code))
+      (bury-buffer)
+      (delete-window (get-buffer-window "*compilation*")))
+    (cons msg code))
+
+  (add-hook 'compilation-mode-hook #'mango--compilation-make-window)
+  (setq compilation-exit-message-function #'mango--compilation-exit-autoclose)
 
 #+END_SRC
 
