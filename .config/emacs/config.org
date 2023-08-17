@@ -1036,6 +1036,19 @@ version numbers to the backup names — it doesn’t start using a VCS.
 
 *** Org-Mode
 
+**** Fontify Blockquotes
+
+I want to be able to customize the faces of blockquotes, so we need to enable
+that setting with ~org-mode~
+
+#+BEGIN_SRC elisp
+
+  (setopt org-fontify-quote-and-verse-blocks t)
+
+#+END_SRC
+
+**** Visual Intentation
+
 I really enjoy using ~org-indent-mode~.  It indents the contents of the
 org-buffer to keep everything looking nice and structured.
 

@@ -124,6 +124,9 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :background ,(mango-theme--get-color 'background-cool))
   (org-hide
    :foreground ,(mango-theme--get-color 'background))
+  (org-quote
+   :inherit org-block
+   :slant italic)
 
   ;; Info Page
   (Info-quoted
