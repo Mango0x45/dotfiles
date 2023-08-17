@@ -102,12 +102,27 @@ directory; let’s throw it all in the cache directory instead.
 
 These are just some limits Emacs abides by as far as garbage-collection and
 process communication go.  They’re pretty low by default though; any modern
-system is capable of much higher.
+system is capable of much higher.  To improve startup performance the garbage
+collection theshold is set to the max until Emacs is initialized.  Additionally
+the documentation for ~read-process-output-max~ gives us a hint at how large we
+can set it:
+
+#+BEGIN_QUOTE
+
+  On GNU/Linux systems, the value should not exceed
+  =/proc/sys/fs/pipe-max-size=.  See pipe(7) manpage for details.
+
+#+END_QUOTE
 
 #+BEGIN_SRC elisp
 
-  (setq gc-cons-threshold (* 512 1-MiB)
-        read-process-output-max 1-MiB)
+  (setq gc-cons-threshold most-positive-fixnum)
+  (add-hook 'after-init-hook
+            (lambda () (setq gc-cons-threshold (* 512 1-MiB))))
+
+  (with-temp-buffer
+    (insert-file-contents "/proc/sys/fs/pipe-max-size")
+    (setq read-process-output-max (number-at-point)))
 
 #+END_SRC
 
