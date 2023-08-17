@@ -597,7 +597,7 @@ with a custom function that reads a list of mode-specific indentation settings.
   (defun mango-set-indentation-settings ()
     "Apply the indentation settings specified by ‘mango-indentation-settings’."
     (interactive)
-    (cl-dolist (plist mango-indentation-settings)
+    (dolist (plist mango-indentation-settings)
       (let* ((mode (car plist))
              (args (cdr plist))
              (width (or (plist-get args :width) (default-value 'tab-width)))
@@ -607,7 +607,7 @@ with a custom function that reads a list of mode-specific indentation settings.
               (λ (indent-tabs-mode (when spaces -1))
                  (setq-local tab-width width
                              evil-shift-width width)
-                 (cl-dolist (var extra) (set var width)))))
+                 (dolist (var extra) (set var width)))))
         (add-hook (mango-mode-to-hook mode) callback 95)
         (add-hook (mango-mode-to-hook (mango-mode-to-ts-mode mode)) callback 95))))
 
@@ -832,7 +832,7 @@ want this /everywhere/.
 
   (show-paren-mode -1)
 
-  (cl-dolist (mode mango-highlight-matching-parenthesis-modes)
+  (dolist (mode mango-highlight-matching-parenthesis-modes)
     (add-hook (mango-mode-to-hook mode) #'show-paren-local-mode))
 
 #+END_SRC
@@ -1007,9 +1007,9 @@ file with a certain file extension.
   (require 'rust-ts-mode)
   (require 'yaml-ts-mode)
 
-  (cl-dolist (pair '(("\\.py\\'"    . python-ts-mode)
-                     ("\\.rs\\'"    . rust-ts-mode)
-                     ("\\.ya?ml\\'" . yaml-ts-mode)))
+  (dolist (pair '(("\\.py\\'"    . python-ts-mode)
+                  ("\\.rs\\'"    . rust-ts-mode)
+                  ("\\.ya?ml\\'" . yaml-ts-mode)))
     (add-to-list 'auto-mode-alist pair))
 
 #+END_SRC
@@ -1127,9 +1127,9 @@ directories just get created automatically.
                     t t)
           (add-hook 'after-save-hook #'mango--remove-auto-directory-hooks t t)))))
 
-  (cl-dolist (command #'(find-file
-                         find-alternate-file
-                         write-file))
+  (dolist (command #'(find-file
+                      find-alternate-file
+                      write-file))
     (advice-add command :around #'mango--auto-create-directories))
 
   (defun mango--delete-directories-if-appropriate ()
@@ -1138,7 +1138,7 @@ directories just get created automatically.
   containing the file for the current buffer automatically, then offer to delete
   it.  Otherwise, do nothing.  Also clean up related hooks."
     (when (not (file-exists-p buffer-file-name))
-      (cl-dolist (dir-to-delete mango--dirs-to-delete)
+      (dolist (dir-to-delete mango--dirs-to-delete)
         (when (and (stringp dir-to-delete)
                    (file-exists-p dir-to-delete))
           (when (y-or-n-p (format "Also delete directory ‘%s’?"
