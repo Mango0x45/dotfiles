@@ -901,7 +901,7 @@ play around with this.
 
 #+BEGIN_SRC elisp
 
-  (defvar mango-monospace-font '("Iosevka Smooth" :weight light :height 162)
+  (defvar mango-monospace-font '("Iosevka Smooth" :weight regular :height 162)
     "The default monospace font to use.  This is a list containing a font name,
   font weight, and font height in that order.")
 
