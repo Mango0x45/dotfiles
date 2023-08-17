@@ -1019,7 +1019,6 @@ file with a certain file extension.
 
 #+BEGIN_SRC elisp
 
-  (require 'python-ts-mode)
   (require 'rust-ts-mode)
   (require 'yaml-ts-mode)
 
