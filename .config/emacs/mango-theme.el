@@ -59,7 +59,7 @@ graphically, so I shouldn’t need to have multiple specs per face.
     (khaki            "#F0E68C")
     (lime             "#B8F182")
     (orange           "#F1B282")
-    (citron           "#ED97F5"))
+    (pink             "#ED97F5")
     (spanish-red      "#E60026")))
 
 (mango-theme--generate-set-faces
@@ -106,7 +106,7 @@ graphically, so I shouldn’t need to have multiple specs per face.
   (font-lock-function-name-face
    :foreground ,(mango-theme--get-color 'khaki))
   (font-lock-preprocessor-face
-   :foreground ,(mango-theme--get-color 'citron)
+   :foreground ,(mango-theme--get-color 'pink)
    :weight bold)
 
   ;; Variables
