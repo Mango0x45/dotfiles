@@ -1118,18 +1118,17 @@ directories just get created automatically.
   also sets a buffer-local variable so that the user will be prompted to delete
   the newly created directories if they kill the buffer without saving it."
     (let (dirs-to-delete)
-      (unless (file-exists-p filename)
-        (let* ((dir-to-create (file-name-directory filename))
-               (current-dir dir-to-create))
-          ;; We want to go up each directory component and add them to
-          ;; ‘dirs-to-delete’ individually.
-          (while (not (file-exists-p current-dir))
-            (push current-dir dirs-to-delete)
-            (setq current-dir (file-name-directory
-                               (directory-file-name current-dir))))
+      (let* ((dir-to-create (file-name-directory filename))
+             (current-dir dir-to-create))
+        ;; We want to go up each directory component and add them to
+        ;; ‘dirs-to-delete’ individually.
+        (while (not (file-exists-p current-dir))
+          (push current-dir dirs-to-delete)
+          (setq current-dir (file-name-directory
+                             (directory-file-name current-dir))))
 
-          (unless (file-exists-p dir-to-create)
-            (make-directory dir-to-create t))))
+        (unless (file-exists-p dir-to-create)
+          (make-directory dir-to-create t)))
 
       ;; Use ‘prog1’ so that we maintain the original return value
       (prog1 (apply original-function filename args)
@@ -1153,13 +1152,13 @@ directories just get created automatically.
   ‘kill-buffer-hook’.  If ‘mango--auto-create-directories’ created the directory
   containing the file for the current buffer automatically, then offer to delete
   it.  Otherwise, do nothing.  Also clean up related hooks."
-    (when (not (file-exists-p buffer-file-name))
+    (unless (file-exists-p buffer-file-name)
       (dolist (dir-to-delete mango--dirs-to-delete)
         (when (and (stringp dir-to-delete)
-                   (file-exists-p dir-to-delete))
-          (when (y-or-n-p (format "Also delete directory ‘%s’?"
-                                  (directory-file-name dir-to-delete)))
-            (delete-directory dir-to-delete))))))
+                   (file-exists-p dir-to-delete)
+                   (y-or-n-p (format "Also delete directory ‘%s’?"
+                                     (directory-file-name dir-to-delete))))
+          (delete-directory dir-to-delete)))))
 
   (defun mango--remove-auto-directory-hooks ()
     "Clean up directory-deletion hooks, if necessary."
