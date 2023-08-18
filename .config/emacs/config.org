@@ -812,7 +812,7 @@ even a pixel-precision scrolling mode!
         mouse-wheel-progressive-speed nil
         mouse-wheel-follow-mouse t
         scroll-step 1)
-  (pixel-scroll-precision-mode)
+  ;; (pixel-scroll-precision-mode)
 
 #+END_SRC
 
