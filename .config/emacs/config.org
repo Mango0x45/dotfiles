@@ -637,6 +637,15 @@ that simply finds all the TODOs in a repository and displays them in the
     :after magit
     :init (magit-todos-mode))
 
+  (defun mango--magit-status ()
+    (interactive)
+    (thread-last
+      (project-current t)
+      (project-root)
+      (magit-status)))
+
+  (add-to-list 'project-switch-commands '(mango--magit-status "Git Status" ?g))
+
 #+END_SRC
 
 *** Tree-Sitter
