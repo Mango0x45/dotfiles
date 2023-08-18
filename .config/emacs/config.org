@@ -543,7 +543,9 @@ autocompleting code but has other uses too I guess.
 
 #+END_SRC
 
-** Mathematics
+** Math and Numbers
+
+*** Calc
 
 The built-in emacs calculator ~calc~ is genuinely the best calculator program I
 have ever used.  Annoyingly though, it has a ‘trail’ that is always around.  I
@@ -552,6 +554,41 @@ don’t like it.
 #+BEGIN_SRC elisp
 
   (setq calc-display-trail nil)
+
+#+END_SRC
+
+*** Increment- and Decrement Number at Point
+
+This is a pretty standard Vim feature that I dearly miss having.
+
+#+BEGIN_SRC elisp
+
+  (defun mango-increment-number-at-point (&optional arg)
+    "Increment the number at point by ARG or 1 if ARG is nil.  If called
+  interactively, the universal argument can be used to specify ARG.  If the number
+  at point has leading zeros then the width of the number is preserved."
+    (interactive "p*")
+    (save-excursion
+      (save-match-data
+        (skip-chars-backward "0123456789")
+        (when (eq (char-before (point)) ?-)
+          (goto-char (1- (point))))
+        (when (re-search-forward "-?\\([0-9]+\\)" nil t)
+          (let ((answer (+ (string-to-number (match-string 0) 10)
+                           (or arg 1)))
+                (width (length (match-string 1))))
+            (replace-match
+             (format
+              (concat "%0" (int-to-string (if (< answer 0) (1+ width) width)) "d")
+              answer)))))))
+
+  (defun mango-decrement-number-at-point (&optional arg)
+    "The same as ‘mango-increment-number-at-point’, but ARG is negated."
+    (interactive "p*")
+    (mango-increment-number-at-point (- (or arg 1))))
+
+  (keymap-global-set "C-c a" #'mango-increment-number-at-point)
+  (keymap-global-set "C-c x" #'mango-decrement-number-at-point)
 
 #+END_SRC
 
