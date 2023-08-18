@@ -59,7 +59,8 @@ graphically, so I shouldn’t need to have multiple specs per face.
     (khaki            "#F0E68C")
     (lime             "#B8F182")
     (orange           "#F1B282")
-    (citron           "#ED97F5")))
+    (citron           "#ED97F5"))
+    (spanish-red      "#E60026")))
 
 (mango-theme--generate-set-faces
   ;; Standard Stuff
@@ -131,6 +132,23 @@ graphically, so I shouldn’t need to have multiple specs per face.
   ;; Info Page
   (Info-quoted
    :inherit default)
+
+  ;; Magit
+  (magit-diff-hunk-heading
+   :background ,(mango-theme--get-color 'background-cool))
+  (magit-diff-hunk-heading-highlight
+   :background ,(mango-theme--get-color 'middleground))
+  (magit-diff-context-highlight
+   :inherit hl-line)
+  (magit-section-highlight
+   :inherit hl-line)
+
+  (git-commit-summary
+   :foreground ,(mango-theme--get-color 'khaki))
+  (git-commit-overlong-summary
+   :foreground ,(mango-theme--get-color 'foreground)
+   :background ,(mango-theme--get-color 'spanish-red)
+   :weight bold)
 
   ;; Vertico
   (vertico-current
