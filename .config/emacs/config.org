@@ -681,6 +681,7 @@ that simply finds all the TODOs in a repository and displays them in the
       (project-root)
       (magit-status)))
 
+  (require 'project)
   (add-to-list 'project-switch-commands '(mango--magit-status "Git Status" ?g))
 
 #+END_SRC
