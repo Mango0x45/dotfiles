@@ -295,7 +295,6 @@ I like to have ~visual-line-mode~ enabled as I find it far more intuitive.
     :init
     ;; We need to set these variables before loading ‘evil-mode’
     (setq evil-want-Y-yank-to-eol t
-          evil-search-wrap nil
           evil-v$-excludes-newline t
           evil-respect-visual-line-mode t
           evil-split-window-below t
