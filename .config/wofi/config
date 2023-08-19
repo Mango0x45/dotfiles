@@ -1,0 +1,7 @@
+prompt=input…
+height=50%
+width=50%
+insensitive=true
+key_up=Control_L-k
+key_down=Control_L-j
+layer=overlay

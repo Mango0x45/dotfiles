@@ -1,0 +1,30 @@
+* {
+	border: none;
+	border-radius: 3px;
+	color: rgb(197, 200, 198);
+	font-size: 28px;
+	font-family: 'Iosevka Smooth';
+}
+
+#outer-box {
+	border: 3px solid #FAA14F;
+}
+
+#window {
+	background-color: rgba(43, 48, 59, 0.9);
+}
+
+#input {
+	/* Hack to just inherit from ‘#window’ */
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 0;
+	border-bottom: 3px solid #FAA14F;
+}
+
+#entry, #input {
+	padding: .25em .5em;
+}
+
+#entry:selected {
+	background-color: rgba(65, 72, 89, 0.9);
+}
