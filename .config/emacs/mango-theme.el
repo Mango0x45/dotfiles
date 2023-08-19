@@ -76,8 +76,10 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :background ,(mango-theme--get-color 'background-faint))
   (region
    :background ,(mango-theme--get-color 'middleground))
-  (mode-line
+  (header-line
    :background ,(mango-theme--get-color 'middleground))
+  (mode-line
+   :inherit header-line)
   (mode-line-inactive
    :background ,(mango-theme--get-color 'background-cool)
    :weight light)
