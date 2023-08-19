@@ -60,7 +60,8 @@ graphically, so I shouldn’t need to have multiple specs per face.
     (lime             "#B8F182")
     (orange           "#F1B282")
     (pink             "#ED97F5")
-    (spanish-red      "#E60026")))
+    (spanish-red      "#E60026"))
+  "The color palette used throughout the ‘mango’ theme.")
 
 (mango-theme--generate-set-faces
   ;; Standard Stuff
