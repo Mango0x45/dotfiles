@@ -43,7 +43,7 @@ graphically, so I shouldn’t need to have multiple specs per face.
   (declare (indent 0))
   (let ((ret '('mango custom-theme-set-faces)))
     (dolist (spec body)
-      (add-to-list 'ret `(backquote ,(list (car spec) `((t ,(cdr spec)))))))
+      (add-to-list 'ret `(backquote ,(list (car spec) `((((type graphic)) ,(cdr spec)))))))
     (reverse ret)))
 
 (defconst mango-theme-palette
