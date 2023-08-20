@@ -3,6 +3,9 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; So we can let the WM make this a floating window
+(setq frame-title-format "ec")
+
 ;; XDG Directories
 (defconst xdg-cache-home
   (or (getenv "XDG_CACHE_HOME")
