@@ -1,10 +1,4 @@
-#!/bin/env -S emacs -Q -nw -l
+#!/bin/sh
 
-(menu-bar-mode -1)
-
-(setq select-enable-primary t
-      help-window-select t
-      calc-display-trail nil)
-
-(full-calc)
-(keymap-set calc-mode-map "q" #'kill-emacs)
+[ -t 2 ] && mode=t || mode=c
+exec emacsclient -s ec -$mode
