@@ -822,6 +822,19 @@ every time.  I would like to have this buffer, but only when things go wrong.
 
 #+END_SRC
 
+*** Projects
+
+I want to have all my projects automatically added to the project list.
+
+#+BEGIN_SRC elisp
+
+  (project-remember-projects-under
+   (or (getenv "REPODIR")
+       (expand-file-name "code/repo" (getenv "HOME")))
+   'recursive)
+
+#+END_SRC
+
 ** User Interface
 
 The default Emacs UI is fucking atrocious — we need to make it better.
