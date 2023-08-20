@@ -526,20 +526,54 @@ that have components beginning with /foo/, /bar/, and /baz/ in that order.
 
 #+END_SRC
 
-*** TODO Company
+*** Company
 
 Company is a package to give me actual completion popups; it’s super useful for
 autocompleting code but has other uses too I guess.
 
 #+BEGIN_SRC elisp
 
-  ;; TODO: Properly configure ‘company’
+  (defun mango--company-require-prefix (candidates)
+    "Transformer for ‘company-mode’ that requires that all candidates begin with
+  ‘company-prefix’."
+    (seq-filter (lambda (s) (string-prefix-p company-prefix s)) candidates))
+
+  (defun mango--company-select-candidate (pred)
+    "Select either the next or previous candidate in the candidate list based on
+  the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PRED."
+    (let ((ov company-pseudo-tooltip-overlay))
+      (if (and ov (apply pred (list (overlay-get ov 'company-height) 0)))
+          (company-select-previous)
+        (company-select-next))))
+
+  (defun mango-company-next-candidate ()
+    "Select the next available candidate, taking into account if the candidate
+  list is flipped or not."
+    (interactive)
+    (mango--company-select-candidate #'<))
+
+  (defun mango-company-previous-candidate ()
+    "Select the previous available candidate, taking into account if the candidate
+  list is flipped or not."
+    (interactive)
+    (mango--company-select-candidate #'>))
 
   (use-package company
+    :bind (:map company-active-map
+           ("C-j" . #'mango-company-next-candidate)
+           ("C-k" . #'mango-company-previous-candidate))
     :hook ((conf-mode prog-mode) . company-mode)
     :custom
     (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0))
+    (company-idle-delay (lambda () (unless (company-in-string-or-comment) 0)))
+    (company-selection-wrap-around t)
+    (company-tooltip-align-annotations t)
+    (company-tooltip-flip-when-above t)
+    (company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
+                         company-preview-frontend
+                         company-echo-metadata-frontend))
+    (company-transformers '(mango--company-require-prefix
+                            company-sort-by-backend-importance)))
 
 #+END_SRC
 
