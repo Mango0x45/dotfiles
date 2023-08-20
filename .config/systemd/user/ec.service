@@ -1,5 +1,5 @@
 [Unit]
-Description=Emacs calculator (GUI)
+Description=Emacs calculator
 Documentation=info:calc https://www.gnu.org/software/emacs/manual/html_mono/calc.html
 
 [Service]
