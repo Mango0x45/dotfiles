@@ -1,0 +1,13 @@
+[Unit]
+Description=Emacs calculator (GUI)
+Documentation=info:calc https://www.gnu.org/software/emacs/manual/html_mono/calc.html
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/emacs --daemon=ec --init-directory=/home/thomas/.config/ec
+ExecStop=/usr/bin/emacsclient -s ec -e '(kill-emacs)'
+Environment=XDG_CONFIG_HOME=/home/thomas/.config
+Restart=no
+
+[Install]
+WantedBy=default.target
