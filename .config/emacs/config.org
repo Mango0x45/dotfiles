@@ -1191,8 +1191,7 @@ directories just get created automatically.
 
 #+BEGIN_SRC elisp
 
-  (defun mango--auto-create-directories
-      (original-function filename &rest args)
+  (defun mango--auto-create-directories (original-function filename &rest args)
     "Automatically create and delete parent directories of files.  This is an
   ‘:override’ advice for ‘find-file’ and friends.  It automatically creates the
   parent directory (or directories) of the file being visited, if necessary.  It
