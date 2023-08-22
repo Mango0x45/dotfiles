@@ -2,9 +2,7 @@
 
 set -e
 
-choice="`timedatectl list-timezones \
-	| grep './.' \
-	| wofi -dMfuzzy -Oalphabetical`"
+choice="`timedatectl list-timezones | grep './.' | osel`"
 
 [ -n "$choice" ] \
 	&& sudo timedatectl set-timezone "$choice" \
