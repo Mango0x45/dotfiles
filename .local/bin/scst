@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+notify() {
+	notify-send -a ${0##*/} -i "$filename" 'Screenshot copied' \
+		'Screenshot successfully copied to the clipboard'
+}
+
+if [ $# -eq 1 -a "$1" = "-f" ]; then
+	fflag=true
+	shift
+fi
+
+[ $# -ge 1 ] && {
+	echo "Usage: ${0##*/} [-f]" >&2
+	exit 1
+}
+
+outdir=${XDG_PICTURES_DIR:-$HOME/Pictures}/screen
+filename="$outdir/`date +%F_%T.png`"
+[ -d "$outdir" ] || mkdir -p "$outdir"
+
+if ${fflag:-false}; then
+	grim "$filename"
+else
+	slurp 2>/dev/null | ifne grim -g - "$filename"
+fi
+
+[ -f "$filename" ] || exit 1
+
+printf 'Copy screenshot\nEdit- and copy screenshot\n' \
+	| osel \
+	| if read res && [ "$res" = 'Copy screenshot' ]; then
+		wl-copy <"$filename"
+		notify
+	elif [ "$res" = 'Edit- and copy screenshot' ]; then
+		swappy -f "$filename" -o - | pee wl-copy cat | sponge "$filename"
+		notify
+	fi
