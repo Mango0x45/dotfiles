@@ -839,6 +839,16 @@ I want to have all my projects automatically added to the project list.
 
 The default Emacs UI is fucking atrocious — we need to make it better.
 
+*** Cursor Blink
+
+I personally don’t like cursors blinking, so let’s disable that.
+
+#+BEGIN_SRC elisp
+
+  (blink-cursor-mode -1)
+
+#+END_SRC
+
 *** Shorter Prompts
 
 For some reason emacs has both the ~y-or-n-p~ and ~yes-or-no-p~ functions.  I do
