@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+choice="`timedatectl list-timezones \
+	| grep './.' \
+	| wofi -dMfuzzy -Oalphabetical`"
+
+[ -n "$choice" ] \
+	&& sudo timedatectl set-timezone "$choice" \
+	&& notify-send -a "${0##*/}" -u normal 'Timezone changed' \
+		"The system timezone was changed to ‘$choice’."
