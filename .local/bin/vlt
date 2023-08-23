@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+[ $# -ne 0 ] && {
+	echo "Usage: ${0##*/}" >&2
+	exit 1
+}
+
+: ${vault:="${XDG_DATA_HOME:-$HOME/.local/share}/vault"}
+[ -d "$vault" ] || mkdir -p "$vault"
+cd "$vault"
+
+# We use ‘*’ instead of ‘.’ to avoid the leading ‘./’
+choice="`find * -type f | osel`"
+password="`enchive extract "$choice" /dev/stdout`"
+[ -n "$password" ] \
+	&& { printf '%s' "$password" | wl-copy -no; } \
+	&& notify-send -a "${0##*/}" -u normal \
+		'Password copied to the clipboard' \
+		"The password for ‘$choice’ was copied to the clipboard."
