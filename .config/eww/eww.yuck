@@ -1,21 +1,21 @@
 ;; Listeners
 (deflisten active-workspace
-  `scripts/active-workspace-listener`)
+  `stdbuf -oL scripts/active-workspace-listener`)
 
 (deflisten workspace-list :initial "[1]"
-  `scripts/workspace-list-listener`)
+  `stdbuf -oL scripts/workspace-list-listener`)
 
 (deflisten datetime
-  `scripts/datetime-listener`)
+  `stdbuf -oL scripts/datetime-listener`)
 
 (deflisten brightness
-  `scripts/backlight-listener`)
+  `stdbuf -oL scripts/backlight-listener`)
 
-(deflisten volume
-  `scripts/volume-listener`)
+(deflisten volume :initial "0%"
+  `stdbuf -oL scripts/volume-listener`)
 
 (deflisten keymap
-  `scripts/keymap-listener`)
+  `stdbuf -oL scripts/keymap-listener`)
 
 ;; Pollers
 (defpoll battery :interval "1s"
