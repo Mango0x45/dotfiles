@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+export OSEL_GUI='wofi -d -r "echo \"%s\" | cut -f2 | xargs echo -n"'
+
+choice="`sed -En 's/\s*name\[Group1\]\s*=\s*"([^"]*)"\s*;\s*/\1/p' \
+	~/.xkb/symbols/mango \
+	| sort \
+	| nl -v0 -nln \
+	| osel`"
+
+[ -n "$choice" ] && {
+	hyprctl -j devices \
+		| jq -r '.keyboards[-1].name' \
+		| xargs -I{} hyprctl switchxkblayout {} ${choice%	*}
+	notify-send -a "${0##*/}" -u normal 'Keyboard Layout Changed' \
+		"The keyboard layout was changed to ‘${choice##*	}’"
+}
