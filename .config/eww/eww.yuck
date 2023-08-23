@@ -1,0 +1,105 @@
+;; Listeners
+(deflisten active-workspace
+  `scripts/active-workspace-listener`)
+
+(deflisten workspace-list :initial "[1]"
+  `scripts/workspace-list-listener`)
+
+(deflisten datetime
+  `scripts/datetime-listener`)
+
+(deflisten brightness
+  `scripts/backlight-listener`)
+
+(deflisten volume
+  `scripts/volume-listener`)
+
+(deflisten keymap
+  `scripts/keymap-listener`)
+
+;; Pollers
+(defpoll battery :interval "1s"
+  `scripts/battery`)
+
+(defpoll wireless :interval "1s"
+  `scripts/wireless`)
+
+;; Windows
+(defwindow bar
+    :monitor 0
+    :stacking "fg"
+    :exclusive true
+    :geometry (geometry :width "100%" :height "40px" :anchor "top center")
+  (bar))
+
+(defwindow calendar-1
+    :monitor 0
+    :geometry (geometry :x "10%" :width "20%" :anchor "center left")
+  (calendar :class "cal"
+            :month {datetime.month - 1}))
+
+(defwindow calendar-2
+    :monitor 0
+    :geometry (geometry :width "20%" :anchor "center")
+  (calendar :class "cal"))
+
+(defwindow calendar-3
+    :monitor 0
+    :geometry (geometry :x "10%" :width "20%" :anchor "center right")
+  (calendar :class "cal"
+            :month {datetime.month + 1}))
+
+(defwidget bar []
+  (centerbox
+    (start)
+    (middle)
+    (end)))
+
+(defwidget start []
+  (workspaces))
+
+(defwidget middle []
+  (clock))
+
+(defwidget end []
+  (box :halign "end"
+       :class "end"
+       :space-evenly false
+    (keymap)
+    (wireless)
+    (brightness)
+    (volume)
+    (battery)))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :space-evenly false
+    (for id in workspace-list
+      (button :class {active-workspace == id ? "active" : ""}
+              :onclick `hyprctl dispatch workspace ${id}`
+        id))))
+
+(defwidget clock []
+  (box (button :onclick `scripts/toggle calendar-1 calendar-2 calendar-3`
+         {datetime.pretty})))
+
+(defwidget wireless []
+  (pair :icon "" :text wireless))
+
+(defwidget keymap []
+  (pair :icon "" :text keymap))
+
+(defwidget brightness []
+  (pair :icon "" :text brightness))
+
+(defwidget volume []
+  (pair :icon {volume.icon} :text {volume.percentage}))
+
+(defwidget battery []
+  (pair :icon {battery.icon} :text {battery.percentage}))
+
+(defwidget pair [icon text]
+  (box :width 70
+       :space-evenly false
+    (label :text icon)
+    (label :text text)))

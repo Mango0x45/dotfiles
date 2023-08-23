@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while :
+do
+	lux | xargs printf '%g%%\n'
+	inotifywait -qqe modify /sys/class/backlight/*/brightness
+done

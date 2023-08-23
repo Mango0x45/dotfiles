@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while :
+do
+	date +'pretty=%d %B %Y (%A) — %T %Z%nmonth=%m' | jo
+	date +%s.%N | dc -e "? d 1 + 1 / r - p" | xargs sleep
+done

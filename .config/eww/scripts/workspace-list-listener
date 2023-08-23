@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
+
+spaces="`hyprctl -j workspaces | jq -r 'sort_by(.id) | .[] | .name'`"
+jo -a $spaces
+
+socat -u UNIX-CONNECT:"$IPC" - \
+	| stdbuf -oL grep -E '^(create|destroy)workspace>>' \
+	| while IFS= read -r line
+	do
+		oifs="$IFS"
+		IFS='>>'
+		set -- $line
+		IFS="$oifs"
+
+		case "$1" in
+		c*)
+			spaces="`printf '%s\n%s\n' "$spaces" $3 | sort -V`"
+			;;
+		d*)
+			spaces="`echo "$spaces" | grep -v "^$3$"`"
+			;;
+		esac
+		jo -a $spaces
+	done

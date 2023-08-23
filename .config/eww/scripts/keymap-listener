@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
+
+hyprctl devices | sed -En '/Keyboard at/ {
+	:loop
+	n
+	/active keymap:/! b loop
+	s/.*active keymap: //p
+	q
+}
+'
+
+socat -u UNIX-CONNECT:"$IPC" - | sed -En 's/^activelayout>>[^,]+,//p'
