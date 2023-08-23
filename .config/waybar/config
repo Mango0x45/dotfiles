@@ -23,7 +23,7 @@
 	"clock": {
 		"interval": 1,
 		// https://www.typeerror.org/docs/cpp/chrono/format
-		"format": "{:%d %B %Y (%a) — %T %Z}"
+		"format": "{:%d %B %Y (%A) — %T %Z}"
 	},
 	"custom/keyboard": {
 		"interval": 1,
