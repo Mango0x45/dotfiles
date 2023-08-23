@@ -2,4 +2,4 @@
 
 : ${OSEL_GUI:=wofi -d}
 : ${OSEL_TERM:=fzf}
-if [ -t 2 ]; then $OSEL_TERM; else $OSEL_GUI; fi
+if [ -t 2 ]; then eval $OSEL_TERM; else eval $OSEL_GUI; fi
