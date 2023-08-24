@@ -3,6 +3,7 @@
 set -e
 
 export OSEL_GUI_FLAGS='-r "echo \"%s\" | cut -f2 | xargs echo -n"'
+export OSEL_TERM_FLAGS='--with-nth=2..'
 
 if choice="`
 	sed -En 's/\s*name\[Group1\]\s*=\s*"([^"]*)"\s*;\s*/\1/p' \
