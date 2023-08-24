@@ -66,10 +66,7 @@ export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export PATH="$HOME/.local/bin:$HOME/.local/sbin:$GOROOT/bin:$GOPATH/bin:$PATH"
 
 export GPG_TTY=`tty`
-
 export VAULT_2FA='2 Factor Authentication'
-export VAULT_COPY='wl-copy -no'
-export VAULT_SHOW='wofi -d'
 
 alias d='git --git-dir="$REPODIR/Mango0x45/dotfiles.git" --work-tree="$HOME"'
 alias g=git
