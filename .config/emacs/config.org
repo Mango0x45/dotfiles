@@ -784,6 +784,16 @@ why they won’t just move on from it I have no idea.  I’ll just disable snipp
 
 #+END_SRC
 
+I use ~pyright~ as my Python LSP only because I know no better option.  It does
+need some this custom package though.
+
+#+BEGIN_SRC elisp
+
+  (use-package lsp-pyright
+    :hook (python-ts-mode . (λ (require 'lsp-pyright) (lsp))))
+
+#+END_SRC
+
 *** Emmet-Mode
 
 This mode is super useful for writing HTML.  It lets me expand something like
