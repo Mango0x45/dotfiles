@@ -790,7 +790,7 @@ need some this custom package though.
 #+BEGIN_SRC elisp
 
   (use-package lsp-pyright
-    :hook (python-ts-mode . (λ (require 'lsp-pyright) (lsp))))
+    :hook (python-ts-mode . (lambda () (require 'lsp-pyright) (lsp))))
 
 #+END_SRC
 
