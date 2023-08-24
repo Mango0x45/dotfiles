@@ -642,16 +642,18 @@ with a custom function that reads a list of mode-specific indentation settings.
                 indent-tabs-mode t)
 
   (defvar mango-indentation-settings
-    '((c-mode :width 8 :extra-vars (c-basic-offset))
+    '((bash-ts-mode :width 4)
+      (c-mode :width 8 :extra-vars (c-basic-offset))
       (css-mode :extra-vars (css-indent-offset))
       (emacs-lisp-mode :spaces t)
       (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
       (lisp-mode :spaces t)
       (org-mode :spaces t)
-      (python-mode :width 4 :spaces nil :extra-vars (python-indent-offset))
-      (rust-mode :width 4 :spaces nil)
-      (sgml-mode :width 4 :spaces nil :extra-vars (sgml-basic-offset))
-      (xml-mode :width 4 :spaces nil))
+      (python-mode :width 4 :extra-vars (python-indent-offset))
+      (rust-mode :width 4)
+      (sgml-mode :width 2 :extra-vars (sgml-basic-offset))
+      (sh-mode :width 4 :extra-vars (sh-basic-offset))
+      (xml-mode :width 4))
     "A list of per-mode indentation settings.  Each list contains a major-mode and
   the 3 optional keyword arguments of :spaces, :width, and :extra-vars.  When
   setting the settings for a given major-mode, the settings will also be applied
