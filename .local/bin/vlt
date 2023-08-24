@@ -15,10 +15,12 @@ sanitize()
 
 usage()
 {
-	echo "Usage: ${0##*/} add [-c]"  >&2
-	echo "       ${0##*/} edit [-c]" >&2
-	echo "       ${0##*/} get"       >&2
-	echo "       ${0##*/} rm [-c]"   >&2
+	cat <<-EOF >&2
+	Usage: ${0##*/} add [-c]
+	       ${0##*/} edit [-c]
+	       ${0##*/} get
+	       ${0##*/} rm [-c]
+	EOF
 	exit 1
 }
 
