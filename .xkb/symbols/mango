@@ -39,8 +39,8 @@ xkb_symbols "german" {
 	include "mango(basic)"
 	name[Group1] = "Mango (German)";
 
-	key <AC10> { [ NoSymbol, NoSymbol, singlelowquotemark,  doublelowquotemark  ] };
-	key <AC11> { [ NoSymbol, NoSymbol, leftsinglequotemark, leftdoublequotemark ] };
+	key <AC10> { [ space, space, singlelowquotemark,  doublelowquotemark  ] };
+	key <AC11> { [ space, space, leftsinglequotemark, leftdoublequotemark ] };
 };
 
 partial
@@ -48,8 +48,8 @@ xkb_symbols "coding" {
 	include "mango(basic)"
 	name[Group1] = "Mango (Coding)";
 
-	key <AE04> { [ dollar,   NoSymbol, EuroSign, NoSymbol ] };
-	key <AE05> { [ NoSymbol, NoSymbol, EuroSign, NoSymbol ] };
+	key <AE04> { [ dollar,   4,        EuroSign, EuroSign ] };
+	key <AE05> { [ NoSymbol, NoSymbol, EuroSign, EuroSign ] };
 
-	key <SPCE> { [ space, NoSymbol, nobreakspace, NoSymbol ] }; // NO-BREAK SPACE
+	key <SPCE> { [ space, space, nobreakspace, nobreakspace ] };
 };
