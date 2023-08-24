@@ -2,20 +2,313 @@
 
 set -e
 
-[ $# -ne 0 ] && {
-	echo "Usage: ${0##*/}" >&2
+sanitize()
+{
+	s="${1#"${1%%[![:space:]]*}"}"
+	s="${s%"${s##*[![:space:]]}"}"
+	if [ "${#s}" -eq 0 ]
+	then
+		notify 'Invalid Input' 'Empty strings do not constitute valid input'
+		exit 1
+	fi
+}
+
+usage()
+{
+	echo "Usage: ${0##*/} add [-c]"  >&2
+	echo "       ${0##*/} edit [-c]" >&2
+	echo "       ${0##*/} get"       >&2
+	echo "       ${0##*/} rm [-c]"   >&2
 	exit 1
 }
 
-: ${vault:="${XDG_DATA_HOME:-$HOME/.local/share}/vault"}
-[ -d "$vault" ] || mkdir -p "$vault"
-cd "$vault"
+xecho()
+{
+	printf '%s' "$@"
+}
 
-# We use ‘*’ instead of ‘.’ to avoid the leading ‘./’
-choice="`find * -type f | osel`"
-password="`enchive extract "$choice" /dev/stdout`"
-[ -n "$password" ] \
-	&& { printf '%s' "$password" | wl-copy -no; } \
-	&& notify-send -a "${0##*/}" -u normal \
-		'Password copied to the clipboard' \
-		"The password for ‘$choice’ was copied to the clipboard."
+notify()
+{
+	if [ -t 2 ]
+	then
+		printf "%s: %s\n" "${0##*/}" "$2" >&2
+	else
+		notify-send -a "${0##*/}" -u normal "$1" "$2."
+	fi
+}
+
+prompt()
+{
+	if [ -t 2 ]
+	then
+		printf '%s ' "$1"
+		read -r s
+	else
+		s="`zenity --title=zenity --entry --text="$1"`"
+	fi
+	sanitize "$s"
+}
+
+xprompt()
+{
+	if [ -t 2 ]
+	then
+		printf '%s ' "$1"
+		stty -echo
+		trap 'stty echo' INT
+		read -r s
+		stty echo
+		trap - INT
+		echo
+	else
+		s="`zenity --title=zenity --password --text="$1"`"
+	fi
+	sanitize "$s"
+}
+
+add()
+{
+	shift
+
+	while getopts 'c' opt
+	do
+		case $opt in
+		c)
+			add_c
+			exit 0
+			;;
+		*)
+			usage
+			;;
+		esac
+	done
+
+	readonly data="`enchive extract <"$VAULT"`"
+
+	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
+
+	prompt 'Password name:'
+	n="$s"
+
+	xecho "$data" \
+		| jq -e --arg c "$c" --arg n "$n" '.[$c] | has($n) | not' >/dev/null || {
+			notify 'Failed To Add Password' "The password ‘$n’ already exists"
+			exit 1
+		}
+
+	if [ "$VAULT_2FA" = "$c" ]
+	then
+		xprompt 'Secret key:'; k="$s"
+		prompt 'Digits:'; d="$s"
+		prompt 'Period:'
+
+		xecho "$data" \
+			| jq --arg c "$c" \
+			     --arg n "$n" \
+			     --arg s "$k" \
+			     --arg d "$d" \
+			     --arg p "$s" \
+				'.[$c] += {($n): {
+					"secret": $s,
+					"digits": ($d | tonumber),
+					"period": ($p | tonumber)
+				}}' \
+			| enchive archive >"$VAULT"
+		[ ! -t 2 ] && notify '2FA Key Added' \
+			"The 2FA key ‘$n’ was added with the digit length ‘$d’ and period ‘$p’"
+	else
+		xprompt 'Password:'
+
+		xecho "$data" \
+			| jq --arg c "$c" --arg n "$n" --arg s "$s" '.[$c] += {($n): $s}' \
+			| enchive archive >"$VAULT"
+		[ ! -t 2 ] && notify 'Password Added' \
+			"The password ‘$n’ was added to the category ‘$c’"
+	fi
+}
+
+add_c()
+{
+	readonly data="`enchive extract <"$VAULT"`"
+
+	prompt 'Category to create:'
+
+	xecho "$data" | jq -e --arg s "$s" 'has($s) | not' >/dev/null || {
+		notify 'Failed To Create Category' "The category ‘$s’ already exists"
+		exit 1
+	}
+
+	xecho "$data" \
+		| jq --arg s "$s" '. + {($s): {}}' \
+		| enchive archive >"$VAULT"
+	[ ! -t 2 ] && \
+		notify 'Category Created' "The password category ‘$s’ was created"
+}
+
+get()
+{
+	readonly data="`enchive extract <"$VAULT"`"
+
+	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
+	o="`xecho "$data" | jq -r --arg c "$c" '.[$c] | keys | .[]' | osel`"
+
+	xecho "$data" | if [ "$VAULT_2FA" = "$c" ]
+	then
+		eval "`jq -r --arg c "$c" --arg o "$o" '
+		   .[$c]
+		   | .[$o]
+		   | "totp -d"
+		   + (.digits | tostring)
+		   + " -p"
+		   + (.period | tostring)
+		   + " "
+		   + .secret
+		'`" \
+			| wl-copy -no \
+			&& [ ! -t 2 ] \
+			&& notify '2FA Code Copied To The Clipboard' \
+			"The 2FA code for ‘$o’ was copied to the clipboard"
+	else
+		jq -r --arg c "$c" --arg o "$o" '.[$c] | .[$o]' \
+			| wl-copy -no \
+			&& [ ! -t 2 ] \
+			&& notify 'Password Copied To The Clipboard' \
+			"The password for ‘$o’ was copied to the clipboard"
+	fi
+}
+
+rm_()
+{
+	shift
+
+	while getopts 'c' opt
+	do
+		case $opt in
+		c)
+			rm_c
+			exit 0
+			;;
+		*)
+			usage
+			;;
+		esac
+	done
+
+	readonly data="`enchive extract <"$VAULT"`"
+
+	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
+	n="`xecho "$data" | jq -r --arg c "$c" '.[$c] | keys | .[]' | osel`"
+
+	xecho "$data" \
+		| jq --arg c "$c" --arg n "$n" 'del(.[$c] | .[$n])' \
+		| enchive archive >"$VAULT"
+	[ ! -t 2 ] && notify 'Removed Password' \
+		"The password ‘$n’ was removed from the category ‘$c’"
+}
+
+rm_c()
+{
+	readonly data="`enchive extract <"$VAULT"`"
+
+	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
+
+	xecho "$data" \
+		| jq -e --arg c "$c" '.[$c] | length == 0' >/dev/null || {
+			notify 'Failed To Remove Category' "The category ‘$c’ is not empty"
+			exit 1
+		}
+
+	xecho "$data" \
+		| jq --arg c "$c" 'del(.[$c])' \
+		| enchive archive >"$VAULT"
+	[ ! -t 2 ] && notify 'Removed Category' "The category ‘$c’ was removed"
+}
+
+edit()
+{
+	shift
+
+	while getopts 'c' opt
+	do
+		case $opt in
+		c)
+			edit_c
+			exit 0
+			;;
+		*)
+			usage
+			;;
+		esac
+	done
+
+	readonly data="`enchive extract <"$VAULT"`"
+
+	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
+	o="`xecho "$data" | jq -r --arg c "$c" '.[$c] | keys | .[]' | osel`"
+
+	if [ "$VAULT_2FA" = "$c" ]
+	then
+		xprompt 'Secret key:'; k="$s"
+		prompt 'Digits:'; d="$s"
+		prompt 'Period:'
+
+		xecho "$data" \
+			| jq --arg c "$c" \
+			     --arg o "$o" \
+			     --arg s "$k" \
+			     --arg d "$d" \
+			     --arg p "$s" \
+				'.[$c] += {($n): {
+					"secret": $s,
+					"digits": ($d | tonumber),
+					"period": ($p | tonumber)
+				}}' \
+			| enchive archive >"$VAULT"
+		[ ! -t 2 ] && notify '2FA Key Added' \
+			"The 2FA key ‘$n’ was added with the digit length ‘$d’ and period ‘$p’"
+	else
+		xprompt 'Password:'
+		xecho "$data" \
+			| jq --arg c "$c" --arg n "$n" --arg s "$s" '.[$c] += {($n): $s}' \
+			| enchive archive >"$VAULT"
+		[ ! -t 2 ] && notify 'Password Edit' \
+			"The password ‘$n’ in the category ‘$c’ was changed"
+	fi
+}
+
+edit_c()
+{
+	readonly data="`enchive extract <"$VAULT"`"
+
+	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
+	prompt 'Category name:'
+	xecho "$data" \
+		| jq --arg o "$c" --arg n "$s" \
+			 'with_entries(if .key == $o then .key = $n else . end)' \
+		| enchive archive >"$VAULT"
+	[ ! -t 2 ] && notify 'Category Edit' "The category ‘$c’ was renamed"
+}
+
+: ${VAULT_2FA:="2fa"}
+: ${VAULT_HOME:=${XDG_DATA_HOME:-$HOME/.local/share}/vault}
+readonly VAULT="${VAULT_HOME}/vault.sec"
+
+[ $# -eq 0 ] && usage
+
+case "$1" in
+add)
+	add "$@"
+	;;
+edit)
+	edit "$@"
+	;;
+get)
+	get
+	;;
+rm)
+	rm_ "$@"
+	;;
+*)
+	usage
+	;;
+esac
