@@ -6,5 +6,5 @@ readonly tmpl="${XDG_DATA_HOME:-$HOME/.local/share}/send-package/template"
 
 sed -En '/^Angel Cakes/,/^Doozies/s/(\t|\s{2,})/\n/gp' ~/doc/tit-names \
 	| shuf -n1 \
-	| xargs -I{} -- sed -e 's/$REPLACEME/{}/' -e "s/\$TO/$TO/" "$tmpl"
-	| msmtp -t --read-envelope-from
+	| xargs -I{} -- sed 's/$REPLACEME/{}/' "$tmpl" \
+	| msmtp --read-envelope-from "$TO"
