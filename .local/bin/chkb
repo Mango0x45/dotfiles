@@ -2,7 +2,8 @@
 
 set -e
 
-export OSEL_GUI_FLAGS='-r "echo \"%s\" | cut -f2 | xargs echo -n"'
+OSEL_GUI_FLAGS='-r "echo \"%s\" | cut -f2 | xargs echo -n"'
+export OSEL_GUI_FLAGS="$OSEL_GUI_FLAGS -Oalphabetical"
 export OSEL_TERM_FLAGS='--with-nth=2..'
 
 if choice="`
