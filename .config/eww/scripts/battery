@@ -2,31 +2,37 @@
 
 set -e
 
+cd /sys/class/power_supply/BAT1
+
 awk '
-	{
-		printf "percentage=%d%%\n", $0
+	FILENAME == "capacity" {
+		val = $0
+		printf "percentage=%d%%\n", val
+	}
+
+	FILENAME == "status" {
 		printf "icon="
-		if ($1 == "Charging")
+		if ($0 == "Charging")
 			print "󰂄"
-		else if ($0 >= 90)
+		else if (val >= 90)
 			print "󰁹"
-		else if ($0 >= 80)
+		else if (val >= 80)
 			print "󰂂"
-		else if ($0 >= 70)
+		else if (val >= 70)
 			print "󰂁"
-		else if ($0 >= 60)
+		else if (val >= 60)
 			print "󰁿"
-		else if ($0 >= 50)
+		else if (val >= 50)
 			print "󰁾"
-		else if ($0 >= 40)
+		else if (val >= 40)
 			print "󰁽"
-		else if ($0 >= 30)
+		else if (val >= 30)
 			print "󰁼"
-		else if ($0 >= 20)
+		else if (val >= 20)
 			print "󰁻"
-		else if ($0 >= 10)
+		else if (val >= 10)
 			print "󰁺"
 		else
 			print "󰂎"
-	}' /sys/class/power_supply/BAT1/capacity \
+	}' capacity status \
 	| jo 
