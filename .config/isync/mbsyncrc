@@ -7,7 +7,7 @@ SyncState *
 IMAPStore default-remote
 Host imap.migadu.com
 User mail@thomasvoss.com
-PassCmd "enchive extract < /home/thomas/.local/share/vault/mail/mail@thomasvoss.com"
+PassCmd "vlt raw Email mail@thomasvoss.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -26,7 +26,7 @@ Patterns *
 IMAPStore legacy-remote
 Host outlook.office365.com
 User thomasvoss@live.com
-PassCmd "enchive extract < /home/thomas/.local/share/vault/mail/thomasvoss@live.com"
+PassCmd "vlt raw Email thomasvoss@live.com"
 Port 993
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
@@ -46,7 +46,7 @@ Patterns *
 IMAPStore humanwave-remote
 Host imap.gmail.com
 User thomas.voss@humanwave.nl
-PassCmd "enchive extract < /home/thomas/.local/share/vault/mail/thomas.voss@humanwave.nl"
+PassCmd "vlt raw Email thomas.voss@humanwave.nl"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 

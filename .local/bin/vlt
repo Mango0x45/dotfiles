@@ -291,6 +291,13 @@ edit_c()
 	[ ! -t 2 ] && notify 'Category Edit' "The category ‘$c’ was renamed"
 }
 
+raw()
+{
+	shift
+	enchive extract <"$VAULT" \
+		| jq --arg c "$1" --arg n "$2" -r '.[$c] | .[$n]'
+}
+
 : ${VAULT_2FA:="2fa"}
 : ${VAULT_HOME:=${XDG_DATA_HOME:-$HOME/.local/share}/vault}
 readonly VAULT="${VAULT_HOME}/vault.sec"
@@ -307,6 +314,9 @@ edit)
 	;;
 get)
 	get
+	;;
+raw)
+	raw "$@"
 	;;
 rm)
 	rm_ "$@"
