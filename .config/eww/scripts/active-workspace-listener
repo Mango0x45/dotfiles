@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
 
 hyprctl -j activeworkspace | jq -r '.name'
