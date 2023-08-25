@@ -294,6 +294,7 @@ edit_c()
 : ${VAULT_2FA:="2fa"}
 : ${VAULT_HOME:=${XDG_DATA_HOME:-$HOME/.local/share}/vault}
 readonly VAULT="${VAULT_HOME}/vault.sec"
+export OSEL_GUI_FLAGS='-Oalphabetical'
 
 [ $# -eq 0 ] && usage
 
