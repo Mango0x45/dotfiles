@@ -448,6 +448,24 @@ Commenting code is a super common task — so make it an operator!
 
 #+END_SRC
 
+*** Tetris
+
+Tetris is epic, but the bindings are not so epic.
+
+#+BEGIN_SRC elisp
+
+  (use-package tetris
+    :hook (tetris-mode . (lambda () (evil-local-mode -1)))
+    :bind (:map tetris-mode-map
+           ("a"   . #'tetris-move-left)
+           ("d"   . #'tetris-move-right)
+           ("k"   . #'tetris-rotate-next)
+           (";"   . #'tetris-rotate-prev)
+           ("s"   . #'tetris-move-down)
+           ("SPC" . #'tetris-move-bottom)))
+
+#+END_SRC
+
 ** Completions
 
 *** Savehist-Mode
