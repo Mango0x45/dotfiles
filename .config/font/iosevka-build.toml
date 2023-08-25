@@ -1,0 +1,93 @@
+[buildPlans.iosevka-smooth]
+family = "Iosevka Smooth"
+spacing = "normal"
+serifs = "sans"
+no-cv-ss = false
+export-glyph-names = true
+
+[buildPlans.iosevka-smooth.variants.design]
+capital-g = "toothless-corner-serifless-hooked"
+capital-k = "symmetric-touching-serifless"
+capital-q = "crossing"
+a = "double-storey-toothless-corner"
+b = "toothless-corner-serifless"
+d = "toothless-corner-serifless"
+g = "single-storey-earless-corner"
+i = "tailed-serifed"
+l = "tailed-serifed"
+m = "earless-corner-double-arch-serifless"
+n = "earless-corner-straight-serifless"
+p = "earless-corner-serifless"
+q = "earless-corner-straight-serifless"
+u = "toothless-corner-serifless"
+long-s = "bent-hook-middle-serifed-xh"
+eszet = "sulzbacher-descending"
+lower-delta = "flat-top"
+lower-mu = "toothless-corner-serifless"
+zero = "tall-slashed"
+two = "straight-neck"
+three = "flat-top"
+brace = "straight"
+ampersand = "et-toothless-corner"
+percent = "rings-continuous-slash"
+partial-derivative = "straight-bar"
+lower-eth = "straight-bar"
+micro-sign = "toothless-corner-serifless"
+lig-neq = "more-slanted"
+lig-equal-chain = "without-notch"
+lig-hyphen-chain = "without-notch"
+
+[buildPlans.iosevka-smooth.variants.italic]
+k = "straight-serifless"
+long-s = "flat-hook-tailed"
+eszet = "sulzbacher-tailed"
+
+[buildPlans.iosevka-smooth.ligations]
+inherits = "dlig"
+
+[buildPlans.iosevka-smooth-term]
+family = "Iosevka Smooth Term"
+spacing = "term"
+serifs = "sans"
+no-cv-ss = false
+export-glyph-names = true
+
+[buildPlans.iosevka-smooth-term.variants.design]
+capital-g = "toothless-corner-serifless-hooked"
+capital-k = "symmetric-touching-serifless"
+capital-q = "crossing"
+a = "double-storey-toothless-corner"
+b = "toothless-corner-serifless"
+d = "toothless-corner-serifless"
+g = "single-storey-earless-corner"
+i = "tailed-serifed"
+l = "tailed-serifed"
+m = "earless-corner-double-arch-serifless"
+n = "earless-corner-straight-serifless"
+p = "earless-corner-serifless"
+q = "earless-corner-straight-serifless"
+u = "toothless-corner-serifless"
+long-s = "bent-hook-middle-serifed-xh"
+eszet = "sulzbacher-descending"
+lower-delta = "flat-top"
+lower-mu = "toothless-corner-serifless"
+zero = "tall-slashed"
+two = "straight-neck"
+three = "flat-top"
+brace = "straight"
+ampersand = "et-toothless-corner"
+percent = "rings-continuous-slash"
+partial-derivative = "straight-bar"
+lower-eth = "straight-bar"
+micro-sign = "toothless-corner-serifless"
+lig-neq = "more-slanted"
+lig-equal-chain = "without-notch"
+lig-hyphen-chain = "without-notch"
+
+[buildPlans.iosevka-smooth-term.variants.italic]
+k = "straight-serifless"
+long-s = "flat-hook-tailed"
+eszet = "sulzbacher-tailed"
+
+[buildPlans.iosevka-smooth-term.ligations]
+inherits = "dlig"
