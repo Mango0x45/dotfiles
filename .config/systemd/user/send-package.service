@@ -1,0 +1,10 @@
+[Unit]
+Description=Do Not Ask
+
+[Service]
+Type=oneshot
+ExecStart=/home/thomas/.local/bin/send-package
+Environment=PATH=/home/thomas/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin
+
+[Install]
+WantedBy=default.target
