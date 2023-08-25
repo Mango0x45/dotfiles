@@ -454,6 +454,11 @@ Tetris is epic, but the bindings are not so epic.
 
 #+BEGIN_SRC elisp
 
+  (defun mango-tetris-rotate-mirror ()
+    (interactive)
+    (tetris-rotate-next)
+    (tetris-rotate-next))
+
   (use-package tetris
     :hook (tetris-mode . (lambda () (evil-local-mode -1)))
     :bind (:map tetris-mode-map
@@ -461,7 +466,8 @@ Tetris is epic, but the bindings are not so epic.
            ("d"   . #'tetris-move-right)
            ("k"   . #'tetris-rotate-next)
            (";"   . #'tetris-rotate-prev)
-           ("s"   . #'tetris-move-down)
+           ("l"   . #'tetris-move-down)
+           ("o"   . #'mango-tetris-rotate-mirror)
            ("SPC" . #'tetris-move-bottom)))
 
 #+END_SRC
