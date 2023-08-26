@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+tmp=`mktemp`
+trap "rm -f $tmp" EXIT
+
+cat - >$tmp
+addr="`mhdr -h from $tmp | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'`"
+mbox="$MAILDIR/$addr/Sent"
+
+msmtp -t --read-envelope-from <$tmp \
+	&& {
+		mgenmid \
+		| sed 's/^/Message-Id: /' \
+		| cat - $tmp \
+		| mmime \
+		| mdeliver -cv "$mbox" \
+		| xargs mflag -S >/dev/null
+	}
