@@ -68,6 +68,7 @@ export PATH="$HOME/.local/bin:$HOME/.local/sbin:$GOROOT/bin:$GOPATH/bin:$PATH"
 export GPG_TTY=`tty`
 export VAULT_2FA='2 Factor Authentication'
 
+alias ..='cd ..'
 alias d='git --git-dir="$REPODIR/Mango0x45/dotfiles.git" --work-tree="$HOME"'
 alias g=git
 alias grep='grep --color=auto'
@@ -76,7 +77,5 @@ alias ll='ls --color=auto -Alh'
 alias ls='ls --color=auto'
 alias sv=sudoedit
 alias v="$VISUAL"
-
-alias ..='cd ..'
 
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
