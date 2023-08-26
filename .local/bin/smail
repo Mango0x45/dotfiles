@@ -5,16 +5,15 @@ set -e
 tmp=`mktemp`
 trap "rm -f $tmp" EXIT
 
-cat - >$tmp
-addr="`mhdr -h from $tmp | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'`"
+addr="`tee $tmp | mhdr -h from - | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'`"
 mbox="$MAILDIR/$addr/Sent"
 
-msmtp -t --read-envelope-from <$tmp \
-	&& {
-		mgenmid \
-		| sed 's/^/Message-Id: /' \
-		| cat - $tmp \
-		| mmime \
-		| mdeliver -cv "$mbox" \
-		| xargs mflag -S >/dev/null
-	}
+if msmtp -t --read-envelope-from <$tmp
+then
+	mgenmid                   \
+	| sed 's/^/Message-Id: /' \
+	| cat - $tmp              \
+	| mmime                   \
+	| mdeliver -cv "$mbox"    \
+	| xargs chronic mflag -S
+fi
