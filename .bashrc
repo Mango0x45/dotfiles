@@ -75,6 +75,7 @@ alias grep='grep --color=auto'
 alias la='ls --color=auto -A'
 alias ll='ls --color=auto -Alh'
 alias ls='ls --color=auto'
+alias sl='sl -c5'
 alias sv=sudoedit
 alias v="$VISUAL"
 
