@@ -10,4 +10,4 @@ sed -En '/^Angel Cakes/,/^Doozies/s/(\t|\s{2,})/\n/gp' ~/doc/tit-names \
 	| xargs -I{} -- \
 		sed -e "1iTo: `vlt raw Miscellaneous send-package-to`" \
 		    -e 's/$REPLACEME/{}/' "$tmpl" \
-	| msmtp -t --read-envelope-from
+	| smail
