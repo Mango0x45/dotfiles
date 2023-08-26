@@ -5,7 +5,8 @@ set -e
 tmp=`mktemp`
 trap "rm -f $tmp" EXIT
 
-addr="`tee $tmp | mhdr -h from - | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'`"
+cat >$tmp
+addr="`mhdr -h from $tmp | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'`"
 mbox="$MAILDIR/$addr/Sent"
 
 if msmtp -t --read-envelope-from <$tmp
