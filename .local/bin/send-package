@@ -5,9 +5,9 @@
 readonly tmpl="${XDG_DATA_HOME:-$HOME/.local/share}/send-package/template"
 
 sed -En '/^Angel Cakes/,/^Doozies/s/(\t|\s{2,})/\n/gp' ~/doc/tit-names \
-	| shuf -n1 \
-	| tr A-Z a-z \
-	| xargs -I{} -- \
-		sed -e "1iTo: `vlt raw Miscellaneous send-package-to`" \
-		    -e 's/$REPLACEME/{}/' "$tmpl" \
-	| smail
+| shuf -n1                                                             \
+| tr A-Z a-z                                                           \
+| xargs -I{} --                                                        \
+  sed -e "1iTo: `vlt raw Miscellaneous send-package-to`"               \
+      -e 's/$REPLACEME/{}/' "$tmpl"                                    \
+| smail
