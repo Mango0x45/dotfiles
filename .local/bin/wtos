@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+: ${COLUMNS:=`tput cols`}
+width=`dc -e "$COLUMNS 80 $COLUMNS 80 [r] sx >x p"`
+fold -sw $width
