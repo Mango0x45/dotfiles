@@ -1,0 +1,9 @@
+[Unit]
+Description=Generate a quote of the day
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
