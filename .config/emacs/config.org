@@ -763,6 +763,7 @@ already installed unfortunately, but it’s easy enough to do manually.
           (css      "https://github.com/tree-sitter/tree-sitter-css")
           (elisp    "https://github.com/Wilfred/tree-sitter-elisp")
           (go       "https://github.com/tree-sitter/tree-sitter-go")
+          (go-mod   "https://github.com/camdencheek/tree-sitter-go-mod.git")
           (html     "https://github.com/tree-sitter/tree-sitter-html")
           (json     "https://github.com/tree-sitter/tree-sitter-json")
           (make     "https://github.com/alemuller/tree-sitter-make")
@@ -770,6 +771,9 @@ already installed unfortunately, but it’s easy enough to do manually.
           (python   "https://github.com/tree-sitter/tree-sitter-python")
           (toml     "https://github.com/tree-sitter/tree-sitter-toml")
           (yaml     "https://github.com/ikatyang/tree-sitter-yaml")))
+
+  (setq treesit-load-name-override-list
+        '((go-mod "libtree-sitter-go-mod" "tree_sitter_gomod")))
 
   ;; Automatically install missing grammars
   (thread-last
@@ -1160,10 +1164,12 @@ file with a certain file extension.
 
 #+BEGIN_SRC elisp
 
+  (require 'go-ts-mode)
   (require 'rust-ts-mode)
   (require 'yaml-ts-mode)
 
-  (dolist (pair '(("\\.py\\'"    . python-ts-mode)
+  (dolist (pair '(("\\.go\\'"    . go-ts-mode)
+                  ("\\.py\\'"    . python-ts-mode)
                   ("\\.rs\\'"    . rust-ts-mode)
                   ("\\.ya?ml\\'" . yaml-ts-mode)))
     (add-to-list 'auto-mode-alist pair))
