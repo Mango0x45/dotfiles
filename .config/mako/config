@@ -5,3 +5,4 @@ default-timeout=5000
 max-visible=2
 width=500
 height=200
+format=<b>%a: %s</b>\n%b
