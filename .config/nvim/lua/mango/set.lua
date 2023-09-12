@@ -5,7 +5,7 @@ local opt = vim.opt
 opt.nu = true
 opt.relativenumber = true
 
-lib.setTabWidth(4)
+lib.set_tab_width(4)
 opt.expandtab = false
 opt.smartindent = true
 

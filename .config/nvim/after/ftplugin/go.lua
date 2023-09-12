@@ -1,3 +1,3 @@
 local lib = require('mango.lib')
 
-lib.setTabWidth(8, true)
+lib.set_tab_width(8, true)
