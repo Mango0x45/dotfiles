@@ -5,6 +5,7 @@ set -e
 OSEL_GUI_FLAGS='-r "echo \"%s\" | cut -f2 | xargs echo -n"'
 export OSEL_GUI_FLAGS="$OSEL_GUI_FLAGS -Oalphabetical"
 export OSEL_TERM_FLAGS='--with-nth=2..'
+readonly KEYBOARD=at-translated-set-2-keyboard
 
 if choice="`
 	sed -En 's/\s*name\[Group1\]\s*=\s*"([^"]*)"\s*;\s*/\1/p' \
@@ -14,9 +15,7 @@ if choice="`
 		| osel
 `"
 then
-	hyprctl -j devices \
-		| jq -r '.keyboards[-1].name' \
-		| xargs -I{} hyprctl switchxkblayout {} ${choice%	*} >/dev/null
+	hyprctl switchxkblayout $KEYBOARD ${choice%	*} >/dev/null
 	notify-send -a "${0##*/}" -u normal 'Keyboard Layout Changed' \
 		"The keyboard layout was changed to ‘${choice##*	}’."
 fi
