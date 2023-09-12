@@ -41,5 +41,5 @@ remap('x',  '<leader>p', '"_dP')
 remap('nv', '<leader>d', '"_d')
 
 -- Copy to system clipboard
-remap('vn', '<leader>y', '"+y')
+remap('nv', '<leader>y', '"+y')
 remap('n',  '<leader>Y', '"+Y')
