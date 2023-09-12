@@ -9,6 +9,8 @@ vim.g.mapleader = ' '
 -- Make adjustments for my custom keyboard layout
 remap('nv', '€', '$')
 remap('nv', ')', '0')
+
+-- I only ever shift entire lines
 remap('n', '<', '<<')
 remap('n', '>', '>>')
 
