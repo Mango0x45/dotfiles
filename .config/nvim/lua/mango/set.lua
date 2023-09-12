@@ -1,4 +1,5 @@
 local lib = require('mango.lib')
+local api = vim.api
 local opt = vim.opt
 
 opt.nu = true
@@ -29,8 +30,17 @@ opt.updatetime = 50
 
 opt.colorcolumn = '81'
 
--- Disable auto commenting
-vim.bo.formatoptions = 'jnql'
-
 opt.splitright = true
 opt.splitbelow = true
+
+-- Disable auto commenting
+local group = api.nvim_create_augroup('Mango', { clear = true })
+api.nvim_create_autocmd(
+	'BufEnter',
+	{
+		callback = function()
+			opt.formatoptions:remove({'c', 'r', 'o'})
+		end,
+		group = group,
+	}
+)
