@@ -1,8 +1,4 @@
-local function remap(modes, from, to)
-	modes:gsub('.', function(c)
-		vim.keymap.set(c, from, to)
-	end)
-end
+local remap = require('mango.lib').remap
 
 vim.g.mapleader = ' '
 

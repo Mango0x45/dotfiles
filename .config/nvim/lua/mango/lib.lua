@@ -8,4 +8,14 @@ function M.set_tab_width(tw, localp)
 	opt.shiftwidth = tw
 end
 
+function M.remap(modes, from, to, opts)
+	local ct = {}
+
+	modes:gsub('.', function(c)
+		table.insert(ct, c)
+	end)
+
+	vim.keymap.set(ct, from, to, opts)
+end
+
 return M

@@ -1,4 +1,5 @@
 local lsp = require('lsp-zero')
+local lib = require('mango.lib')
 
 lsp.preset('recommended')
 lsp.ensure_installed({
@@ -30,11 +31,10 @@ lsp.setup_nvim_cmp({
 lsp.on_attach(function(_, bufnr)
 	local opts = {buffer = bufnr, remap = false}
 
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
-	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
-	vim.keymap.set('n', '<leader>l=', vim.lsp.buf.format, opts)
-	vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
+	lib.remap('n', 'gd', vim.lsp.buf.definition, opts)
+	lib.remap('n', '<leader>la', vim.lsp.buf.code_action, opts)
+	lib.remap('n', '<leader>lr', vim.lsp.buf.rename, opts)
+	lib.remap('n', '<leader>l=', vim.lsp.buf.format, opts)
 end)
 
 lsp.setup()
