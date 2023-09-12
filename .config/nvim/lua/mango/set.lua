@@ -2,6 +2,8 @@ local lib = require('mango.lib')
 local api = vim.api
 local opt = vim.opt
 
+local augroup = api.nvim_create_augroup('Mango', { clear = true })
+
 opt.nu = true
 opt.relativenumber = true
 
@@ -34,13 +36,17 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Disable auto commenting
-local group = api.nvim_create_augroup('Mango', { clear = true })
-api.nvim_create_autocmd(
-	'BufEnter',
-	{
-		callback = function()
-			opt.formatoptions:remove({'c', 'r', 'o'})
-		end,
-		group = group,
-	}
-)
+api.nvim_create_autocmd('BufEnter', {
+	callback = function()
+		opt.formatoptions:remove({'c', 'r', 'o'})
+	end,
+	group = augroup,
+})
+
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
+api.nvim_create_autocmd('BufWinEnter', {
+	command = 'normal zR',
+	group = augroup,
+})
