@@ -43,3 +43,10 @@ remap('nv', '<leader>d', '"_d')
 -- Copy to system clipboard
 remap('nv', '<leader>y', '"+y')
 remap('n',  '<leader>Y', '"+Y')
+
+-- Swap the jump-to-mark bindings
+remap('nv', "'", '`')
+remap('nv', '`', "'")
+
+-- Transpose characters, because ‘xp’ is kinda awkward
+remap('n', '<leader>t', 'xp')
