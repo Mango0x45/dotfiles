@@ -38,7 +38,7 @@ opt.splitbelow = true
 -- Disable auto commenting
 api.nvim_create_autocmd('BufEnter', {
 	callback = function()
-		opt.formatoptions:remove({'c', 'r', 'o'})
+		opt.formatoptions:remove({ 'c', 'r', 'o' })
 	end,
 	group = augroup,
 })

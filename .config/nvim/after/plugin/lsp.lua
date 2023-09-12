@@ -11,7 +11,7 @@ lsp.ensure_installed({
 lsp.nvim_workspace()
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
@@ -21,7 +21,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 lsp.set_preferences({
 	suggest_lsp_servers = false,
-	sign_icons = { }
+	sign_icons = {}
 })
 
 lsp.setup_nvim_cmp({
@@ -29,7 +29,7 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.on_attach(function(_, bufnr)
-	local opts = {buffer = bufnr, remap = false}
+	local opts = { buffer = bufnr, remap = false }
 
 	lib.remap('n', 'gd', vim.lsp.buf.definition, opts)
 	lib.remap('n', '<leader>la', vim.lsp.buf.code_action, opts)
