@@ -2,37 +2,50 @@
 
 set -e
 
+readonly TS_FILE="$XDG_DATA_HOME/battery-notification.timestamp"
+[ -f "$TS_FILE" ] || touch "$TS_FILE"
+
 cd /sys/class/power_supply/BAT1
 
-awk '
-	FILENAME == "capacity" {
-		val = $0
-		printf "percentage=%d%%\n", val
-	}
+read cap <capacity
+read status <status
 
-	FILENAME == "status" {
-		printf "icon="
-		if ($0 == "Charging")
-			print "󰂄"
-		else if (val >= 90)
-			print "󰁹"
-		else if (val >= 80)
-			print "󰂂"
-		else if (val >= 70)
-			print "󰂁"
-		else if (val >= 60)
-			print "󰁿"
-		else if (val >= 50)
-			print "󰁾"
-		else if (val >= 40)
-			print "󰁽"
-		else if (val >= 30)
-			print "󰁼"
-		else if (val >= 20)
-			print "󰁻"
-		else if (val >= 10)
-			print "󰁺"
-		else
-			print "󰂎"
-	}' capacity status \
-	| jo 
+if [ $cap -le 20 -a $status != Charging ]
+then
+	now=`date +%s`
+	read was <"$TS_FILE"
+
+	if (set +e; [ $(($now - ${was:-0} > 60)) -eq 1 ])
+	then
+		notify-send -a 'battery' -u critical 'Battery Low' \
+			'The current battery level is below 20%.  Plug the device into a charger ASAP.'
+		echo $now >"$TS_FILE"
+	fi
+fi
+
+{
+	printf 'percentage=%s\nicon=' $cap
+	if [ $status = Charing ]; then
+		echo "󰂄"
+	elif [ $cap -ge 90 ]; then
+		echo "󰁹"
+	elif [ $cap -ge 80 ]; then
+		echo "󰂂"
+	elif [ $cap -ge 70 ]; then
+		echo "󰂁"
+	elif [ $cap -ge 60 ]; then
+		echo "󰁿"
+	elif [ $cap -ge 50 ]; then
+		echo "󰁾"
+	elif [ $cap -ge 40 ]; then
+		echo "󰁽"
+	elif [ $cap -ge 30 ]; then
+		echo "󰁼"
+	elif [ $cap -ge 20 ]; then
+		echo "󰁻"
+	elif [ $cap -ge 10 ]; then
+		echo "󰁺"
+	else
+		echo "󰂎"
+	fi
+} | jo
