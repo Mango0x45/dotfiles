@@ -3,20 +3,28 @@
 count()
 {
 	x=`find "$MAILDIR"/*/Inbox/new -type f | wc -l`
+
 	case $x in
 	0)
 		echo 'No New Mail'
 		;;
 	1)
 		echo '1 New Mail'
+		cnt='There is 1 new email'
 		;;
 	*)
 		printf '%d New Mails\n' $x
+		cnt="There are $x new emails"
 		;;
 	esac
+
+	[ $x -gt ${prev:=0} ] && notify-send -a email -u normal 'New Email' \
+		"A new unread email has been recieved.  $cnt."
+	prev=$x
 }
 
 count
+
 inotifywait -qm "$MAILDIR"/*/Inbox/new | while read _ event _
 do
 	case "$event" in
