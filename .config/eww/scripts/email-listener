@@ -18,7 +18,7 @@ count()
 		;;
 	esac
 
-	[ $x -gt ${prev:=0} ] && notify-send -a email -u normal 'New Email' \
+	[ $x -gt ${prev:=0} ] && notify-send -a email 'New Email' \
 		"A new unread email has been recieved.  $cnt."
 	prev=$x
 }

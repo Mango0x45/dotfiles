@@ -35,7 +35,7 @@ notify()
 	then
 		printf "%s: %s\n" "${0##*/}" "$2" >&2
 	else
-		notify-send -a "${0##*/}" -u normal "$1" "$2."
+		notify-send -a "${0##*/}" "$1" "$2."
 	fi
 }
 

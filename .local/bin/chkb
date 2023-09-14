@@ -16,6 +16,6 @@ if choice="`
 `"
 then
 	hyprctl switchxkblayout $KEYBOARD ${choice%	*} >/dev/null
-	notify-send -a "${0##*/}" -u normal 'Keyboard Layout Changed' \
+	notify-send -a "${0##*/}" 'Keyboard Layout Changed' \
 		"The keyboard layout was changed to ‘${choice##*	}’."
 fi
