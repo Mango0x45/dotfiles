@@ -1,4 +1,5 @@
-local remap = require('mango.lib').remap
+local lib = require('mango.lib')
+local remap = lib.remap
 
 vim.g.mapleader = ' '
 
@@ -46,5 +47,14 @@ remap('n', '<leader>Y', '"+Y')
 remap('nv', "'", '`')
 remap('nv', '`', "'")
 
--- Transpose characters, because ‘xp’ is kinda awkward
-remap('n', '<leader>t', 'xp')
+-- Transpose characters without clobbering registers
+local function transpose_chars(rev)
+	lib.save_regs('a', function()
+		vim.cmd.normal('"a' .. (rev and 'X' or 'x') .. '"ap')
+	end)
+end
+
+remap('n', '<leader>t', transpose_chars)
+remap('n', '<leader>T', function()
+	transpose_chars(true)
+end)
