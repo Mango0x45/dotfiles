@@ -1,0 +1,28 @@
+#!/bin/sh
+
+count()
+{
+	x=`find "$MAILDIR"/*/Inbox/new -type f | wc -l`
+	case $x in
+	0)
+		echo 'No New Mail'
+		;;
+	1)
+		echo '1 New Mail'
+		;;
+	*)
+		printf '%d New Mails\n' $x
+		;;
+	esac
+}
+
+count
+inotifywait -qm "$MAILDIR"/*/Inbox/new | while read _ event _
+do
+	case "$event" in
+	CREATE|DELETE|MOVED_*)
+		count
+		;;
+	esac
+done
+#''

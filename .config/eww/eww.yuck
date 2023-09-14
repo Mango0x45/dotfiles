@@ -17,6 +17,9 @@
 (deflisten keymap
   `stdbuf -oL scripts/keymap-listener`)
 
+(deflisten emails
+  `stdbuf -oL scripts/email-listener`)
+
 ;; Pollers
 (defpoll battery :initial '{"icon":"","percentage":""}' :interval "1s"
   `scripts/battery`)
@@ -65,6 +68,7 @@
   (box :halign "end"
        :class "end"
        :space-evenly false
+       (emails)
        (keymap)
        (wireless)
        (brightness)
@@ -97,6 +101,9 @@
 
 (defwidget battery []
   (pair :icon {battery.icon} :text {battery.percentage}))
+
+(defwidget emails []
+  (pair :icon "" :text emails))
 
 (defwidget pair [icon text]
   (box :width 70
