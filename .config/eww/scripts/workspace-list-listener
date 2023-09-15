@@ -7,19 +7,14 @@ jo -a $spaces
 
 socat -u UNIX-CONNECT:"$IPC" - \
 	| stdbuf -oL grep -E '^(create|destroy)workspace>>' \
-	| while IFS= read -r line
+	| while IFS='>>' read -r e _ n
 	do
-		oifs="$IFS"
-		IFS='>>'
-		set -- $line
-		IFS="$oifs"
-
-		case "$1" in
+		case "$e" in
 		c*)
-			spaces="`printf '%s\n%s\n' "$spaces" $3 | sort -V`"
+			spaces="`printf '%s\n%s\n' "$spaces" $n | sort -V`"
 			;;
 		d*)
-			spaces="`echo "$spaces" | grep -v "^$3$"`"
+			spaces="`echo "$spaces" | grep -v "^$n$"`"
 			;;
 		esac
 		jo -a $spaces
