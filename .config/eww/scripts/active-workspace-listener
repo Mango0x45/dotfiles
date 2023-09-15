@@ -3,11 +3,4 @@
 readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
 
 hyprctl -j activeworkspace | jq -r '.name'
-socat -u UNIX-CONNECT:"$IPC" - \
-	| stdbuf -oL grep '^workspace>>' \
-	| while IFS= read -r line
-	do
-		IFS='>>'
-		set -- $line
-		echo $3
-	done
+socat -u UNIX-CONNECT:"$IPC" - | sed -n 's/^workspace>>//p'
