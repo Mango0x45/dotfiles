@@ -2,8 +2,8 @@
 
 readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
 
-spaces="`hyprctl -j workspaces | jq -r 'sort_by(.id) | .[] | .name'`"
-jo -a $spaces
+ws="`hyprctl -j workspaces | jq -r 'sort_by(.id) | .[] | .name'`"
+jo -a $ws
 
 socat -u UNIX-CONNECT:"$IPC" - \
 	| stdbuf -oL grep -E '^(create|destroy)workspace>>' \
@@ -11,11 +11,11 @@ socat -u UNIX-CONNECT:"$IPC" - \
 	do
 		case "$e" in
 		c*)
-			spaces="`printf '%s\n%s\n' "$spaces" $n | sort -V`"
+			ws="`printf '%s\n%s\n' "$ws" $n | sort -V`"
 			;;
 		d*)
-			spaces="`echo "$spaces" | grep -v "^$n$"`"
+			ws="`echo "$ws" | grep -v "^$n$"`"
 			;;
 		esac
-		jo -a $spaces
+		jo -a $ws
 	done
