@@ -25,7 +25,7 @@ fi
 
 {
 	printf 'percentage=%s\nicon=' $cap
-	if [ $status = Charing ]; then
+	if [ $status = Charging ]; then
 		echo "󰂄"
 	elif [ $cap -ge 90 ]; then
 		echo "󰁹"
