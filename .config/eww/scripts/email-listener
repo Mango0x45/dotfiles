@@ -2,30 +2,53 @@
 
 count()
 {
-	x=`find "$MAILDIR"/*/Inbox/new -type f | wc -l`
+	local cur=`find "$MAILDIR"/*/Inbox/cur -type f | wc -l`
+	local new=`find "$MAILDIR"/*/Inbox/new -type f | wc -l`
+	local sum=$((cur + new))
 
-	case $x in
+	case $sum in
 	0)
-		echo 'No New Mail'
+		printf 'No Mail'
 		;;
 	1)
-		echo '1 New Mail'
-		cnt='There is 1 new email'
+		printf '1 Mail'
 		;;
 	*)
-		printf '%d New Mails\n' $x
-		cnt="There are $x new emails"
+		printf '%d Mails' $sum
 		;;
 	esac
+	[ $new -gt 0 ] && printf ' (%d Unread)' $new
+	echo
 
-	[ $x -gt ${prev:=0} ] && notify-send -a email 'New Email' \
-		"A new unread email has been recieved.  $cnt."
-	prev=$x
+	new_mails=$new
 }
+
+{
+	while sleep 1
+	do
+		if [ ${new_mails:=0} -gt ${prev:=0} ]
+		then
+			case $new_mails in
+			1)
+				local title='New Email'
+				local desc='1 new email has been received.'
+				;;
+			*)
+				local title='New Emails'
+				local desc="$new_mails new emails have been received."
+				;;
+			esac
+
+			notify-send -a email "$title" "$desc"
+			prev=$new_mails
+		fi
+	done
+} &
 
 count
 
-inotifywait -qm "$MAILDIR"/*/Inbox/new | while read _ event _
+inotifywait -qm "$MAILDIR"/*/Inbox/new "$MAILDIR"/*/Inbox/cur \
+| while read _ event _
 do
 	case "$event" in
 	CREATE|DELETE|MOVED_*)
