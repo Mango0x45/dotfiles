@@ -1,4 +1,5 @@
-/ftdetect
+/ftdetect/*
+!/ftdetect/gsp.vim
 /ftplugin
 /indent
 /plugin
