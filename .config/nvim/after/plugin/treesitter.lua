@@ -1,8 +1,18 @@
+local config = require('nvim-treesitter.parsers').get_parser_configs()
+config.gsp = {
+	install_info = {
+		url = 'https://git.sr.ht/~mango/tree-sitter-gsp',
+		files = {'src/parser.c'},
+	},
+	filetype = 'gsp',
+}
+
 require('nvim-treesitter.configs').setup {
 	ensure_installed = {
 		'c',
 		'go',
 		'gomod',
+		'gsp',
 		'html',
 		'lua',
 		'python',
