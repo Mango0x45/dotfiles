@@ -50,6 +50,8 @@ require('nvim-treesitter.configs').setup {
 				['if'] = '@function.inner',
 				['ab'] = '@block.outer',
 				['ib'] = '@block.inner',
+				['an'] = '@node.outer',
+				['in'] = '@node.inner',
 			},
 		},
 		move = {
@@ -58,18 +60,22 @@ require('nvim-treesitter.configs').setup {
 			goto_next_start = {
 				[']f'] = '@function.outer',
 				[']b'] = '@block.outer',
+				[']n'] = '@node.outer',
 			},
 			goto_next_end = {
 				[']F'] = '@function.outer',
 				[']B'] = '@block.outer',
+				[']N'] = '@node.outer',
 			},
 			goto_previous_start = {
 				['[f'] = '@function.outer',
 				['[b'] = '@block.outer',
+				['[n'] = '@node.outer',
 			},
 			goto_previous_end = {
 				['[F'] = '@function.outer',
 				['[B'] = '@block.outer',
+				['[N'] = '@node.outer',
 			},
 		},
 	},
