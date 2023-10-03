@@ -7,6 +7,9 @@ local augroup = api.nvim_create_augroup('Mango', { clear = true })
 opt.nu = true
 opt.relativenumber = true
 
+opt.exrc = true
+opt.secure = true
+
 lib.set_tab_width(4)
 opt.expandtab = false
 opt.smartindent = true
