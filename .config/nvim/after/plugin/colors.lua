@@ -14,6 +14,9 @@ function SetTheme(color)
 	})
 
 	hl(0, 'NormalFloat', { bg = 'none' })
+	hl(0, 'LineNr', { fg = 'yellow' })
+	hl(0, 'LineNrAbove', { fg = 'grey' })
+	hl(0, 'LineNrBelow', { fg = 'grey' })
 end
 
 SetTheme()
