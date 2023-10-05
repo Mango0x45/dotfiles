@@ -5,6 +5,7 @@ require('rose-pine').setup({
 function SetTheme(color)
 	local hl = vim.api.nvim_set_hl
 	vim.cmd.colorscheme(color or 'rose-pine')
+	vim.g.neovide_transparency = 0.9
 	hl(0, 'Normal', vim.g.neovide and {
 		fg = '#C5C8C6',
 		bg = '#2B303B',
