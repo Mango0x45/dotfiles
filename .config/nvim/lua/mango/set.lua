@@ -1,6 +1,7 @@
 local lib = require('mango.lib')
 local api = vim.api
 local opt = vim.opt
+local glo = vim.g
 
 local augroup = api.nvim_create_augroup('Mango', { clear = true })
 
@@ -55,3 +56,6 @@ api.nvim_create_autocmd('BufWinEnter', {
 	command = 'normal zR',
 	group = augroup,
 })
+
+-- This has to be done to enable linenumbers in netrw
+glo.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
