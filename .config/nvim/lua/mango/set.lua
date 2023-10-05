@@ -11,7 +11,7 @@ opt.relativenumber = true
 opt.exrc = true
 opt.secure = true
 
-opt.guifont = { 'Iosevka Smooth', ':h16' }
+opt.guifont = { 'Iosevka Smooth Term', ':h16' }
 
 lib.set_tab_width(4)
 opt.expandtab = false
