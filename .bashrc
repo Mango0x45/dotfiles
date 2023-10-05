@@ -4,12 +4,13 @@
 [[ $- != *i* ]] && return
 [[ -f /etc/bashrc ]] && . /etc/bashrc
 
-jr() {
-	local dir
-	dir=`find "$REPODIR" -maxdepth 2 -path "$REPODIR/*/*" -printf '%P\n'    \
-		| sort -r                                                       \
-		| fzf -q "$1"`
-	[ -n "$dir" ] && cd "$REPODIR/$dir"
+function jr {
+	local dir=`
+		find "$REPODIR" -maxdepth 2 -path "$REPODIR/*/*" -printf '%P\n' \
+		| sort -r \
+		| fzf -q "$1"
+	`
+	[[ -n "$dir" ]] && cd "$REPODIR/$dir"
 }
 
 export BROWSER="firefox"
