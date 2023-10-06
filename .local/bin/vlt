@@ -246,7 +246,7 @@ edit()
 	readonly data="`enchive extract <"$VAULT"`"
 
 	c="`xecho "$data" | jq -r 'keys | .[]' | osel`"
-	o="`xecho "$data" | jq -r --arg c "$c" '.[$c] | keys | .[]' | osel`"
+	n="`xecho "$data" | jq -r --arg c "$c" '.[$c] | keys | .[]' | osel`"
 
 	if [ "$VAULT_2FA" = "$c" ]
 	then
@@ -256,7 +256,7 @@ edit()
 
 		xecho "$data" \
 			| jq --arg c "$c" \
-			     --arg o "$o" \
+			     --arg n "$n" \
 			     --arg s "$k" \
 			     --arg d "$d" \
 			     --arg p "$s" \
