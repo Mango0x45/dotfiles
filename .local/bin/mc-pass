@@ -1,0 +1,12 @@
+#!/bin/sh
+
+trap '
+	wl-copy </dev/null
+	notify-send -a "${0##*/}" "Password Cleared" \
+		"The password was cleared from the clipboard."
+' INT EXIT TERM
+
+vlt raw Email thomasvoss@live.com | wl-copy
+notify-send -a "${0##*/}" 'Password Copied' \
+	'The password will be cleared from the clipboard in 10 seconds.'
+sleep 10
