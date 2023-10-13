@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+flags='-m color -r 300'
+[ $# -eq 1 ] && flags="$flags --area=0,0,$1,$1"
+
+uri="$(lpoptions | sed -E 's/.*device-uri=hp:([^ ]+).*/hpaio:\1/')"
+chronic hp-scan -d "$uri" $flags
