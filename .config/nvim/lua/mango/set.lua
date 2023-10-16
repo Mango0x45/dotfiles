@@ -59,3 +59,5 @@ api.nvim_create_autocmd('BufWinEnter', {
 
 -- This has to be done to enable linenumbers in netrw
 glo.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+
+glo.user_emmet_install = false

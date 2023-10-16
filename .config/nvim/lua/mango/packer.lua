@@ -32,6 +32,7 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-commentary'
 	use 'tpope/vim-speeddating'
 	use 'tpope/vim-vinegar'
+	use 'mattn/emmet-vim'
 
 	use {
 		'VonHeikemen/lsp-zero.nvim',
