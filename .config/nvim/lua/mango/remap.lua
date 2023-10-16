@@ -43,6 +43,9 @@ remap('nv', '<leader>d', '"_d')
 remap('nv', '<leader>y', '"+y')
 remap('n', '<leader>Y', '"+Y')
 
+-- Paste from system clipboard
+remap('i', '<C-+>', '"+pa')
+
 -- Swap the jump-to-mark bindings
 remap('nv', "'", '`')
 remap('nv', '`', "'")
