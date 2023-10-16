@@ -61,3 +61,11 @@ remap('n', '<leader>t', transpose_chars)
 remap('n', '<leader>T', function()
 	transpose_chars(true)
 end)
+
+-- Open netrw in a vertical split
+remap('n', '–', function()
+	vim.cmd[[
+		vsplit
+		:Ex
+	]]
+end)
