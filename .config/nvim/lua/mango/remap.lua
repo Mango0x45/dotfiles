@@ -64,8 +64,9 @@ end)
 
 -- Open netrw in a vertical split
 remap('n', '–', function()
-	vim.cmd[[
-		vsplit
-		:Ex
-	]]
+	vim.cmd('vsplit | Ex')
+end)
+
+remap('n', 'g–', function()
+	vim.cmd('split | Ex')
 end)
