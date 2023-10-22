@@ -21,6 +21,25 @@ Far :default-remote:
 Near :default-local:
 Patterns *
 
+# mail@euro-cash.eu
+
+IMAPStore eurocash-remote
+Host imap.migadu.com
+User mail@euro-cash.eu
+PassCmd "vlt raw Email mail@euro-cash.eu"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore eurocash-local
+Path ~/mail/mail@euro-cash.eu/
+Inbox ~/mail/mail@euro-cash.eu/Inbox
+SubFolders Verbatim
+
+Channel eurocash
+Far :eurocash-remote:
+Near :eurocash-local:
+Patterns *
+
 # thomasvoss@live.com
 
 IMAPStore legacy-remote
