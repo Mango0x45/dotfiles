@@ -49,6 +49,13 @@ api.nvim_create_autocmd('BufEnter', {
 	group = augroup,
 })
 
+api.nvim_create_autocmd('FocusGained', {
+	callback = function()
+		vim.cmd('checktime')
+	end,
+	group = augroup,
+})
+
 opt.foldmethod = 'expr'
 opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
