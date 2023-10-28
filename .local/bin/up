@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+upload()
+{
+	local f="$1"
+	[ $1 = '-' ] && f=/dev/stdin
+	curl --retry-all-errors -X POST -H "Authorization: $TOKEN" -F "data=@$f" \
+		https://paste.thomasvoss.com
+}
+
+readonly TOKEN=`vlt raw Miscellaneous 'Mpaste (Key)'`
+
+[ $# -eq 0 ] && upload -
+for f in "$@"
+do
+	upload "$f" &
+done
+
+wait
