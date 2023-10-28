@@ -78,7 +78,7 @@ alias ll='ls --color=auto -Alh'
 alias ls='ls --color=auto'
 alias sl='sl -ac5'
 alias sv=sudoedit
-alias v='neovide --nofork'
+alias v="$VISUAL"
 
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
