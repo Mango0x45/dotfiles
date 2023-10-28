@@ -6,12 +6,6 @@ return require('packer').startup(function(use)
 	use 'wellle/targets.vim'
 
 	use {
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.2',
-		requires = { { 'nvim-lua/plenary.nvim' } }
-	}
-
-	use {
 		'rose-pine/neovim',
 		as = 'rose-pine',
 		config = function()
