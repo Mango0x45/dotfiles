@@ -2,6 +2,12 @@
 
 while :
 do
+	sleep 1
+	lux | xargs printf '%g%%\n'
+done &
+
+while :
+do
 	lux | xargs printf '%g%%\n'
 	inotifywait -qqe modify /sys/class/backlight/*/brightness
 done
