@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-speeddating'
 	use 'tpope/vim-vinegar'
 	use 'mattn/emmet-vim'
+	use 'Glench/Vim-Jinja2-Syntax'
 
 	use {
 		'VonHeikemen/lsp-zero.nvim',
