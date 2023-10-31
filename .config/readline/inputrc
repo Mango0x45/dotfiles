@@ -1,9 +1,27 @@
+set bell-style none
 set editing-mode vi
+set completion-ignore-case on
+
+# Colored completions
+set colored-stats on
+set colored-completion-prefix on
+
+# Treat hyphens and underscores the same in the context of completion
+set completion-map-case on
 
 $if editing-mode == vi
+	# Change cursor to a bar when in insert mode
 	set show-mode-in-prompt on
 	set vi-ins-mode-string "\1\e[6 q\2"
 	set vi-cmd-mode-string "\1\e[2 q\2"
+
+	# Bring back this binding from Emacs mode
+	C-l: clear-screen
 $endif
 
-"\C-l": clear-screen
+$if Bash
+	C-p: " | $PAGER"
+
+	# Since <C-r> is bound to ‘forward-search-history’
+	C-t: reverse-search-history
+$endif
