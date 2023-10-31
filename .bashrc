@@ -14,8 +14,9 @@ function jr {
 export BROWSER="firefox"
 export CC="cc"
 export EDITOR="nvim"
-export VISUAL="nvim"
+export PAGER="less"
 export TERM="xterm-256color"
+export VISUAL="nvim"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_DIRS="/etc/xdg"
