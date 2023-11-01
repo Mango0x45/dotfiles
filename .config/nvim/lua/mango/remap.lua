@@ -24,8 +24,8 @@ remap('n', 'V', '<C-v>')
 remap('n', '<C-v>', 'V')
 
 -- Move selections up and down
-remap('v', '<C-J>', ":m '>+1<CR>gv=gv")
-remap('v', '<C-K>', ":m '<-2<CR>gv=gv")
+remap('v', '<C-k>', ":m '<-2<CR>gv=gv")
+remap('v', '<C-j>', ":m '>+1<CR>gv=gv")
 
 -- Don’t move cursor with various commands
 remap('n', 'J', 'mzJ`z')
