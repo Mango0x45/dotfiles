@@ -14,9 +14,6 @@ $if editing-mode == vi
 	set show-mode-in-prompt on
 	set vi-ins-mode-string "\1\e[6 q\2"
 	set vi-cmd-mode-string "\1\e[2 q\2"
-
-	# Bring back this binding from Emacs mode
-	C-l: clear-screen
 $endif
 
 $if Bash
@@ -25,3 +22,9 @@ $if Bash
 	# Since <C-r> is bound to ‘forward-search-history’
 	C-t: reverse-search-history
 $endif
+
+set keymap vi-command
+€: end-of-line
+
+set keymap vi-insert
+C-l: clear-screen
