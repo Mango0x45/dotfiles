@@ -6,10 +6,6 @@ vim.g.mapleader = ' '
 -- Make adjustments for my custom keyboard layout
 remap('nv', '€', '$')
 
--- I only ever shift entire lines
-remap('n', '<', '<<')
-remap('n', '>', '>>')
-
 -- Open netrw
 remap('n', '<leader>rw', vim.cmd.Ex)
 
