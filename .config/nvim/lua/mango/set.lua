@@ -58,3 +58,6 @@ api.nvim_create_autocmd('FocusGained', {
 glo.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 glo.user_emmet_install = false
+
+opt.matchpairs:append('‘:’')
+opt.matchpairs:append('“:”')
