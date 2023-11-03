@@ -50,9 +50,7 @@ api.nvim_create_autocmd('BufEnter', {
 })
 
 api.nvim_create_autocmd('FocusGained', {
-	callback = function()
-		vim.cmd('checktime')
-	end,
+	command = 'checktime',
 	group = augroup,
 })
 
