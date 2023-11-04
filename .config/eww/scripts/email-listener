@@ -1,5 +1,8 @@
 #!/bin/sh
 
+readonly CACHE="${XDG_CACHE_HOME:=$HOME/.cache}/email-listener"
+touch "$CACHE"
+
 count()
 {
 	local cur=`find "$MAILDIR"/*/Inbox/cur -type f | wc -l`
@@ -20,26 +23,30 @@ count()
 	[ $new -gt 0 ] && printf ' (%d Unread)' $new
 	echo
 
-	new_mails=$new
+	echo $new >"$CACHE"
 }
 
 {
 	while sleep 1
 	do
-		if [ ${new_mails:=0} -gt ${prev:=0} ]
+		read new_mails <"$CACHE"
+		if [ $new_mails -gt ${prev:=0} ]
 		then
-			case $new_mails in
+			local title
+			local desc
+
+			case $((new_mails - prev)) in
 			1)
-				local title='New Email'
-				local desc='1 new email has been received.'
+				title='New Email'
+				desc='1 new email has been received'
 				;;
 			*)
-				local title='New Emails'
-				local desc="$new_mails new emails have been received."
+				title='New Emails'
+				desc="$new_mails new emails have been received"
 				;;
 			esac
 
-			notify-send -a email "$title" "$desc"
+			notify email email "$title" "$desc"
 			prev=$new_mails
 		fi
 	done

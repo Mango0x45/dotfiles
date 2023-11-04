@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ $# -lt 4 ]
+then
+	echo "Usage: ${0##*/} short long summary body [args ...]" >&2
+	exit 1
+fi
+
+if [ -t 2 ]
+then
+	printf "%s: %s\n" "$1" "$4" >&2
+else
+	t="$(echo "$2" | tr a-z A-Z)"
+	s="$3"
+	b="$4."
+	shift 4
+	notify-send "$@" -a "$t" "$s" "$b"
+fi

@@ -2,10 +2,11 @@
 
 set -e
 
-notify()
+xnotify()
 {
-	notify-send -a ${0##*/} -i "$filename" 'Screenshot Copied' \
-		'Screenshot successfully copied to the clipboard.'
+	notify ${0##*/} screenshot 'Screenshot Copied' \
+		'Screenshot successfully copied to the clipboard' \
+		-i "$filename"
 }
 
 if [ $# -eq 1 -a "$1" = "-f" ]
@@ -38,12 +39,12 @@ opt="`printf 'Copy screenshot\nEdit- and copy screenshot\n' | osel`"
 case "$opt" in
 'Copy screenshot')
 	wl-copy <"$filename"
-	notify
+	xnotify
 	;;
 'Edit- and copy screenshot')
 	swappy -f "$filename" -o - \
 		| pee wl-copy cat \
 		| sponge "$filename"
-	notify
+	xnotify
 	;;
 esac

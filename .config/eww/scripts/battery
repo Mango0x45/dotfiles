@@ -17,8 +17,9 @@ then
 
 	if (set +e; [ $(($now - ${was:-0} > 60)) -eq 1 ])
 	then
-		notify-send -a 'battery' -u critical 'Battery Low' \
-			'The current battery level is below 20%.  Plug the device into a charger ASAP.'
+		notify battery battery 'Battery Low' \
+			'The current battery level is below 20%. Plug the device into a charger ASAP' \
+			-u critical
 		echo $now >"$TS_FILE"
 	fi
 fi
