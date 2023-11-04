@@ -1,11 +1,14 @@
-font=Iosevka Smooth 14
+font=SF Compact Display 15
 text-color=#C5C8C6
-background-color=#2B303B
-default-timeout=5000
+background-color=#2B303BF2
+default-timeout=8000
 max-visible=2
-width=500
+width=600
 height=200
-format=<b>%a: %s</b>\n%b
+format=<span alpha="50%%">%a</span> <b>%s</b>\n<span face="SF Compact Text" font="14">%b</span>
+border-radius=8
+outer-margin=10
+padding=15
 
 [urgency=critical]
-text-color=#FF0000
+border-color=#FF0000
