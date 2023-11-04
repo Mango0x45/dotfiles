@@ -4,7 +4,7 @@ set -e
 
 notify()
 {
-	notify-send -a ${0##*/} -i "$filename" 'Screenshot copied' \
+	notify-send -a ${0##*/} -i "$filename" 'Screenshot Copied' \
 		'Screenshot successfully copied to the clipboard.'
 }
 
