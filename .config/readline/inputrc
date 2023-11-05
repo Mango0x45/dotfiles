@@ -9,6 +9,9 @@ set colored-completion-prefix on
 # Treat hyphens and underscores the same in the context of completion
 set completion-map-case on
 
+# Complete prefix and show choices on one tab
+set show-all-if-ambiguous on
+
 $if editing-mode == vi
 	# Change cursor to a bar when in insert mode
 	set show-mode-in-prompt on
