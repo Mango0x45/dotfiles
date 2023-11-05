@@ -15,8 +15,15 @@ set show-all-if-ambiguous on
 $if editing-mode == vi
 	# Change cursor to a bar when in insert mode
 	set show-mode-in-prompt on
-	set vi-ins-mode-string "\1\e[6 q\2"
-	set vi-cmd-mode-string "\1\e[2 q\2"
+
+	# Taken straight from the Arch Wiki
+	$if term == linux
+		set vi-ins-mode-string "\1\e[?0c\2"
+		set vi-cmd-mode-string "\1\e[?8c\2"
+	$else
+		set vi-ins-mode-string "\1\e[6 q\2"
+		set vi-cmd-mode-string "\1\e[2 q\2"
+	$endif
 $endif
 
 $if Bash
