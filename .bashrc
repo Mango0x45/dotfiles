@@ -2,13 +2,26 @@
 [[ $- != *i* ]] && return
 [[ -f /etc/bashrc ]] && . /etc/bashrc
 
-function jr {
-	local dir=`
-		find "$REPODIR" -maxdepth 2 -path "$REPODIR/*/*" -printf '%P\n' \
+function __dir_search {
+	local qry="$1"
+	local base="$2"
+	shift 2
+
+	local dir=$(
+		find "$base" "$@" -printf '%P\n' \
+		| sed 1i. \
 		| sort -r \
-		| fzf -q "$1"
-	`
-	[[ -n "$dir" ]] && cd "$REPODIR/$dir"
+		| fzf -q "$qry"
+	)
+	[[ -n "$dir" ]] && pushd "$base/$dir"
+}
+
+function jr {
+	__dir_search "$1" "$REPODIR" -mindepth 2 -maxdepth 2
+}
+
+function jc {
+	__dir_search "$1" "$XDG_CONFIG_HOME" -maxdepth 1 -type d
 }
 
 export BROWSER="firefox"
