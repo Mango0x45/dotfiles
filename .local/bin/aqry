@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+readonly ADDR_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/aerc/addresses"
+
+awk -v qry="$1" '
+BEGIN {
+	FS = "\t"
+}
+
+$1 ~ qry {
+	printf "%s\t%s\n", $2, $1
+}
+' "$ADDR_FILE"
