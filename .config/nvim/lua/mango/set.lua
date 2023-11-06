@@ -59,7 +59,6 @@ api.nvim_create_autocmd('FocusGained', {
 -- This has to be done to enable linenumbers in netrw
 g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
-glo.user_emmet_install = false
 
 opt.matchpairs:append('‘:’')
 opt.matchpairs:append('“:”')
