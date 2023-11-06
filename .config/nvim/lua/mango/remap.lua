@@ -62,6 +62,7 @@ remap('n', '–', function()
 	vim.cmd('vsplit | Ex')
 end)
 
+-- Open netrw in a horizontal split
 remap('n', 'g–', function()
 	vim.cmd('split | Ex')
 end)
