@@ -55,15 +55,14 @@ remap('n', '<leader>T', function()
 	transpose_chars(true)
 end)
 
--- Open netrw in a vertical split
-remap('n', '–', function()
-	vim.cmd('vsplit | Ex')
-end)
+-- Open netrw quickly
+remap('n', '-', ':Ex<CR>')
 
--- Open netrw in a horizontal split
-remap('n', 'g–', function()
-	vim.cmd('split | Ex')
-end)
+-- Open netrw in a vertical- or horizontal split.  The split is made manually
+-- instead of by using :Vexplore or :Sexplore so that it’s made on the right or
+-- bottom instead of the left or top
+remap('n', '–', ':vsplit | Ex<CR>')
+remap('n', 'g–', ':split | Ex<CR>')
 
 -- Sort lines in selection
 remap('v', 's', ':sort<CR>')
