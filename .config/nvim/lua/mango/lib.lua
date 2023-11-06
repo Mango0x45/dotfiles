@@ -15,7 +15,10 @@ function M.remap(modes, from, to, opts)
 		table.insert(ct, c)
 	end)
 
-	vim.keymap.set(ct, from, to, opts)
+	vim.keymap.set(ct, from, to, opts or {
+		noremap = true,
+		silent = true,
+	})
 end
 
 function M.save_regs(regs, callback)
