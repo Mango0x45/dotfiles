@@ -59,6 +59,11 @@ api.nvim_create_autocmd('FocusGained', {
 -- This has to be done to enable linenumbers in netrw
 g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
+-- Allow for jumping between these pairs with %
+o.matchpairs:append('<:>')
+o.matchpairs:append('‘:’')
+o.matchpairs:append('“:”')
 
-opt.matchpairs:append('‘:’')
-opt.matchpairs:append('“:”')
+-- Disable the netrw banner
+g.netrw_banner = 0
+g.netrw_list_hide = [[^\(\.\|\.\.\)/\?$]]
