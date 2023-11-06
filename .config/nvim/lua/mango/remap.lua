@@ -67,3 +67,6 @@ end)
 remap('n', 'g–', function()
 	vim.cmd('split | Ex')
 end)
+
+-- Sort lines in selection
+remap('v', 's', ':sort<CR>')
