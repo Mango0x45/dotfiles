@@ -1,50 +1,51 @@
 local lib = require('mango.lib')
 local api = vim.api
-local opt = vim.opt
-local glo = vim.g
+
+local o = vim.opt
+local g = vim.g
 
 local augroup = api.nvim_create_augroup('Mango', { clear = true })
 
-opt.nu = true
-opt.relativenumber = true
+o.nu = true
+o.relativenumber = true
 
-opt.exrc = true
-opt.secure = true
+o.exrc = true
+o.secure = true
 
-opt.guifont = { 'Iosevka Smooth Term', ':h16' }
+g.guifont = { 'Iosevka Smooth Term', ':h16' }
 
 lib.set_tab_width(4)
-opt.expandtab = false
-opt.smartindent = true
+o.expandtab = false
+o.smartindent = true
 
-opt.wrap = false
+o.wrap = false
 
-opt.swapfile = false
-opt.backup = false
-opt.undodir = os.getenv('XDG_STATE_HOME') .. '/nvim/undo'
-opt.undofile = true
+o.swapfile = false
+o.backup = false
+o.undodir = os.getenv('XDG_STATE_HOME') .. '/nvim/undo'
+o.undofile = true
 
-opt.hlsearch = true
-opt.incsearch = true
+o.hlsearch = true
+o.incsearch = true
 
-opt.termguicolors = true
+o.termguicolors = true
 
-opt.scrolloff = 8
+o.scrolloff = 8
 -- TODO: Research
--- opt.signcolumn = 'yes'
--- opt.isfname:append('@-@')
+-- o.signcolumn = 'yes'
+-- o.isfname:append('@-@')
 
-opt.updatetime = 50
+o.updatetime = 50
 
-opt.colorcolumn = '81'
+o.colorcolumn = '81'
 
-opt.splitright = true
-opt.splitbelow = true
+o.splitright = true
+o.splitbelow = true
 
 -- Disable auto commenting
 api.nvim_create_autocmd('BufEnter', {
 	callback = function()
-		opt.formatoptions:remove({ 'c', 'r', 'o' })
+		o.formatoptions:remove({ 'c', 'r', 'o' })
 	end,
 	group = augroup,
 })
@@ -56,7 +57,7 @@ api.nvim_create_autocmd('FocusGained', {
 })
 
 -- This has to be done to enable linenumbers in netrw
-glo.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 glo.user_emmet_install = false
 
