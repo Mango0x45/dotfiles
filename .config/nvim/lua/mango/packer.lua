@@ -30,7 +30,6 @@ return require('packer').startup(function(use)
 	-- Improvements to builtin functionality
 	use 'mbbill/undotree'
 	use 'tpope/vim-speeddating'
-	use 'tpope/vim-vinegar'
 
 	-- Additional language support
 	use 'Glench/Vim-Jinja2-Syntax'
