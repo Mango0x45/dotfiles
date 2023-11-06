@@ -52,6 +52,7 @@ local function transpose_chars(rev)
 	end)
 end
 
+-- Transpose characters
 remap('n', '<leader>t', transpose_chars)
 remap('n', '<leader>T', function()
 	transpose_chars(true)
