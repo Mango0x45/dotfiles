@@ -6,9 +6,6 @@ vim.g.mapleader = ' '
 -- Make adjustments for my custom keyboard layout
 remap('nv', '€', '$')
 
--- Open netrw
-remap('n', '<leader>rw', vim.cmd.Ex)
-
 -- Better frame navigation
 remap('n', '<C-h>', '<C-w>h')
 remap('n', '<C-j>', '<C-w>j')
