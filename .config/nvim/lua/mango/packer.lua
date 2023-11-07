@@ -33,6 +33,7 @@ return require('packer').startup(function(use)
 
 	-- Additional language support
 	use 'Glench/Vim-Jinja2-Syntax'
+	use 'luckasRanarison/tree-sitter-hypr'
 
 	-- LSP support
 	use {
