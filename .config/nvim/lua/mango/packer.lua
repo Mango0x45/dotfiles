@@ -22,7 +22,7 @@ return require('packer').startup(function(use)
 	-- Efficiency improvements
 	use 'kylechui/nvim-surround'
 	use 'mattn/emmet-vim'
-	use 'tpope/vim-commentary'
+	use 'numToStr/Comment.nvim'
 	use 'christoomey/vim-sort-motion'
 
 	-- Git integration
