@@ -27,17 +27,6 @@ remap('n', '<C-u>', '<C-u>zz')
 remap('n', 'n', 'nzzzv')
 remap('n', 'N', 'Nzzzv')
 
--- Paste and delete without clobbering primary register
-remap('x', '<leader>p', '"_dP')
-remap('nv', '<leader>d', '"_d')
-
--- Copy to system clipboard
-remap('nv', '<leader>y', '"+y')
-remap('n', '<leader>Y', '"+Y')
-
--- Paste from system clipboard
-remap('i', '<C-+>', '"+pa')
-
 -- Swap the jump-to-mark bindings
 remap('nv', "'", '`')
 remap('nv', '`', "'")
