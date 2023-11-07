@@ -1,40 +1,46 @@
-local lsp = require('lsp-zero')
-local lib = require('mango.lib')
+local conf = require('lspconfig')
 
-lsp.preset('recommended')
-lsp.ensure_installed({
-	'clangd',
-	'gopls',
-	'rust_analyzer',
+conf.clangd.setup {}
+conf.gopls.setup {}
+conf.rust_analyzer.setup {}
+conf.lua_ls.setup {
+	settings = {
+		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+			},
+			diagnostics = {
+				globals = {
+					'vim',
+					'require',
+				},
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file('', true),
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
+}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('MangoLspConfig', {}),
+	callback = function(ev)
+		local function remap(mode, map, fn)
+			vim.keymap.set(mode, map, fn, { buffer = ev.buf })
+		end
+
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+		remap('n', 'K', vim.lsp.buf.hover)
+		remap('n', 'gd', vim.lsp.buf.definition)
+		remap('n', 'gi', vim.lsp.buf.implementation)
+		remap('n', 'gr', vim.lsp.buf.rename)
+		remap('n', 'gt', vim.lsp.buf.type_definition)
+		remap('n', 'g=', function() vim.lsp.buf.format { async = true } end)
+		remap('n', ']d', vim.diagnostic.goto_prev)
+		remap('n', '[d', vim.diagnostic.goto_next)
+		remap('n', '<leader>la', vim.lsp.buf.code_action)
+	end,
 })
-
-lsp.nvim_workspace()
-
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-	['<CR>'] = cmp.mapping.confirm({ select = true }),
-	['<C-Space>'] = cmp.mapping.complete(),
-})
-
-lsp.set_preferences({
-	suggest_lsp_servers = false,
-	sign_icons = {}
-})
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings
-})
-
-lsp.on_attach(function(_, bufnr)
-	local opts = { buffer = bufnr, remap = false }
-
-	lib.remap('n', 'gd', vim.lsp.buf.definition, opts)
-	lib.remap('n', '<leader>la', vim.lsp.buf.code_action, opts)
-	lib.remap('n', '<leader>lr', vim.lsp.buf.rename, opts)
-	lib.remap('n', '<leader>l=', vim.lsp.buf.format, opts)
-end)
-
-lsp.setup()
