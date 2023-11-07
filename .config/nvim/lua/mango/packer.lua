@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
 	use 'kylechui/nvim-surround'
 	use 'mattn/emmet-vim'
 	use 'tpope/vim-commentary'
+	use 'christoomey/vim-sort-motion'
 
 	-- Git integration
 	use 'tpope/vim-fugitive'

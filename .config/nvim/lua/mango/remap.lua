@@ -42,18 +42,10 @@ remap('i', '<C-+>', '"+pa')
 remap('nv', "'", '`')
 remap('nv', '`', "'")
 
--- Transpose characters without clobbering registers
-local function transpose_chars(rev)
-	lib.save_regs('a', function()
-		vim.cmd.normal('"a' .. (rev and 'X' or 'x') .. '"ap')
-	end)
-end
-
--- Transpose characters
-remap('n', '<leader>t', transpose_chars)
-remap('n', '<leader>T', function()
-	transpose_chars(true)
-end)
+-- Transpose characters; for some reason it has a noticable delay if I just give
+-- a string instead of lambda functions
+remap('n', '<leader>t', function() vim.cmd.normal('"zx"zp') end)
+remap('n', '<leader>T', function() vim.cmd.normal('"zX"zp') end)
 
 -- Open netrw quickly
 remap('n', '-', ':Ex<CR>')
@@ -63,6 +55,3 @@ remap('n', '-', ':Ex<CR>')
 -- bottom instead of the left or top
 remap('n', '–', ':vsplit | Ex<CR>')
 remap('n', 'g–', ':split | Ex<CR>')
-
--- Sort lines in selection
-remap('v', 's', ':sort<CR>')
