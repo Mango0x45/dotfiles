@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+setup()
+{
+	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt' \
+	| >"$DATA" sed -E                                             \
+		-e 's/;[^;]*//2g'                                         \
+		-e 's/\<(.)([A-Z]*)/\1\L\2/2g'                            \
+		-e '/^[^;]*;</d'                                          \
+		-e '/Compatibility/d'                                     \
+		-e '/Variation Selector/d'
+}
+
+readonly DATA="${XDG_DATA_HOME:-$HOME/.local/share}/unicode-data"
+[ -f "$DATA" ] || setup
+
+opt="$(cut -d';' -f2 "$DATA" | osel)"
+rune="$(
+	awk -vopt="$opt" -F';' \
+		'$2 == opt { printf "\\\\u%s\\\\n", $1; exit }' "$DATA" \
+	| xargs printf
+)"
+
+wl-copy -n "$rune" && notify uni unicode 'Rune Copied' \
+	"The rune ‘$rune’ was copied to the clipboard"
