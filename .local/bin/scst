@@ -22,7 +22,8 @@ then
 fi
 
 readonly outdir=${XDG_PICTURES_DIR:-$HOME/Pictures}/screen
-readonly filename="$outdir/`date +%F_%T.png`"
+readonly filebase=$(date +%F_%T.png)
+readonly filename="$outdir/$filebase"
 [ -d "$outdir" ] || mkdir -p "$outdir"
 
 if ${fflag:-false}
@@ -34,7 +35,10 @@ fi
 
 [ -f "$filename" ] || exit 1
 
-opt="`printf 'Copy screenshot\nEdit- and copy screenshot\n' | osel`"
+opt="$(
+	printf 'Copy screenshot\nEdit- and copy screenshot\n' \
+	| { osel || true; }
+)"
 
 case "$opt" in
 'Copy screenshot')
@@ -47,4 +51,8 @@ case "$opt" in
 		| sponge "$filename"
 	xnotify
 	;;
+*)
+	notify ${0##*/} screenshot 'Screenshot Saved' \
+		"The screenshot ‘$filebase’ was successfully saved" \
+		-i "$filename"
 esac
