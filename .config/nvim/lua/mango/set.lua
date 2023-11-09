@@ -51,8 +51,9 @@ api.nvim_create_autocmd('BufEnter', {
 })
 
 -- Make buffer auto-reverting work… somehow
-api.nvim_create_autocmd('FocusGained', {
-	command = 'checktime',
+g.autoread = true
+api.nvim_create_autocmd('CursorHold', {
+	command = 'checktime | call feedkeys("lh")',
 	group = augroup,
 })
 
