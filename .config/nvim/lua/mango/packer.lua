@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
 
 	-- Additional language support
 	use 'Glench/Vim-Jinja2-Syntax'
+	use 'https://git.sr.ht/~mango/tree-sitter-gsp'
 	use 'luckasRanarison/tree-sitter-hypr'
 
 	-- LSP support and completions

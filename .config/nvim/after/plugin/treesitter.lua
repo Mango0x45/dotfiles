@@ -61,6 +61,8 @@ require('nvim-treesitter.configs').setup {
 				['if'] = '@function.inner',
 				['an'] = '@node.outer',
 				['in'] = '@node.inner',
+				['at'] = '@text.outer',
+				['it'] = '@text.outer',
 			},
 		},
 		move = {
@@ -71,25 +73,33 @@ require('nvim-treesitter.configs').setup {
 				[']f'] = '@function.outer',
 				[']b'] = '@block.outer',
 				[']n'] = '@node.outer',
+				[']t'] = '@text.outer',
 			},
 			goto_next_end = {
 				[']C'] = '@comment.outer',
 				[']F'] = '@function.outer',
 				[']B'] = '@block.outer',
 				[']N'] = '@node.outer',
+				[']T'] = '@text.outer',
 			},
 			goto_previous_start = {
 				['[c'] = '@comment.outer',
 				['[f'] = '@function.outer',
 				['[b'] = '@block.outer',
 				['[n'] = '@node.outer',
+				['[t'] = '@text.outer',
 			},
 			goto_previous_end = {
 				['[C'] = '@comment.outer',
 				['[F'] = '@function.outer',
 				['[B'] = '@block.outer',
 				['[N'] = '@node.outer',
+				['[T'] = '@text.outer',
 			},
 		},
 	},
+
+    indent = {
+        enable = true,
+    },
 }
