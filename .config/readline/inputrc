@@ -28,6 +28,7 @@ $endif
 
 $if Bash
 	C-p: "| $PAGER"
+	C-o: "./..."
 
 	# Since <C-r> is bound to ‘forward-search-history’
 	C-t: reverse-search-history
