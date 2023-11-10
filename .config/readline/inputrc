@@ -27,7 +27,7 @@ $if editing-mode == vi
 $endif
 
 $if Bash
-	C-p: " | $PAGER"
+	C-p: "| $PAGER"
 
 	# Since <C-r> is bound to ‘forward-search-history’
 	C-t: reverse-search-history
