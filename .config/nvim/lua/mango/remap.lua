@@ -4,7 +4,7 @@ local remap = lib.remap
 vim.g.mapleader = ' '
 
 -- Make adjustments for my custom keyboard layout
-remap('nv', '€', '$')
+remap('nov', '€', '$')
 
 -- Better frame navigation
 remap('n', '<C-h>', '<C-w>h')
