@@ -21,20 +21,4 @@ function M.remap(modes, from, to, opts)
 	})
 end
 
-function M.save_regs(regs, callback)
-	local rs = {}
-	for r in regs:gmatch('.') do
-		rs[r] = {
-			s = vim.fn.getreg(r),
-			t = vim.fn.getregtype(r),
-		}
-	end
-
-	callback()
-
-	for k, v in pairs(rs) do
-		vim.fn.setreg(k, v.s, v.t)
-	end
-end
-
 return M
