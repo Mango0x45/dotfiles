@@ -8,6 +8,8 @@ local augroup = api.nvim_create_augroup('Mango', { clear = true })
 
 o.nu = true
 o.relativenumber = true
+o.signcolumn = 'no'
+o.colorcolumn = '81'
 
 o.exrc = true
 o.secure = true
@@ -31,13 +33,8 @@ o.incsearch = true
 o.termguicolors = true
 
 o.scrolloff = 8
--- TODO: Research
--- o.signcolumn = 'yes'
--- o.isfname:append('@-@')
 
-o.updatetime = 50
-
-o.colorcolumn = '81'
+o.isfname:append('@-@')
 
 o.splitright = true
 o.splitbelow = true
