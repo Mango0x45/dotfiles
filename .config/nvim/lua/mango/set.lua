@@ -51,11 +51,16 @@ api.nvim_create_autocmd('BufEnter', {
 })
 
 -- Make buffer auto-reverting work… somehow
-g.autoread = true
-api.nvim_create_autocmd('CursorHold', {
-	command = 'checktime | call feedkeys("lh")',
-	group = augroup,
-})
+vim.cmd([[
+	if !exists('g:CheckUpdateStarted')
+		let g:CheckUpdateStarted = 1
+		call timer_start(1000, 'CheckUpdate', {'repeat': -1})
+	endif
+
+	function! CheckUpdate(_)
+		silent! checktime
+	endfunction
+]])
 
 -- This has to be done to enable linenumbers in netrw
 g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
