@@ -11,7 +11,7 @@ socat -u UNIX-CONNECT:"$IPC" - \
 	do
 		case "$e" in
 		c*)
-			ws="`printf '%s\n%s\n' "$ws" $n | sort -V`"
+			ws="`printf '%s\n%s\n' "$ws" $n | sort -n`"
 			;;
 		d*)
 			ws="`echo "$ws" | grep -v "^$n$"`"
