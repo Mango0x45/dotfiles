@@ -1,15 +1,16 @@
-local conf = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local cmp = require('cmp')
+local conf = require('lspconfig')
+local snip = require('luasnip')
+
 conf['clangd'].setup { capabilities = capabilities }
 conf['gopls'].setup { capabilities = capabilities }
 conf['lua_ls'].setup { capabilities = capabilities }
 conf['rust_analyzer'].setup { capabilities = capabilities }
-
-local cmp = require('cmp')
 cmp.setup {
 	snippet = {
 		expand = function(args)
-			require('luasnip').lsp_expand(args.body)
+			snip.lsp_expand(args.body)
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
