@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=zathura
+
+GenericName=PDF Reader
+Comment=Launches the zathura PDF reader
+Keywords=PDF
+Categories=Office;Viewer
+
+Type=Application
+Terminal=false
+Exec=zathura %u
+MimeType=application/pdf

@@ -1,4 +1,5 @@
 [Default Applications]
+application/pdf=zathura.desktop
 text/html=firefox.desktop
 x-scheme-handler/about=firefox.desktop
 x-scheme-handler/http=firefox.desktop
