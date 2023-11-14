@@ -11,12 +11,10 @@ local function map(lhs, rhs)
 			node = node:parent()
 		end
 
-		if node == nil or node:type() ~= 'operation' then
-			return
+		if node ~= nil then
+			local sr, sc, er, ec = node:child(0):range()
+			vim.api.nvim_buf_set_text(0, sr, sc, er, ec, { rhs })
 		end
-
-		local sr, sc, er, ec = node:child(0):range()
-		vim.api.nvim_buf_set_text(0, sr, sc, er, ec, { rhs })
 	end, {
 		buffer = true,
 		noremap = true,
