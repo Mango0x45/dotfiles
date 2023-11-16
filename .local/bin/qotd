@@ -28,5 +28,3 @@ older_than_today "$QOTD" \
 	&& yq -0 '.mangoes.[].quote.content' <"$QUOTES" \
 	| shuf -zn1 \
 	| tr '\0' '\n' >"$QOTD"
-
-exit 0
