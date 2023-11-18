@@ -8,13 +8,14 @@ export NOTIFY_SHORT="${0##*/}"
 setup()
 {
 	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt' \
-	| >"$DATA" sed -E                                             \
-		-e 's/;[^;]*//2g'                                         \
-		-e 's/\<(.)([A-Z]*)/\1\L\2/2g'                            \
-		-e '/^[^;]*;</d'                                          \
-		-e '/Compatibility/d'                                     \
-		-e '/Variation Selector/d'                                \
-		-e 's/[^;]*/\\\\u&/'
+	| sed -E '
+		s/;[^;]*//2g
+		s/\<(.)([A-Z]*)/\1\L\2/2g
+		/^[^;]*;</d
+		/Compatibility/d
+		/Variation Selector/d
+		s/[^;]*/\\\\u&/
+	' >"$DATA"
 }
 
 readonly DATA="${XDG_DATA_HOME:-$HOME/.local/share}/unicode-data"
