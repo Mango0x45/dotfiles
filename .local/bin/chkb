@@ -2,20 +2,26 @@
 
 set -e
 
-OSEL_GUI_FLAGS='-r "echo \"%s\" | cut -f2 | xargs echo -n"'
-export OSEL_GUI_FLAGS="$OSEL_GUI_FLAGS -Oalphabetical"
-export OSEL_TERM_FLAGS='--with-nth=2..'
 readonly KEYBOARD=at-translated-set-2-keyboard
 
-if choice="`
-	sed -En 's/\s*name\[Group1\]\s*=\s*"([^"]*)"\s*;\s*/\1/p' \
-		~/.xkb/symbols/mango \
-		| sort \
-		| nl -v0 -nln \
-		| osel
-`"
+s="$(
+	{
+		hyprctl -j getoption input:kb_layout
+		hyprctl -j getoption input:kb_variant
+	} | jq '
+		.str | split(",\\s*"; "g")
+	' | jq -rn '
+		[inputs]
+		| transpose
+		| map("\(.[0]) (\(.[1]))")
+		| .[]
+	' | sed -E 's/[a-zA-Z]+/\u&/g'
+)"
+
+if choice="$(echo "$s" | osel)"
 then
-	hyprctl switchxkblayout $KEYBOARD ${choice%	*} >/dev/null
+	n="$(echo "$s" | sed -n "/$choice/=" | xargs expr -1 +)"
+	hyprctl switchxkblayout $KEYBOARD $n >/dev/null
 	notify "${0##*/}" keyboard 'Keyboard Layout Changed' \
-		"The keyboard layout was changed to ‘${choice##*	}’"
+		"The keyboard layout was changed to ‘$choice’"
 fi

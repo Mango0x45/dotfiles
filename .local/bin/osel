@@ -5,7 +5,7 @@ if [ -t 2 ]
 then
 	eval fzf $OSEL_TERM_FLAGS
 else
-	eval wofi -d $OSEL_GUI_FLAGS
+	eval fuzzel -d $OSEL_GUI_FLAGS
 fi`"
 [ -z "$x" ] && exit 1
 printf '%s' "$x"
