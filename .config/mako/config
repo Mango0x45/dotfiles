@@ -9,6 +9,7 @@ format=<span alpha="50%%">%a</span> <b>%s</b>\n<span face="SF Compact Text" fo
 border-radius=8
 outer-margin=10
 padding=15
+layer=overlay
 
 [urgency=critical]
 border-color=#FF0000
