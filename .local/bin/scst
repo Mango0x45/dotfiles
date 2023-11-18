@@ -2,9 +2,12 @@
 
 set -e
 
+export NOTIFY_LONG=screenshot
+export NOTIFY_SHORT="${0##*/}"
+
 xnotify()
 {
-	notify ${0##*/} screenshot 'Screenshot Copied' \
+	notify 'Screenshot Copied' \
 		'Screenshot successfully copied to the clipboard' \
 		-i "$filename"
 }
@@ -35,10 +38,7 @@ fi
 
 [ -f "$filename" ] || exit 1
 
-opt="$(
-	printf 'Copy screenshot\nEdit- and copy screenshot\n' \
-	| { osel || true; }
-)"
+opt="$(printf 'Copy screenshot\nEdit- and copy screenshot\n' | { osel || true; })"
 
 case "$opt" in
 'Copy screenshot')
@@ -46,13 +46,11 @@ case "$opt" in
 	xnotify
 	;;
 'Edit- and copy screenshot')
-	swappy -f "$filename" -o - \
-		| pee wl-copy cat \
-		| sponge "$filename"
+	swappy -f "$filename" -o - | pee wl-copy cat | sponge "$filename"
 	xnotify
 	;;
 *)
-	notify ${0##*/} screenshot 'Screenshot Saved' \
+	notify 'Screenshot Saved' \
 		"The screenshot ‘$filebase’ was successfully saved" \
 		-i "$filename"
 esac

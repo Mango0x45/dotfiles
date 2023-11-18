@@ -2,7 +2,9 @@
 
 set -e
 
-choice="`timedatectl list-timezones | grep './.' | osel`" \
-	&& sudo timedatectl set-timezone "$choice" \
-	&& notify "${0##*/}" timezone 'Timezone Changed' \
-		"The system timezone was changed to ‘$choice’"
+export NOTIFY_LONG=timezone
+export NOTIFY_SHORT="${0##*/}"
+
+choice="$(timedatectl list-timezones | grep './.' | osel)" \
+&& sudo timedatectl set-timezone "$choice" \
+&& notify 'Timezone Changed' "The system timezone was changed to ‘$choice’"

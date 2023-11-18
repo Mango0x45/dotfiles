@@ -2,6 +2,9 @@
 
 set -e
 
+export NOTIFY_LONG=unicode
+export NOTIFY_SHORT="${0##*/}"
+
 setup()
 {
 	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt' \
@@ -23,5 +26,5 @@ rune="$(
 	| xargs printf
 )"
 
-wl-copy -n "$rune" && notify uni unicode 'Rune Copied' \
-	"The rune ‘$rune’ was copied to the clipboard"
+wl-copy -n "$rune" \
+&& notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"

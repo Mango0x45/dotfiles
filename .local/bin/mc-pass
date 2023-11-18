@@ -1,12 +1,14 @@
 #!/bin/sh
 
+export NOTIFY_LONG='mc pass'
+export NOTIFY_SHORT="${0##*/}"
+
 trap '
 	wl-copy </dev/null
-	notify "${0##*/}" "mc pass" "Password Cleared" \
-		"The password was cleared from the clipboard."
+	notify "Password Cleared" "The password was cleared from the clipboard."
 ' INT EXIT TERM
 
 vlt raw Email thomasvoss@live.com | wl-copy
-notify "${0##*/}" 'mc pass' 'Password Copied' \
+notify 'Password Copied' \
 	'The password will be cleared from the clipboard in 10 seconds.'
 sleep 10
