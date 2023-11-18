@@ -8,10 +8,9 @@ s="$(
 	{
 		hyprctl -j getoption input:kb_layout
 		hyprctl -j getoption input:kb_variant
-	} | jq '
-		.str | split(",\\s*"; "g")
-	' | jq -rn '
+	} | jq -rn '
 		[inputs]
+		| map(.str | split(",\\s*"; "g"))
 		| transpose
 		| map("\(.[0]) (\(.[1]))")
 		| .[]
