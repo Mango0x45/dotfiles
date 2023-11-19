@@ -22,7 +22,6 @@ s="$(
 
 if choice="$(echo "$s" | osel)"
 then
-	echo "$s"
 	n="$(echo "$s" | sed -n "/$choice/=" | { xargs expr -1 + || true; })"
 	hyprctl switchxkblayout $KEYBOARD $n >/dev/null
 	notify 'Keyboard Layout Changed' \
