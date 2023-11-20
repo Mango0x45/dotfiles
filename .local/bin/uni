@@ -24,5 +24,10 @@ readonly DATA="${XDG_DATA_HOME:-$HOME/.local/share}/unicode-data"
 opt="$(cut -d';' -f2 "$DATA" | osel)"
 rune="$(awk -vopt="$opt" -F';' '$2 == opt { print $1 }' "$DATA" | xargs printf)"
 
-wl-copy -n "$rune" \
-&& notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"
+if [ -t 2 ]
+then
+	wl-copy -n "$rune" \
+	&& notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"
+else
+	wtype -- "$rune"
+fi
