@@ -11,6 +11,12 @@ local sn = ls.snippet_node
 local t = ls.text_node
 local fmt = require('luasnip.extras.fmt').fmt
 
+local function same(index)
+	return f(function(args)
+		return args[1]
+	end, { index })
+end
+
 ls.config.set_config {
 	history = true,
 	updateevents = 'TextChanged,TextChangedI',
@@ -177,6 +183,24 @@ ls.add_snippets('go', {
 			{
 				delimiters = '<>',
 			}
+		)
+	),
+})
+
+
+ls.add_snippets('c', {
+	s(
+		'gu',
+		fmt(
+			[[
+				#ifndef {}_H
+				#define {}_H
+
+				{}
+
+				#endif /* !{}_H */
+			]],
+			{ i(1), same(1), i(0), same(1), }
 		)
 	),
 })
