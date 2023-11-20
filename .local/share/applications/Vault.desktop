@@ -1,0 +1,24 @@
+[Desktop Entry]
+Actions=add-password;edit-password;remove-password
+Categories=Utility;Database;TextTools;Archiving;Security
+Comment=Store and Retrieve Passwords
+Exec=vlt get
+GenericName=Password Store
+Icon=/home/thomas/down/lock.png
+Keywords=Password
+Name=Vault
+Terminal=false
+Type=Application
+Version=1.5
+
+[Desktop Action add-password]
+Name=Add a Password
+Exec=vlt add
+
+[Desktop Action edit-password]
+Name=Edit a Password
+Exec=vlt edit
+
+[Desktop Action remove-password]
+Name=Remove a Password
+Exec=vlt rm
