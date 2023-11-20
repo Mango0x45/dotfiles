@@ -20,10 +20,7 @@ s="$(
 	' | sed -E 's/[a-zA-Z]+/\u&/g'
 )"
 
-if choice="$(echo "$s" | osel)"
-then
-	n="$(echo "$s" | sed -n "/$choice/=" | { xargs expr -1 + || true; })"
-	hyprctl switchxkblayout $KEYBOARD $n >/dev/null
-	notify 'Keyboard Layout Changed' \
-		"The keyboard layout was changed to ‘$choice’"
-fi
+choice="$(echo "$s" | osel)"
+n="$(echo "$s" | sed -n "/$choice/=" | { xargs expr -1 + || true; })"
+hyprctl switchxkblayout $KEYBOARD $n >/dev/null
+notify 'Keyboard Layout Changed' "The keyboard layout was changed to ‘$choice’"
