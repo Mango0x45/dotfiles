@@ -1,11 +1,40 @@
 #!/bin/sh
 
-x="`
-if [ -t 2 ]
-then
-	eval fzf $OSEL_TERM_FLAGS
-else
-	eval fuzzel -d $OSEL_GUI_FLAGS
-fi`"
+index()
+{
+	if [ -t 2 ]
+	then
+		nl -nln -v0 \
+		| eval fzf --with-nth=2 $OSEL_TERM_FLAGS \
+		| cut -f1 -d' '
+	else
+		eval fuzzel -d --index $OSEL_GUI_FLAGS
+	fi
+}
+
+normal()
+{
+	if [ -t 2 ]
+	then
+		eval fzf $OSEL_TERM_FLAGS
+	else
+		eval fuzzel -d $OSEL_GUI_FLAGS
+	fi
+}
+
+f=normal
+while getopts 'i' opt
+do
+	case $opt in
+	i)
+		f=index
+		;;
+	*)
+		echo "Usage: osel [-i]" >&2
+		exit 1
+	esac
+done
+
+x="$($f)"
 [ -z "$x" ] && exit 1
 printf '%s' "$x"
