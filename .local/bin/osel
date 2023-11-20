@@ -1,5 +1,7 @@
 #!/bin/sh
 
+OSEL_GUI_FLAGS="-d --log-level=warning $OSEL_GUI_FLAGS"
+
 index()
 {
 	if [ -t 2 ]
@@ -8,7 +10,7 @@ index()
 		| eval fzf --with-nth=2 $OSEL_TERM_FLAGS \
 		| cut -f1 -d' '
 	else
-		eval fuzzel -d --index $OSEL_GUI_FLAGS
+		eval fuzzel $OSEL_GUI_FLAGS
 	fi
 }
 
@@ -18,7 +20,7 @@ normal()
 	then
 		eval fzf $OSEL_TERM_FLAGS
 	else
-		eval fuzzel -d $OSEL_GUI_FLAGS
+		eval fuzzel $OSEL_GUI_FLAGS
 	fi
 }
 
