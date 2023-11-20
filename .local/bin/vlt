@@ -36,10 +36,10 @@ prompt()
 {
 	if [ -t 2 ]
 	then
-		printf '%s ' "$1"
+		printf '%s: ' "$1"
 		read -r s
 	else
-		s="$(zenity --title=zenity --entry --text="$1")"
+		s="$(fuzzel -d -l0 -P0 --prompt="$1: ")"
 	fi
 	sanitize "$s"
 }
@@ -48,7 +48,7 @@ xprompt()
 {
 	if [ -t 2 ]
 	then
-		printf '%s ' "$1"
+		printf '%s: ' "$1"
 		stty -echo
 		trap 'stty echo' INT
 		read -r s
@@ -56,7 +56,7 @@ xprompt()
 		trap - INT
 		echo
 	else
-		s="$(zenity --title=zenity --password --text="$1")"
+		s="$(fuzzel -d -l0 -P0 --password --prompt="$1: ")"
 	fi
 	sanitize "$s"
 }
@@ -82,7 +82,7 @@ add()
 
 	c="$(xecho "$data" | jq -r 'keys | .[]' | osel)"
 
-	prompt 'Password name:'
+	prompt 'Password name'
 	n="$s"
 
 	xecho "$data" \
@@ -93,9 +93,9 @@ add()
 
 	if [ "$VAULT_2FA" = "$c" ]
 	then
-		xprompt 'Secret key:'; k="$s"
-		prompt 'Digits:'; d="$s"
-		prompt 'Period:'
+		xprompt 'Secret key'; k="$s"
+		prompt 'Digits'; d="$s"
+		prompt 'Period'
 
 		xecho "$data" \
 		| jq --arg c "$c" \
@@ -112,7 +112,7 @@ add()
 		[ ! -t 2 ] && notify '2FA Key Added' \
 			"The 2FA key ‘$n’ was added with the digit length ‘$d’ and period ‘$p’"
 	else
-		xprompt 'Password:'
+		xprompt 'Password'
 
 		xecho "$data" \
 		| jq --arg c "$c" --arg n "$n" --arg s "$s" '.[$c] += {($n): $s}' \
@@ -126,7 +126,7 @@ add_c()
 {
 	readonly data="$(enchive extract <"$VAULT")"
 
-	prompt 'Category to create:'
+	prompt 'Category to create'
 
 	xecho "$data" | jq -e --arg s "$s" 'has($s) | not' >/dev/null || {
 		notify 'Failed To Create Category' "The category ‘$s’ already exists"
@@ -243,9 +243,9 @@ edit()
 
 	if [ "$VAULT_2FA" = "$c" ]
 	then
-		xprompt 'Secret key:'; k="$s"
-		prompt 'Digits:'; d="$s"
-		prompt 'Period:'
+		xprompt 'Secret key'; k="$s"
+		prompt 'Digits'; d="$s"
+		prompt 'Period'
 
 		xecho "$data" \
 		| jq --arg c "$c" \
@@ -262,7 +262,7 @@ edit()
 		[ ! -t 2 ] && notify '2FA Key Added' \
 			"The 2FA key ‘$n’ was added with the digit length ‘$d’ and period ‘$p’"
 	else
-		xprompt 'Password:'
+		xprompt 'Password'
 		xecho "$data" \
 		| jq --arg c "$c" --arg n "$n" --arg s "$s" '.[$c] += {($n): $s}' \
 		| enchive archive >"$VAULT"
@@ -276,7 +276,7 @@ edit_c()
 	readonly data="$(enchive extract <"$VAULT")"
 
 	c="$(xecho "$data" | jq -r 'keys | .[]' | osel)"
-	prompt 'Category name:'
+	prompt 'Category name'
 	xecho "$data" \
 	| jq --arg o "$c" --arg n "$s" \
 		 'with_entries(if .key == $o then .key = $n else . end)' \
