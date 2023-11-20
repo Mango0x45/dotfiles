@@ -1,6 +1,7 @@
 #!/bin/sh
 
 readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
+readonly KBD=at-translated-set-2-keyboard
 
 hyprctl devices -j | jq -r '.keyboards[-1].active_keymap'
-socat -u UNIX-CONNECT:"$IPC" - | sed -En 's/^activelayout>>[^,]+,//p'
+socat -u UNIX-CONNECT:"$IPC" - | sed -En "s/^activelayout>>$KBD,//p"
