@@ -14,15 +14,16 @@ setup()
 		/^[^;]*;</d
 		/Compatibility/d
 		/Variation Selector/d
-		s/[^;]*/\\\\u&/
+		s/[^;]*/\\u&/
 	' >"$DATA"
 }
 
 readonly DATA="${XDG_DATA_HOME:-$HOME/.local/share}/unicode-data"
 [ -f "$DATA" ] || setup
 
-opt="$(cut -d';' -f2 "$DATA" | osel)"
-rune="$(awk -vopt="$opt" -F';' '$2 == opt { print $1 }' "$DATA" | xargs printf)"
+idx="$(cut -d';' -f2 "$DATA" | osel -i)"
+code="$(head -n "$idx" "$DATA" | tail -n1 | cut -d';' -f1)"
+rune="$(printf $code)"
 
 if [ -t 2 ]
 then
