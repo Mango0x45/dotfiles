@@ -1,0 +1,4 @@
+#!/usr/bin/sed -f
+
+# tr doesn’t translate characters — but bytes — meaning we need sed
+y/\x1C\x1D\x1E\x1F/␜␝␞␟/
