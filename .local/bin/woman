@@ -1,0 +1,11 @@
+#!/bin/sh
+
+apropos . \
+| sed -E 's/ (\([^)]+\))\s*-/\1 —/' \
+| sort \
+| osel \
+| sed -E 's/([^(]+)\(([^)]+)\).*/\2 \1/' \
+| {
+	read p s
+	[ -n "$p" -a -n "$s" ] && man -Tpdf "$p" "$s" | zathura -
+}
