@@ -25,38 +25,6 @@
 	}
 }
 
-.cal {
-	$bg: rgba(43, 48, 59, 1);
-	$blue: #9CDCFE;
-	$yellow: #F0E68C;
-
-	font-size: 28px;
-
-	.button {
-		-gtk-icon-source: none;
-	}
-
-	.view {
-		background-color: $bg;
-		border-radius: 4px;
-		border: 3px solid rgba(100, 114, 125, .5);
-	}
-
-	.highlight {
-		color: $blue;
-		font-weight: bold;
-	}
-
-	:indeterminate {
-		color: #999;
-	}
-
-	:selected {
-		background-color: #414859;
-		border-radius: 4px;
-	}
-}
-
 .workspaces button {
 	label {
 		padding: 0 13px;

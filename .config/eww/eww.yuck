@@ -84,8 +84,7 @@
                     id))))
 
 (defwidget clock []
-  (box (button :onclick `scripts/toggle calendar-1 calendar-2 calendar-3`
-               {datetime.pretty})))
+  {datetime.pretty})
 
 (defwidget wireless []
   (pair :icon "" :text wireless))
