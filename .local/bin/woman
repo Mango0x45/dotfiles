@@ -7,5 +7,6 @@ apropos . \
 | sed 's/\s.*//' \
 | {
 	IFS= read -r page
-	[ -n "$page" ] && man -Tpdf "$page" | zathura -
+	[ -n "$page" -a ! -t 2 ] && man -Tpdf "$page" | zathura -
+	[ -n "$page" -a   -t 2 ] && man "$page"
 }
