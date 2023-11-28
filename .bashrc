@@ -28,6 +28,7 @@ export BROWSER="firefox"
 export CC="cc"
 export EDITOR="nvim"
 export PAGER="less"
+export MANPAGER="nvimpager"
 export TERM="xterm-256color"
 export VISUAL="nvim"
 
