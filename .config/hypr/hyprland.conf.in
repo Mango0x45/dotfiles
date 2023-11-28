@@ -73,24 +73,28 @@ misc {
 
 $modkey = SUPER
 
-# WM Behavior
+# WM behavior
 bind = $modkey, F, fullscreen, 0
 bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
-# Programs
-bind = $modkey, C, exec, exec foot ec
-bind = $modkey, D, exec, exec woman 2>/dev/null
-bind = $modkey, E, exec, exec emacsclient -c -a emacs
-bind = $modkey, M, exec, exec foot aerc
-bind = $modkey, P, exec, exec vlt get 2>/dev/null
-bind = $modkey, U, exec, exec uni 2>/dev/null
-bind = $modkey, W, exec, exec firefox
-bind = $modkey, X, exec, exec chkb 2>/dev/null
-bind = $modkey, Space,  exec, exec fuzzel --log-level=warning --show-actions
+# Global programs
+bind = $modkey, M,      exec, exec foot aerc 2>/dev/null
 bind = $modkey, Return, exec, exec foot
+bind = $modkey, Space,  exec, exec fuzzel --log-level=warning --show-actions
 bind  =      , Print, exec, exec scst    2>/dev/null
 bind  = SHIFT, Print, exec, exec scst -f 2>/dev/null
+
+# Prompt-/Dmenu-style programs
+__submap(prompt, P, [
+	__subbind(C, foot ec)
+	__subbind(D, woman)
+	__subbind(E, emacsclient -c -a emacs)
+	__subbind(P, vlt get)
+	__subbind(U, uni)
+	__subbind(W, firefox)
+	__subbind(X, chkb)
+])
 
 # Change focused window
 bind = $modkey, H,     movefocus, l
