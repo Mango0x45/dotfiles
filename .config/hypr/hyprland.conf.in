@@ -43,6 +43,11 @@ decoration {
 	dim_inactive = yes
 	dim_strength = 0.1
 	rounding     = 8
+
+	drop_shadow         = true
+	shadow_offset       = 3 3
+	shadow_range        = 20
+	shadow_render_power = 4
 }
 
 dwindle {
@@ -79,21 +84,20 @@ bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
-bind = $modkey, M,      exec, exec foot aerc 2>/dev/null
-bind = $modkey, Return, exec, exec foot
-bind = $modkey, Space,  exec, exec fuzzel --log-level=warning --show-actions
-bind  =      , Print, exec, exec scst    2>/dev/null
-bind  = SHIFT, Print, exec, exec scst -f 2>/dev/null
+__bind(C, foot ec)
+__bind(M, foot aerc)
+__bind(W, firefox)
+__bind(return, foot)
+__bind(space, fuzzel --log-level=warning --show-actions)
+__bind(     , print, scst)
+__bind(SHIFT, print, scst -f)
 
 # Prompt-/Dmenu-style programs
 __submap(prompt, P, [
-	__subbind(C, foot ec)
-	__subbind(D, woman)
-	__subbind(E, emacsclient -c -a emacs)
+	__subbind(K, chkb)
+	__subbind(M, woman)
 	__subbind(P, vlt get)
 	__subbind(U, uni)
-	__subbind(W, firefox)
-	__subbind(X, chkb)
 ])
 
 # Change focused window
@@ -151,14 +155,20 @@ bind = $modkey CONTROL, 18, movetoworkspace,  9
 bind = $modkey CONTROL, 19, movetoworkspace, 10
 
 # Media keys
-binde = , xf86audiomute,        exec, amixer -q sset Master toggle
-binde = , xf86audiolowervolume, exec, amixer -q sset Master 5%-
-binde = , xf86audioraisevolume, exec, amixer -q sset Master 5%+
-binde = , xf86audiomedia, exec, foot -e nvim ~/.config/hypr/hyprland.conf
-binde =     , xf86monbrightnessup,   exec, lux -I 5
-binde =     , xf86monbrightnessdown, exec, lux -D 5
-bind = SHIFT, xf86monbrightnessup,   exec, lux -S 50
-bind = SHIFT, xf86monbrightnessdown, exec, lux -s 0
+__binde(, xf86audiomute,        amixer -q sset Master toggle)
+__binde(, xf86audiolowervolume, amixer -q sset Master 5%-)
+__binde(, xf86audioraisevolume, amixer -q sset Master 5%+)
+
+__binde(,     xf86monbrightnessup,   lux -I 5)
+__bind(SHIFT, xf86monbrightnessup,   lux -S 50)
+__binde(,     xf86monbrightnessdown, lux -D 5)
+__bind(SHIFT, xf86monbrightnessdown, lux -s 0)
+
+# Settings key on Framework laptop
+__binde(,
+	xf86audiomedia,
+	foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in'
+)
 
 # Scroll through existing workspaces with modkey + scroll
 bind = $modkey, mouse_down, workspace, e+1
