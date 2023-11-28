@@ -44,3 +44,12 @@ remap('n', '-', ':Ex<CR>')
 -- bottom instead of the left or top
 remap('n', '–', ':vsplit | Ex<CR>')
 remap('n', 'g–', ':split | Ex<CR>')
+
+remap('n', '<leader>s', function()
+	vim.cmd('vsplit')
+	lib.scratch_buffer()
+end)
+remap('n', '<leader>S', function()
+	vim.cmd('split')
+	lib.scratch_buffer()
+end)

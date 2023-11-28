@@ -21,4 +21,16 @@ function M.remap(modes, from, to, opts)
 	})
 end
 
+function M.scratch_buffer()
+	vim.cmd [[
+		if bufexists('scratch')
+			buffer scratch
+		else
+			noswapfile hide enew
+			setlocal buftype=nofile bufhidden=hide
+			file scratch
+		endif
+	]]
+end
+
 return M
