@@ -2,6 +2,9 @@
 
 set -e
 
+export NOTIFY_SHORT=battery
+export NOTIFY_LONG=battery
+
 readonly TS_FILE="$XDG_DATA_HOME/battery-notification.timestamp"
 [ -f "$TS_FILE" ] || touch "$TS_FILE"
 
@@ -17,7 +20,7 @@ then
 
 	if (set +e; [ $(($now - ${was:-0} > 60)) -eq 1 ])
 	then
-		notify battery battery 'Battery Low' \
+		notify 'Battery Low' \
 			'The current battery level is below 20%. Plug the device into a charger ASAP' \
 			-u critical
 		echo $now >"$TS_FILE"

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export NOTIFY_SHORT=email
+export NOTIFY_LONG=email
+
 readonly CACHE="${XDG_CACHE_HOME:=$HOME/.cache}/email-listener"
 touch "$CACHE"
 
@@ -46,7 +49,7 @@ count()
 				;;
 			esac
 
-			notify email email "$title" "$desc"
+			notify "$title" "$desc"
 			prev=$new_mails
 		fi
 	done
