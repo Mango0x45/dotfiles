@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+abort()
+{
+	notify 'Timer Interrupted' 'The timer was unexpectedly interrupted' \
+		-u critical
+	exit 1
+}
+
+export NOTIFY_LONG=timer
+export NOTIFY_SHORT=${0##*/}
+
+if [ $# -eq 0 ]
+then
+	echo 'Usage: timer duration [message]' >&2
+	exit 1
+fi
+
+trap abort HUP INT QUIT ABRT KILL ALRM TERM
+
+if sleep "$1"
+then
+	notify 'Timer Finished' "$2"
+else
+	abort
+fi
