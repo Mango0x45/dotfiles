@@ -12,7 +12,9 @@ then
 else
 	t="$(echo "$NOTIFY_LONG" | tr a-z A-Z)"
 	s="$1"
-	b="$2."
+	b="$2"
+	c="${b##*[![:punct:]]}"
+	[ -z "$c" ] && b="$2."
 	shift 2
 	notify-send "$@" -a "$t" "$s" "$b"
 fi
