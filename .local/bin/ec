@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-[ -t 2 ] && mode=t || mode=c
+test -t 2 && set mode t || set mode c
 exec emacsclient -s ec -$mode

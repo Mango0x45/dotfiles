@@ -1,30 +1,23 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-set -e
-
-older_than_today()
-{
-	if [ ! -f "$1" ]
-	then
-		mod=0000-00-00
-	else
-		mod=`stat -c %y "$1" | xargs -I{} -- date -d{} +%F`
-	fi
-
-	[ $mod != `date +%F` ]
-	return $?
+func older_than_today file {
+	if test ! -f $file {
+		set mod 0000-00-00
+	} else {
+		set mod `stat -c %y $file | xargs -I{} -- date -d{} +%F
+	}
+	test $mod != `date +%F
 }
 
-readonly QUOTES="${XDG_DATA_HOME:-$HOME/.local/share}/romir/quotes.yml"
-readonly QOTD="${XDG_CACHE_HOME:-$HOME/.cache}/qotd"
+set QUOTES $XDG_DATA_HOME/romir/quotes.yml
+set QOTD $XDG_CACHE_HOME/qotd
 
-if older_than_today "$QUOTES"
-then
-	dirname "$QUOTES" | xargs mkdir -p
-	chronic wget 'https://romir.eu/mangoes.yaml' -O "$QUOTES"
-fi
+if older_than_today $QUOTES {
+	mkdir -p `dirname $QUOTES
+	chronic wget 'https://romir.eu/mangoes.yaml' -O $QUOTES
+}
 
-older_than_today "$QOTD" \
-	&& yq -0 '.mangoes.[].quote.content' <"$QUOTES" \
-	| shuf -zn1 \
-	| tr '\0' '\n' >"$QOTD"
+older_than_today $QOTD
+&& yq -0 '.mangoes.[].quote.content' <$QUOTES
+| shuf -zn1
+| tr '\0' '\n' >$QOTD

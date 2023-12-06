@@ -1,12 +1,16 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-apropos . \
-| sed -E 's/ (\([^)]+\))\s*-/\1 —/' \
-| sort \
-| osel \
-| sed 's/\s.*//' \
-| {
-	IFS= read -r page
-	[ -n "$page" -a ! -t 2 ] && man -Tpdf "$page" | zathura -
-	[ -n "$page" -a   -t 2 ] && man "$page"
+# TODO: -s flag to apropos
+
+apropos .
+| sed -E 's/ (\([^)]+\))\s*-/\1 —/'
+| sort
+| osel
+| sed 's/\s.*//'
+| read page
+
+if test -n $page -a ! -t 2 {
+	man -Tpdf $page | zathura -
+} else if test -n $page -a -t 2 {
+	man $page
 }

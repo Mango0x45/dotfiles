@@ -1,26 +1,26 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-set -e
+set -e NOTIFY_LONG keyboard
+set -e NOTIFY_SHORT chkb
 
-export NOTIFY_LONG=keyboard
-export NOTIFY_SHORT=${0##*/}
+set KEYBOARD at-translated-set-2-keyboard
 
-readonly KEYBOARD=at-translated-set-2-keyboard
-
-s="$(
+set s `{
 	{
 		hyprctl -j getoption input:kb_layout
 		hyprctl -j getoption input:kb_variant
-	} | jq -rn '
+	}
+	| jq -rn '
 		[inputs]
 		| map(.str | split(",\\s*"; "g"))
 		| transpose
 		| map("\(.[0]) (\(.[1]))")
 		| .[]
-	' | sed -E 's/[a-zA-Z]+/\u&/g'
-)"
+	'
+	| sed -E 's/[a-zA-Z]+/\u&/g'
+}
 
-choice="$(echo "$s" | osel)"
-n="$(echo "$s" | sed -n "/$choice/=" | { xargs expr -1 + || true; })"
-hyprctl switchxkblayout $KEYBOARD $n >/dev/null
+set choice `echo $s | osel
+set n `echo $s | sed -n "/$choice/=" | { xargs expr -1 + || true }
+hyprctl switchxkblayout $KEYBOARD $n >_
 notify 'Keyboard Layout Changed' "The keyboard layout was changed to ‘$choice’"

@@ -6,12 +6,11 @@ index()
 {
 	if [ -t 2 ]
 	then
-		nl -nln -w1 \
+		nl -nln -w1 -v0 \
 		| eval fzf --with-nth=2.. $OSEL_TERM_FLAGS \
 		| cut -f1
 	else
-		eval fuzzel --index $OSEL_GUI_FLAGS \
-		| xargs expr 1 +
+		eval fuzzel --index $OSEL_GUI_FLAGS
 	fi
 }
 
