@@ -20,12 +20,12 @@ test $#XDG_DATA_HOME -eq 0 && set XDG_DATA_HOME $HOME/.local/share
 set DATA $XDG_DATA_HOME/unicode-data
 test -f $DATA || setup
 
-set idx `{
+set i `{
 	tee >{cut -d';' -f1 | read -d\n runes} <$DATA
 	| cut -d';' -f2 $DATA
 	| osel -i
 }
-set rune `printf $runes[$idx]
+set rune `printf $runes[$i]
 
 if test -t 2 {
 	wl-copy -n "$rune"
