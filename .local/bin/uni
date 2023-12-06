@@ -16,9 +16,7 @@ func setup {
 	'# >$DATA
 }
 
-if test $#XDG_DATA_HOME -eq 0 {
-	set XDG_DATA_HOME $HOME/.local/share
-}
+test $#XDG_DATA_HOME -gt 0 || set XDG_DATA_HOME $HOME/.local/share
 set DATA $XDG_DATA_HOME/unicode-data
 test -f $DATA || setup
 
