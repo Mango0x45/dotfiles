@@ -1,34 +1,37 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-set -e
+set -e NOTIFY_LONG unicode
+set -e NOTIFY_SHORT uni
 
-export NOTIFY_LONG=unicode
-export NOTIFY_SHORT="${0##*/}"
-
-setup()
-{
-	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt' \
-	| sed -E '
+func setup {
+	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt'
+	| sed -E r#'
 		s/;[^;]*//2g
 		s/\<(.)([A-Z]*)/\1\L\2/2g
 		/^[^;]*;</d
 		/Compatibility/d
 		/Variation Selector/d
 		s/[^;]*/\\u&/
-	' >"$DATA"
+		s/^\\u([^;]{5})/\\U000\1/
+	'# >$DATA
 }
 
-readonly DATA="${XDG_DATA_HOME:-$HOME/.local/share}/unicode-data"
-[ -f "$DATA" ] || setup
+test $#XDG_DATA_HOME -eq 0 && set XDG_DATA_HOME $HOME/.local/share
+set DATA $XDG_DATA_HOME/unicode-data
+test -f $DATA || setup
 
-idx="$(cut -d';' -f2 "$DATA" | osel -i)"
-code="$(head -n "$idx" "$DATA" | tail -n1 | cut -d';' -f1)"
-rune="$(printf $code)"
+set idx `{
+	tee >{cut -d';' -f1 | read -d\n runes} <$DATA
+	| cut -d';' -f2 $DATA
+	| osel -i
+}
+set rune `printf $runes[$idx]
 
-if [ -t 2 ]
-then
-	wl-copy -n "$rune" \
-	&& notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"
-else
-	wtype -- "$rune"
-fi
+if test -t 2 {
+	wl-copy -n "$rune"
+	| notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"
+} else {
+	wtype -- $rune
+}
+
+# vi: ft=sh
