@@ -97,6 +97,7 @@ __submap(prompt, P, [
 	__subbind(K, chkb)
 	__subbind(M, woman)
 	__subbind(P, vlt get)
+	__subbind(T, chtz)
 	__subbind(U, uni)
 ])
 
