@@ -1,7 +1,7 @@
 #!/usr/local/bin/andy
 
 set -e NOTIFY_LONG keyboard
-set -e NOTIFY_SHORT chkb
+set -e NOTIFY_SHORT `basename $args[0]
 
 set KEYBOARD at-translated-set-2-keyboard
 

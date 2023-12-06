@@ -9,8 +9,8 @@ func older_than_today file {
 	test $mod != `date +%F
 }
 
-set QUOTES $XDG_DATA_HOME/romir/quotes.yml
-set QOTD $XDG_CACHE_HOME/qotd
+set QUOTES $(XDG_DATA_HOME:$HOME/.local/share)/romir/quotes.yml
+set QOTD $(XDG_CACHE_HOME:$HOME/.cache)/qotd
 
 if older_than_today $QUOTES {
 	mkdir -p `dirname $QUOTES

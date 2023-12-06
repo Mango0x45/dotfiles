@@ -1,28 +1,26 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-set -e
+for sig in hup int quit abrt kill alrm term {
+	func sig$sig {
+		notify (
+			'Timer Interrupted'
+			'The timer was unexpectedly interrupted'
+			-u critical
+		)
+		exit 1
+	}
+}
 
-abort()
-{
-	notify 'Timer Interrupted' 'The timer was unexpectedly interrupted' \
-		-u critical
+set -e NOTIFY_LONG  timer
+set -e NOTIFY_SHORT `basename $args[0]
+
+if test $#args -lt 2 {
+	echo 'Usage: timer duration [message]' >/dev/stderr
 	exit 1
 }
 
-export NOTIFY_LONG=timer
-export NOTIFY_SHORT=${0##*/}
-
-if [ $# -eq 0 ]
-then
-	echo 'Usage: timer duration [message]' >&2
-	exit 1
-fi
-
-trap abort HUP INT QUIT ABRT KILL ALRM TERM
-
-if sleep "$1"
-then
-	notify 'Timer Finished' "$2"
-else
-	abort
-fi
+if sleep $args[1] {
+	notify 'Timer Finished' $args[2]
+} else {
+	sigint
+}

@@ -1,11 +1,11 @@
 #!/usr/local/bin/andy
 
-set -e NOTIFY_LONG unicode
-set -e NOTIFY_SHORT uni
+set -e NOTIFY_LONG  unicode
+set -e NOTIFY_SHORT `basename $args[0]
 
 func setup {
 	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt'
-	| sed -E r#'
+	| sed -E '
 		s/;[^;]*//2g
 		s/\<(.)([A-Z]*)/\1\L\2/2g
 		/^[^;]*;</d
@@ -13,11 +13,10 @@ func setup {
 		/Variation Selector/d
 		s/[^;]*/\\u&/
 		s/^\\u([^;]{5})/\\U000\1/
-	'# >$DATA
+	' >$DATA
 }
 
-test $#XDG_DATA_HOME -gt 0 || set XDG_DATA_HOME $HOME/.local/share
-set DATA $XDG_DATA_HOME/unicode-data
+set DATA $(XDG_DATA_HOME:$HOME/.local/share)/unicode-data
 test -f $DATA || setup
 
 set i `{
@@ -33,5 +32,3 @@ if test -t 2 {
 } else {
 	wtype -- $rune
 }
-
-# vi: ft=sh

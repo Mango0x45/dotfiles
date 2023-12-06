@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
 # Why not?
 
-readonly tmpl="${XDG_DATA_HOME:-$HOME/.local/share}/send-package/template"
+set tmpl $(XDG_DATA_HOME:$HOME/.local/share)/send-package/template
 
-sed -En '/^Angel Cakes/,/^Doozies/s/(\t|\s{2,})/\n/gp' ~/doc/tit-names \
-| shuf -n1                                                             \
-| tr A-Z a-z                                                           \
-| xargs -I{} -- sed 's/$REPLACEME/{}/' "$tmpl"                         \
+sed -En '/^Angel Cakes/,/^Doozies/s/(\t|\s{2,})/\n/gp' ~/doc/tit-names
+| shuf -n1
+| tr A-Z a-z
+| xargs -I{} -- sed 's/$REPLACEME/{}/' $tmpl
 | smail

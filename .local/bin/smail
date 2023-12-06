@@ -1,20 +1,19 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-set -e
-
-tmp=`mktemp`
-trap "rm -f $tmp" EXIT
+set tmp `mktemp
+func sigexit {
+	rm -f $tmp
+}
 
 cat >$tmp
-addr="`mhdr -h from $tmp | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'`"
-mbox="$MAILDIR/$addr/Sent"
+set addr `mhdr -h from $tmp | sed -E '/.*<.*>$/s/.*<(.*)>$/\1/'
+set mbox $MAILDIR/$addr/Sent
 
-if msmtp -t --read-envelope-from <$tmp
-then
-	mgenmid                   \
-	| sed 's/^/Message-Id: /' \
-	| cat - $tmp              \
-	| mmime                   \
-	| mdeliver -cv "$mbox"    \
+if msmtp -t --read-envelope-from <$tmp {
+	mgenmid
+	| sed 's/^/Message-Id: /'
+	| cat - $tmp
+	| mmime
+	| mdeliver -cv $mbox
 	| xargs chronic mflag -S
-fi
+}
