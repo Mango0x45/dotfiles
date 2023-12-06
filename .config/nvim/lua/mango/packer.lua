@@ -53,4 +53,7 @@ return require('packer').startup(function(use)
 			{ 'saadparwaiz1/cmp_luasnip' },
 		},
 	}
+
+	-- Function context
+    use 'nvim-treesitter/nvim-treesitter-context'
 end)
