@@ -16,7 +16,9 @@ func setup {
 	'# >$DATA
 }
 
-test $#XDG_DATA_HOME -eq 0 && set XDG_DATA_HOME $HOME/.local/share
+if test $#XDG_DATA_HOME -eq 0 {
+	set XDG_DATA_HOME $HOME/.local/share
+}
 set DATA $XDG_DATA_HOME/unicode-data
 test -f $DATA || setup
 
@@ -28,7 +30,7 @@ set i `{
 set rune `printf $runes[$i]
 
 if test -t 2 {
-	wl-copy -n "$rune"
+	wl-copy -n $rune
 	| notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"
 } else {
 	wtype -- $rune
