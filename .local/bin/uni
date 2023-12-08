@@ -21,7 +21,7 @@ test -f $DATA || setup
 
 set i `{
 	tee >{cut -d';' -f1 | read -d\n runes} <$DATA
-	| cut -d';' -f2 $DATA
+	| cut -d';' -f2
 	| osel -i
 }
 set rune `printf $runes[$i]
