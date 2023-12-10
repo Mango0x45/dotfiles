@@ -75,7 +75,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME/java\""
 
-export REPODIR="$HOME/code/repo"
+export REPODIR="$HOME/code"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export PATH="$HOME/.local/bin:$HOME/.local/sbin:$GOROOT/bin:$GOPATH/bin:$PATH"
 
