@@ -1,5 +1,5 @@
 exec-once = lux -S 50
-exec-once = wbg $XDG_PICTURES_DIR/bg.*
+exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
 exec-once = eww daemon && eww open bar
 exec-once = dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec-once = mako
