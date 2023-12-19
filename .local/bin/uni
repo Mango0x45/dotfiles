@@ -19,11 +19,13 @@ func setup {
 set DATA $(XDG_DATA_HOME:$HOME/.local/share)/unicode-data
 test -f $DATA || setup
 
-set i `{
-	tee >{cut -d';' -f1 | read -d\n runes} <$DATA
-	| cut -d';' -f2
-	| osel -i
+func read_runes {
+	cut -d';' -f1 $DATA | read -gd\n runes
 }
+
+async read_runes
+set i `cut -d';' -f2 $DATA | osel -i
+wait
 set rune `printf $runes[$i]
 
 if test -t 2 {
