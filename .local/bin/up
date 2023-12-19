@@ -14,9 +14,7 @@ func upload file {
 }
 
 set TOKEN `vlt raw Miscellaneous 'Mpaste (Key)'
-if test $#args -lt 2 {
-	set args $args -
-}
+test $#args -ge 2 || set args $args -
 for $args[1..] {
 	async upload $_
 }
