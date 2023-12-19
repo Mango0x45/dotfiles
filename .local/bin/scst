@@ -1,56 +1,51 @@
-#!/bin/sh
+#!/usr/local/bin/andy
 
-set -e
+set -e NOTIFY_LONG  screenshot
+set -e NOTIFY_SHORT `basename $args[0]
 
-export NOTIFY_LONG=screenshot
-export NOTIFY_SHORT="${0##*/}"
-
-xnotify()
-{
-	notify 'Screenshot Copied' \
-		'Screenshot successfully copied to the clipboard' \
-		-i "$filename"
+func xnotify {
+	notify (
+		'Screenshot Copied'
+		'Screenshot successfully copied to the clipboard'
+		-i $filename
+	)
 }
 
-if [ $# -eq 1 -a "$1" = "-f" ]
-then
-	fflag=true
-	shift
-fi
+if test $#args -eq 2 && test $args[1] = '-f' {
+	set fflag true
+	set args $args[1..]
+}
 
-if [ $# -ge 1 ]
-then
-	echo "Usage: ${0##*/} [-f]" >&2
+if test $#args -gt 1 {
+	echo "Usage: `{basename $args[0]} [-f]" >/dev/stderr
 	exit 1
-fi
+}
 
-readonly outdir=${XDG_PICTURES_DIR:-$HOME/Pictures}/screen
-readonly filebase=$(date +%F_%T.png)
-readonly filename="$outdir/$filebase"
-[ -d "$outdir" ] || mkdir -p "$outdir"
+set outdir $(XDG_PICTURES_DIR:$HOME/Pictures)/screen
+set filebase `date +%F_%T.png
+set filename $outdir/$filebase
+[ -d $outdir ] || mkdir -p $outdir
 
-if ${fflag:-false}
-then
-	grim "$filename"
-else
-	slurp 2>/dev/null | ifne grim -g - "$filename"
-fi
+if $(fflag:false) {
+	grim $filename
+} else {
+	# TODO: Redirect slurp stderr to /dev/null
+	slurp | ifne grim -g - $filename
+}
 
-[ -f "$filename" ] || exit 1
+[ -f $filename ] || exit 1
 
-opt="$(printf 'Copy screenshot\nEdit- and copy screenshot\n' | { osel || true; })"
-
-case "$opt" in
-'Copy screenshot')
-	wl-copy <"$filename"
+set opt `echo "Copy screenshot\nEdit- and copy screenshot" | { osel || true }
+if test $opt = 'Copy screenshot' {
+	wl-copy <$filename
 	xnotify
-	;;
-'Edit- and copy screenshot')
-	swappy -f "$filename" -o - | pee wl-copy cat | sponge "$filename"
+} else if test $opt = 'Edit- and copy screenshot' {
+	swappy -f $filename -o - | tee >{wl-copy} | sponge $filename
 	xnotify
-	;;
-*)
-	notify 'Screenshot Saved' \
-		"The screenshot ‘$filebase’ was successfully saved" \
-		-i "$filename"
-esac
+} else {
+	notify (
+		'Screenshot Saved'
+		"The screenshot ‘$filebase’ was successfully saved"
+		-i $filename
+	)
+}
