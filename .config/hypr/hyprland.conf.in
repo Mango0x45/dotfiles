@@ -80,6 +80,7 @@ $modkey = SUPER
 
 # WM behavior
 bind = $modkey, F, fullscreen, 0
+bind = $modkey, S, fakefullscreen, 0
 bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
