@@ -1,9 +1,7 @@
 #!/usr/local/bin/andy
 
 func upload file {
-	if test $file = '-' {
-		set file /dev/stdin
-	}
+	test $file != '-' || set file /dev/stdin
 	curl (
 		--retry-all-errors
 		-X POST
