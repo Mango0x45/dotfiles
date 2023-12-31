@@ -81,6 +81,8 @@ export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export PATH="$HOME/.local/bin:$HOME/.local/sbin:$GOROOT/bin:$GOPATH/bin:$PATH"
 
 export GPG_TTY=`tty`
+export HISTSIZE=100000
+export LESS='-RF'
 export VAULT_2FA='2 Factor Authentication'
 
 alias ..='cd ..'
