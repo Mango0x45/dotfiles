@@ -667,7 +667,7 @@ with a custom function that reads a list of mode-specific indentation settings.
 
   (defvar mango-indentation-settings
     '((bash-ts-mode :width 4)
-      (c-mode :width 8 :extra-vars (c-basic-offset))
+      (c-mode :width 4 :extra-vars (c-basic-offset))
       (css-mode :extra-vars (css-indent-offset))
       (emacs-lisp-mode :spaces t)
       (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
