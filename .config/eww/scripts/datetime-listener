@@ -1,9 +1,16 @@
 #!/bin/sh
 
+# while true {
+# 	{
+# 		date +'%A, %-d of %B %Y — %T %Z'
+# 		env TZ=Asia/Kolkata date +'(%H:%M %Z)'
+# 	}
+# 	| paste -sd' '
+# 	sleep `date +%s.%N | dc -e '? d 1 + 1 / r - p'
+# } | ordinal -p1
+
 while :
 do
-	date +"pretty='%A, %-d of %B %Y — %T %Z' month='%m'" \
-	| ordinal -p1 \
-	| xargs jo
-	date +%s.%N | dc -e "? d 1 + 1 / r - p" | xargs sleep
-done
+	date +'%A, %-d of %B %Y — %T %Z' | paste -sd' '
+	sleep "$(date +'%s.%N' | dc -e '? d 1 + 1 / r - p')"
+done | ordinal -p1

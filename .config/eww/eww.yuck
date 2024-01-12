@@ -5,7 +5,7 @@
 (deflisten workspace-list :initial '[1]'
   `stdbuf -oL scripts/workspace-list-listener`)
 
-(deflisten datetime :initial '{"pretty":"","month":0}'
+(deflisten datetime
   `stdbuf -oL scripts/datetime-listener`)
 
 (deflisten brightness
@@ -34,23 +34,6 @@
   :exclusive true
   :geometry (geometry :width "100%" :height "40px" :anchor "top center")
   (bar))
-
-(defwindow calendar-1
-  :monitor 0
-  :geometry (geometry :x "10%" :width "20%" :anchor "center left")
-  (calendar :class "cal"
-            :month {datetime.month - 1}))
-
-(defwindow calendar-2
-  :monitor 0
-  :geometry (geometry :width "20%" :anchor "center")
-  (calendar :class "cal"))
-
-(defwindow calendar-3
-  :monitor 0
-  :geometry (geometry :x "10%" :width "20%" :anchor "center right")
-  (calendar :class "cal"
-            :month {datetime.month + 1}))
 
 (defwidget bar []
   (centerbox
@@ -84,7 +67,7 @@
                     id))))
 
 (defwidget clock []
-  {datetime.pretty})
+  datetime)
 
 (defwidget wireless []
   (pair :icon "" :text wireless))
