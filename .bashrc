@@ -82,7 +82,7 @@ export PATH="$HOME/.local/bin:$HOME/.local/sbin:$GOROOT/bin:$GOPATH/bin:$PATH"
 
 export GPG_TTY=`tty`
 export HISTSIZE=100000
-export LESS='-RF'
+export LESS='-R'
 export VAULT_2FA='2 Factor Authentication'
 
 alias ..='cd ..'
