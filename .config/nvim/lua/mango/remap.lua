@@ -28,8 +28,8 @@ remap('n', 'n', 'nzzzv')
 remap('n', 'N', 'Nzzzv')
 
 -- Swap the jump-to-mark bindings
-remap('nv', "'", '`')
-remap('nv', '`', "'")
+-- remap('nv', "'", '`')
+-- remap('nv', '`', "'")
 
 -- Transpose characters; for some reason it has a noticable delay if I just give
 -- a string instead of lambda functions
