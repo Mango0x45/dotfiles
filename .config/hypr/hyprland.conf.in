@@ -11,8 +11,8 @@ layerrule = noanim, overlay
 input {
 	accel_profile  = "adaptive"
 	follow_mouse   = 1
-	kb_layout      = mango, mango, mango
-	kb_variant     = basic, coding, german
+	kb_layout      = mango, mango
+	kb_variant     = basic, german
 	kb_options     = lv3:lalt_switch,compose:ralt
 	repeat_delay   = 180
 	repeat_rate    = 35
