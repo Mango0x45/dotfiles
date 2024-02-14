@@ -20,7 +20,7 @@
 		}
 	}
 
-	box:not(:last-child) > label:last-child {
+	label:last-child {
 		margin-right: 12px;
 	}
 }

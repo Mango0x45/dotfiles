@@ -21,6 +21,9 @@
   `stdbuf -oL scripts/email-listener`)
 
 ;; Pollers
+(defpoll user :interval "69h"
+  `whoami | sed 's/.*/\\u&/'`)
+
 (defpoll battery :initial '{"icon":"","percentage":""}' :interval "1s"
   `scripts/battery`)
 
@@ -56,7 +59,8 @@
        (wireless)
        (brightness)
        (volume)
-       (battery)))
+       (battery)
+       (user)))
 
 (defwidget workspaces []
   (box :class "workspaces"
@@ -86,6 +90,9 @@
 
 (defwidget emails []
   (pair :icon "" :text emails))
+
+(defwidget user []
+  (pair :icon "" :text user))
 
 (defwidget pair [icon text]
   (box :width 70
