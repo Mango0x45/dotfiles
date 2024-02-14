@@ -1,7 +1,7 @@
 [user]
-	email      = mail@thomasvoss.com
+	email      = thomas.voss@humanwave.nl
 	name       = Thomas Voss
-	signingKey = /home/thomas/.ssh/id_rsa.pub
+	signingKey = /home/humanwave/.ssh/id_rsa.pub
 
 [core]
 	editor = nvim
@@ -62,11 +62,11 @@
 [sendemail]
 	annotate        = yes
 	confirm         = always
-	from            = Thomas Voss <mail@thomasvoss.com>
+	from            = Thomas Voss <thomas.voss@humanwave.nl>
 	smtpencryption  = ssl
-	smtpserverport  = 465
-	smtpserver      = smtp.migadu.com
-	smtpuser        = mail@thomasvoss.com
+	smtpserverport  = 587
+	smtpserver      = smtp.gmail.com
+	smtpuser        = thomas.voss@humanwave.nl
 
 [tag]
 	gpgSign = true

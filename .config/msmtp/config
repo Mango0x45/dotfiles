@@ -4,21 +4,6 @@ tls on
 tls_starttls off
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
 
-account default
-host smtp.migadu.com
-port 465
-from mail@thomasvoss.com
-user mail@thomasvoss.com
-passwordeval vlt raw Email mail@thomasvoss.com
-
-account legacy
-host smtp.office365.com
-port 587
-from thomasvoss@live.com
-user thomasvoss@live.com
-passwordeval vlt raw Email thomasvoss@live.com
-tls_starttls on
-
 account humanwave
 host smtp.gmail.com
 port 587

@@ -3,7 +3,7 @@ Description=Generate a quote of the day
 
 [Service]
 Type=oneshot
-ExecStart=/home/thomas/.local/bin/qotd
+ExecStart=/home/humanwave/.local/bin/qotd
 
 [Install]
 WantedBy=default.target

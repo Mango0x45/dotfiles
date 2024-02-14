@@ -4,9 +4,9 @@ Documentation=info:calc https://www.gnu.org/software/emacs/manual/html_mono/calc
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/emacs --daemon=ec --init-directory=/home/thomas/.config/ec
+ExecStart=/usr/bin/emacs --daemon=ec --init-directory=/home/humanwave/.config/ec
 ExecStop=/usr/bin/emacsclient -s ec -e '(kill-emacs)'
-Environment=XDG_CONFIG_HOME=/home/thomas/.config
+Environment=XDG_CONFIG_HOME=/home/humanwave/.config
 Restart=no
 
 [Install]
