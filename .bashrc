@@ -102,6 +102,7 @@ alias v="$VISUAL"
 	. "$HOME/opt/google-cloud-sdk/path.bash.inc"
 [ -f "$HOME/opt/google-cloud-sdk/completion.bash.inc" ] &&
 	. "$HOME/opt/google-cloud-sdk/completion.bash.inc"
+. /usr/share/nvm/init-nvm.sh
 
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
