@@ -9,6 +9,8 @@ func older_than_today file {
 	test $mod != `date +%F
 }
 
+set -e WGETRC $(XDG_CONFIG_HOME:$HOME/.config)/wgetrc
+
 set QUOTES $(XDG_DATA_HOME:$HOME/.local/share)/romir/quotes.yml
 set QOTD $(XDG_CACHE_HOME:$HOME/.cache)/qotd
 
