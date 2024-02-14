@@ -98,6 +98,11 @@ alias sl='sl -ac5'
 alias sv=sudoedit
 alias v="$VISUAL"
 
+[ -f "$HOME/opt/google-cloud-sdk/path.bash.inc" ] &&
+	. "$HOME/opt/google-cloud-sdk/path.bash.inc"
+[ -f "$HOME/opt/google-cloud-sdk/completion.bash.inc" ] &&
+	. "$HOME/opt/google-cloud-sdk/completion.bash.inc"
+
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
 sed '1s/^/[3m‘/; $s/$/’[0m/' "$XDG_CACHE_HOME/qotd" | fold -sw 80
