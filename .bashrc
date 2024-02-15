@@ -98,10 +98,11 @@ alias sl='sl -ac5'
 alias sv=sudoedit
 alias v="$VISUAL"
 
-[ -f "$HOME/opt/google-cloud-sdk/path.bash.inc" ] &&
-	. "$HOME/opt/google-cloud-sdk/path.bash.inc"
-[ -f "$HOME/opt/google-cloud-sdk/completion.bash.inc" ] &&
-	. "$HOME/opt/google-cloud-sdk/completion.bash.inc"
+gcsdk="$HOME/opt/google-cloud-sdk"
+[ -f "$gcsdk/path.bash.inc" ]       && . "$gcsdk/path.bash.inc"
+[ -f "$gcsdk/completion.bash.inc" ] && . "$gcsdk/completion.bash.inc"
+unset gcsdk
+
 . /usr/share/nvm/init-nvm.sh
 
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
