@@ -1,10 +1,10 @@
 exec-once = lux -S 50
 exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
-exec-once = eww daemon && eww open bar
+exec-once = eww daemon && eww open bar-1
 exec-once = dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec-once = mako
 
-monitor = , preferred, auto, 1
+monitor = , highres, auto, 1
 
 layerrule = noanim, overlay
 
@@ -113,26 +113,26 @@ bind = $modkey, up,    movefocus, u
 bind = $modkey, right, movefocus, r
 
 # Switch workspaces with modkey + [0-9]
-bind = $modkey,  0, workspace,  1
-bind = $modkey,  1, workspace,  2
-bind = $modkey,  2, workspace,  3
-bind = $modkey,  3, workspace,  4
-bind = $modkey,  4, workspace,  5
-bind = $modkey,  5, workspace,  6
-bind = $modkey,  6, workspace,  7
-bind = $modkey,  7, workspace,  8
-bind = $modkey,  8, workspace,  9
-bind = $modkey,  9, workspace, 10
-bind = $modkey, 10, workspace,  1
-bind = $modkey, 11, workspace,  2
-bind = $modkey, 12, workspace,  3
-bind = $modkey, 13, workspace,  4
-bind = $modkey, 14, workspace,  5
-bind = $modkey, 15, workspace,  6
-bind = $modkey, 16, workspace,  7
-bind = $modkey, 17, workspace,  8
-bind = $modkey, 18, workspace,  9
-bind = $modkey, 19, workspace, 10
+bind = $modkey,  0, focusworkspaceoncurrentmonitor,  1
+bind = $modkey,  1, focusworkspaceoncurrentmonitor,  2
+bind = $modkey,  2, focusworkspaceoncurrentmonitor,  3
+bind = $modkey,  3, focusworkspaceoncurrentmonitor,  4
+bind = $modkey,  4, focusworkspaceoncurrentmonitor,  5
+bind = $modkey,  5, focusworkspaceoncurrentmonitor,  6
+bind = $modkey,  6, focusworkspaceoncurrentmonitor,  7
+bind = $modkey,  7, focusworkspaceoncurrentmonitor,  8
+bind = $modkey,  8, focusworkspaceoncurrentmonitor,  9
+bind = $modkey,  9, focusworkspaceoncurrentmonitor, 10
+bind = $modkey, 10, focusworkspaceoncurrentmonitor,  1
+bind = $modkey, 11, focusworkspaceoncurrentmonitor,  2
+bind = $modkey, 12, focusworkspaceoncurrentmonitor,  3
+bind = $modkey, 13, focusworkspaceoncurrentmonitor,  4
+bind = $modkey, 14, focusworkspaceoncurrentmonitor,  5
+bind = $modkey, 15, focusworkspaceoncurrentmonitor,  6
+bind = $modkey, 16, focusworkspaceoncurrentmonitor,  7
+bind = $modkey, 17, focusworkspaceoncurrentmonitor,  8
+bind = $modkey, 18, focusworkspaceoncurrentmonitor,  9
+bind = $modkey, 19, focusworkspaceoncurrentmonitor, 10
 
 # Move active window to a workspace with modkey + SHIFT + [0-9]
 bind = $modkey CONTROL,  0, movetoworkspace,  1

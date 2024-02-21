@@ -7,6 +7,7 @@ require('rose-pine').setup {
 	highlight_groups = {
 		Pmenu = nohl,
 		StatusLine = nohl,
+		StatusLineNC = nohl,
 	},
 }
 
