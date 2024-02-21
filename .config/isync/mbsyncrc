@@ -65,7 +65,7 @@ Patterns *
 IMAPStore humanwave-remote
 Host imap.gmail.com
 User thomas.voss@humanwave.nl
-PassCmd "vlt raw Email thomas.voss@humanwave.nl"
+PassCmd "vlt raw Miscellaneous 'Gmail App Password (thomas.voss@humanwave.nl)'"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
