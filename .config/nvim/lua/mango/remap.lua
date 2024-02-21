@@ -27,9 +27,8 @@ remap('n', '<C-u>', '<C-u>zz')
 remap('n', 'n', 'nzzzv')
 remap('n', 'N', 'Nzzzv')
 
--- Swap the jump-to-mark bindings
--- remap('nv', "'", '`')
--- remap('nv', '`', "'")
+-- Compile code quickly
+remap('n', 'M', ':make<CR>')
 
 -- Transpose characters; for some reason it has a noticable delay if I just give
 -- a string instead of lambda functions

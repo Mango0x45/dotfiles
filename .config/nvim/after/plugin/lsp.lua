@@ -1,6 +1,8 @@
 local conf = require('lspconfig')
 
-conf.clangd.setup {}
+conf.clangd.setup {
+	cmd = {'clangd', '-header-insertion=never'}
+}
 conf.gopls.setup {}
 conf.rust_analyzer.setup {}
 conf.lua_ls.setup {
@@ -32,6 +34,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			vim.keymap.set(mode, map, fn, { buffer = ev.buf })
 		end
 
+		vim.diagnostic.disable()
 		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 		remap('n', 'K', vim.lsp.buf.hover)
 		remap('n', 'gd', vim.lsp.buf.definition)
