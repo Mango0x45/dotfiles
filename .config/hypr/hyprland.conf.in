@@ -5,6 +5,7 @@ exec-once = dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec-once = mako
 
 monitor = , highres, auto, 1
+monitor = DP-1, highres, auto, 0.8
 
 layerrule = noanim, overlay
 
