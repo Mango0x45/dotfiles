@@ -1,0 +1,8 @@
+#!/bin/sh
+
+git checkout dev
+git pull
+git fetch -p
+git for-each-ref --format '%(upstream:track) %(refname)' refs/heads \
+| sed -En '/^\[gone] /s|\[gone] refs/heads/||p' \
+| xargs -r git branch -D
