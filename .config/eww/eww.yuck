@@ -36,24 +36,24 @@
   :stacking "fg"
   :exclusive true
   :geometry (geometry :width "100%" :height "40px" :anchor "top center")
-  (bar))
+  (bar :monitor 0))
 
 (defwindow bar-2
   :monitor 1
   :stacking "fg"
   :exclusive true
   :geometry (geometry :width "100%" :height "40px" :anchor "top center")
-  (bar))
+  (bar :monitor 1))
 
 ;; Widgets
-(defwidget bar []
+(defwidget bar [monitor]
   (centerbox
-    (start)
+    (start :monitor monitor)
     (middle)
     (end)))
 
-(defwidget start []
-  (workspaces))
+(defwidget start [monitor]
+  (workspaces :monitor monitor))
 
 (defwidget middle []
   (clock))
@@ -70,11 +70,11 @@
        (battery)
        (user)))
 
-(defwidget workspaces []
+(defwidget workspaces [monitor]
   (box :class "workspaces"
        :space-evenly false
        (for id in workspace-list
-            (button :class {active-workspace == id ? "active" : ""}
+            (button :class {active-workspace[monitor] == id ? "active" : ""}
                     :onclick `hyprctl dispatch workspace ${id}`
                     id))))
 
