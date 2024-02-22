@@ -1,0 +1,36 @@
+#!/bin/sh
+
+[ $# -ne 0 ] && exec git branch "$@"
+
+git branch | while read -r line; do
+	{
+		case "$line" in
+		'* '*)
+			c=true
+			n="${line#'* '}"
+			;;
+		*)
+			c=false
+			n=$line
+			;;
+		esac
+		d=`git config "branch.$n.description"`
+		if $c && test -t 2
+        then
+			printf '* \33[32m%-22s%s\33[39m\n' "$n" "$d"
+        elif $c
+        then
+			printf '* %-22s%s\n' "$n" "$d"
+		else
+			printf '  %-22s%s\n' "$n" "$d"
+		fi
+	} &
+done \
+| sort \
+| sed -n '
+	/^\*/!H
+	/^\*/p
+	$ { g; p; }
+' \
+| grep --color=never .
+wait
