@@ -2,15 +2,13 @@
 
 readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
 
-hyprctl -j activeworkspace | jq -r '.name'
-socat -u UNIX-CONNECT:"$IPC" - | while read -r line
-do
-	case "$line" in
-	'workspace>>'*)
-		echo "${line#*'>>'}"
-		;;
-	'moveworkspace>>'*)
-		hyprctl -j activewindow | jq -r .workspace.name
-		;;
-	esac
-done
+{
+	hyprctl -j monitors
+	socat -u UNIX-CONNECT:"$IPC" - | while read -r _
+	do
+		case "${_%>>*}" in
+		workspace|moveworkspace)
+			hyprctl -j monitors
+		esac
+	done
+} | jq -cr '[.[] | .activeWorkspace.name]'
