@@ -179,3 +179,8 @@ bind = $modkey, mouse_up,   workspace, e-1
 # Move/resize windows with modkey + LMB/RMB and dragging
 bindm = $modkey, mouse:272, movewindow
 bindm = $modkey, mouse:273, resizewindow
+
+# Open manpages in floating windows
+windowrulev2 = float,        class:^(org\.pwmt\.zathura)$
+windowrulev2 = size 50% 90%, class:^(org\.pwmt\.zathura)$
+windowrulev2 = center,       class:^(org\.pwmt\.zathura)$
