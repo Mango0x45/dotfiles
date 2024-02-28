@@ -11,4 +11,4 @@ readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
 			hyprctl -j monitors
 		esac
 	done
-} | jq -cr '[.[] | .activeWorkspace.name]'
+} | jq -cr '[.[] | .activeWorkspace.id % 10]'
