@@ -4,8 +4,8 @@ exec-once = eww daemon && eww open bar-1
 exec-once = dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec-once = mako
 
-monitor = , highres, auto, 1
-monitor = DP-1, highres, auto, 0.8
+monitor =  DP-1, highres, 0x0000, 1
+monitor = eDP-1, highres, 0x1440, 1
 
 layerrule = noanim, overlay
 
