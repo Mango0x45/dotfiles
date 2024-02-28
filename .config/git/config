@@ -26,6 +26,7 @@
 	fp = format-patch
 	i  = init
 	l  = log
+	ls = ls-files
 	m  = merge
 	pa = "!f() { git remote | xargs -I% -n1 git push \"%\" \"$@\"; }; f \"$@\""
 	pl = pull
