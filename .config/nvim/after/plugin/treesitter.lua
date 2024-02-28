@@ -6,28 +6,13 @@ config.gsp = {
 	},
 	filetype = 'gsp',
 }
-config.hypr = {
-	install_info = {
-		url = 'https://github.com/luckasRanarison/tree-sitter-hypr',
-		files = {'src/parser.c'},
-	},
-	filetype = 'hypr',
-}
 
 require('nvim-treesitter.configs').setup {
 	ensure_installed = {
 		'c',
-		'go',
-		'gomod',
 		'gsp',
-		'html',
-		'lua',
-		'python',
-		'query',
-		'rust',
 		'vim',
 		'vimdoc',
-		'zig',
 	},
 
 	sync_install = false,

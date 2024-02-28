@@ -114,48 +114,48 @@ bind = $modkey, up,    movefocus, u
 bind = $modkey, right, movefocus, r
 
 # Switch workspaces with modkey + [0-9]
-bind = $modkey,  0, focusworkspaceoncurrentmonitor,  1
-bind = $modkey,  1, focusworkspaceoncurrentmonitor,  2
-bind = $modkey,  2, focusworkspaceoncurrentmonitor,  3
-bind = $modkey,  3, focusworkspaceoncurrentmonitor,  4
-bind = $modkey,  4, focusworkspaceoncurrentmonitor,  5
-bind = $modkey,  5, focusworkspaceoncurrentmonitor,  6
-bind = $modkey,  6, focusworkspaceoncurrentmonitor,  7
-bind = $modkey,  7, focusworkspaceoncurrentmonitor,  8
-bind = $modkey,  8, focusworkspaceoncurrentmonitor,  9
-bind = $modkey,  9, focusworkspaceoncurrentmonitor, 10
-bind = $modkey, 10, focusworkspaceoncurrentmonitor,  1
-bind = $modkey, 11, focusworkspaceoncurrentmonitor,  2
-bind = $modkey, 12, focusworkspaceoncurrentmonitor,  3
-bind = $modkey, 13, focusworkspaceoncurrentmonitor,  4
-bind = $modkey, 14, focusworkspaceoncurrentmonitor,  5
-bind = $modkey, 15, focusworkspaceoncurrentmonitor,  6
-bind = $modkey, 16, focusworkspaceoncurrentmonitor,  7
-bind = $modkey, 17, focusworkspaceoncurrentmonitor,  8
-bind = $modkey, 18, focusworkspaceoncurrentmonitor,  9
-bind = $modkey, 19, focusworkspaceoncurrentmonitor, 10
+bind = $modkey,  0, hyprwork,  1
+bind = $modkey,  1, hyprwork,  2
+bind = $modkey,  2, hyprwork,  3
+bind = $modkey,  3, hyprwork,  4
+bind = $modkey,  4, hyprwork,  5
+bind = $modkey,  5, hyprwork,  6
+bind = $modkey,  6, hyprwork,  7
+bind = $modkey,  7, hyprwork,  8
+bind = $modkey,  8, hyprwork,  9
+bind = $modkey,  9, hyprwork, 10
+bind = $modkey, 10, hyprwork,  1
+bind = $modkey, 11, hyprwork,  2
+bind = $modkey, 12, hyprwork,  3
+bind = $modkey, 13, hyprwork,  4
+bind = $modkey, 14, hyprwork,  5
+bind = $modkey, 15, hyprwork,  6
+bind = $modkey, 16, hyprwork,  7
+bind = $modkey, 17, hyprwork,  8
+bind = $modkey, 18, hyprwork,  9
+bind = $modkey, 19, hyprwork, 10
 
 # Move active window to a workspace with modkey + SHIFT + [0-9]
-bind = $modkey CONTROL,  0, movetoworkspace,  1
-bind = $modkey CONTROL,  1, movetoworkspace,  2
-bind = $modkey CONTROL,  2, movetoworkspace,  3
-bind = $modkey CONTROL,  3, movetoworkspace,  4
-bind = $modkey CONTROL,  4, movetoworkspace,  5
-bind = $modkey CONTROL,  5, movetoworkspace,  6
-bind = $modkey CONTROL,  6, movetoworkspace,  7
-bind = $modkey CONTROL,  7, movetoworkspace,  8
-bind = $modkey CONTROL,  8, movetoworkspace,  9
-bind = $modkey CONTROL,  9, movetoworkspace, 10
-bind = $modkey CONTROL, 10, movetoworkspace,  1
-bind = $modkey CONTROL, 11, movetoworkspace,  2
-bind = $modkey CONTROL, 12, movetoworkspace,  3
-bind = $modkey CONTROL, 13, movetoworkspace,  4
-bind = $modkey CONTROL, 14, movetoworkspace,  5
-bind = $modkey CONTROL, 15, movetoworkspace,  6
-bind = $modkey CONTROL, 16, movetoworkspace,  7
-bind = $modkey CONTROL, 17, movetoworkspace,  8
-bind = $modkey CONTROL, 18, movetoworkspace,  9
-bind = $modkey CONTROL, 19, movetoworkspace, 10
+bind = $modkey CONTROL,  0, hyprmove,  1
+bind = $modkey CONTROL,  1, hyprmove,  2
+bind = $modkey CONTROL,  2, hyprmove,  3
+bind = $modkey CONTROL,  3, hyprmove,  4
+bind = $modkey CONTROL,  4, hyprmove,  5
+bind = $modkey CONTROL,  5, hyprmove,  6
+bind = $modkey CONTROL,  6, hyprmove,  7
+bind = $modkey CONTROL,  7, hyprmove,  8
+bind = $modkey CONTROL,  8, hyprmove,  9
+bind = $modkey CONTROL,  9, hyprmove, 10
+bind = $modkey CONTROL, 10, hyprmove,  1
+bind = $modkey CONTROL, 11, hyprmove,  2
+bind = $modkey CONTROL, 12, hyprmove,  3
+bind = $modkey CONTROL, 13, hyprmove,  4
+bind = $modkey CONTROL, 14, hyprmove,  5
+bind = $modkey CONTROL, 15, hyprmove,  6
+bind = $modkey CONTROL, 16, hyprmove,  7
+bind = $modkey CONTROL, 17, hyprmove,  8
+bind = $modkey CONTROL, 18, hyprmove,  9
+bind = $modkey CONTROL, 19, hyprmove, 10
 
 # Media keys
 __binde(, xf86audiomute,        amixer -q sset Master toggle)
@@ -180,3 +180,8 @@ bind = $modkey, mouse_up,   workspace, e-1
 # Move/resize windows with modkey + LMB/RMB and dragging
 bindm = $modkey, mouse:272, movewindow
 bindm = $modkey, mouse:273, resizewindow
+
+# Open manpages in floating windows
+windowrulev2 = float,        class:^(org\.pwmt\.zathura)$
+windowrulev2 = size 50% 90%, class:^(org\.pwmt\.zathura)$
+windowrulev2 = center,       class:^(org\.pwmt\.zathura)$

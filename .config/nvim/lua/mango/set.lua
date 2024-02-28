@@ -39,6 +39,11 @@ o.isfname:append('@-@')
 o.splitright = true
 o.splitbelow = true
 
+-- Better settings for netrw
+vim.g.netrw_banner = 0
+vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro' -- Enable line-numbers
+vim.g.netrw_list_hide = [[^\(\.\|\.\.\)/\?$,^__pycache__/\?,.*\.\(o\|pyc\)$]]
+
 -- Disable auto commenting
 api.nvim_create_autocmd('BufEnter', {
 	callback = function()

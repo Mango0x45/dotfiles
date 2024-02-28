@@ -2,7 +2,7 @@
 (deflisten active-workspace
   `stdbuf -oL scripts/active-workspace-listener`)
 
-(deflisten workspace-list :initial '[1]'
+(deflisten workspace-list :initial '[[1]]'
   `stdbuf -oL scripts/workspace-list-listener`)
 
 (deflisten datetime
@@ -73,7 +73,7 @@
 (defwidget workspaces [monitor]
   (box :class "workspaces"
        :space-evenly false
-       (for id in workspace-list
+       (for id in {workspace-list[monitor]}
             (button :class {active-workspace[monitor] == id ? "active" : ""}
                     :onclick `hyprctl dispatch workspace ${id}`
                     id))))

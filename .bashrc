@@ -80,7 +80,7 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 export REPODIR="$HOME/code"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-export PATH="$HOME/.local/bin:$HOME/.local/sbin:$GOROOT/bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.local/sbin:/opt/odin:$GOROOT/bin:$GOPATH/bin:$PATH"
 
 export GPG_TTY=`tty`
 export HISTSIZE=100000
