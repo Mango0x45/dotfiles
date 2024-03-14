@@ -1,3 +1,11 @@
+(defvar battery_rev    false)
+(defvar brightness_rev false)
+(defvar emails_rev     false)
+(defvar keymap_rev     false)
+(defvar user_rev       false)
+(defvar volume_rev     false)
+(defvar wireless_rev   false)
+
 ;; Listeners
 (deflisten active-workspace
   `stdbuf -oL scripts/active-workspace-listener`)
@@ -17,7 +25,7 @@
 (deflisten keymap
   `stdbuf -oL scripts/keymap-listener`)
 
-(deflisten emails
+(deflisten emails :initial '{"icon":"","text":""}'
   `stdbuf -oL scripts/email-listener`)
 
 ;; Pollers
@@ -82,25 +90,102 @@
   datetime)
 
 (defwidget wireless []
-  (pair :icon "" :text wireless))
+  (eventbox
+      :onhover     "eww update wireless_rev=true"
+      :onhoverlost "eww update wireless_rev=false"
+      (box :vexpand false
+           :hexpand false
+           :space-evenly false
+           :width 30
+           (label :text "")
+           (revealer :transition "slideright"
+                     :reveal wireless_rev
+                     :duration "350ms"
+                     (label :text wireless)))))
 
 (defwidget keymap []
-  (pair :icon "" :text keymap))
+  (eventbox
+      :onhover     "eww update keymap_rev=true"
+      :onhoverlost "eww update keymap_rev=false"
+      (box :vexpand false
+           :hexpand false
+           :space-evenly false
+           :width 30
+           (label :text "")
+           (revealer :transition "slideright"
+                     :reveal keymap_rev
+                     :duration "350ms"
+                     (label :text keymap)))))
 
 (defwidget brightness []
-  (pair :icon "" :text brightness))
+  (eventbox
+      :onhover     "eww update brightness_rev=true"
+      :onhoverlost "eww update brightness_rev=false"
+      (box :vexpand false
+           :hexpand false
+           :space-evenly false
+           :width 30
+           (label :text "")
+           (revealer :transition "slideright"
+                     :reveal brightness_rev
+                     :duration "350ms"
+                     (label :text brightness)))))
 
 (defwidget volume []
-  (pair :icon {volume.icon} :text {volume.percentage}))
+  (eventbox
+      :onhover     "eww update volume_rev=true"
+      :onhoverlost "eww update volume_rev=false"
+      (box :vexpand false
+           :hexpand false
+           :space-evenly false
+           :width 30
+           (label :text {volume.icon})
+           (revealer :transition "slideright"
+                     :reveal volume_rev
+                     :duration "350ms"
+                     (label :text {volume.percentage})))))
 
 (defwidget battery []
-  (pair :icon {battery.icon} :text {battery.percentage}))
+  (eventbox
+      :onhover     "eww update battery_rev=true"
+      :onhoverlost "eww update battery_rev=false"
+      (box :vexpand false
+           :hexpand false
+           :space-evenly false
+           :width 30
+           (label :text {battery.icon})
+           (revealer :transition "slideright"
+                     :reveal battery_rev
+                     :duration "350ms"
+                     (label :text {battery.percentage})))))
 
 (defwidget emails []
-  (pair :icon "" :text emails))
+  (eventbox
+        :onhover     "eww update emails_rev=true"
+        :onhoverlost "eww update emails_rev=false"
+        (box :vexpand false
+             :hexpand false
+             :space-evenly false
+             :width 30
+             (label :text {emails.icon})
+             (revealer :transition "slideright"
+                       :reveal emails_rev
+                       :duration "350ms"
+                       (label :text {emails.text})))))
 
 (defwidget user []
-  (pair :icon "" :text user))
+  (eventbox
+        :onhover     "eww update user_rev=true"
+        :onhoverlost "eww update user_rev=false"
+        (box :vexpand false
+             :hexpand false
+             :space-evenly false
+             :width 30
+             (label :text "")
+             (revealer :transition "slideright"
+                       :reveal user_rev
+                       :duration "350ms"
+                       (label :text user)))))
 
 (defwidget pair [icon text]
   (box :width 70

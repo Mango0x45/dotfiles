@@ -14,24 +14,24 @@ count()
 
 	case $sum in
 	0)
-		printf 'No Mail'
+		printf 'icon=\ntext=No Email'
 		;;
 	1)
-		printf '1 Mail'
+		printf 'icon=\ntext=1 Email'
 		;;
 	*)
-		printf '%d Mails' $sum
+		printf 'icon=\ntext=%d Emails' $sum
 		;;
 	esac
 	[ $new -gt 0 ] && printf ' (%d Unread)' $new
 	echo
-
 	echo $new >"$CACHE"
 }
 
 {
-	while sleep 1
+	while :
 	do
+		sleep 1
 		read new_mails <"$CACHE"
 		if [ $new_mails -gt ${prev:=0} ]
 		then
@@ -55,14 +55,14 @@ count()
 	done
 } &
 
-count
+count | jo
 
 inotifywait -qm "$MAILDIR"/*/Inbox/new "$MAILDIR"/*/Inbox/cur \
 | while read _ event _
 do
 	case "$event" in
 	CREATE|DELETE|MOVED_*)
-		count
+		count | jo
 		;;
 	esac
 done
