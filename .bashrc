@@ -25,7 +25,7 @@ function jc {
 }
 
 export BROWSER="firefox"
-export CC="cc"
+export CC="gcc"
 export EDITOR="nvim"
 export PAGER="less"
 export MANPAGER="nvimpager"
