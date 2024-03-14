@@ -44,6 +44,8 @@ g.netrw_banner = 0
 g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro' -- Enable line-numbers
 g.netrw_list_hide = [[^\(\.\|\.\.\)/\?$,^__pycache__/\?,.*\.\(o\|pyc\)$]]
 
+vim.cmd [[ set grepprg=rg\ --vimgrep ]]
+
 -- Disable auto commenting
 api.nvim_create_autocmd('BufEnter', {
 	callback = function()
