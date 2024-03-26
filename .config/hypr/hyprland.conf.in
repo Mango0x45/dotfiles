@@ -168,10 +168,8 @@ __binde(,     xf86monbrightnessdown, lux -D 5)
 __bind(SHIFT, xf86monbrightnessdown, lux -s 0)
 
 # Settings key on Framework laptop
-__binde(,
-	xf86audiomedia,
-	foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in'
-)
+__binde(, xf86audiomedia,
+          foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in')
 
 # Scroll through existing workspaces with modkey + scroll
 bind = $modkey, mouse_down, workspace, e+1
