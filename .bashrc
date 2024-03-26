@@ -104,7 +104,10 @@ gcsdk="$HOME/opt/google-cloud-sdk"
 [ -f "$gcsdk/completion.bash.inc" ] && . "$gcsdk/completion.bash.inc"
 unset gcsdk
 
+export DATASTORE_EMULATOR_HOST=localhost:8001
+
 . /usr/share/nvm/init-nvm.sh
+. "$(which virtualenvwrapper.sh)"
 
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
