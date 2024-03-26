@@ -1,5 +1,6 @@
 exec-once = lux -S 50
-exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
+# exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
+exec-once = wbg $XDG_PICTURES_DIR/bg.png
 exec-once = eww daemon && eww open bar-1
 exec-once = dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec-once = mako
@@ -114,48 +115,48 @@ bind = $modkey, up,    movefocus, u
 bind = $modkey, right, movefocus, r
 
 # Switch workspaces with modkey + [0-9]
-bind = $modkey,  0, hyprwork,  1
-bind = $modkey,  1, hyprwork,  2
-bind = $modkey,  2, hyprwork,  3
-bind = $modkey,  3, hyprwork,  4
-bind = $modkey,  4, hyprwork,  5
-bind = $modkey,  5, hyprwork,  6
-bind = $modkey,  6, hyprwork,  7
-bind = $modkey,  7, hyprwork,  8
-bind = $modkey,  8, hyprwork,  9
-bind = $modkey,  9, hyprwork, 10
-bind = $modkey, 10, hyprwork,  1
-bind = $modkey, 11, hyprwork,  2
-bind = $modkey, 12, hyprwork,  3
-bind = $modkey, 13, hyprwork,  4
-bind = $modkey, 14, hyprwork,  5
-bind = $modkey, 15, hyprwork,  6
-bind = $modkey, 16, hyprwork,  7
-bind = $modkey, 17, hyprwork,  8
-bind = $modkey, 18, hyprwork,  9
-bind = $modkey, 19, hyprwork, 10
+bind = $modkey,  0, exec, exec hyprwork  1
+bind = $modkey,  1, exec, exec hyprwork  2
+bind = $modkey,  2, exec, exec hyprwork  3
+bind = $modkey,  3, exec, exec hyprwork  4
+bind = $modkey,  4, exec, exec hyprwork  5
+bind = $modkey,  5, exec, exec hyprwork  6
+bind = $modkey,  6, exec, exec hyprwork  7
+bind = $modkey,  7, exec, exec hyprwork  8
+bind = $modkey,  8, exec, exec hyprwork  9
+bind = $modkey,  9, exec, exec hyprwork 10
+bind = $modkey, 10, exec, exec hyprwork  1
+bind = $modkey, 11, exec, exec hyprwork  2
+bind = $modkey, 12, exec, exec hyprwork  3
+bind = $modkey, 13, exec, exec hyprwork  4
+bind = $modkey, 14, exec, exec hyprwork  5
+bind = $modkey, 15, exec, exec hyprwork  6
+bind = $modkey, 16, exec, exec hyprwork  7
+bind = $modkey, 17, exec, exec hyprwork  8
+bind = $modkey, 18, exec, exec hyprwork  9
+bind = $modkey, 19, exec, exec hyprwork 10
 
 # Move active window to a workspace with modkey + SHIFT + [0-9]
-bind = $modkey CONTROL,  0, hyprmove,  1
-bind = $modkey CONTROL,  1, hyprmove,  2
-bind = $modkey CONTROL,  2, hyprmove,  3
-bind = $modkey CONTROL,  3, hyprmove,  4
-bind = $modkey CONTROL,  4, hyprmove,  5
-bind = $modkey CONTROL,  5, hyprmove,  6
-bind = $modkey CONTROL,  6, hyprmove,  7
-bind = $modkey CONTROL,  7, hyprmove,  8
-bind = $modkey CONTROL,  8, hyprmove,  9
-bind = $modkey CONTROL,  9, hyprmove, 10
-bind = $modkey CONTROL, 10, hyprmove,  1
-bind = $modkey CONTROL, 11, hyprmove,  2
-bind = $modkey CONTROL, 12, hyprmove,  3
-bind = $modkey CONTROL, 13, hyprmove,  4
-bind = $modkey CONTROL, 14, hyprmove,  5
-bind = $modkey CONTROL, 15, hyprmove,  6
-bind = $modkey CONTROL, 16, hyprmove,  7
-bind = $modkey CONTROL, 17, hyprmove,  8
-bind = $modkey CONTROL, 18, hyprmove,  9
-bind = $modkey CONTROL, 19, hyprmove, 10
+bind = $modkey CONTROL,  0, exec, exec hyprmove  1
+bind = $modkey CONTROL,  1, exec, exec hyprmove  2
+bind = $modkey CONTROL,  2, exec, exec hyprmove  3
+bind = $modkey CONTROL,  3, exec, exec hyprmove  4
+bind = $modkey CONTROL,  4, exec, exec hyprmove  5
+bind = $modkey CONTROL,  5, exec, exec hyprmove  6
+bind = $modkey CONTROL,  6, exec, exec hyprmove  7
+bind = $modkey CONTROL,  7, exec, exec hyprmove  8
+bind = $modkey CONTROL,  8, exec, exec hyprmove  9
+bind = $modkey CONTROL,  9, exec, exec hyprmove 10
+bind = $modkey CONTROL, 10, exec, exec hyprmove  1
+bind = $modkey CONTROL, 11, exec, exec hyprmove  2
+bind = $modkey CONTROL, 12, exec, exec hyprmove  3
+bind = $modkey CONTROL, 13, exec, exec hyprmove  4
+bind = $modkey CONTROL, 14, exec, exec hyprmove  5
+bind = $modkey CONTROL, 15, exec, exec hyprmove  6
+bind = $modkey CONTROL, 16, exec, exec hyprmove  7
+bind = $modkey CONTROL, 17, exec, exec hyprmove  8
+bind = $modkey CONTROL, 18, exec, exec hyprmove  9
+bind = $modkey CONTROL, 19, exec, exec hyprmove 10
 
 # Media keys
 __binde(, xf86audiomute,        amixer -q sset Master toggle)
@@ -168,10 +169,8 @@ __binde(,     xf86monbrightnessdown, lux -D 5)
 __bind(SHIFT, xf86monbrightnessdown, lux -s 0)
 
 # Settings key on Framework laptop
-__binde(,
-	xf86audiomedia,
-	foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in'
-)
+__binde(, xf86audiomedia,
+          foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in')
 
 # Scroll through existing workspaces with modkey + scroll
 bind = $modkey, mouse_down, workspace, e+1

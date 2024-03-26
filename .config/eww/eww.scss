@@ -23,6 +23,10 @@
 	label:last-child {
 		margin-right: 12px;
 	}
+
+	box label:last-child {
+		margin-left: 12px;
+	}
 }
 
 .workspaces button {
