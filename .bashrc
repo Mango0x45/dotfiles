@@ -85,8 +85,8 @@ export PATH="$HOME/.local/bin:$HOME/.local/sbin:/opt/odin:$GOROOT/bin:$GOPATH/bi
 export GPG_TTY=`tty`
 export HISTSIZE=100000
 export LESS='-RF'
-export VAULT_2FA='2 Factor Authentication'
 export PRINTER='HP_OfficeJet_8010'
+export VAULT_2FA='2 Factor Authentication'
 
 alias ..='cd ..'
 alias d='git --git-dir="$REPODIR/Mango0x45/dotfiles.git" --work-tree="$HOME"'
