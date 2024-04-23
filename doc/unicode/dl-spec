@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd "${0%/*}"
+readonly BASE='https://www.unicode.org/versions/Unicode15.1.0'
+seq -f "$BASE/ch%02.0f.pdf" 24 | xargs -L1 -P0 -- wget -nc -q
