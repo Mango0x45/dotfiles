@@ -1,16 +1,11 @@
 #!/bin/sh
 
-# while true {
-# 	{
-# 		date +'%A, %-d of %B %Y — %T %Z'
-# 		env TZ=Asia/Kolkata date +'(%H:%M %Z)'
-# 	}
-# 	| paste -sd' '
-# 	sleep `date +%s.%N | dc -e '? d 1 + 1 / r - p'
-# } | ordinal -p1
-
 while :
 do
-	date +'%A, %-d of %B %Y — %T %Z' | paste -sd' '
+	# {
+	# 	date +'%A, %-d of %B %Y — %T %Z'
+	# 	TZ='Asia/Kolkata' date +'(%T %Z)'
+	# } | paste -sd ' '
+	date +'%A, %-d of %B %Y — %T %Z'
 	sleep "$(date +'%s.%N' | dc -e '? d 1 + 1 / r - p')"
 done | ordinal -p1
