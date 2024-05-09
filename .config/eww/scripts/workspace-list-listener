@@ -2,7 +2,7 @@
 
 readonly IPC=/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
 
-hyptctl -j workspaces | jq -cr '
+hyprctl -j workspaces | jq -cr '
 	[.[].id]
 	| group_by(. / 10 | floor)
 	| [.[] | map(. % 10)]
