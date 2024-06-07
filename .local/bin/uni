@@ -14,7 +14,8 @@ func setup {
 			cdr = substr($2, RSTART + 1, RLENGTH - 1)
 			sub(/[A-Z]{2,}([^)]|$)/, car tolower(cdr), $2)
 		}
-		printf "\\u%s;U+%s %s\n", $1, $1, $2
+		long = substr("00000000", 1, 8 - length($1)) $1
+		printf "\\U%s;U+%s %s\n", long, $1, $2
 	}
 	' >$DATA
 }
