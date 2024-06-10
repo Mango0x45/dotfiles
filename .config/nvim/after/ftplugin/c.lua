@@ -5,6 +5,15 @@ vim.keymap.set('v', '<localleader>=', ":'<'>!clang-format -style=file -<CR>", {
 })
 
 vim.keymap.set('n', 'K', function()
+	local w = vim.fn.expand('<cword>')
+	local proc = vim.system({'man', w}):wait()
+	if proc.code == 16 then
+		print('No manual for ‘' .. w .. '’ found')
+		return
+	elseif proc.code ~= 0 then
+		print('An error occured')
+		return
+	end
 	vim.cmd [[
 		execute "silent !man -Tpdf '" . expand('<cword>') . "' | zathura - &"
 	]]
