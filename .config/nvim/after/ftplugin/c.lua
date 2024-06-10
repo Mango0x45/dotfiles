@@ -1,3 +1,14 @@
-local lib = require('mango.lib')
+vim.bo.commentstring = '/* %s */'
 
-lib.set_tab_width(4, true)
+vim.keymap.set('v', '<localleader>=', ":'<'>!clang-format -style=file -<CR>", {
+	desc = 'Format the current selection with Clang Format',
+})
+
+vim.keymap.set('n', 'K', function()
+	vim.cmd [[
+		execute "silent !man -Tpdf '" . expand('<cword>') . "' | zathura - &"
+	]]
+end, {
+	buffer = 0,
+	desc = 'View the manual page for the word under the cursor',
+})

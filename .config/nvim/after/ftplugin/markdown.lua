@@ -1,2 +1,2 @@
-vim.opt_local.textwidth = 80
-vim.opt_local.expandtab = true
+vim.bo.expandtab = true
+vim.bo.textwidth = 80

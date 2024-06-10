@@ -1,6 +1,5 @@
-local ts_utils = require('nvim-treesitter.ts_utils')
-
 local function map(lhs, rhs)
+	local ts_utils = require('nvim-treesitter.ts_utils')
 	vim.keymap.set('n', lhs, function()
 		local node = ts_utils.get_node_at_cursor()
 		if node == nil then
@@ -22,7 +21,8 @@ local function map(lhs, rhs)
 	})
 end
 
+map('d', 'drop')
+map('f', 'fixup')
 map('p', 'pick')
 map('r', 'reword')
 map('s', 'squash')
-map('f', 'fixup')

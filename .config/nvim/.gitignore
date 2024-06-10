@@ -1,8 +1,0 @@
-/ftdetect/*
-!/ftdetect/gsp.vim
-/ftplugin
-/indent
-/plugin
-/syntax
-/queries
-.luarc.json
