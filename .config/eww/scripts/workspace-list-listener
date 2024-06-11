@@ -10,9 +10,11 @@ hyprctl -j workspaces | jq -cr '
 
 socat -u UNIX-CONNECT:"$IPC" - \
 	| stdbuf -oL grep -E '^(create|destroy)workspace>>' \
-	| while read -r _; do hyprctl -j workspaces; done \
-	| jq -cr '
-		[.[].id]
-		| group_by(. / 10 | floor)
-		| [.[] | map(. % 10) | sort_by(.)]
-	'
+	| while read -r _
+	do
+		hyprctl -j workspaces | jq -cr '
+			[.[].id]
+			| group_by(. / 10 | floor)
+			| [.[] | map(. % 10) | sort_by(.)]
+		'
+	done
