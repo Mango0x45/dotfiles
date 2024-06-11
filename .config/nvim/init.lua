@@ -72,9 +72,9 @@ vim.keymap.set('n', 'M', ':make<CR>',
 	{ desc = 'Run the configured compiler' })
 vim.keymap.set('n', 'V', '<C-v>',
 	{ desc = 'Enter visual-block mode' })
-vim.keymap.set('v', '<C-j>', ":m '>+1<CR>gv=gv",
+vim.keymap.set('x', '<C-j>', ":m '>+1<CR>gv=gv",
 	{ desc = 'Move a selection down a line' })
-vim.keymap.set('v', '<C-k>', ":m '<-2<CR>gv=gv",
+vim.keymap.set('x', '<C-k>', ":m '<-2<CR>gv=gv",
 	{ desc = 'Move a selection up a line' })
 vim.keymap.set({ 'n', 'o', 'x' }, '€', '$',
 	{ desc = 'Go to end of the line' })
