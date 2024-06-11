@@ -50,6 +50,10 @@ function mk_scratch_buffer()
 	]]
 end
 
+vim.keymap.set('x', '<leader>a', 'gg0oG$',
+	{ desc = 'Select the [A]ll of the buffer' })
+vim.keymap.set('o', '<leader>a', ':normal! ggVG<CR>',
+	{ desc = 'Text object of [A]ll of the buffer' })
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>',
 	{ desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>',
