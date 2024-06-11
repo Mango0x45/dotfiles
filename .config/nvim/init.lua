@@ -68,7 +68,7 @@ vim.keymap.set('n', '<leader>h', function() vim.cmd 'split' end,
 	{ desc = 'Open a [H]orizontal split' })
 vim.keymap.set('n', '<leader>v', function() vim.cmd 'vsplit' end,
 	{ desc = 'Open a [V]ertical split' })
-vim.keymap.set('n', 'M', ':make<CR>',
+vim.keymap.set('n', 'M', ':w! | make<CR>',
 	{ desc = 'Run the configured compiler' })
 vim.keymap.set('n', 'V', '<C-v>',
 	{ desc = 'Enter visual-block mode' })
