@@ -32,7 +32,10 @@ general {
 	col.inactive_border     = rgba(64727D7F)
 	gaps_in                 = 5
 	gaps_out                = 10
-	cursor_inactive_timeout = 3
+}
+
+cursor {
+	inactive_timeout = 3
 }
 
 decoration {
