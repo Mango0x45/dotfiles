@@ -62,16 +62,12 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>',
 	{ desc = 'Move focus to the upper window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>',
 	{ desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-v>', 'V',
-	{ desc = 'Enter visual-line mode' })
 vim.keymap.set('n', '<leader>h', function() vim.cmd 'split' end,
 	{ desc = 'Open a [H]orizontal split' })
 vim.keymap.set('n', '<leader>v', function() vim.cmd 'vsplit' end,
 	{ desc = 'Open a [V]ertical split' })
 vim.keymap.set('n', 'M', ':w! | make<CR>',
 	{ desc = 'Run the configured compiler' })
-vim.keymap.set('n', 'V', '<C-v>',
-	{ desc = 'Enter visual-block mode' })
 vim.keymap.set('x', '<C-j>', ":m '>+1<CR>gv=gv",
 	{ desc = 'Move a selection down a line' })
 vim.keymap.set('x', '<C-k>', ":m '<-2<CR>gv=gv",
@@ -105,6 +101,13 @@ vim.keymap.set('n', '<leader>K', function()
 	vim.cmd 'split'
 	mk_scratch_buffer()
 end, { desc = 'Open the scratch buffer in a horizontal split' })
+
+if vim.loop.os_uname().sysname ~= 'Darwin' then
+	vim.keymap.set('n', '<C-v>', 'V',
+		{ desc = 'Enter visual-line mode' })
+	vim.keymap.set('n', 'V', '<C-v>',
+		{ desc = 'Enter visual-block mode' })
+end
 
 -- Don’t move the cursor with various commands
 vim.keymap.set('n', 'J', 'mzJ`z')
