@@ -82,6 +82,16 @@ vim.keymap.set('n', '<leader>T', function() vim.cmd.normal('"zX"zp') end,
 	{ desc = '[T]ranspose the current and previous characters' })
 vim.keymap.set('n', '-', ':Ex<CR>',
 	{ desc = 'Open Netrw' })
+vim.keymap.set('n', 'gJ', function()
+	vim.cmd [[
+		let save = winsaveview()
+		normal! gJ
+		if matchstr(getline('.'), '\%' . col('.') . 'c.') =~ '\s'
+			normal! "_dw
+		endif
+		call winrestview(save)
+	]]
+end, { desc = '[J]oin lines without whitespace' })
 
 vim.keymap.set('n', '<leader>k', function()
 	vim.cmd 'vsplit'
