@@ -27,12 +27,15 @@ input {
 }
 
 general {
-	border_size             = 3
-	col.active_border       = rgb(FAA14F)
-	col.inactive_border     = rgba(64727D7F)
-	gaps_in                 = 5
-	gaps_out                = 10
-	cursor_inactive_timeout = 3
+	border_size         = 3
+	col.active_border   = rgb(FAA14F)
+	col.inactive_border = rgba(64727D7F)
+	gaps_in             = 5
+	gaps_out            = 10
+}
+
+cursor {
+	inactive_timeout = 3
 }
 
 decoration {
