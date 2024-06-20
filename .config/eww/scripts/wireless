@@ -1,3 +1,30 @@
 #!/bin/sh
 
-sudo wpa_cli status | sed -n 's/^ssid=//p' | ifne -n echo 'Not Connected'
+export NOTIFY_SHORT=wireless
+export NOTIFY_LONG=wireless
+
+readonly CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/eww-wireless"
+
+touch "$CACHE"
+
+ssid="$(sudo wpa_cli status | sed -n 's/^ssid=//p')"
+read -r prev_ssid <"$CACHE"
+
+if [ "$ssid" != "$prev_ssid" ]
+then
+	echo "$ssid" >"$CACHE"
+	if [ -z "$ssid" ]
+	then
+		notify 'Disconnected from the Network' \
+			'You are not connected to any network'
+	else
+		notify 'Connected to Network' "You are now connected to the network ‘$ssid’"
+	fi
+fi
+
+if [ -n "$ssid" ]
+then
+	jo icon=󰖩 ssid="$ssid"
+else
+	jo icon=󰖪 ssid='Not Connected'
+fi

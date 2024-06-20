@@ -35,7 +35,7 @@
 (defpoll battery :initial '{"icon":"","percentage":""}' :interval "1s"
   `scripts/battery`)
 
-(defpoll wireless :interval "1s"
+(defpoll wireless :initial '{"icon":"","ssid":""}' :interval "1s"
   `scripts/wireless`)
 
 ;; Windows
@@ -97,11 +97,12 @@
            :hexpand false
            :space-evenly false
            :width 30
-           (label :text "")
+           ; (label :text "")
+		   (label :text {wireless.icon})
            (revealer :transition "slideright"
                      :reveal wireless_rev
                      :duration "350ms"
-                     (label :text wireless)))))
+                     (label :text {wireless.ssid})))))
 
 (defwidget keymap []
   (eventbox
