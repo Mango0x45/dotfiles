@@ -1,4 +1,4 @@
-vim.bo.commentstring = '/* %s */'
+vim.bo.commentstring = '// %s'
 
 vim.keymap.set('v', '<localleader>=', ":'<'>!clang-format -style=file<CR>", {
 	desc = 'Format the current selection with Clang Format',
