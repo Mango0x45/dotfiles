@@ -476,21 +476,6 @@ cmp.setup {
 		ghost_text = true,
 	},
 }
--- cmp.event:on('confirm_done', function(ev)
--- 	if ev.commit_character then
--- 		return
--- 	end
---
--- 	local types = require 'cmp.types'
--- 	local kind = ev.entry:get_kind()
---
--- 	if
--- 		kind == types.lsp.CompletionItemKind.Function or
--- 		kind == types.lsp.CompletionItemKind.Method
--- 	then
--- 		local keys = vim.api.nvim_replace_termcodes('()<left>', true, false, true)
--- 		vim.api.nvim_feedkeys(keys, 'i', false)
--- 	end
--- end)
 
+-- Pipe
 require('pipe')
