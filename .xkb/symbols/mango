@@ -28,6 +28,7 @@ xkb_symbols "basic" {
 	key <AC10> { [ semicolon,  colon,    leftsinglequotemark,  leftdoublequotemark  ] };
 	key <AC11> { [ apostrophe, quotedbl, rightsinglequotemark, rightdoublequotemark ] };
 
+	key <AB02> { [ x,      X,       U00D7                ] }; // ×
 	key <AB03> { [ c,      C,       cent                 ] };
 	key <AB08> { [ comma,  less,    rightsinglequotemark ] };
 	key <AB09> { [ period, greater, ellipsis             ] };
