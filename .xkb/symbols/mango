@@ -4,6 +4,7 @@ xkb_symbols "basic" {
 	include "us(basic)"
 	name[Group1] = "Mango";
 
+	key <TLDE> { [ grave,       tilde,      U2032,       U2033 ] }; // ′ and ″
 	key <AE01> { [ exclam,      1,          exclam,      1 ] };
 	key <AE02> { [ at,          2,          at,          2 ] };
 	key <AE03> { [ numbersign,  3,          numbersign,  3 ] };
