@@ -1,4 +1,3 @@
-// https://www.charvolant.org/doug/xkb/html/img3.png
 // https://cgit.freedesktop.org/xorg/proto/x11proto/tree/keysymdef.h
 default partial alphanumeric_keys modifier_keys
 xkb_symbols "basic" {
