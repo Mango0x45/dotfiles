@@ -1,9 +1,3 @@
-#!/usr/local/bin/andy
+#!/bin/sh
 
-set flags -m color
-if test $#args -ge 2 {
-	set flags $flags --area=0,0,$args[1],$args[1]
-}
-
-set uri `lpoptions -p $PRINTER | sed -E 's/.*device-uri=hp:([^ ]+).*/hpaio:\1/'
-chronic hp-scan -d $uri $flags
+chronic hp-scan $@
