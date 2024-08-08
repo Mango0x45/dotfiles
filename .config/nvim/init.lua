@@ -106,9 +106,9 @@ vim.keymap.set('n', '<leader>K', function()
 end, { desc = 'Open the scratch buffer in a horizontal split' })
 
 if vim.loop.os_uname().sysname ~= 'Darwin' then
-	vim.keymap.set('n', '<C-v>', 'V',
+	vim.keymap.set({'n', 'x'}, '<C-v>', 'V',
 		{ desc = 'Enter visual-line mode' })
-	vim.keymap.set('n', 'V', '<C-v>',
+	vim.keymap.set({'n', 'x'}, 'V', '<C-v>',
 		{ desc = 'Enter visual-block mode' })
 end
 
