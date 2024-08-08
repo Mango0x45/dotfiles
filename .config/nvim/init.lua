@@ -16,7 +16,7 @@ vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'split'
 vim.opt.list = false
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '․', nbsp = '␣' }
 vim.opt.matchpairs:append('<:>')
 vim.opt.matchpairs:append('‘:’')
 vim.opt.matchpairs:append('“:”')
