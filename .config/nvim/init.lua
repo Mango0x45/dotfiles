@@ -393,6 +393,9 @@ lsp.gopls.setup {
 lsp.rust_analyzer.setup {
 	capabilities = caps,
 }
+lsp.templ.setup {
+	capabilities = caps,
+}
 lsp.lua_ls.setup {
 	settings = {
 		Lua = {
