@@ -20,6 +20,8 @@ vim.opt.listchars = { tab = '» ', trail = '․', nbsp = '␣' }
 vim.opt.matchpairs:append('<:>')
 vim.opt.matchpairs:append('‘:’')
 vim.opt.matchpairs:append('“:”')
+vim.opt.matchpairs:append('»:«')
+vim.opt.matchpairs:append('›:‹')
 vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.relativenumber = true
