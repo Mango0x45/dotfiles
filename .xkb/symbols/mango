@@ -4,31 +4,32 @@ xkb_symbols "basic" {
 	include "us(basic)"
 	name[Group1] = "Mango";
 
-	key <TLDE> { [ grave,       tilde,      U2032,       U2033 ] }; // ′ and ″
-	key <AE01> { [ exclam,      1,          exclam,      1 ] };
-	key <AE02> { [ at,          2,          at,          2 ] };
-	key <AE03> { [ numbersign,  3,          numbersign,  3 ] };
-	key <AE04> { [ EuroSign,    4,          dollar,      4 ] };
+	key <TLDE> { [ grave,       tilde,      minutes,     seconds  ] };
+	key <AE01> { [ exclam,      1,          exclam,      1        ] };
+	key <AE02> { [ at,          2,          at,          2        ] };
+	key <AE03> { [ numbersign,  3,          numbersign,  3        ] };
+	key <AE04> { [ EuroSign,    4,          dollar,      4        ] };
 	key <AE04> { [ dollar,      4,          EuroSign,    EuroSign ] };
-	key <AE05> { [ percent,     5,          dollar,      5 ] };
-	key <AE06> { [ asciicircum, 6,          asciicircum, 6 ] };
-	key <AE07> { [ ampersand,   7,          ampersand,   7 ] };
-	key <AE08> { [ asterisk,    8,          asterisk,    8 ] };
-	key <AE09> { [ parenleft,   9,          parenleft,   9 ] };
-	key <AE10> { [ parenright,  0,          parenright,  0 ] };
-	key <AE11> { [ minus,       underscore, endash,      emdash ] };
+	key <AE05> { [ percent,     5,          dollar,      5        ] };
+	key <AE06> { [ asciicircum, 6,          asciicircum, 6        ] };
+	key <AE07> { [ ampersand,   7,          logicaland,  7        ] };
+	key <AE08> { [ asterisk,    8,          U22C5,       8        ] }; // ⋅
+	key <AE09> { [ parenleft,   9,          parenleft,   9        ] };
+	key <AE10> { [ parenright,  0,          parenright,  0        ] };
+	key <AE11> { [ minus,       underscore, endash,      emdash   ] };
 
-	key <AD03> { [ e, E, eacute,     Eacute     ] };
-	key <AD07> { [ u, U, udiaeresis, Udiaeresis ] };
-	key <AD08> { [ i, I, U0133,      U0132      ] }; // ĳ and Ĳ
-	key <AD09> { [ o, O, odiaeresis, Odiaeresis ] };
+	key <AD03> { [ e,         E,   eacute,     Eacute     ] };
+	key <AD07> { [ u,         U,   udiaeresis, Udiaeresis ] };
+	key <AD08> { [ i,         I,   U0133,      U0132      ] }; // ĳ and Ĳ
+	key <AD09> { [ o,         O,   odiaeresis, Odiaeresis ] };
+	key <BKSL> { [ backslash, bar, logicalor,  bar        ] };
 
 	key <AC01> { [ a,          A,        adiaeresis,           Adiaeresis           ] };
 	key <AC02> { [ s,          S,        ssharp,               U1E9E                ] }; // ẞ
 	key <AC10> { [ semicolon,  colon,    leftsinglequotemark,  leftdoublequotemark  ] };
 	key <AC11> { [ apostrophe, quotedbl, rightsinglequotemark, rightdoublequotemark ] };
 
-	key <AB02> { [ x,      X,       U00D7                ] }; // ×
+	key <AB02> { [ x,      X,       multiply             ] };
 	key <AB03> { [ c,      C,       cent                 ] };
 	key <AB08> { [ comma,  less,    rightsinglequotemark ] };
 	key <AB09> { [ period, greater, ellipsis             ] };
