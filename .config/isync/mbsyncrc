@@ -8,7 +8,7 @@ IMAPStore default-remote
 Host imap.migadu.com
 User mail@thomasvoss.com
 PassCmd "vlt raw Email mail@thomasvoss.com"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 MaildirStore default-local
@@ -27,7 +27,7 @@ IMAPStore eurocash-remote
 Host imap.migadu.com
 User mail@euro-cash.eu
 PassCmd "vlt raw Email mail@euro-cash.eu"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 MaildirStore eurocash-local
@@ -47,7 +47,7 @@ Host outlook.office365.com
 User thomasvoss@live.com
 PassCmd "vlt raw Email thomasvoss@live.com"
 Port 993
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 MaildirStore legacy-local
@@ -85,7 +85,7 @@ IMAPStore humanwave-remote
 Host imap.gmail.com
 User thomas.voss@humanwave.nl
 PassCmd "vlt raw Miscellaneous 'Gmail App Password (thomas.voss@humanwave.nl)'"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 MaildirStore humanwave-local
