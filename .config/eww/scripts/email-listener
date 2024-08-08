@@ -3,6 +3,8 @@
 export NOTIFY_SHORT=email
 export NOTIFY_LONG=email
 
+: ${MAILDIR:=$HOME/mail}
+
 readonly CACHE="${XDG_CACHE_HOME:=$HOME/.cache}/email-listener"
 touch "$CACHE"
 
