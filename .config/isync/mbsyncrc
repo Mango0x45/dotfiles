@@ -60,6 +60,25 @@ Far :legacy-remote:
 Near :legacy-local:
 Patterns *
 
+# tv222gy@student.lnu.se
+
+IMAPStore linnaeus-remote
+Host imap.gmail.com
+User tv222gy@student.lnu.se
+PassCmd "vlt raw Miscellaneous 'Gmail App Password (tv222gy@student.lnu.se)'"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore linnaeus-local
+Path ~/mail/tv222gy@student.lnu.se/
+Inbox ~/mail/tv222gy@student.lnu.se/Inbox
+SubFolders Verbatim
+
+Channel linnaeus
+Far :linnaeus-remote:
+Near :linnaeus-local:
+Patterns *
+
 # thomas.voss@humanwave.nl
 
 IMAPStore humanwave-remote
