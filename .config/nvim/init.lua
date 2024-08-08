@@ -55,7 +55,7 @@ end
 vim.keymap.set('x', '<leader>a', 'gg0oG$',
 	{ desc = 'Select the [A]ll of the buffer' })
 vim.keymap.set('o', '<leader>a', ':normal! ggVG<CR>',
-	{ desc = 'Text object of [A]ll of the buffer' })
+	{ desc = 'Text object of [A]ll of the buffer', silent = true })
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>',
 	{ desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>',
@@ -69,21 +69,22 @@ vim.keymap.set('n', '<leader>h', function() vim.cmd 'split' end,
 vim.keymap.set('n', '<leader>v', function() vim.cmd 'vsplit' end,
 	{ desc = 'Open a [V]ertical split' })
 vim.keymap.set('n', 'M', ':w! | make<CR>',
-	{ desc = 'Run the configured compiler' })
+	{ desc = 'Run the configured compiler', silent = true })
 vim.keymap.set('x', '<C-j>', ":m '>+1<CR>gv=gv",
-	{ desc = 'Move a selection down a line' })
+	{ desc = 'Move a selection down a line', silent = true })
 vim.keymap.set('x', '<C-k>', ":m '<-2<CR>gv=gv",
-	{ desc = 'Move a selection up a line' })
+	{ desc = 'Move a selection up a line', silent = true })
 vim.keymap.set({ 'n', 'o', 'x' }, '€', '$',
 	{ desc = 'Go to end of the line' })
-vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<CR>',
-	{ desc = 'Disable highlighting of currently highlighted search matches' })
+vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>',
+	{ desc = 'Disable highlighting of currently highlighted search matches',
+	  silent = true })
 vim.keymap.set('n', '<leader>t', function() vim.cmd.normal('"zx"zph') end,
 	{ desc = '[T]ranspose the current and next characters' })
 vim.keymap.set('n', '<leader>T', function() vim.cmd.normal('"zX"zp') end,
 	{ desc = '[T]ranspose the current and previous characters' })
 vim.keymap.set('n', '-', ':Ex<CR>',
-	{ desc = 'Open Netrw' })
+	{ desc = 'Open Netrw', silent = true })
 vim.keymap.set('n', 'gJ', function()
 	vim.cmd [[
 		let save = winsaveview()
