@@ -171,6 +171,7 @@ require 'paq' {
 	'luckasRanarison/tree-sitter-hypr',
 	'mattn/emmet-vim',
 	'neovim/nvim-lspconfig',
+	'ngalaiko/tree-sitter-go-template',
 	'nvim-lua/plenary.nvim',
 	'nvim-telescope/telescope.nvim',
 	'nvim-telescope/telescope-ui-select.nvim',
@@ -269,6 +270,13 @@ treeconfs.gsp = {
 		files = { 'src/parser.c' },
 	},
 	filetype = 'gsp',
+}
+treeconfs.gotmpl = {
+	install_info = {
+		url = 'https://github.com/ngalaiko/tree-sitter-go-template',
+		files = { 'src/parser.c' },
+	},
+	filetype = 'gotmpl',
 }
 
 require('nvim-treesitter.install').prefer_git = true
