@@ -1,6 +1,6 @@
 vim.g.have_nerd_font = false
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = ','
 vim.g.netrw_banner = 0
 vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 vim.g.netrw_list_hide = [[^\(\.\|\.\.\)/\?$,^__pycache__/\?,.*\.\(a\|o\|so\|pyc\)$]]
