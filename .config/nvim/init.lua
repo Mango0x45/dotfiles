@@ -96,11 +96,11 @@ vim.keymap.set('n', 'gJ', function()
 	]]
 end, { desc = '[J]oin lines without whitespace' })
 
-vim.keymap.set('n', '<Leader>k', function()
+vim.keymap.set('n', '<Leader>s', function()
 	vim.cmd 'vsplit'
 	mk_scratch_buffer()
 end, { desc = 'Open the scratch buffer in a vertical split' })
-vim.keymap.set('n', '<Leader>K', function()
+vim.keymap.set('n', '<Leader>S', function()
 	vim.cmd 'split'
 	mk_scratch_buffer()
 end, { desc = 'Open the scratch buffer in a horizontal split' })
