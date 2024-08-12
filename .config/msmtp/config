@@ -11,12 +11,27 @@ from mail@thomasvoss.com
 user mail@thomasvoss.com
 passwordeval vlt raw Email mail@thomasvoss.com
 
+account eurocash
+host smtp.migadu.com
+port 465
+from mail@euro-cash.eu
+user mail@euro-cash.eu
+passwordeval vlt raw Email mail@euro-cash.eu
+
 account legacy
 host smtp.office365.com
 port 587
 from thomasvoss@live.com
 user thomasvoss@live.com
 passwordeval vlt raw Email thomasvoss@live.com
+tls_starttls on
+
+account linnaeus
+host smtp.gmail.com
+port 587
+from tv222gy@student.lnu.se
+user tv222gy@student.lnu.se
+passwordeval vlt raw Email tv222gy@student.lnu.se
 tls_starttls on
 
 account humanwave
