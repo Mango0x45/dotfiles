@@ -52,9 +52,9 @@ function mk_scratch_buffer()
 	]]
 end
 
-vim.keymap.set('x', '<leader>a', 'gg0oG$',
+vim.keymap.set('x', '<Leader>a', 'gg0oG$',
 	{ desc = 'Select the [A]ll of the buffer' })
-vim.keymap.set('o', '<leader>a', ':normal! ggVG<CR>',
+vim.keymap.set('o', '<Leader>a', ':normal! ggVG<CR>',
 	{ desc = 'Text object of [A]ll of the buffer', silent = true })
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>',
 	{ desc = 'Move focus to the left window' })
@@ -64,9 +64,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>',
 	{ desc = 'Move focus to the upper window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>',
 	{ desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<leader>h', function() vim.cmd 'split' end,
+vim.keymap.set('n', '<Leader>h', function() vim.cmd 'split' end,
 	{ desc = 'Open a [H]orizontal split' })
-vim.keymap.set('n', '<leader>v', function() vim.cmd 'vsplit' end,
+vim.keymap.set('n', '<Leader>v', function() vim.cmd 'vsplit' end,
 	{ desc = 'Open a [V]ertical split' })
 vim.keymap.set('n', 'M', ':w! | make<CR>',
 	{ desc = 'Run the configured compiler', silent = true })
@@ -79,9 +79,9 @@ vim.keymap.set({ 'n', 'o', 'x' }, '€', '$',
 vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>',
 	{ desc = 'Disable highlighting of currently highlighted search matches',
 	  silent = true })
-vim.keymap.set('n', '<leader>t', function() vim.cmd.normal('"zx"zph') end,
+vim.keymap.set('n', '<Leader>t', function() vim.cmd.normal('"zx"zph') end,
 	{ desc = '[T]ranspose the current and next characters' })
-vim.keymap.set('n', '<leader>T', function() vim.cmd.normal('"zX"zp') end,
+vim.keymap.set('n', '<Leader>T', function() vim.cmd.normal('"zX"zp') end,
 	{ desc = '[T]ranspose the current and previous characters' })
 vim.keymap.set('n', '-', ':Ex<CR>',
 	{ desc = 'Open Netrw', silent = true })
@@ -96,11 +96,11 @@ vim.keymap.set('n', 'gJ', function()
 	]]
 end, { desc = '[J]oin lines without whitespace' })
 
-vim.keymap.set('n', '<leader>k', function()
+vim.keymap.set('n', '<Leader>k', function()
 	vim.cmd 'vsplit'
 	mk_scratch_buffer()
 end, { desc = 'Open the scratch buffer in a vertical split' })
-vim.keymap.set('n', '<leader>K', function()
+vim.keymap.set('n', '<Leader>K', function()
 	vim.cmd 'split'
 	mk_scratch_buffer()
 end, { desc = 'Open the scratch buffer in a horizontal split' })
@@ -230,13 +230,13 @@ telescope.setup {
 pcall(telescope.load_exetension, 'fzf')
 pcall(telescope.load_exetension, 'ui-select')
 
-vim.keymap.set('n', '<leader>ff', tsbuiltin.find_files,
+vim.keymap.set('n', '<Leader>ff', tsbuiltin.find_files,
 	{ desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fh', tsbuiltin.help_tags,
+vim.keymap.set('n', '<Leader>fh', tsbuiltin.help_tags,
 	{ desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fg', tsbuiltin.live_grep,
+vim.keymap.set('n', '<Leader>fg', tsbuiltin.live_grep,
 	{ desc = '[F]ind [G]rep' })
-vim.keymap.set('n', '<leader>/', function()
+vim.keymap.set('n', '<Leader>/', function()
 	tsbuiltin.current_buffer_fuzzy_find(tsthemes.get_dropdown {
 		winblend = 10,
 		previewer = false,
