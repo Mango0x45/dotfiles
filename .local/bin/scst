@@ -5,8 +5,8 @@ set -e NOTIFY_SHORT `basename $args[0]
 
 func xnotify {
 	notify (
-		'Screenshot Copied'
-		'Screenshot successfully copied to the clipboard'
+		'Screenshot Saved'
+		"The screenshot ‘$filebase’ was successfully saved"
 		-i $filename
 	)
 }
@@ -38,14 +38,15 @@ if $(fflag:false) {
 set opt `echo "Copy screenshot\nEdit- and copy screenshot" | { osel || true }
 if test $opt = 'Copy screenshot' {
 	wl-copy <$filename
-	xnotify
-} else if test $opt = 'Edit- and copy screenshot' {
-	swappy -f $filename -o - | tee >{wl-copy} | sponge $filename
-	xnotify
-} else {
 	notify (
-		'Screenshot Saved'
-		"The screenshot ‘$filebase’ was successfully saved"
+		'Screenshot Copied'
+		'Screenshot successfully copied to the clipboard'
 		-i $filename
 	)
+} else if test $opt = 'Edit- and copy screenshot' {
+	satty -f $filename --save-after-copy
+	xnotify
+	# swappy -f $filename -o - | tee >{wl-copy} | sponge $filename
+} else {
+	xnotify
 }
