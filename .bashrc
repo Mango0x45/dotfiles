@@ -77,6 +77,8 @@ export PYTHONUSERBASE="$XDG_DATA_HOME/python"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export W3M_DIR="$XDG_STATE_HOME/w3m"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export XCOMPOSECACHE="$XDG_CACHE_HOME/X11/xcompose"
+export XCOMPOSEFILE="$XDG_CONFIG_HOME/X11/xcompose"
 
 export REPODIR="$HOME/code"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
