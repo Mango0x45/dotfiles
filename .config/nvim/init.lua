@@ -135,6 +135,27 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	end,
 })
 
+vim.api.nvim_create_autocmd('VimEnter', {
+	desc = 'Remove the Vim background color',
+	group = vim.api.nvim_create_augroup('mango-transparent-bg', { clear = true }),
+	callback = function()
+		vim.cmd [[
+			 highlight CursorColumn          guibg=#1D2635
+			 highlight CursorLine            guibg=#1D2635
+			 highlight EndOfBuffer           guibg=NONE
+			 highlight Normal                guibg=NONE
+			 highlight NormalNC              guibg=NONE
+			 highlight StatusLine            guibg=#19212E
+			 highlight TabLineFill           guibg=#19212E
+			 highlight TabLine               guibg=#131A25
+			 highlight TelescopeNormal       guibg=NONE
+			 highlight TelescopeBorder       guibg=NONE
+			 highlight TelescopePromptBorder guibg=NONE
+			 highlight TelescopePromptTitle  guibg=NONE
+		]]
+	end,
+})
+
 -- Weird way to make buffer auto-reverting work?
 vim.cmd [[
 	if !exists('g:CheckUpdateStarted')
