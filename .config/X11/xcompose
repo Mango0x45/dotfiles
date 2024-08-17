@@ -1,48 +1,254 @@
-<Multi_key> <G> <A> : "Α" U0391
-<Multi_key> <G> <a> : "α" U03B1
-<Multi_key> <G> <B> : "Β" U0392
-<Multi_key> <G> <b> : "β" U03B2
-<Multi_key> <G> <D> : "Δ" U0394
-<Multi_key> <G> <d> : "δ" U03B4
-<Multi_key> <G> <E> : "Ε" U0395
-<Multi_key> <G> <e> : "ε" U03B5
-<Multi_key> <G> <F> : "Φ" U03A6
-<Multi_key> <G> <f> : "φ" U03C6
-<Multi_key> <G> <G> : "Γ" U0393
-<Multi_key> <G> <g> : "γ" U03B3
-<Multi_key> <G> <H> : "Η" U0397
-<Multi_key> <G> <h> : "η" U03B7
-<Multi_key> <G> <I> : "Ι" U0399
-<Multi_key> <G> <i> : "ι" U03B9
-<Multi_key> <G> <J> : "Θ" U0398
-<Multi_key> <G> <j> : "θ" U03B8
-<Multi_key> <G> <K> : "Κ" U039A
-<Multi_key> <G> <k> : "κ" U03BA
-<Multi_key> <G> <L> : "Λ" U039B
-<Multi_key> <G> <l> : "λ" U03BB
-<Multi_key> <G> <M> : "Μ" U039C
-<Multi_key> <G> <m> : "μ" U03BC
-<Multi_key> <G> <N> : "Ν" U039D
-<Multi_key> <G> <n> : "ν" U03BD
-<Multi_key> <G> <O> : "Ο" U039F
-<Multi_key> <G> <o> : "ο" U03BF
-<Multi_key> <G> <P> : "Π" U03A0
-<Multi_key> <G> <p> : "π" U03C0
-<Multi_key> <G> <Q> : "Χ" U03A7
-<Multi_key> <G> <q> : "χ" U03C7
-<Multi_key> <G> <R> : "Ρ" U03A1
-<Multi_key> <G> <r> : "ρ" U03C1
-<Multi_key> <G> <S> : "Σ" U03A3
-<Multi_key> <G> <s> : "σ" U03C3
-<Multi_key> <G> <T> : "Τ" U03A4
-<Multi_key> <G> <t> : "τ" U03C4
-<Multi_key> <G> <U> : "Υ" U03A5
-<Multi_key> <G> <u> : "υ" U03C5
-<Multi_key> <G> <W> : "Ω" U03A9
-<Multi_key> <G> <w> : "ω" U03C9
-<Multi_key> <G> <X> : "Ξ" U039E
-<Multi_key> <G> <x> : "ξ" U03BE
-<Multi_key> <G> <Y> : "Ψ" U03A8
-<Multi_key> <G> <y> : "ψ" U03C8
-<Multi_key> <G> <Z> : "Ζ" U0396
-<Multi_key> <G> <z> : "ζ" U03B6
+# General compose rules:
+#
+#   ‘C X’ means ‘Compose + X’
+#   U+22C6 STAR OPERATOR (‘⋆’) represents an arbitrary key
+#
+#   C ⋆ '    A letter with an acute
+#   C ⋆ u    A letter with a breve
+#   C ⋆ v    A letter with a caron
+#   C ⋆ ,    A letter with a cedilla
+#   C ⋆ ^    A letter with a circumflex
+#   C ⋆ :    A letter with a diaeresis
+#   C ⋆ .    A letter with a dot
+#   C ⋆ "    A letter with a double-acute
+#   C ⋆ `    A letter with a grave
+#   C ⋆ -    A letter with a macron
+#   C ⋆ ;    A letter with an ogonek
+#   C ⋆ o    A letter with a ring
+#   C ⋆ /    A letter with a slash or strikethrough
+#   C ⋆ ~    A letter with a tilde
+#   C ⋆ *    The Greek letter ‘⋆’
+#
+#   Ligatures or other glyphs that are compose of multiple characters are
+#   straight forwards.  For example ‘C I J’ produces ‘Ĳ’.
+#
+#   Math symbols typically use programming counterparts if they exist,
+#   for example ‘C ! =’ produces ‘≠’.  Other symbols that look similar to
+#   ASCII symbols are formed via repetition, for example ‘C * *’ produces
+#   ‘⋆’.
+#
+#   NOTE: System config at /usr/share/X11/locale/en_US.UTF-8/Compose
+#
+
+# Math
+<Multi_key> <ampersand> <ampersand>   : "∧" U2227
+<Multi_key> <asterisk> <asterisk>     : "⋆" U22C6
+<Multi_key> <bar> <bar>               : "∨" U2228
+<Multi_key> <exclam> <equal>          : "≠" U2260
+<Multi_key> <greater> <equal>         : "≥" U2265
+<Multi_key> <less> <equal>            : "≤" U2264
+<Multi_key> <minus> <colon>           : "÷" division
+<Multi_key> <parenleft> <parenleft>   : "⟮" U27EE
+<Multi_key> <parenright> <parenright> : "⟯" U27EF
+<Multi_key> <period> <period>         : "⋅" U22C5
+<Multi_key> <plus> <minus>            : "±" plusminus
+<Multi_key> <x> <x>                   : "×" multiply
+
+# Typographical Symbols
+<Multi_key> <greater> <greater> : "»" U00AB
+<Multi_key> <less> <less>       : "«" U00AB
+<Multi_key> <minus> <n>         : "–" U2013
+<Multi_key> <minus> <n>         : "—" U2014
+
+# Arrows
+<Multi_key> <less> <minus>  : "←" U2190
+<Multi_key> <minus> <right> : "→" U2192 # NOTE: Broken
+
+# Latin Alphabet — Acute
+<Multi_key> <a> <apostrophe> : "á" aacute
+<Multi_key> <A> <apostrophe> : "Á" Aacute
+<Multi_key> <E> <apostrophe> : "É" Eacute
+
+# Latin Alphabet — Breve
+<Multi_key> <A> <u> : "Ă" U0102
+<Multi_key> <a> <u> : "ă" U0103
+<Multi_key> <E> <u> : "Ĕ" U0114
+<Multi_key> <e> <u> : "ĕ" U0115
+<Multi_key> <G> <u> : "Ğ" U011E
+<Multi_key> <g> <u> : "ğ" U011F
+<Multi_key> <I> <u> : "Ĭ" U012C
+<Multi_key> <i> <u> : "ĭ" U012D
+<Multi_key> <O> <u> : "Ŏ" U014E
+<Multi_key> <o> <u> : "ŏ" U014F
+<Multi_key> <U> <u> : "Ŭ" U016C
+<Multi_key> <u> <u> : "ŭ" U016D
+
+# Latin Alphabet — Cedilla
+<Multi_key> <c> <comma> : "ç" ccedilla
+<Multi_key> <C> <comma> : "Ç" ccedilla
+<Multi_key> <d> <comma> : "ḑ" U1E11
+<Multi_key> <D> <comma> : "Ḑ" U1E10
+<Multi_key> <e> <comma> : "ȩ" U0229
+<Multi_key> <E> <comma> : "Ȩ" U0228
+<Multi_key> <g> <comma> : "ģ" U0121
+<Multi_key> <G> <comma> : "Ģ" U0122
+<Multi_key> <h> <comma> : "ḩ" U1E29
+<Multi_key> <H> <comma> : "Ḩ" U1E28
+<Multi_key> <k> <comma> : "ķ" U0137
+<Multi_key> <K> <comma> : "Ķ" U0136
+<Multi_key> <l> <comma> : "ļ" U013C
+<Multi_key> <L> <comma> : "Ļ" U012C
+<Multi_key> <n> <comma> : "ņ" U0146
+<Multi_key> <N> <comma> : "Ņ" U0145
+<Multi_key> <r> <comma> : "ŗ" U0157
+<Multi_key> <R> <comma> : "Ŗ" U0156
+<Multi_key> <s> <comma> : "ş" U015F
+<Multi_key> <S> <comma> : "Ş" U015E
+<Multi_key> <t> <comma> : "ţ" U0163
+<Multi_key> <T> <comma> : "Ţ" U0162
+
+# Latin Alphabet - Circumflex
+<Multi_key> <a> <asciicircum> : "â" acircumflex
+<Multi_key> <A> <asciicircum> : "Â" Acircumflex
+<Multi_key> <e> <asciicircum> : "ê" ecircumflex
+<Multi_key> <E> <asciicircum> : "Ê" Ecircumflex
+<Multi_key> <i> <asciicircum> : "î" icircumflex
+<Multi_key> <I> <asciicircum> : "Î" Icircumflex
+<Multi_key> <o> <asciicircum> : "ô" ocircumflex
+<Multi_key> <O> <asciicircum> : "Ô" Ocircumflex
+<Multi_key> <u> <asciicircum> : "û" ucircumflex
+<Multi_key> <U> <asciicircum> : "Û" Ucircumflex
+<Multi_key> <c> <asciicircum> : "ĉ" U0109
+<Multi_key> <C> <asciicircum> : "Ĉ" U0108
+<Multi_key> <g> <asciicircum> : "ĝ" U011D
+<Multi_key> <g> <asciicircum> : "Ĝ" U011C
+<Multi_key> <h> <asciicircum> : "ĥ" U0125
+<Multi_key> <H> <asciicircum> : "Ĥ" U0124
+<Multi_key> <j> <asciicircum> : "ĵ" U0135
+<Multi_key> <J> <asciicircum> : "Ĵ" U0134
+<Multi_key> <s> <asciicircum> : "ŝ" U015D
+<Multi_key> <S> <asciicircum> : "Ŝ" U015C
+<Multi_key> <w> <asciicircum> : "ŵ" U0175
+<Multi_key> <W> <asciicircum> : "Ŵ" U0174
+<Multi_key> <y> <asciicircum> : "ŷ" U0177
+<Multi_key> <Y> <asciicircum> : "Ŷ" U0176
+<Multi_key> <z> <asciicircum> : "ẑ" U1E91
+<Multi_key> <Z> <asciicircum> : "Ẑ" U1E90
+
+# Latin Alphabet — Diaeresis
+<Multi_key> <a> <colon> : "ä" adiaeresis
+<Multi_key> <A> <colon> : "Ä" Adiaeresis
+<Multi_key> <e> <colon> : "ë" adiaeresis
+<Multi_key> <E> <colon> : "Ë" Ediaeresis
+<Multi_key> <H> <colon> : "Ḧ" U1E26
+<Multi_key> <h> <colon> : "ḧ" U1E27
+<Multi_key> <i> <colon> : "ï" adiaeresis
+<Multi_key> <I> <colon> : "Ï" Idiaeresis
+<Multi_key> <o> <colon> : "ö" adiaeresis
+<Multi_key> <O> <colon> : "Ö" Odiaeresis
+<Multi_key> <t> <colon> : "ẗ" U1E97 # NOTE: No uppercase in Unicode
+<Multi_key> <u> <colon> : "ü" adiaeresis
+<Multi_key> <U> <colon> : "Ü" Udiaeresis
+<Multi_key> <W> <colon> : "Ẅ" U1E84
+<Multi_key> <w> <colon> : "ẅ" U1E85
+<Multi_key> <X> <colon> : "Ẍ" U1E8C
+<Multi_key> <x> <colon> : "ẍ" U1E8D
+<Multi_key> <Y> <colon> : "Ÿ" U0178
+<Multi_key> <y> <colon> : "ÿ" ydiaeresis
+
+# Latin Alphabet — Ring
+<Multi_key> <a> <o> : "å" aring
+<Multi_key> <A> <o> : "Å" Aring
+<Multi_key> <U> <o> : "Ů" U016E
+<Multi_key> <u> <o> : "ů" U016F
+<Multi_key> <w> <o> : "ẘ" U1E98 # NOTE: No uppercase in Unicode
+<Multi_key> <y> <o> : "ẙ" U1E99 # NOTE: No uppercase in Unicode
+
+# Latin Alphabet — Ligatures & Multiglyphs
+<Multi_key> <a> <e>               : "æ" ae
+<Multi_key> <A> <E>               : "Æ" AE
+<Multi_key> <D> <Z>               : "Ǆ" U01C4
+<Multi_key> <D> <z>               : "ǅ" U01C5
+<Multi_key> <d> <z>               : "ǆ" U01C6
+<Multi_key> <exclam> <exclam>     : "¡" exclamdown
+<Multi_key> <exclam> <question>   : "‽" U203D
+<Multi_key> <f> <f> <f>           : "ﬀ" UFB00
+<Multi_key> <f> <f> <i>           : "ﬃ" UFB03
+<Multi_key> <f> <f> <l>           : "ﬄ" UFB04
+<Multi_key> <f> <i>               : "ﬁ" UFB01
+<Multi_key> <f> <l>               : "ﬂ" UFB02
+<Multi_key> <I> <J>               : "Ĳ" U0132
+<Multi_key> <i> <j>               : "ĳ" U0133
+<Multi_key> <L> <J>               : "Ǉ" U01C7
+<Multi_key> <L> <j>               : "ǈ" U01C8
+<Multi_key> <l> <j>               : "ǉ" U01C9
+<Multi_key> <N> <J>               : "Ǌ" U01CA
+<Multi_key> <N> <j>               : "ǋ" U01CB
+<Multi_key> <n> <j>               : "ǌ" U01CC
+<Multi_key> <N> <o>               : "№" numerosign
+<Multi_key> <o> <e>               : "œ" ae
+<Multi_key> <O> <E>               : "Œ" AE
+<Multi_key> <question> <exclam>   : "⸘" U2E18
+<Multi_key> <question> <question> : "¿" questiondown
+<Multi_key> <s> <l>               : "ſ" U017F # [s]-[l]ong
+<Multi_key> <s> <t>               : "ﬆ" UFB06
+
+# Latin Alphabet — Extended
+<Multi_key> <s> <s> : "ß" ssharp # [s]harp [s]
+<Multi_key> <S> <S> : "ẞ" U1E9E  # [S]HARP [S]
+<Multi_key> <t> <h> : "þ" thorn  # [t][h]orn
+<Multi_key> <T> <H> : "Þ" THORN  # [T][H]ORN
+
+# Latin Alphabet — Slash & Strikethrough
+# NOTE: Eth and D-Stroke conflict, but ð is more curvy than đ, so use
+# slash for the former and minus for the latter.
+<Multi_key> <d> <minus> : "đ" dstroke
+<Multi_key> <D> <minus> : "Đ" Dstroke
+<Multi_key> <d> <slash> : "ð" eth
+<Multi_key> <D> <slash> : "Ð" ETH
+<Multi_key> <h> <slash> : "ħ" U0126
+<Multi_key> <H> <slash> : "Ħ" U0126
+<Multi_key> <L> <slash> : "Ł" U0141
+<Multi_key> <l> <slash> : "ł" U0142
+<Multi_key> <o> <slash> : "ø" oslash
+<Multi_key> <O> <slash> : "Ø" Oslash
+
+# Greek Alphabet
+<Multi_key> <A> <asterisk> : "Α" U0391
+<Multi_key> <a> <asterisk> : "α" U03B1
+<Multi_key> <B> <asterisk> : "Β" U0392
+<Multi_key> <b> <asterisk> : "β" U03B2
+<Multi_key> <D> <asterisk> : "Δ" U0394
+<Multi_key> <d> <asterisk> : "δ" U03B4
+<Multi_key> <E> <asterisk> : "Ε" U0395
+<Multi_key> <e> <asterisk> : "ε" U03B5
+<Multi_key> <F> <asterisk> : "Φ" U03A6
+<Multi_key> <f> <asterisk> : "φ" U03C6
+<Multi_key> <G> <asterisk> : "Γ" U0393
+<Multi_key> <g> <asterisk> : "γ" U03B3
+<Multi_key> <H> <asterisk> : "Η" U0397
+<Multi_key> <h> <asterisk> : "η" U03B7
+<Multi_key> <I> <asterisk> : "Ι" U0399
+<Multi_key> <i> <asterisk> : "ι" U03B9
+<Multi_key> <J> <asterisk> : "Θ" U0398
+<Multi_key> <j> <asterisk> : "θ" U03B8
+<Multi_key> <K> <asterisk> : "Κ" U039A
+<Multi_key> <k> <asterisk> : "κ" U03BA
+<Multi_key> <L> <asterisk> : "Λ" U039B
+<Multi_key> <l> <asterisk> : "λ" U03BB
+<Multi_key> <M> <asterisk> : "Μ" U039C
+<Multi_key> <m> <asterisk> : "μ" U03BC
+<Multi_key> <N> <asterisk> : "Ν" U039D
+<Multi_key> <n> <asterisk> : "ν" U03BD
+<Multi_key> <O> <asterisk> : "Ο" U039F
+<Multi_key> <o> <asterisk> : "ο" U03BF
+<Multi_key> <P> <asterisk> : "Π" U03A0
+<Multi_key> <p> <asterisk> : "π" U03C0
+<Multi_key> <Q> <asterisk> : "Χ" U03A7
+<Multi_key> <q> <asterisk> : "χ" U03C7
+<Multi_key> <R> <asterisk> : "Ρ" U03A1
+<Multi_key> <r> <asterisk> : "ρ" U03C1
+<Multi_key> <S> <asterisk> : "Σ" U03A3
+<Multi_key> <s> <asterisk> : "σ" U03C3
+<Multi_key> <T> <asterisk> : "Τ" U03A4
+<Multi_key> <t> <asterisk> : "τ" U03C4
+<Multi_key> <U> <asterisk> : "Υ" U03A5
+<Multi_key> <u> <asterisk> : "υ" U03C5
+<Multi_key> <W> <asterisk> : "Ω" U03A9
+<Multi_key> <w> <asterisk> : "ω" U03C9
+<Multi_key> <X> <asterisk> : "Ξ" U039E
+<Multi_key> <x> <asterisk> : "ξ" U03BE
+<Multi_key> <Y> <asterisk> : "Ψ" U03A8
+<Multi_key> <y> <asterisk> : "ψ" U03C8
+<Multi_key> <Z> <asterisk> : "Ζ" U0396
+<Multi_key> <z> <asterisk> : "ζ" U03B6
