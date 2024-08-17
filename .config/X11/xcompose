@@ -59,7 +59,38 @@
 # Latin Alphabet — Acute
 <Multi_key> <a> <apostrophe> : "á" aacute
 <Multi_key> <A> <apostrophe> : "Á" Aacute
+<Multi_key> <C> <apostrophe> : "Ć" U0106
+<Multi_key> <c> <apostrophe> : "ć" U0107
+<Multi_key> <e> <apostrophe> : "é" eacute
 <Multi_key> <E> <apostrophe> : "É" Eacute
+<Multi_key> <G> <apostrophe> : "Ǵ" U01F4
+<Multi_key> <g> <apostrophe> : "ǵ" U01F5
+<Multi_key> <i> <apostrophe> : "í" iacute
+<Multi_key> <I> <apostrophe> : "Í" Iacute
+<Multi_key> <K> <apostrophe> : "Ḱ" U1E30
+<Multi_key> <k> <apostrophe> : "ḱ" U1E31
+<Multi_key> <L> <apostrophe> : "Ĺ" U0139
+<Multi_key> <l> <apostrophe> : "ĺ" U013A
+<Multi_key> <M> <apostrophe> : "Ḿ" U1E3E
+<Multi_key> <m> <apostrophe> : "ḿ" U1E3F
+<Multi_key> <N> <apostrophe> : "Ń" U0143
+<Multi_key> <n> <apostrophe> : "ń" U0144
+<Multi_key> <o> <apostrophe> : "ó" oacute
+<Multi_key> <O> <apostrophe> : "Ó" Oacute
+<Multi_key> <P> <apostrophe> : "Ṕ" U1E54
+<Multi_key> <p> <apostrophe> : "ṕ" U1E55
+<Multi_key> <R> <apostrophe> : "Ŕ" U0154
+<Multi_key> <r> <apostrophe> : "ŕ" U0155
+<Multi_key> <S> <apostrophe> : "Ś" U015A
+<Multi_key> <s> <apostrophe> : "ś" U015B
+<Multi_key> <u> <apostrophe> : "ú" uacute
+<Multi_key> <U> <apostrophe> : "Ú" Uacute
+<Multi_key> <W> <apostrophe> : "Ẃ" U1E82
+<Multi_key> <w> <apostrophe> : "ẃ" U1E83
+<Multi_key> <y> <apostrophe> : "ý" yacute
+<Multi_key> <Y> <apostrophe> : "Ý" Yacute
+<Multi_key> <Z> <apostrophe> : "Ź" U0179
+<Multi_key> <z> <apostrophe> : "ź" U017A
 
 # Latin Alphabet — Breve
 <Multi_key> <A> <u> : "Ă" U0102
