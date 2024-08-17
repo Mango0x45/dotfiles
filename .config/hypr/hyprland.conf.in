@@ -27,7 +27,7 @@ input {
 }
 
 general {
-	border_size         = 3
+	border_size         = 2
 	col.active_border   = rgb(FAA14F)
 	col.inactive_border = rgba(64727D7F)
 	gaps_in             = 5
@@ -46,16 +46,16 @@ decoration {
 
 	dim_inactive = yes
 	dim_strength = 0.1
-	rounding     = 8
+	rounding     = 0
 
 	drop_shadow         = true
-	shadow_offset       = 3 3
+	shadow_offset       = 4 6
 	shadow_range        = 20
 	shadow_render_power = 4
 }
 
 dwindle {
-	no_gaps_when_only = yes
+	no_gaps_when_only = no
 }
 
 animations {
