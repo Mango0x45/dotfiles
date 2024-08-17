@@ -18,6 +18,8 @@
 #   C ⋆ /    A letter with a slash or strikethrough
 #   C ⋆ ~    A letter with a tilde
 #   C ⋆ *    The Greek letter ‘⋆’
+#   C _ ⋆    Subscript ‘⋆’
+#   C ^ ⋆    Superscript ‘⋆’
 #
 #   Ligatures or other glyphs that are compose of multiple characters are
 #   straight forwards.  For example ‘C I J’ produces ‘Ĳ’.
@@ -252,3 +254,54 @@
 <Multi_key> <y> <asterisk> : "ψ" U03C8
 <Multi_key> <Z> <asterisk> : "Ζ" U0396
 <Multi_key> <z> <asterisk> : "ζ" U03B6
+
+# Superscript
+<Multi_key> <asciicircum> <0>          : "⁰" U2070
+<Multi_key> <asciicircum> <1>          : "¹" U00B9
+<Multi_key> <asciicircum> <2>          : "²" U00B2
+<Multi_key> <asciicircum> <3>          : "³" U00B3
+<Multi_key> <asciicircum> <4>          : "⁴" U2074
+<Multi_key> <asciicircum> <5>          : "⁵" U2075
+<Multi_key> <asciicircum> <6>          : "⁶" U2076
+<Multi_key> <asciicircum> <7>          : "⁷" U2077
+<Multi_key> <asciicircum> <8>          : "⁸" U2078
+<Multi_key> <asciicircum> <9>          : "⁹" U2079
+<Multi_key> <asciicircum> <i>          : "ⁱ" U2071
+<Multi_key> <asciicircum> <minus>      : "⁻" U207B
+<Multi_key> <asciicircum> <n>          : "ⁿ" U207F
+<Multi_key> <asciicircum> <parenleft>  : "⁽" U207D
+<Multi_key> <asciicircum> <parenright> : "⁾" U207E
+<Multi_key> <asciicircum> <plus>       : "⁺" U207A
+
+# Subscript
+<Multi_key> <underscore> <0> : "₀" U2080
+<Multi_key> <underscore> <1> : "₁" U2081
+<Multi_key> <underscore> <2> : "₂" U2082
+<Multi_key> <underscore> <3> : "₃" U2083
+<Multi_key> <underscore> <4> : "₄" U2084
+<Multi_key> <underscore> <5> : "₅" U2085
+<Multi_key> <underscore> <6> : "₆" U2086
+<Multi_key> <underscore> <7> : "₇" U2087
+<Multi_key> <underscore> <8> : "₈" U2088
+<Multi_key> <underscore> <9> : "₉" U2089
+<Multi_key> <underscore> <a> : "ₐ" U2090
+<Multi_key> <underscore> <e> : "ₑ" U2090
+<Multi_key> <underscore> <h> : "ₕ" U2095
+<Multi_key> <underscore> <i> : "ᵢ" U1D62
+<Multi_key> <underscore> <j> : "ⱼ" U2C7C
+<Multi_key> <underscore> <k> : "ₖ" U2089
+<Multi_key> <underscore> <l> : "ₗ" U2097
+<Multi_key> <underscore> <minus> : "₋" U2089
+<Multi_key> <underscore> <m> : "ₘ" U2098
+<Multi_key> <underscore> <n> : "ₙ" U2099
+<Multi_key> <underscore> <o> : "ₒ" U2092
+<Multi_key> <underscore> <parenleft> : "₍" U2089
+<Multi_key> <underscore> <parenright> : "₎" U2089
+<Multi_key> <underscore> <plus> : "₊" U2089
+<Multi_key> <underscore> <p> : "ₚ" U209A
+<Multi_key> <underscore> <r> : "ᵣ" U1D63
+<Multi_key> <underscore> <s> : "ₛ" U209B
+<Multi_key> <underscore> <t> : "ₜ" U209C
+<Multi_key> <underscore> <u> : "ᵤ" U1D64
+<Multi_key> <underscore> <v> : "ᵥ" U1D65
+<Multi_key> <underscore> <x> : "ₓ" U2093
