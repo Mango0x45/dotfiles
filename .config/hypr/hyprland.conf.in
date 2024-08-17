@@ -117,48 +117,48 @@ bind = $modkey, up,    movefocus, u
 bind = $modkey, right, movefocus, r
 
 # Switch workspaces with modkey + [0-9]
-__bind( 0, hyprwork  1)
-__bind( 1, hyprwork  2)
-__bind( 2, hyprwork  3)
-__bind( 3, hyprwork  4)
-__bind( 4, hyprwork  5)
-__bind( 5, hyprwork  6)
-__bind( 6, hyprwork  7)
-__bind( 7, hyprwork  8)
-__bind( 8, hyprwork  9)
-__bind( 9, hyprwork 10)
-__bind(10, hyprwork  1)
-__bind(11, hyprwork  2)
-__bind(12, hyprwork  3)
-__bind(13, hyprwork  4)
-__bind(14, hyprwork  5)
-__bind(15, hyprwork  6)
-__bind(16, hyprwork  7)
-__bind(17, hyprwork  8)
-__bind(18, hyprwork  9)
-__bind(19, hyprwork 10)
+bind = $modkey,  0, workspace,  1
+bind = $modkey,  1, workspace,  2
+bind = $modkey,  2, workspace,  3
+bind = $modkey,  3, workspace,  4
+bind = $modkey,  4, workspace,  5
+bind = $modkey,  5, workspace,  6
+bind = $modkey,  6, workspace,  7
+bind = $modkey,  7, workspace,  8
+bind = $modkey,  8, workspace,  9
+bind = $modkey,  9, workspace, 10
+bind = $modkey, 10, workspace,  1
+bind = $modkey, 11, workspace,  2
+bind = $modkey, 12, workspace,  3
+bind = $modkey, 13, workspace,  4
+bind = $modkey, 14, workspace,  5
+bind = $modkey, 15, workspace,  6
+bind = $modkey, 16, workspace,  7
+bind = $modkey, 17, workspace,  8
+bind = $modkey, 18, workspace,  9
+bind = $modkey, 19, workspace, 10
 
 # Move active window to a workspace with modkey + SHIFT + [0-9]
-__bind($modkey CONTROL,  0, hyprmove  1)
-__bind($modkey CONTROL,  1, hyprmove  2)
-__bind($modkey CONTROL,  2, hyprmove  3)
-__bind($modkey CONTROL,  3, hyprmove  4)
-__bind($modkey CONTROL,  4, hyprmove  5)
-__bind($modkey CONTROL,  5, hyprmove  6)
-__bind($modkey CONTROL,  6, hyprmove  7)
-__bind($modkey CONTROL,  7, hyprmove  8)
-__bind($modkey CONTROL,  8, hyprmove  9)
-__bind($modkey CONTROL,  9, hyprmove 10)
-__bind($modkey CONTROL, 10, hyprmove  1)
-__bind($modkey CONTROL, 11, hyprmove  2)
-__bind($modkey CONTROL, 12, hyprmove  3)
-__bind($modkey CONTROL, 13, hyprmove  4)
-__bind($modkey CONTROL, 14, hyprmove  5)
-__bind($modkey CONTROL, 15, hyprmove  6)
-__bind($modkey CONTROL, 16, hyprmove  7)
-__bind($modkey CONTROL, 17, hyprmove  8)
-__bind($modkey CONTROL, 18, hyprmove  9)
-__bind($modkey CONTROL, 19, hyprmove 10)
+bind = $modkey CONTROL,  0, movetoworkspace,  1
+bind = $modkey CONTROL,  1, movetoworkspace,  2
+bind = $modkey CONTROL,  2, movetoworkspace,  3
+bind = $modkey CONTROL,  3, movetoworkspace,  4
+bind = $modkey CONTROL,  4, movetoworkspace,  5
+bind = $modkey CONTROL,  5, movetoworkspace,  6
+bind = $modkey CONTROL,  6, movetoworkspace,  7
+bind = $modkey CONTROL,  7, movetoworkspace,  8
+bind = $modkey CONTROL,  8, movetoworkspace,  9
+bind = $modkey CONTROL,  9, movetoworkspace, 10
+bind = $modkey CONTROL, 10, movetoworkspace,  1
+bind = $modkey CONTROL, 11, movetoworkspace,  2
+bind = $modkey CONTROL, 12, movetoworkspace,  3
+bind = $modkey CONTROL, 13, movetoworkspace,  4
+bind = $modkey CONTROL, 14, movetoworkspace,  5
+bind = $modkey CONTROL, 15, movetoworkspace,  6
+bind = $modkey CONTROL, 16, movetoworkspace,  7
+bind = $modkey CONTROL, 17, movetoworkspace,  8
+bind = $modkey CONTROL, 18, movetoworkspace,  9
+bind = $modkey CONTROL, 19, movetoworkspace, 10
 
 # Media keys
 __binde(, xf86audiomute,        amixer -q sset Master toggle)
