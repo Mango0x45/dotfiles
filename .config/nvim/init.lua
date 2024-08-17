@@ -180,7 +180,6 @@ end
 
 require 'paq' {
 	'christoomey/vim-sort-motion',
-	'echasnovski/mini.nvim',
 	'folke/todo-comments.nvim',
 	'folke/tokyonight.nvim',
 	'hrsh7th/cmp-nvim-lsp',
@@ -277,11 +276,6 @@ require('todo-comments').setup {
 		after = '',
 	},
 }
-
--- mini.nvim
-local statusline = require 'mini.statusline'
-statusline.setup { use_icons = false }
-statusline.section_location = function() return '%2l:%-2v' end
 
 -- nvim-treesitter
 local treeconfs = require('nvim-treesitter.parsers').get_parser_configs()
