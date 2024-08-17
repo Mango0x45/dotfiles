@@ -4,7 +4,7 @@ define(__submap, [
 	bind = $modkey, $2, submap, $1
 	submap = $1
 	$3
-	bind = , escape, submap, reset
+	bind = , catchall, submap, reset
 	submap = reset
 ])
 
