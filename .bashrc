@@ -31,7 +31,7 @@ export PAGER="less"
 export MANPAGER="nvimpager"
 export TERM="xterm-256color"
 export VISUAL="nvim"
-export MANSECT="1,1p,n,l,8,3,2,3p,0,0p,3type,5,4,9,6,7"
+export MANSECT="3,2,1,8,5,7,4,6,3p,1p"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_DIRS="/etc/xdg"
