@@ -49,12 +49,10 @@
 # Typographical Symbols
 <Multi_key> <greater> <greater> : "»" U00AB
 <Multi_key> <less> <less>       : "«" U00AB
+<Multi_key> <less> <minus>      : "←" U2190
+<Multi_key> <minus> <greater>   : "→" U2192
+<Multi_key> <minus> <m>         : "—" U2014
 <Multi_key> <minus> <n>         : "–" U2013
-<Multi_key> <minus> <n>         : "—" U2014
-
-# Arrows
-<Multi_key> <less> <minus>  : "←" U2190
-<Multi_key> <minus> <right> : "→" U2192 # NOTE: Broken
 
 # Latin Alphabet — Acute
 <Multi_key> <a> <apostrophe> : "á" aacute
@@ -105,6 +103,9 @@
 <Multi_key> <o> <u> : "ŏ" U014F
 <Multi_key> <U> <u> : "Ŭ" U016C
 <Multi_key> <u> <u> : "ŭ" U016D
+
+# Latin Alphabet — Caron
+# TODO
 
 # Latin Alphabet — Cedilla
 <Multi_key> <c> <comma> : "ç" ccedilla
@@ -158,6 +159,9 @@
 <Multi_key> <z> <asciicircum> : "ẑ" U1E91
 <Multi_key> <Z> <asciicircum> : "Ẑ" U1E90
 
+# Latin Alphabet — Dot
+# TODO
+
 # Latin Alphabet — Diaeresis
 <Multi_key> <a> <colon> : "ä" adiaeresis
 <Multi_key> <A> <colon> : "Ä" Adiaeresis
@@ -179,6 +183,19 @@
 <Multi_key> <Y> <colon> : "Ÿ" U0178
 <Multi_key> <y> <colon> : "ÿ" ydiaeresis
 
+
+# Latin Alphabet — Double-Acute
+# TODO
+
+# Latin Alphabet — Grave
+# TODO
+
+# Latin Alphabet — Macron
+# TODO
+
+# Latin Alphabet — Ogonek
+# TODO
+
 # Latin Alphabet — Ring
 <Multi_key> <a> <o> : "å" aring
 <Multi_key> <A> <o> : "Å" Aring
@@ -186,6 +203,23 @@
 <Multi_key> <u> <o> : "ů" U016F
 <Multi_key> <w> <o> : "ẘ" U1E98 # NOTE: No uppercase in Unicode
 <Multi_key> <y> <o> : "ẙ" U1E99 # NOTE: No uppercase in Unicode
+
+# Latin Alphabet — Slash & Strikethrough
+# NOTE: Eth and D-Stroke conflict, but ð is more curvy than đ, so use
+# slash for the former and minus for the latter.
+<Multi_key> <d> <minus> : "đ" dstroke
+<Multi_key> <D> <minus> : "Đ" Dstroke
+<Multi_key> <d> <slash> : "ð" eth
+<Multi_key> <D> <slash> : "Ð" ETH
+<Multi_key> <h> <slash> : "ħ" U0126
+<Multi_key> <H> <slash> : "Ħ" U0126
+<Multi_key> <L> <slash> : "Ł" U0141
+<Multi_key> <l> <slash> : "ł" U0142
+<Multi_key> <o> <slash> : "ø" oslash
+<Multi_key> <O> <slash> : "Ø" Oslash
+
+# Latin Alphabet — Tilde
+# TODO
 
 # Latin Alphabet — Ligatures & Multiglyphs
 <Multi_key> <a> <e>               : "æ" ae
@@ -209,8 +243,8 @@
 <Multi_key> <N> <j>               : "ǋ" U01CB
 <Multi_key> <n> <j>               : "ǌ" U01CC
 <Multi_key> <N> <o>               : "№" numerosign
-<Multi_key> <o> <e>               : "œ" ae
-<Multi_key> <O> <E>               : "Œ" AE
+<Multi_key> <o> <e>               : "œ" oe
+<Multi_key> <O> <E>               : "Œ" OE
 <Multi_key> <question> <exclam>   : "⸘" U2E18
 <Multi_key> <question> <question> : "¿" questiondown
 <Multi_key> <s> <l>               : "ſ" U017F # [s]-[l]ong
@@ -221,20 +255,6 @@
 <Multi_key> <S> <S> : "ẞ" U1E9E  # [S]HARP [S]
 <Multi_key> <t> <h> : "þ" thorn  # [t][h]orn
 <Multi_key> <T> <H> : "Þ" THORN  # [T][H]ORN
-
-# Latin Alphabet — Slash & Strikethrough
-# NOTE: Eth and D-Stroke conflict, but ð is more curvy than đ, so use
-# slash for the former and minus for the latter.
-<Multi_key> <d> <minus> : "đ" dstroke
-<Multi_key> <D> <minus> : "Đ" Dstroke
-<Multi_key> <d> <slash> : "ð" eth
-<Multi_key> <D> <slash> : "Ð" ETH
-<Multi_key> <h> <slash> : "ħ" U0126
-<Multi_key> <H> <slash> : "Ħ" U0126
-<Multi_key> <L> <slash> : "Ł" U0141
-<Multi_key> <l> <slash> : "ł" U0142
-<Multi_key> <o> <slash> : "ø" oslash
-<Multi_key> <O> <slash> : "Ø" Oslash
 
 # Greek Alphabet
 <Multi_key> <A> <asterisk> : "Α" U0391
@@ -305,34 +325,34 @@
 <Multi_key> <asciicircum> <plus>       : "⁺" U207A
 
 # Subscript
-<Multi_key> <underscore> <0> : "₀" U2080
-<Multi_key> <underscore> <1> : "₁" U2081
-<Multi_key> <underscore> <2> : "₂" U2082
-<Multi_key> <underscore> <3> : "₃" U2083
-<Multi_key> <underscore> <4> : "₄" U2084
-<Multi_key> <underscore> <5> : "₅" U2085
-<Multi_key> <underscore> <6> : "₆" U2086
-<Multi_key> <underscore> <7> : "₇" U2087
-<Multi_key> <underscore> <8> : "₈" U2088
-<Multi_key> <underscore> <9> : "₉" U2089
-<Multi_key> <underscore> <a> : "ₐ" U2090
-<Multi_key> <underscore> <e> : "ₑ" U2090
-<Multi_key> <underscore> <h> : "ₕ" U2095
-<Multi_key> <underscore> <i> : "ᵢ" U1D62
-<Multi_key> <underscore> <j> : "ⱼ" U2C7C
-<Multi_key> <underscore> <k> : "ₖ" U2089
-<Multi_key> <underscore> <l> : "ₗ" U2097
-<Multi_key> <underscore> <minus> : "₋" U2089
-<Multi_key> <underscore> <m> : "ₘ" U2098
-<Multi_key> <underscore> <n> : "ₙ" U2099
-<Multi_key> <underscore> <o> : "ₒ" U2092
-<Multi_key> <underscore> <parenleft> : "₍" U2089
+<Multi_key> <underscore> <0>          : "₀" U2080
+<Multi_key> <underscore> <1>          : "₁" U2081
+<Multi_key> <underscore> <2>          : "₂" U2082
+<Multi_key> <underscore> <3>          : "₃" U2083
+<Multi_key> <underscore> <4>          : "₄" U2084
+<Multi_key> <underscore> <5>          : "₅" U2085
+<Multi_key> <underscore> <6>          : "₆" U2086
+<Multi_key> <underscore> <7>          : "₇" U2087
+<Multi_key> <underscore> <8>          : "₈" U2088
+<Multi_key> <underscore> <9>          : "₉" U2089
+<Multi_key> <underscore> <a>          : "ₐ" U2090
+<Multi_key> <underscore> <e>          : "ₑ" U2090
+<Multi_key> <underscore> <h>          : "ₕ" U2095
+<Multi_key> <underscore> <i>          : "ᵢ" U1D62
+<Multi_key> <underscore> <j>          : "ⱼ" U2C7C
+<Multi_key> <underscore> <k>          : "ₖ" U2089
+<Multi_key> <underscore> <l>          : "ₗ" U2097
+<Multi_key> <underscore> <minus>      : "₋" U2089
+<Multi_key> <underscore> <m>          : "ₘ" U2098
+<Multi_key> <underscore> <n>          : "ₙ" U2099
+<Multi_key> <underscore> <o>          : "ₒ" U2092
+<Multi_key> <underscore> <parenleft>  : "₍" U2089
 <Multi_key> <underscore> <parenright> : "₎" U2089
-<Multi_key> <underscore> <plus> : "₊" U2089
-<Multi_key> <underscore> <p> : "ₚ" U209A
-<Multi_key> <underscore> <r> : "ᵣ" U1D63
-<Multi_key> <underscore> <s> : "ₛ" U209B
-<Multi_key> <underscore> <t> : "ₜ" U209C
-<Multi_key> <underscore> <u> : "ᵤ" U1D64
-<Multi_key> <underscore> <v> : "ᵥ" U1D65
-<Multi_key> <underscore> <x> : "ₓ" U2093
+<Multi_key> <underscore> <plus>       : "₊" U2089
+<Multi_key> <underscore> <p>          : "ₚ" U209A
+<Multi_key> <underscore> <r>          : "ᵣ" U1D63
+<Multi_key> <underscore> <s>          : "ₛ" U209B
+<Multi_key> <underscore> <t>          : "ₜ" U209C
+<Multi_key> <underscore> <u>          : "ᵤ" U1D64
+<Multi_key> <underscore> <v>          : "ᵥ" U1D65
+<Multi_key> <underscore> <x>          : "ₓ" U2093
