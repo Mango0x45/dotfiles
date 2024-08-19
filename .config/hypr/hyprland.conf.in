@@ -29,7 +29,7 @@ input {
 general {
 	border_size         = 2
 	col.active_border   = rgb(FAA14F)
-	col.inactive_border = rgba(64727D7F)
+	col.inactive_border = rgb(64727D)
 	gaps_in             = 5
 	gaps_out            = 10
 }
