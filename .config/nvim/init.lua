@@ -179,7 +179,6 @@ if not vim.uv.fs_stat(paqpath) then
 end
 
 require 'paq' {
-	'christoomey/vim-sort-motion',
 	'folke/todo-comments.nvim',
 	'folke/tokyonight.nvim',
 	'hrsh7th/cmp-nvim-lsp',
@@ -204,9 +203,6 @@ require 'paq' {
 
 -- emmet-vim
 vim.g.user_emmet_install = false
-
--- vim-sort-motion
-vim.g.sort_motion_flags = 'l'
 
 -- tokyonight.nvim
 vim.cmd.colorscheme 'tokyonight-night'
