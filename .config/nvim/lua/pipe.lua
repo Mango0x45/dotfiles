@@ -1,20 +1,34 @@
 function pipe_visual()
-	pipe_internal({'<', '>'}, vim.fn.visualmode() ~= 'v')
+	pipe_internal({'<', '>'}, vim.fn.visualmode())
 end
 
-function pipe_normal(arg)
-	pipe_internal({'[', ']'}, arg == 'line')
+function pipe_normal(mode)
+	local map = {
+		['char'] = 'v',
+		['line'] = 'V',
+		['block'] = '\x16',
+	}
+	pipe_internal({'[', ']'}, map[mode])
 end
 
-function pipe_internal(marks, linesp)
-	local mode = vim.fn.visualmode()
-
+function pipe_internal(marks, mode)
+	local lines
 	local sr, sc = unpack(vim.api.nvim_buf_get_mark(0, marks[1]))
 	local er, ec = unpack(vim.api.nvim_buf_get_mark(0, marks[2]))
 
-	local lines = linesp
-		and vim.api.nvim_buf_get_lines(0, sr - 1, er, true)
-		or vim.api.nvim_buf_get_text(0, sr - 1, sc, er - 1, ec + 1, {})
+	if mode == 'v' then -- Visual
+		lines = vim.api.nvim_buf_get_text(0, sr - 1, sc, er - 1, ec + 1, {})
+	elseif mode == 'V' then -- Visual Line
+		lines = vim.api.nvim_buf_get_lines(0, sr - 1, er, true)
+	elseif mode == '\x16' then -- Visual Block
+		if sc > ec then
+			sc, ec = ec, sc
+		end
+		lines = {}
+		for i = sr, er do
+			lines[#lines+1] = vim.api.nvim_buf_get_text(0, i - 1, sc, i - 1, ec + 1, {})[1]
+		end
+	end
 
 	local ok, cmd = pcall(vim.fn.input, {
 		prompt = '… | ',
@@ -26,10 +40,14 @@ function pipe_internal(marks, linesp)
 	end
 
 	local out = vim.fn.systemlist(cmd, lines)
-	if linesp then
-		vim.api.nvim_buf_set_lines(0, sr - 1, er, true, out)
-	else
+	if mode == 'v' then
 		vim.api.nvim_buf_set_text(0, sr - 1, sc, er - 1, ec + 1, out)
+	elseif mode == 'V' then
+		vim.api.nvim_buf_set_lines(0, sr - 1, er, true, out)
+	elseif mode == '\x16' then
+		for i = sr, er do
+			vim.api.nvim_buf_set_text(0, i - 1, sc, i - 1, ec + 1, { out[i] })
+		end
 	end
 end
 
