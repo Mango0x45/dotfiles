@@ -40,18 +40,6 @@ vim.opt.tabstop = 4
 vim.opt.undodir = os.getenv('XDG_STATE_HOME') .. '/nvim/undo'
 vim.opt.undofile = true
 
-function mk_scratch_buffer()
-	vim.cmd [[
-		if bufexists('scratch')
-			buffer scratch
-		else
-			noswapfile hide enew
-			setlocal buftype=nofile bufhidden=hide
-			file scratch
-		endif
-	]]
-end
-
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>',
 	{ desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>',
@@ -92,14 +80,10 @@ vim.keymap.set('n', 'gJ', function()
 	]]
 end, { desc = '[J]oin lines without whitespace' })
 
-vim.keymap.set('n', '<Leader>s', function()
-	vim.cmd 'vsplit'
-	mk_scratch_buffer()
-end, { desc = 'Open the scratch buffer in a vertical split' })
-vim.keymap.set('n', '<Leader>S', function()
-	vim.cmd 'split'
-	mk_scratch_buffer()
-end, { desc = 'Open the scratch buffer in a horizontal split' })
+vim.keymap.set('n', '<Leader>s', ':VScratch<CR>',
+	{ desc = 'Open the scratch buffer in a vertical split' })
+vim.keymap.set('n', '<Leader>S', ':Scratch<CR>',
+	{ desc = 'Open the scratch buffer in a horizontal split' })
 
 if vim.loop.os_uname().sysname ~= 'Darwin' then
 	vim.keymap.set({'n', 'x'}, '<C-v>', 'V',
