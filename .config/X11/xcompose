@@ -229,7 +229,16 @@
 # TODO
 
 # Latin Alphabet — Ogonek
-# TODO
+<Multi_key> <a> <semicolon> : "ą" aogonek
+<Multi_key> <A> <semicolon> : "Ą" Aogonek
+<Multi_key> <e> <semicolon> : "ę" eogonek
+<Multi_key> <E> <semicolon> : "Ę" Eogonek
+<Multi_key> <i> <semicolon> : "į" iogonek
+<Multi_key> <I> <semicolon> : "Į" Iogonek
+<Multi_key> <o> <semicolon> : "ǫ" oogonek
+<Multi_key> <O> <semicolon> : "Ǫ" Oogonek
+<Multi_key> <u> <semicolon> : "ų" uogonek
+<Multi_key> <U> <semicolon> : "Ų" Uogonek
 
 # Latin Alphabet — Ring
 <Multi_key> <a> <o> : "å" aring
