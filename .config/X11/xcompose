@@ -105,7 +105,39 @@
 <Multi_key> <u> <u> : "ŭ" U016D
 
 # Latin Alphabet — Caron
-# TODO
+<Multi_key> <A> <v> : "Ǎ" U01CD
+<Multi_key> <a> <v> : "ǎ" U01CE
+<Multi_key> <C> <v> : "Č" U010C
+<Multi_key> <c> <v> : "č" U010D
+<Multi_key> <D> <v> : "Ď" U010E
+<Multi_key> <d> <v> : "ď" U010F
+<Multi_key> <E> <v> : "Ě" U011A
+<Multi_key> <e> <v> : "ě" U011B
+<Multi_key> <G> <v> : "Ǧ" U01E6
+<Multi_key> <g> <v> : "ǧ" U01E7
+<Multi_key> <H> <v> : "Ȟ" U021E
+<Multi_key> <h> <v> : "ȟ" U021F
+<Multi_key> <I> <v> : "Ǐ" U01CF
+<Multi_key> <i> <v> : "ǐ" U01D0
+<Multi_key> <j> <v> : "ǰ" U01F0 # NOTE: No uppercase in Unicode
+<Multi_key> <K> <v> : "Ǩ" U01E8
+<Multi_key> <k> <v> : "ǩ" U01E9
+<Multi_key> <L> <v> : "Ľ" U013D
+<Multi_key> <l> <v> : "ľ" U013E
+<Multi_key> <N> <v> : "Ň" U0147
+<Multi_key> <n> <v> : "ň" U0148
+<Multi_key> <O> <v> : "Ǒ" U01D1
+<Multi_key> <o> <v> : "ǒ" U01D2
+<Multi_key> <R> <v> : "Ř" U0158
+<Multi_key> <r> <v> : "ř" U0159
+<Multi_key> <S> <v> : "Š" U0160
+<Multi_key> <s> <v> : "š" U0161
+<Multi_key> <T> <v> : "Ť" U0164
+<Multi_key> <t> <v> : "ť" U0165
+<Multi_key> <U> <v> : "Ǔ" U01D3
+<Multi_key> <u> <v> : "ǔ" U01D4
+<Multi_key> <Z> <v> : "Ž" U017D
+<Multi_key> <z> <v> : "ž" U017E
 
 # Latin Alphabet — Cedilla
 <Multi_key> <c> <comma> : "ç" ccedilla
