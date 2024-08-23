@@ -217,7 +217,10 @@
 
 
 # Latin Alphabet — Double-Acute
-# TODO
+<Multi_key> <O> <quotedbl> : "Ő" Odoubleacute
+<Multi_key> <o> <quotedbl> : "ő" odoubleacute
+<Multi_key> <U> <quotedbl> : "Ű" Udoubleacute
+<Multi_key> <u> <quotedbl> : "ű" udoubleacute
 
 # Latin Alphabet — Grave
 # TODO
