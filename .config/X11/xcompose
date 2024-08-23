@@ -91,30 +91,30 @@
 <Multi_key> <z> <apostrophe> : "ź" U017A
 
 # Latin Alphabet — Breve
-<Multi_key> <A> <u> : "Ă" U0102
-<Multi_key> <a> <u> : "ă" U0103
+<Multi_key> <a> <u> : "ă" abreve
+<Multi_key> <A> <u> : "Ă" Abreve
 <Multi_key> <E> <u> : "Ĕ" U0114
 <Multi_key> <e> <u> : "ĕ" U0115
-<Multi_key> <G> <u> : "Ğ" U011E
-<Multi_key> <g> <u> : "ğ" U011F
-<Multi_key> <I> <u> : "Ĭ" U012C
-<Multi_key> <i> <u> : "ĭ" U012D
+<Multi_key> <g> <u> : "ğ" gbreve
+<Multi_key> <G> <u> : "Ğ" Gbreve
+<Multi_key> <i> <u> : "ĭ" ibreve
+<Multi_key> <I> <u> : "Ĭ" Ibreve
 <Multi_key> <O> <u> : "Ŏ" U014E
 <Multi_key> <o> <u> : "ŏ" U014F
-<Multi_key> <U> <u> : "Ŭ" U016C
-<Multi_key> <u> <u> : "ŭ" U016D
+<Multi_key> <u> <u> : "ŭ" ubreve
+<Multi_key> <U> <u> : "Ŭ" Ubreve
 
 # Latin Alphabet — Caron
 <Multi_key> <A> <v> : "Ǎ" U01CD
 <Multi_key> <a> <v> : "ǎ" U01CE
-<Multi_key> <C> <v> : "Č" U010C
-<Multi_key> <c> <v> : "č" U010D
-<Multi_key> <D> <v> : "Ď" U010E
-<Multi_key> <d> <v> : "ď" U010F
-<Multi_key> <E> <v> : "Ě" U011A
-<Multi_key> <e> <v> : "ě" U011B
-<Multi_key> <G> <v> : "Ǧ" U01E6
-<Multi_key> <g> <v> : "ǧ" U01E7
+<Multi_key> <c> <v> : "č" ccaron
+<Multi_key> <C> <v> : "Č" Ccaron
+<Multi_key> <d> <v> : "ď" dcaron
+<Multi_key> <D> <v> : "Ď" Dcaron
+<Multi_key> <e> <v> : "ě" ecaron
+<Multi_key> <E> <v> : "Ě" Ecaron
+<Multi_key> <g> <v> : "ǧ" gcaron
+<Multi_key> <G> <v> : "Ǧ" Gcaron
 <Multi_key> <H> <v> : "Ȟ" U021E
 <Multi_key> <h> <v> : "ȟ" U021F
 <Multi_key> <I> <v> : "Ǐ" U01CF
@@ -122,74 +122,74 @@
 <Multi_key> <j> <v> : "ǰ" U01F0 # NOTE: No uppercase in Unicode
 <Multi_key> <K> <v> : "Ǩ" U01E8
 <Multi_key> <k> <v> : "ǩ" U01E9
-<Multi_key> <L> <v> : "Ľ" U013D
-<Multi_key> <l> <v> : "ľ" U013E
-<Multi_key> <N> <v> : "Ň" U0147
-<Multi_key> <n> <v> : "ň" U0148
-<Multi_key> <O> <v> : "Ǒ" U01D1
-<Multi_key> <o> <v> : "ǒ" U01D2
-<Multi_key> <R> <v> : "Ř" U0158
-<Multi_key> <r> <v> : "ř" U0159
-<Multi_key> <S> <v> : "Š" U0160
-<Multi_key> <s> <v> : "š" U0161
-<Multi_key> <T> <v> : "Ť" U0164
-<Multi_key> <t> <v> : "ť" U0165
+<Multi_key> <l> <v> : "ľ" lcaron
+<Multi_key> <L> <v> : "Ľ" Lcaron
+<Multi_key> <n> <v> : "ň" ncaron
+<Multi_key> <N> <v> : "Ň" Ncaron
+<Multi_key> <o> <v> : "ǒ" ocaron
+<Multi_key> <O> <v> : "Ǒ" Ocaron
+<Multi_key> <r> <v> : "ř" rcaron
+<Multi_key> <R> <v> : "Ř" Rcaron
+<Multi_key> <s> <v> : "š" scaron
+<Multi_key> <S> <v> : "Š" Scaron
+<Multi_key> <t> <v> : "ť" tcaron
+<Multi_key> <T> <v> : "Ť" Tcaron
 <Multi_key> <U> <v> : "Ǔ" U01D3
 <Multi_key> <u> <v> : "ǔ" U01D4
-<Multi_key> <Z> <v> : "Ž" U017D
-<Multi_key> <z> <v> : "ž" U017E
+<Multi_key> <z> <v> : "ž" zcaron
+<Multi_key> <Z> <v> : "Ž" Zcaron
 
 # Latin Alphabet — Cedilla
 <Multi_key> <c> <comma> : "ç" ccedilla
 <Multi_key> <C> <comma> : "Ç" ccedilla
-<Multi_key> <d> <comma> : "ḑ" U1E11
 <Multi_key> <D> <comma> : "Ḑ" U1E10
-<Multi_key> <e> <comma> : "ȩ" U0229
+<Multi_key> <d> <comma> : "ḑ" U1E11
 <Multi_key> <E> <comma> : "Ȩ" U0228
+<Multi_key> <e> <comma> : "ȩ" U0229
 <Multi_key> <g> <comma> : "ģ" U0121
 <Multi_key> <G> <comma> : "Ģ" U0122
-<Multi_key> <h> <comma> : "ḩ" U1E29
 <Multi_key> <H> <comma> : "Ḩ" U1E28
-<Multi_key> <k> <comma> : "ķ" U0137
+<Multi_key> <h> <comma> : "ḩ" U1E29
 <Multi_key> <K> <comma> : "Ķ" U0136
-<Multi_key> <l> <comma> : "ļ" U013C
+<Multi_key> <k> <comma> : "ķ" U0137
 <Multi_key> <L> <comma> : "Ļ" U012C
-<Multi_key> <n> <comma> : "ņ" U0146
+<Multi_key> <l> <comma> : "ļ" U013C
 <Multi_key> <N> <comma> : "Ņ" U0145
-<Multi_key> <r> <comma> : "ŗ" U0157
+<Multi_key> <n> <comma> : "ņ" U0146
 <Multi_key> <R> <comma> : "Ŗ" U0156
-<Multi_key> <s> <comma> : "ş" U015F
+<Multi_key> <r> <comma> : "ŗ" U0157
 <Multi_key> <S> <comma> : "Ş" U015E
-<Multi_key> <t> <comma> : "ţ" U0163
+<Multi_key> <s> <comma> : "ş" U015F
 <Multi_key> <T> <comma> : "Ţ" U0162
+<Multi_key> <t> <comma> : "ţ" U0163
 
 # Latin Alphabet - Circumflex
 <Multi_key> <a> <asciicircum> : "â" acircumflex
 <Multi_key> <A> <asciicircum> : "Â" Acircumflex
+<Multi_key> <C> <asciicircum> : "Ĉ" U0108
+<Multi_key> <c> <asciicircum> : "ĉ" U0109
 <Multi_key> <e> <asciicircum> : "ê" ecircumflex
 <Multi_key> <E> <asciicircum> : "Ê" Ecircumflex
+<Multi_key> <g> <asciicircum> : "Ĝ" U011C
+<Multi_key> <g> <asciicircum> : "ĝ" U011D
+<Multi_key> <H> <asciicircum> : "Ĥ" U0124
+<Multi_key> <h> <asciicircum> : "ĥ" U0125
 <Multi_key> <i> <asciicircum> : "î" icircumflex
 <Multi_key> <I> <asciicircum> : "Î" Icircumflex
+<Multi_key> <J> <asciicircum> : "Ĵ" U0134
+<Multi_key> <j> <asciicircum> : "ĵ" U0135
 <Multi_key> <o> <asciicircum> : "ô" ocircumflex
 <Multi_key> <O> <asciicircum> : "Ô" Ocircumflex
+<Multi_key> <S> <asciicircum> : "Ŝ" U015C
+<Multi_key> <s> <asciicircum> : "ŝ" U015D
 <Multi_key> <u> <asciicircum> : "û" ucircumflex
 <Multi_key> <U> <asciicircum> : "Û" Ucircumflex
-<Multi_key> <c> <asciicircum> : "ĉ" U0109
-<Multi_key> <C> <asciicircum> : "Ĉ" U0108
-<Multi_key> <g> <asciicircum> : "ĝ" U011D
-<Multi_key> <g> <asciicircum> : "Ĝ" U011C
-<Multi_key> <h> <asciicircum> : "ĥ" U0125
-<Multi_key> <H> <asciicircum> : "Ĥ" U0124
-<Multi_key> <j> <asciicircum> : "ĵ" U0135
-<Multi_key> <J> <asciicircum> : "Ĵ" U0134
-<Multi_key> <s> <asciicircum> : "ŝ" U015D
-<Multi_key> <S> <asciicircum> : "Ŝ" U015C
-<Multi_key> <w> <asciicircum> : "ŵ" U0175
 <Multi_key> <W> <asciicircum> : "Ŵ" U0174
-<Multi_key> <y> <asciicircum> : "ŷ" U0177
+<Multi_key> <w> <asciicircum> : "ŵ" U0175
 <Multi_key> <Y> <asciicircum> : "Ŷ" U0176
-<Multi_key> <z> <asciicircum> : "ẑ" U1E91
+<Multi_key> <y> <asciicircum> : "ŷ" U0177
 <Multi_key> <Z> <asciicircum> : "Ẑ" U1E90
+<Multi_key> <z> <asciicircum> : "ẑ" U1E91
 
 # Latin Alphabet — Dot
 # TODO
@@ -217,10 +217,10 @@
 
 
 # Latin Alphabet — Double-Acute
-<Multi_key> <O> <quotedbl> : "Ő" Odoubleacute
 <Multi_key> <o> <quotedbl> : "ő" odoubleacute
-<Multi_key> <U> <quotedbl> : "Ű" Udoubleacute
+<Multi_key> <O> <quotedbl> : "Ő" Odoubleacute
 <Multi_key> <u> <quotedbl> : "ű" udoubleacute
+<Multi_key> <U> <quotedbl> : "Ű" Udoubleacute
 
 # Latin Alphabet — Grave
 # TODO
