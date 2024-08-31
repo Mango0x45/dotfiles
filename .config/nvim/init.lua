@@ -123,6 +123,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 		{ clear = true }),
 	callback = function()
 		vim.cmd [[
+			 highlight Comment               cterm=NONE gui=NONE
 			 highlight CursorColumn          guibg=#1D2635
 			 highlight CursorLine            guibg=#1D2635
 			 highlight EndOfBuffer           guibg=NONE
