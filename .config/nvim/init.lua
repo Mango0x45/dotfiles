@@ -132,8 +132,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
 			 highlight StatusLine            guibg=#19212E
 			 highlight TabLineFill           guibg=#19212E
 			 highlight TabLine               guibg=#131A25
-			 highlight TelescopeNormal       guibg=NONE
 			 highlight TelescopeBorder       guibg=NONE
+			 highlight TelescopeNormal       guibg=NONE
 			 highlight TelescopePromptBorder guibg=NONE
 			 highlight TelescopePromptTitle  guibg=NONE
 		]]
