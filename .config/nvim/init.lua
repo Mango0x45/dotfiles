@@ -101,7 +101,8 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.api.nvim_create_autocmd('BufEnter', {
 	desc = 'Disable auto-commenting',
-	group = vim.api.nvim_create_augroup('mango-no-autocomment', { clear = true }),
+	group = vim.api.nvim_create_augroup('mango-no-autocomment',
+		{ clear = true }),
 	callback = function()
 		vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 	end,
@@ -109,7 +110,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Momentarily highlight yanked text',
-	group = vim.api.nvim_create_augroup('mango-highlight-yank', { clear = true }),
+	group = vim.api.nvim_create_augroup('mango-highlight-yank',
+		{ clear = true }),
 	callback = function()
 		vim.highlight.on_yank()
 	end,
@@ -117,7 +119,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.api.nvim_create_autocmd('VimEnter', {
 	desc = 'Remove the Vim background color',
-	group = vim.api.nvim_create_augroup('mango-transparent-bg', { clear = true }),
+	group = vim.api.nvim_create_augroup('mango-highlight-config',
+		{ clear = true }),
 	callback = function()
 		vim.cmd [[
 			 highlight CursorColumn          guibg=#1D2635
