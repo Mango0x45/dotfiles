@@ -6,4 +6,3 @@ PAX implementation
 Screenshot tool
 Text alignment tool
 Unicode input tool (via OpenGL)
-Use SHA1 intrinsics in totp (remove libcrypto and libssl)
