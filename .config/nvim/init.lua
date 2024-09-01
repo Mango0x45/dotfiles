@@ -346,6 +346,7 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- nvim-surround
+local surround_conf = require('nvim-surround.config')
 require('nvim-surround').setup {
 	surrounds = {
 		['’'] = {
@@ -370,6 +371,30 @@ require('nvim-surround').setup {
 			add = { '“ ', ' ”' },
 			find = '“[^“”]*”',
 			delete = '^(“ *)().-( *”)()$',
+		},
+
+		['l'] = {
+			add = function()
+				local result = surround_conf.get_input('Array name: ')
+				if result then
+					return { { result .. '[' }, { ']' } }
+				end
+			end,
+			find = function()
+				return surround_conf.get_selection({
+					pattern = '[^=%s%(%){}]+%b[]'
+				})
+			end,
+			delete = '^(.-%[)().-(%])()$',
+			change = {
+				target = '^.-([%w_]+)()%[.-%]()()$',
+				replacement = function()
+					local result = surround_conf.get_input('Array name: ')
+					if result then
+						return { { result }, { '' } }
+					end
+				end,
+			},
 		},
 	}
 }
