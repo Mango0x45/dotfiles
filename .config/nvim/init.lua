@@ -124,19 +124,19 @@ vim.api.nvim_create_autocmd('VimEnter', {
 		{ clear = true }),
 	callback = function()
 		vim.cmd [[
-			 highlight Comment               cterm=NONE gui=NONE
-			 highlight CursorColumn          guibg=#1D2635
-			 highlight CursorLine            guibg=#1D2635
-			 highlight EndOfBuffer           guibg=NONE
-			 highlight Normal                guibg=NONE
-			 highlight NormalNC              guibg=NONE
-			 highlight StatusLine            guibg=#19212E
-			 highlight TabLineFill           guibg=#19212E
-			 highlight TabLine               guibg=#131A25
-			 highlight TelescopeBorder       guibg=NONE
-			 highlight TelescopeNormal       guibg=NONE
-			 highlight TelescopePromptBorder guibg=NONE
-			 highlight TelescopePromptTitle  guibg=NONE
+			highlight Comment               cterm=NONE gui=NONE
+			highlight CursorColumn          guibg=#1D2635
+			highlight CursorLine            guibg=#1D2635
+			highlight EndOfBuffer           guibg=NONE
+			highlight Normal                guibg=NONE
+			highlight NormalNC              guibg=NONE
+			highlight StatusLine            guibg=#19212E
+			highlight TabLineFill           guibg=#19212E
+			highlight TabLine               guibg=#131A25
+			highlight TelescopeBorder       guibg=NONE
+			highlight TelescopeNormal       guibg=NONE
+			highlight TelescopePromptBorder guibg=NONE
+			highlight TelescopePromptTitle  guibg=NONE
 		]]
 	end,
 })
