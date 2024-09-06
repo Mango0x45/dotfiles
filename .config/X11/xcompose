@@ -20,6 +20,7 @@
 #   C ⋆ *    The Greek letter ‘⋆’
 #   C _ ⋆    Subscript ‘⋆’
 #   C ^ ⋆    Superscript ‘⋆’
+#   C l ⋆    Propositional logic operators
 #
 #   Ligatures or other glyphs that are compose of multiple characters are
 #   straight forwards.  For example ‘C I J’ produces ‘Ĳ’.
@@ -32,10 +33,16 @@
 #   NOTE: System config at /usr/share/X11/locale/en_US.UTF-8/Compose
 #
 
+# Propositional Logic
+<Multi_key> <l> <a> : "∧" U2227 # [L]ogical [A]nd
+<Multi_key> <l> <e> : "⇔" U21D4 # [L]ogical [E]quivalence
+<Multi_key> <l> <i> : "⇒" U212D # [L]ogical [I]mplication
+<Multi_key> <l> <n> : "¬" U00AC # [L]ogical [N]ot
+<Multi_key> <l> <o> : "∨" U2228 # [L]ogical [O]r
+<Multi_key> <l> <x> : "⊕" U2295 # [L]ogical [X]or
+
 # Math
-<Multi_key> <ampersand> <ampersand>   : "∧" U2227
 <Multi_key> <asterisk> <asterisk>     : "⋆" U22C6
-<Multi_key> <bar> <bar>               : "∨" U2228
 <Multi_key> <exclam> <equal>          : "≠" U2260
 <Multi_key> <greater> <equal>         : "≥" U2265
 <Multi_key> <less> <equal>            : "≤" U2264
