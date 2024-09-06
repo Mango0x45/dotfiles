@@ -83,7 +83,7 @@ export XCOMPOSEFILE="$XDG_CONFIG_HOME/X11/xcompose"
 
 export REPODIR="$HOME/code"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-export PATH="$HOME/.local/bin:$HOME/.local/sbin:/opt/odin:$GOROOT/bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.local/sbin:/opt/odin:$GOROOT/bin:$GOPATH/bin:$XDG_DATA_HOME/npm/bin:$PATH"
 
 export CLANGD_FLAGS='-header-insertion=never'
 export GPG_TTY=`tty`
