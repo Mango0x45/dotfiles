@@ -170,7 +170,21 @@ ls.add_snippets('c', {
 
 				#endif /* !{}_H */
 			]],
-			{ i(1), same(1), i(0), same(1), }
+			{ i(1), same(1), i(0), same(1) }
+		)
+	),
+})
+
+ls.add_snippets('tex', {
+	s(
+		'scope',
+		fmt(
+			[[
+				\begin{{{}}}
+				{}
+				\end{{{}}}
+			]],
+			{ i(1), i(0), same(1) }
 		)
 	),
 })
