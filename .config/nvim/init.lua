@@ -8,6 +8,7 @@ vim.g.netrw_list_hide = [[^\(\.\|\.\.\)/\?$,^__pycache__/\?,.*\.\(a\|o\|so\|pyc\
 -- NOTE: :help option-list
 vim.opt.backup = false
 vim.opt.breakindent = true
+vim.opt.conceallevel = 2
 vim.opt.cursorline = true
 vim.opt.expandtab = false
 vim.opt.exrc = true
