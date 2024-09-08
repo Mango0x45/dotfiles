@@ -594,7 +594,7 @@ of 0 is fully transparent while a value of 100 is fully opaque.")
 (add-to-list
  'default-frame-alist (cons 'alpha-background x-alpha-background))
 
-(defvar x-monospace-font '("Iosevka Smooth" :weight regular :height 160)
+(defvar x-monospace-font '("Iosevka Smooth" :weight regular :height 162)
   "The default monospace font to use.  This is a list containing a
 font name, font weight, and font height in that order.")
 
@@ -602,26 +602,35 @@ font name, font weight, and font height in that order.")
   "The default proportional font to use.  This is a list containing a
 font name, font weight, and font height in that order.")
 
-(let* ((mono-family (car x-monospace-font))
-       (mono-props  (cdr x-monospace-font))
-       (prop-family (car x-proportional-font))
-       (prop-props  (cdr x-proportional-font))
-       (mono-weight (plist-get mono-props :weight))
-       (mono-height (plist-get mono-props :height))
-       (prop-weight (plist-get prop-props :weight))
-       (prop-height (plist-get prop-props :height)))
-  (set-face-attribute 'default nil
-                      :font mono-family
-                      :weight mono-weight
-                      :height mono-height)
-  (set-face-attribute 'fixed-pitch nil
-                      :font mono-family
-                      :weight mono-weight
-                      :height mono-height)
-  (set-face-attribute 'variable-pitch nil
-                      :font prop-family
-                      :weight prop-weight
-                      :height prop-height))
+(defun x-set-fonts ()
+  "Set the fonts specified by ‘x-monospace-font’ and
+‘x-proportional-font’."
+  (interactive)
+  (let* ((mono-family (car x-monospace-font))
+         (mono-props  (cdr x-monospace-font))
+         (prop-family (car x-proportional-font))
+         (prop-props  (cdr x-proportional-font))
+         (mono-weight (plist-get mono-props :weight))
+         (mono-height (plist-get mono-props :height))
+         (prop-weight (plist-get prop-props :weight))
+         (prop-height (plist-get prop-props :height)))
+    (set-face-attribute 'default nil
+                        :font mono-family
+                        :weight mono-weight
+                        :height mono-height)
+    (set-face-attribute 'fixed-pitch nil
+                        :font mono-family
+                        :weight mono-weight
+                        :height mono-height)
+    (set-face-attribute 'variable-pitch nil
+                        :font prop-family
+                        :weight prop-weight
+                        :height prop-height)))
+
+(when (daemonp)
+  (add-hook 'after-make-frame-functions (lambda (_) (x-set-fonts))))
+(x-set-fonts)
+
 
 ;;; C-Style
 (defun x-c-defun-open-safe (_syntax _position)
