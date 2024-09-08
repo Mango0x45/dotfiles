@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t; -*-
+;;; early-init.el --- Emacs early init file  -*- lexical-binding: t; -*-
 
 (defconst 1-KiB 1024
   "The number of bytes in 1 kibibyte")
@@ -55,7 +55,7 @@
 
 (setq read-process-output-max
       (let ((pipe-size-file "/proc/sys/fs/pipe-max-size"))
-	(if (file-exists-p pipe-size-file)
+        (if (file-exists-p pipe-size-file)
             (with-temp-buffer
               (insert-file-contents pipe-size-file)
               (number-at-point))

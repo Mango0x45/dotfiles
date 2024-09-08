@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t; -*-
+;;; init.el --- Emacs configuration file  -*- lexical-binding: t; -*-
 
 ;;; Preamble
 (setq user-full-name    "Thomas Voss")
@@ -510,8 +510,8 @@ existing grammars."
                    . ("clangd" "--header-insertion=never")))))
 
 (use-package eglot-booster
-	:after eglot
-	:config	(eglot-booster-mode))
+  :after eglot
+  :config (eglot-booster-mode))
 
 ;;; Automatically Create Directories
 (defun x-auto-create-directories (original-function filename &rest arguments)
