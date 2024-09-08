@@ -36,7 +36,7 @@
 # Propositional Logic
 <Multi_key> <l> <a> : "∧" U2227 # [L]ogical [A]nd
 <Multi_key> <l> <e> : "⇔" U21D4 # [L]ogical [E]quivalence
-<Multi_key> <l> <i> : "⇒" U212D # [L]ogical [I]mplication
+<Multi_key> <l> <i> : "⇒" U21D2 # [L]ogical [I]mplication
 <Multi_key> <l> <n> : "¬" U00AC # [L]ogical [N]ot
 <Multi_key> <l> <o> : "∨" U2228 # [L]ogical [O]r
 <Multi_key> <l> <x> : "⊕" U2295 # [L]ogical [X]or
@@ -54,12 +54,15 @@
 <Multi_key> <x> <x>                   : "×" multiply
 
 # Typographical Symbols
-<Multi_key> <greater> <greater> : "»" U00AB
+<Multi_key> <greater> <greater> : "»" U00BB
 <Multi_key> <less> <less>       : "«" U00AB
 <Multi_key> <less> <minus>      : "←" U2190
 <Multi_key> <minus> <greater>   : "→" U2192
 <Multi_key> <minus> <m>         : "—" U2014
 <Multi_key> <minus> <n>         : "–" U2013
+<Multi_key> <o> <c>             : "℃" U2103
+<Multi_key> <o> <f>             : "℉" U2109
+<Multi_key> <o> <o>             : "°" U00B0
 
 # Latin Alphabet — Acute
 <Multi_key> <a> <apostrophe> : "á" aacute
@@ -356,6 +359,7 @@
 <Multi_key> <y> <asterisk> : "ψ" U03C8
 <Multi_key> <Z> <asterisk> : "Ζ" U0396
 <Multi_key> <z> <asterisk> : "ζ" U03B6
+<Multi_key> <asterisk> <s> : "ς" U03C2 # NOTE: Special case for final sigma
 
 # Superscript
 <Multi_key> <asciicircum> <0>          : "⁰" U2070
