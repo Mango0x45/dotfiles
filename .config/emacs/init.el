@@ -631,6 +631,21 @@ font name, font weight, and font height in that order.")
     (add-hook 'after-make-frame-functions (lambda (_) (x-set-fonts)))
   (x-set-fonts))
 
+;;; Set Project List
+(defun x-set-project-list ()
+  (interactive)
+  (when-let ((no-dotfiles "\\`[^.]")
+             (repo-directory (getenv "REPODIR"))
+             (level-1 (directory-files repo-directory 'full-name no-dotfiles)))
+    (setq project--list (cl-loop for directory in level-1
+                                 append (mapcar #'list (directory-files
+                                                        directory
+                                                        'full-name
+                                                        no-dotfiles))))
+    (project--write-project-list)))
+
+(with-eval-after-load 'project
+  (x-set-project-list))
 
 ;;; C-Style
 (defun x-c-defun-open-safe (_syntax _position)
