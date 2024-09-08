@@ -627,9 +627,9 @@ font name, font weight, and font height in that order.")
                         :weight prop-weight
                         :height prop-height)))
 
-(when (daemonp)
-  (add-hook 'after-make-frame-functions (lambda (_) (x-set-fonts))))
-(x-set-fonts)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions (lambda (_) (x-set-fonts)))
+  (x-set-fonts))
 
 
 ;;; C-Style
