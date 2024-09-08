@@ -662,6 +662,10 @@ font name, font weight, and font height in that order.")
   (x-set-project-list))
 
 ;;; C-Style
+(setq-default
+ c-auto-newline t
+ c-hungry-delete-key t)
+
 (defun x-c-defun-open-safe (_syntax _position)
   (if (c-cpp-define-name)
       '(after)
