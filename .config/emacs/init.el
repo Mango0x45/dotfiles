@@ -146,13 +146,13 @@ BODY directly after ‘(interactive)’."
 (use-package evil
   :bind
   (:map evil-normal-state-map
-    ("g a" . #'x-evil-align-regexp)
-    ("g c" . #'x-evil-comment-or-uncomment-region)
-    ("g s" . #'x-evil-sort-lines)
-    ("C-h" . #'evil-window-left)
-    ("C-j" . #'evil-window-down)
-    ("C-k" . #'evil-window-up)
-    ("C-l" . #'evil-window-right))
+        ("g a" . #'x-evil-align-regexp)
+        ("g c" . #'x-evil-comment-or-uncomment-region)
+        ("g s" . #'x-evil-sort-lines)
+        ("C-h" . #'evil-window-left)
+        ("C-j" . #'evil-window-down)
+        ("C-k" . #'evil-window-up)
+        ("C-l" . #'evil-window-right))
   :init
   (setq ;; All of the following must be set before loading ‘evil-mode’
    evil-want-Y-yank-to-eol t
@@ -180,11 +180,11 @@ BODY directly after ‘(interactive)’."
     :move-point nil
     :restore-point t
     (interactive (let ((range (evil-operator-range)))
-           (list (car range)
-             (cadr range)
-             (concat "\\(\\s-*\\)"
-                 (read-string "Align regexp: "))
-             (y-or-n-p "Repeat? "))))
+                   (list (car range)
+                         (cadr range)
+                         (concat "\\(\\s-*\\)"
+                                 (read-string "Align regexp: "))
+                         (y-or-n-p "Repeat? "))))
     (align-regexp start end regexp 1 1 repeat))
 
   (evil-define-operator x-evil-comment-or-uncomment-region (start end)
@@ -211,14 +211,14 @@ BODY directly after ‘(interactive)’."
   :config
   (defmacro x-evil-define-and-bind-quoted-text-object (name key start-regexp end-regexp)
     (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-      (outer-name (make-symbol (concat "evil-a-"     name))))
+          (outer-name (make-symbol (concat "evil-a-"     name))))
       `(progn
-     (evil-define-text-object ,inner-name (count &optional beg end type)
-       (evil-select-paren ,start-regexp ,end-regexp beg end type count nil))
-     (evil-define-text-object ,outer-name (count &optional beg end type)
-       (evil-select-paren ,start-regexp ,end-regexp beg end type count 'inclusive))
-     (define-key evil-inner-text-objects-map ,key #',inner-name)
-     (define-key evil-outer-text-objects-map ,key #',outer-name))))
+         (evil-define-text-object ,inner-name (count &optional beg end type)
+           (evil-select-paren ,start-regexp ,end-regexp beg end type count nil))
+         (evil-define-text-object ,outer-name (count &optional beg end type)
+           (evil-select-paren ,start-regexp ,end-regexp beg end type count 'inclusive))
+         (define-key evil-inner-text-objects-map ,key #',inner-name)
+         (define-key evil-outer-text-objects-map ,key #',outer-name))))
 
   (x-evil-define-and-bind-quoted-text-object "single-quote-open"  "‘" "‘" "’")
   (x-evil-define-and-bind-quoted-text-object "single-quote-close" "’" "‘" "’")
@@ -230,10 +230,10 @@ BODY directly after ‘(interactive)’."
 the selection.  This is nearly identical to ‘evil-surround-function’
 except it provides a useful prompt, and is language-aware."
     (let ((list-name (or (evil-surround-read-from-minibuffer "Function name: ")
-             "")))
+                         "")))
       (if (derived-mode-p 'lisp-mode 'common-lisp-mode 'emacs-lisp-mode)
-      (cons (format "(%s " list-name) ")")
-    (cons (format "%s(" (or list-name "")) ")"))))
+          (cons (format "(%s " list-name) ")")
+        (cons (format "%s(" (or list-name "")) ")"))))
 
   (defun x-evil-surround-list ()
     "Read a list name from the minibuffer and index the list with the
@@ -271,11 +271,11 @@ tabs, regardless of the value of ‘indent-tabs-mode’."
 (use-package vertico
   :bind
   (:map vertico-map
-    ("C-j" . vertico-next)
-    ("C-k" . vertico-previous)
-    ("C-l" . vertico-insert)
-    :map minibuffer-local-map
-    ("C-h" . x-minibuffer-backward-kill))
+        ("C-j" . vertico-next)
+        ("C-k" . vertico-previous)
+        ("C-l" . vertico-insert)
+        :map minibuffer-local-map
+        ("C-h" . x-minibuffer-backward-kill))
   :custom
   (vertico-cycle t)
   :init
@@ -286,9 +286,9 @@ tabs, regardless of the value of ‘indent-tabs-mode’."
 folder, otherwise delete a word."
     (interactive "p")
     (if minibuffer-completing-file-name
-    (if (string-match-p "/." (minibuffer-contents))
-        (zap-up-to-char (- arg) ?/)
-      (delete-minibuffer-contents))
+        (if (string-match-p "/." (minibuffer-contents))
+            (zap-up-to-char (- arg) ?/)
+          (delete-minibuffer-contents))
       (backward-kill-word arg))))
 
 (use-package marginalia
@@ -364,15 +364,15 @@ preserved."
     (save-match-data
       (skip-chars-backward "0123456789")
       (when (eq (char-before (point)) ?-)
-    (goto-char (1- (point))))
+        (goto-char (1- (point))))
       (when (re-search-forward "-?\\([0-9]+\\)" nil 'noerror)
-    (let ((answer (+ (string-to-number (match-string 0) 10)
-             (or arg 1)))
-          (width (length (match-string 1))))
-      (replace-match
-       (format
-        (concat "%0" (int-to-string (if (< answer 0) (1+ width) width)) "d")
-        answer)))))))
+        (let ((answer (+ (string-to-number (match-string 0) 10)
+                         (or arg 1)))
+              (width (length (match-string 1))))
+          (replace-match
+           (format
+            (concat "%0" (int-to-string (if (< answer 0) (1+ width) width)) "d")
+            answer)))))))
 
 (defun x-decrement-number-at-point (&optional arg)
   "The same as ‘x-increment-number-at-point’, but ARG is negated."
@@ -690,11 +690,11 @@ font name, font weight, and font height in that order.")
   :hook (tetris-mode . (lambda () (evil-local-mode -1)))
   :bind
   (:map tetris-mode-map
-    ("a"   . #'tetris-move-left)
-    ("d"   . #'tetris-move-right)
-    ("k"   . #'tetris-rotate-next)
-    (";"   . #'tetris-rotate-prev)
-    ("l"   . #'tetris-move-down)
-    ("o"   . #'x-tetris-rotate-mirror)
-    ("SPC" . #'tetris-move-bottom)))
+        ("a"   . #'tetris-move-left)
+        ("d"   . #'tetris-move-right)
+        ("k"   . #'tetris-rotate-next)
+        (";"   . #'tetris-rotate-prev)
+        ("l"   . #'tetris-move-down)
+        ("o"   . #'x-tetris-rotate-mirror)
+        ("SPC" . #'tetris-move-bottom)))
 (put 'narrow-to-page 'disabled nil)
