@@ -631,6 +631,20 @@ font name, font weight, and font height in that order.")
     (add-hook 'after-make-frame-functions (lambda (_) (x-set-fonts)))
   (x-set-fonts))
 
+;; Setup ligatures
+(use-package ligature
+  :config
+  (ligature-set-ligatures
+   'c-mode
+   '("->" "<=" ">=" "==" "!=" "*=" "__"))
+  (ligature-set-ligatures
+   'go-ts-mode
+   '("<=" ">=" "==" "!=" "*=" ":="))
+  (ligature-set-ligatures
+   'html-mode
+   '("<!--" "-->" "/>"))
+  (global-ligature-mode))
+
 ;;; Set Project List
 (defun x-set-project-list ()
   (interactive)
