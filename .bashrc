@@ -86,7 +86,6 @@ export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export PATH="$HOME/.local/bin:$HOME/.local/sbin:/opt/odin:$GOROOT/bin:$GOPATH/bin:$XDG_DATA_HOME/npm/bin:$PATH"
 
 export CLANGD_FLAGS='-header-insertion=never'
-export GDK_BACKEND=x11
 export GPG_TTY=`tty`
 export GTK_IM_MODULE=xim
 export HISTSIZE=100000
