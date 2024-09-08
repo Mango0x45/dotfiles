@@ -667,9 +667,18 @@ font name, font weight, and font height in that order.")
       '(after)
     '(before after)))
 
-(defun x-c (_syn _pos)
-  (message "OMG")
-  '(before))
+(defun x-c-semi&comma-after-return ()
+  "‘c-mode’ criteria to avoid automatic newline insertion after entering
+a semicolon following a return statement."
+  (catch 'return
+    (let ((end-position (point)))
+      (save-excursion
+        (goto-char (line-beginning-position))
+        (save-match-data
+          (while (re-search-forward "\\<return\\>" end-position 'noerror)
+            (when (eq (get-text-property (1- (point)) 'face)
+                      'font-lock-keyword-face)
+              (throw 'return 'stop))))))))
 
 (c-add-style
  "mango"
@@ -680,6 +689,10 @@ font name, font weight, and font height in that order.")
    (c-block-comment-prefix      . "")
    (c-comment-only-line-offset  . 0)
    (c-label-minimum-indentation . 0)
+   (c-hanging-semi&comma-criteria . (x-c-semi&comma-after-return
+                                     c-semi&comma-inside-parenlist
+                                     c-semi&comma-no-newlines-before-nonblanks
+                                     c-semi&comma-no-newlines-for-oneline-inliners))
    (c-cleanup-list . (brace-else-brace
                       brace-elseif-brace
                       brace-catch-brace
