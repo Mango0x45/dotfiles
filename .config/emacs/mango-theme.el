@@ -156,4 +156,9 @@ graphically, so I shouldn’t need to have multiple specs per face.
 
   ;; Vertico
   (vertico-current
-   :inherit hl-line))
+   :inherit hl-line)
+
+  ;; Marginalia
+  (marginalia-documentation
+   :foreground ,(mango-theme--get-color 'disabled)
+   :underline nil))
