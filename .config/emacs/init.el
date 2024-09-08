@@ -361,10 +361,10 @@ the number at point has leading zeros then the width of the number is
 preserved."
   (interactive "*p")
   (save-excursion
+    (skip-chars-backward "0123456789")
+    (when (eq (char-before (point)) ?-)
+      (goto-char (1- (point))))
     (save-match-data
-      (skip-chars-backward "0123456789")
-      (when (eq (char-before (point)) ?-)
-        (goto-char (1- (point))))
       (when (re-search-forward "-?\\([0-9]+\\)" nil 'noerror)
         (let ((answer (+ (string-to-number (match-string 0) 10)
                          (or arg 1)))
