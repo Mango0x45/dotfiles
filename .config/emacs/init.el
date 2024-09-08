@@ -70,8 +70,8 @@ BODY directly after ‘(interactive)’."
 
 ;;; Rational Defaults
 (prefer-coding-system 'utf-8)
-(customize-set-variable
- 'save-interprogram-paste-before-kill t)
+;; (customize-set-variable
+;;  'save-interprogram-paste-before-kill t)
 
 (savehist-mode)
 (global-hl-line-mode)
