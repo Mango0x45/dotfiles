@@ -333,6 +333,7 @@ preserved."
   '((c-mode            :extra-vars (c-basic-offset))
     (css-mode          :extra-vars (css-indent-offset))
     (emacs-lisp-mode   :spaces t)
+    (go-ts-mode        :extra-vars (go-ts-mode-indent-offset))
     (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
     (lisp-mode         :spaces t)
     (lisp-data-mode    :spaces t)
