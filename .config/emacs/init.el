@@ -798,7 +798,7 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
 
 (with-eval-after-load 'company
   (x-define-bindings
-    :map company-active-mode
+    :map company-active-map
     ("C-j" (λi (x-company-select-candidate #'<)))
     ("C-k" (λi (x-company-select-candidate #'>)))))
 
