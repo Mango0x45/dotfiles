@@ -340,7 +340,9 @@ list is flipped or not."
   :bind (:map company-active-map
               ("C-j" . #'x-company-next-candidate)
               ("C-k" . #'x-company-previous-candidate))
-  :hook ((conf-mode prog-mode) . company-mode)
+  :init
+  (with-eval-after-load 'eglot
+    (add-hook 'eglot-managed-mode-hook #'company-mode))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay (lambda () (unless (company-in-string-or-comment) 0)))
