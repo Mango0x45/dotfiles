@@ -392,15 +392,16 @@ preserved."
                         (default-value 'tab-width))
 
 (defvar x-indentation-settings
-  '((c-mode :extra-vars (c-basic-offset))
-    (css-mode :extra-vars (css-indent-offset))
-    (emacs-lisp-mode :spaces t)
+  '((c-mode            :extra-vars (c-basic-offset))
+    (css-mode          :extra-vars (css-indent-offset))
+    (emacs-lisp-mode   :spaces t)
     (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
-    (lisp-mode :spaces t)
-    (org-mode :spaces t)
-    (python-mode :extra-vars (python-indent-offset))
-    (sgml-mode :width 2 :extra-vars (sgml-basic-offset))
-    (sh-mode :extra-vars (sh-basic-offset)))
+    (lisp-mode         :spaces t)
+    (lisp-data-mode    :spaces t)
+    (org-mode          :spaces t)
+    (python-mode       :extra-vars (python-indent-offset))
+    (sgml-mode         :width 2 :extra-vars (sgml-basic-offset))
+    (sh-mode           :extra-vars (sh-basic-offset)))
   "A list of per-mode indentation settings.  Each list contains a
 major-mode and the 3 optional keyword arguments of :spaces, :width, and
 :extra-vars.  When setting the settings for a given major-mode, the
