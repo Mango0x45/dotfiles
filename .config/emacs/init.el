@@ -634,7 +634,8 @@ ligatures for ‘c-ts-mode’, the following two entries could be added:
  c-auto-newline t
  c-hungry-delete-key t)
 
-(defun x-c-defun-open-safe (_syntax _position)
+(defun x-c-defun-open-safe (syntax position)
+  (declare (ignore syntax position))
   (if (c-cpp-define-name)
       '(after)
     '(before after)))
