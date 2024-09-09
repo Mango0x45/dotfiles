@@ -15,11 +15,14 @@
    native-comp-jit-compilation t))
 
 (require 'package)
-(custom-set-variables
- '(package-archives '(("gnu"    . "http://elpa.gnu.org/packages/")
-                      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-                      ("melpa"  . "http://melpa.org/packages/")))
- '(package-user-dir (expand-file-name "pkg" x-data-directory)))
+(let ((scheme (concat "http" (when (gnutls-available-p) "s") "://")))
+  (customize-set-variable
+   'package-archives
+   `(("gnu"    . ,(concat scheme "elpa.gnu.org/packages/"))
+     ("nongnu" . ,(concat scheme "elpa.nongnu.org/nongnu/"))
+     ("melpa"  . ,(concat scheme "melpa.org/packages/")))))
+(customize-set-variable
+ 'package-user-dir (expand-file-name "pkg" x-data-directory))
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
