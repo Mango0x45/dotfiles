@@ -143,25 +143,10 @@ it convenient to use in ‘thread-last’."
             #'backward-delete-char)
 
 ;;; Documentation Improvements
-(use-package helpful
-  :bind
-  (("C-c h f" . #'helpful-callable)
-   ("C-c h v" . #'helpful-variable)
-   ("C-c h k" . #'helpful-key)
-   ("C-c h o" . #'helpful-symbol)
-   ("C-c h p" . #'helpful-at-point)))
+(use-package helpful)
 
 ;;; Vim Emulation
 (use-package evil
-  :bind
-  (:map evil-normal-state-map
-        ("g a" . #'x-evil-align-regexp)
-        ("g c" . #'x-evil-comment-or-uncomment-region)
-        ("g s" . #'x-evil-sort-lines)
-        ("C-h" . #'evil-window-left)
-        ("C-j" . #'evil-window-down)
-        ("C-k" . #'evil-window-up)
-        ("C-l" . #'evil-window-right))
   :init
   (setq ;; All of the following must be set before loading ‘evil-mode’
    evil-want-Y-yank-to-eol t
@@ -176,14 +161,6 @@ it convenient to use in ‘thread-last’."
   (evil-mode)
   (global-visual-line-mode)
   :config
-  (evil-set-leader nil (kbd "SPC"))
-  (evil-set-leader nil (kbd ",") 'localleader)
-  (dolist (mode '(normal visual))
-    (evil-global-set-key mode (kbd "C-u") (λi (x-do-and-center #'evil-scroll-up 0)))
-    (evil-global-set-key mode (kbd "C-d") (λi (x-do-and-center #'evil-scroll-down 0)))
-    (evil-global-set-key mode (kbd "C-v") #'evil-visual-line)
-    (evil-global-set-key mode (kbd "M-v") #'evil-visual-block))
-
   (evil-define-operator x-evil-align-regexp (start end regexp repeat)
     "Evil operator for ‘align-regexp’."
     :move-point nil
@@ -278,27 +255,8 @@ tabs, regardless of the value of ‘indent-tabs-mode’."
 
 ;;; Minibuffer Improvements
 (use-package vertico
-  :bind
-  (:map vertico-map
-        ("C-j" . vertico-next)
-        ("C-k" . vertico-previous)
-        ("C-l" . vertico-insert)
-        :map minibuffer-local-map
-        ("C-h" . x-minibuffer-backward-kill))
-  :custom
-  (vertico-cycle t)
-  :init
-  (vertico-mode)
-  :config
-  (defun x-minibuffer-backward-kill (arg)
-    "When minibuffer completing a filename, delete up to the parent
-folder, otherwise delete a word."
-    (interactive "p")
-    (if minibuffer-completing-file-name
-        (if (string-match-p "/." (minibuffer-contents))
-            (zap-up-to-char (- arg) ?/)
-          (delete-minibuffer-contents))
-      (backward-kill-word arg))))
+  :custom (vertico-cycle t)
+  :init (vertico-mode))
 
 (use-package marginalia
   :after vertico
@@ -320,38 +278,16 @@ folder, otherwise delete a word."
 ;;   (corfu-cycle t)
 ;;   (corfu-auto-prefix 1)
 ;;   (corfu-auto-delay 0))
-(defun x-company-require-prefix (candidates)
-  "Transformer for ‘company-mode’ that requires that all candidates begin with
-‘company-prefix’."
-  (seq-filter (lambda (s) (string-prefix-p company-prefix s)) candidates))
-
-(defun x-company-select-candidate (pred)
-  "Select either the next or previous candidate in the candidate list based on
-the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PRED."
-  (let ((ov company-pseudo-tooltip-overlay))
-    (if (and ov (apply pred (list (overlay-get ov 'company-height) 0)))
-        (company-select-previous)
-      (company-select-next))))
-
-(defun x-company-next-candidate ()
-  "Select the next available candidate, taking into account if the candidate
-list is flipped or not."
-  (interactive)
-  (x-company-select-candidate #'<))
-
-(defun x-company-previous-candidate ()
-  "Select the previous available candidate, taking into account if the candidate
-list is flipped or not."
-  (interactive)
-  (x-company-select-candidate #'>))
 
 (use-package company
-  :bind (:map company-active-map
-              ("C-j" . #'x-company-next-candidate)
-              ("C-k" . #'x-company-previous-candidate))
   :init
   (with-eval-after-load 'eglot
     (add-hook 'eglot-managed-mode-hook #'company-mode))
+
+  (defun x-company-require-prefix (candidates)
+    "Transformer for ‘company-mode’ that requires that all candidates
+begin with ‘company-prefix’."
+    (seq-filter (lambda (s) (string-prefix-p company-prefix s)) candidates))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay (lambda () (unless (company-in-string-or-comment) 0)))
@@ -389,9 +325,6 @@ preserved."
   "The same as ‘x-increment-number-at-point’, but ARG is negated."
   (interactive "*p")
   (x-increment-number-at-point (- (or arg 1))))
-
-(keymap-global-set "C-c a" #'x-increment-number-at-point)
-(keymap-global-set "C-c x" #'x-decrement-number-at-point)
 
 ;;; Indentation Settings
 (setq-default
@@ -455,7 +388,6 @@ indentation-width.")
 
 ;;; Git Integration
 (use-package magit
-  :bind ("C-c g" . magit-status)
   :custom
   (magit-display-buffer-function
    #'magit-display-buffer-same-window-except-diff-v1))
@@ -501,11 +433,8 @@ existing grammars."
   :hook ((c-mode      . eglot-ensure)
          (c++-mode    . eglot-ensure)
          (c-ts-mode   . eglot-ensure)
-         (c++-ts-mode . eglot-ensure))
-  :bind
-  (:map eglot-mode-map
-        ("C-c l a" . #'eglot-code-actions)
-        ("C-c l r" . #'eglot-rename))
+         (c++-ts-mode . eglot-ensure)
+         (go-ts-mode  . eglot-ensure))
   :init
   (fset #'jsonrpc--log-event #'ignore)
   :custom
@@ -751,24 +680,161 @@ a semicolon following a return statement."
                               (label after)))))
 (customize-set-variable 'c-default-style "mango")
 
-;;; Emacs Calculator
-(setq calc-display-trail nil)
+;;; Additional Mode Support
+(push '("\\.go\\'" . go-ts-mode) auto-mode-alist)
+(with-eval-after-load 'tempel
+  (push `(,tempel-path . lisp-data-mode) auto-mode-alist))
 
-;;; Emacs Tetris
+;;; Keybindings
+(defmacro x-define-bindings (&rest body)
+  (declare (indent 0))
+  (let (head result keymap)
+    (while body
+      (setq
+       head (car body)
+       body (if (eq head :map)
+                (progn (setq keymap (cadr body)) (cddr body))
+              (push (list #'keymap-set
+                          keymap
+                          (car head)
+                          (let ((function (cadr head)))
+                            (if (symbolp function)
+                                (macroexp-quote function)
+                              function)))
+                    result)
+              (cdr body))))
+    (macroexp-progn result)))
+
+(defmacro x-define-evil-bindings (&rest body)
+  (declare (indent 0))
+  (let (mode-spec head result keymap prefix)
+    (while body
+      (setq
+       head (car body)
+       body (cond ((eq head :prefix)
+                   (setq prefix (cadr body))
+                   (cddr body))
+                  ((eq head :map)
+                   (setq keymap (cadr body))
+                   (cddr body))
+                  ((and (symbolp head) (string-prefix-p ":" (symbol-name head)))
+                   (setq mode-spec
+                         (thread-last
+                           (symbol-name head)
+                           (string-remove-prefix ":")
+                           (x-string-split "&")
+                           (mapcar #'intern)))
+                   (cdr body))
+                  (t
+                   (push (list #'evil-define-key
+                               (macroexp-quote mode-spec)
+                               (or keymap (macroexp-quote 'global))
+                               (kbd (concat "<leader>" prefix (car head)))
+                               (macroexp-quote (cadr head)))
+                         result)
+                   (cdr body)))))
+    (macroexp-progn result)))
+
+;; <Leader> and <LocalLeader>
+(evil-set-leader nil (kbd "SPC"))
+(evil-set-leader nil (kbd ",") 'localleader)
+
+;; Evil bindings that aren’t namespaced under ‘<leader>’
+(evil-define-key
+  '(normal visual) 'global "gc" #'x-evil-comment-or-uncomment-region)
+(let ((modes '(normal insert visual operator motion)))
+  (evil-define-key modes 'global (kbd "C-u") (λi (x-do-and-center #'evil-scroll-up 0)))
+  (evil-define-key modes 'global (kbd "C-d") (λi (x-do-and-center #'evil-scroll-down 0)))
+  (evil-define-key modes 'global (kbd "C-v") #'evil-visual-line)
+  (evil-define-key modes 'global (kbd "M-v") #'evil-visual-block))
+
+(defun x-minibuffer-backward-kill (arg)
+  "When minibuffer completing a filename, delete up to the parent folder,
+otherwise delete a word."
+  (interactive "p")
+  (if minibuffer-completing-file-name
+	  (if (string-match-p "/." (minibuffer-contents))
+		  (zap-up-to-char (- arg) ?/)
+		(delete-minibuffer-contents))
+	(backward-kill-word arg)))
+(keymap-set minibuffer-local-map "C-h" #'x-minibuffer-backward-kill)
+
+(with-eval-after-load 'vertico
+  (x-define-bindings
+    :map vertico-map
+    ("C-j" vertico-next)
+    ("C-k" vertico-previous)
+    ("C-l" vertico-insert)))
+
+(defun x-company-select-candidate (pred)
+  "Select either the next or previous candidate in the candidate list based on
+the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PRED."
+  (let ((ov company-pseudo-tooltip-overlay))
+    (if (and ov (apply pred (list (overlay-get ov 'company-height) 0)))
+        (company-select-previous)
+      (company-select-next))))
+
+(with-eval-after-load 'company
+  (x-define-bindings
+    :map company-active-mode
+    ("C-j" (λi (x-company-select-candidate #'<)))
+    ("C-k" (λi (x-company-select-candidate #'>)))))
+
+(with-eval-after-load 'tempel
+  (x-define-bindings
+    :map tempel-map
+    ("C-l" tempel-next)
+    ("C-h" tempel-previous)))
+
 (defun x-tetris-rotate-mirror ()
   (interactive)
   (tetris-rotate-next)
   (tetris-rotate-next))
 
+(with-eval-after-load 'tetris
+  (x-define-bindings
+    :map tetris-mode-map
+    ("a"   tetris-move-left)
+    ("d"   tetris-move-right)
+    ("k"   tetris-rotate-next)
+    (";"   tetris-rotate-prev)
+    ("l"   tetris-move-down)
+    ("o"   x-tetris-rotate-mirror)
+    ("SPC" tetris-move-bottom)))
+
+(x-define-evil-bindings
+  :normal&visual
+  ("a" x-evil-align-regexp)
+  ("s" x-evil-sort-lines)
+
+  :normal
+  :prefix "g"
+  ("g" magit-status)
+
+  :normal
+  :prefix "h"
+  ("f" helpful-callable)
+  ("s" helpful-symbol)
+  ("k" helpful-key)
+  ("p" helpful-at-point)
+
+  :normal&visual
+  :prefix "n"
+  ("d" x-decrement-number-at-point)
+  ("i" x-increment-number-at-point))
+
+(with-eval-after-load 'eglot
+  (x-define-evil-bindings
+    :map eglot-mode-map
+    :prefix "l"
+    :normal
+    ("a" eglot-code-actions)
+    ("r" eglot-rename)))
+
+;;; Emacs Calculator
+(setq calc-display-trail nil)
+
+;;; Emacs Tetris
 (use-package tetris
-  :hook (tetris-mode . (lambda () (evil-local-mode -1)))
-  :bind
-  (:map tetris-mode-map
-        ("a"   . #'tetris-move-left)
-        ("d"   . #'tetris-move-right)
-        ("k"   . #'tetris-rotate-next)
-        (";"   . #'tetris-rotate-prev)
-        ("l"   . #'tetris-move-down)
-        ("o"   . #'x-tetris-rotate-mirror)
-        ("SPC" . #'tetris-move-bottom)))
+  :hook (tetris-mode . (lambda () (evil-local-mode -1))))
 (put 'narrow-to-page 'disabled nil)
