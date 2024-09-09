@@ -79,9 +79,6 @@ it convenient to use in ‘thread-last’."
 
 ;;; Rational Defaults
 (prefer-coding-system 'utf-8)
-;; (customize-set-variable
-;;  'save-interprogram-paste-before-kill t)
-
 (savehist-mode)
 (global-hl-line-mode)
 
@@ -193,7 +190,6 @@ it convenient to use in ‘thread-last’."
   :hook (evil-mode . x-evil-surround-mode-if-evil-mode)
   :init
   (x-evil-surround-mode-if-evil-mode)
-  ;; (global-evil-surround-mode)
   :config
   (defmacro x-evil-define-and-bind-quoted-text-object (name key start-regexp end-regexp)
     (let ((inner-name (make-symbol (concat "evil-inner-" name)))
