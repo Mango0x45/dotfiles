@@ -231,7 +231,7 @@ the selection.  This is nearly identical to ‘evil-surround-function’
 except it provides a useful prompt, and is language-aware."
     (let ((list-name (or (evil-surround-read-from-minibuffer "Function name: ")
                          "")))
-      (if (derived-mode-p 'lisp-mode 'common-lisp-mode 'emacs-lisp-mode)
+      (if (derived-mode-p 'lisp-mode 'lisp-data-mode 'emacs-lisp-mode)
           (cons (format "(%s " list-name) ")")
         (cons (format "%s(" (or list-name "")) ")"))))
 
