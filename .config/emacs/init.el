@@ -503,8 +503,7 @@ existing grammars."
   (eglot-events-buffer 0)
   (eglot-extend-to-xref t)
   :config
-  (setq eglot-managed-mode-hook
-        (list (λ (eglot-inlay-hints-mode -1))))
+  (add-hook 'eglot-managed-mode-hook (λ (eglot-inlay-hints-mode -1)))
   (dolist (feature '(eldoc flymake))
     (add-to-list 'eglot-stay-out-of feature))
   (with-eval-after-load 'eglot
