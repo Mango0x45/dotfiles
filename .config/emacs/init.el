@@ -166,7 +166,8 @@ it convenient to use in ‘thread-last’."
                    (list (car range)
                          (cadr range)
                          (concat "\\(\\s-*\\)"
-                                 (read-string "Align regexp: "))
+                                 (read-string
+                                  (format-prompt "Align regexp" nil)))
                          (y-or-n-p "Repeat? "))))
     (align-regexp start end regexp 1 1 repeat))
 
@@ -510,8 +511,8 @@ related hooks."
     (dolist (dir-to-delete x-dirs-to-delete)
       (when (and (stringp dir-to-delete)
                  (file-exists-p dir-to-delete)
-                 (y-or-n-p (format "Also delete directory ‘%s’?"
-                                   (directory-file-name dir-to-delete))))
+                 (y-or-n-p (format-prompt "Also delete directory `%s'?" nil
+                                          (directory-file-name dir-to-delete))))
         (delete-directory dir-to-delete)))))
 
 (defun x-remove-auto-directory-hooks ()
