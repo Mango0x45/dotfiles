@@ -403,6 +403,7 @@ indentation-width.")
   (setq treesit-language-source-alist
         '((cpp   "https://github.com/tree-sitter/tree-sitter-cpp")
           (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+          (go    "https://github.com/tree-sitter/tree-sitter-go")
           (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
           (html  "https://github.com/tree-sitter/tree-sitter-html")))
 
