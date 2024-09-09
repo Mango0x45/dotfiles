@@ -650,6 +650,8 @@ font name, font weight, and font height in that order.")
 
 ;; Setup ligatures
 (use-package ligature
+  :if
+  (seq-contains-p (split-string system-configuration-features) "HARFBUZZ")
   :config
   (ligature-set-ligatures
    'c-mode
