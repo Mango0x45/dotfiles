@@ -338,8 +338,8 @@ list is flipped or not."
 
 (use-package company
   :bind (:map company-active-map
-         ("C-j" . #'x-company-next-candidate)
-         ("C-k" . #'x-company-previous-candidate))
+              ("C-j" . #'x-company-next-candidate)
+              ("C-k" . #'x-company-previous-candidate))
   :hook ((conf-mode prog-mode) . company-mode)
   :custom
   (company-minimum-prefix-length 1)
