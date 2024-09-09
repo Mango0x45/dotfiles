@@ -515,6 +515,21 @@ existing grammars."
   :after eglot
   :config (eglot-booster-mode))
 
+;;; Snippet Support
+(use-package tempel
+  :pin gnu
+  :init
+  (customize-set-variable
+   'tempel-path (expand-file-name "templates" x-config-directory))
+  (push (cons tempel-path 'lisp-data-mode) auto-mode-alist))
+
+(use-package eglot-tempel
+  :init
+  (with-eval-after-load 'eglot
+    (add-hook 'eglot-managed-mode-hook
+              (λ (unless (default-value eglot-tempel-mode)
+                   (eglot-tempel-mode))))))
+
 ;;; Automatically Create Directories
 (defun x-auto-create-directories (original-function filename &rest arguments)
   "Automatically create and delete parent directories of files.  This
