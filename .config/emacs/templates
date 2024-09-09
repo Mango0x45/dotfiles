@@ -1,0 +1,21 @@
+;; NOTE: https://github.com/minad/tempel/issues/23
+
+c-mode c-ts-mode c++-mode c++-ts-mode
+
+(guard
+ "#ifndef "
+ (p 
+  (thread-last
+    (file-name-base (or (buffer-file-name)
+                        (buffer-name)))
+    (concat (if-let ((project (project-current)))
+                (concat (project-name project) "_")))
+    (upcase)
+    (string-replace "-" "_")
+    (replace-regexp-in-string "^[0-9]+" "_\\&")
+    (replace-regexp-in-string "[^A-Z0-9_]+" "")
+    (format "%s_H"))
+  header)
+ n
+ "#define " header n n r n n
+ "#endif /* !" header " */")
