@@ -66,6 +66,12 @@ BODY directly after ‘(interactive)’."
            (string-remove-suffix "-mode" (symbol-name mode))
            "-ts-mode")))
 
+(defun x-string-split (separators string)
+  "Wrapper around ‘string-split' that puts SEPARATORS first.  This makes
+it convenient to use in ‘thread-last’."
+  (declare (pure t) (side-effect-free t))
+  (string-split string separators))
+
 (defun x-do-and-center (function &rest arguments)
   "Call FUNCTION with ARGUMENTS and then center the screen."
   (apply function arguments)
