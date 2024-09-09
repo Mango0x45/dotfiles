@@ -449,17 +449,15 @@ existing grammars."
 ;;; Snippet Support
 (use-package tempel
   :pin gnu
+  :custom
+  (tempel-trigger-prefix ",")
+  (tempel-path (expand-file-name "templates" x-config-directory))
   :init
-  (customize-set-variable
-   'tempel-path (expand-file-name "templates" x-config-directory))
-  (push (cons tempel-path 'lisp-data-mode) auto-mode-alist))
-
-(use-package eglot-tempel
-  :init
-  (with-eval-after-load 'eglot
-    (add-hook 'eglot-managed-mode-hook
-              (λ (unless (default-value eglot-tempel-mode)
-                   (eglot-tempel-mode))))))
+  (dolist (mode '(conf-mode prog-mode text-mode))
+    (add-hook
+     (x-mode-to-hook mode)
+     (λ (add-hook 'completion-at-point-functions
+                  #'tempel-complete -10 'local)))))
 
 ;;; Automatically Create Directories
 (defun x-auto-create-directories (original-function filename &rest arguments)
