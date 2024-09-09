@@ -371,15 +371,10 @@ indentation-width.")
                (setq-local tab-width width
                            evil-shift-width width)
                (dolist (var extra)
-                 (set var width))))
-           (mode-hook (intern (concat (symbol-name mode) "-hook")))
-           (mode-ts (intern (concat
-                             (string-remove-suffix 
-                              "-mode" (symbol-name mode))
-                             "-ts-mode"))))
+                 (set var width)))))
       (dolist (hook (list (x-mode-to-hook mode)
                           (x-mode-to-hook (x-mode-to-ts-mode mode))))
-        (add-hook hook callback 95)))))
+		(add-hook hook callback 95)))))
 
 (x-set-indentation-settings)
 
