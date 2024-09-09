@@ -1,8 +1,8 @@
 ;;; init.el --- Emacs configuration file  -*- lexical-binding: t; -*-
 
 ;;; Preamble
-(setq user-full-name    "Thomas Voss")
-(setq user-mail-address "mail@thomasvoss.com")
+(setq user-full-name    "Thomas Voss"
+      user-mail-address "mail@thomasvoss.com")
 
 (when (< emacs-major-version 29)
   (error "Emacs 29 or newer is required"))
@@ -260,8 +260,7 @@ tabs, regardless of the value of ‘indent-tabs-mode’."
 
 (use-package marginalia
   :after vertico
-  :init
-  (marginalia-mode))
+  :init (marginalia-mode))
 
 (use-package orderless
   :custom
@@ -502,9 +501,7 @@ directories if they kill the buffer without saving it."
         (add-hook 'after-save-hook #'x-remove-auto-directory-hooks
                   'depth 'local)))))
 
-(dolist (command #'(find-file
-                    find-alternate-file
-                    write-file))
+(dolist (command #'(find-file find-alternate-file write-file))
   (advice-add command :around #'x-auto-create-directories))
 
 (defun x-delete-directories-if-appropriate ()
