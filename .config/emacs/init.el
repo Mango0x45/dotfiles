@@ -581,16 +581,36 @@ font name, font weight, and font height in that order.")
 (use-package ligature
   :if
   (seq-contains-p (split-string system-configuration-features) "HARFBUZZ")
+  :init
+  (defvar x-ligatures-alist
+    '(((c-mode go-ts-mode)      . ("->" "<=" ">=" "==" "!=" "*=" "__"))
+      (go-ts-mode               . (":="))
+      ((html-mode html-ts-mode) . ("<!--" "-->" "/>")))
+    "Ligatures to enable in specific modes.
+Elements of this alist are of the form:
+
+  (SPEC . LIGATURES)
+
+where LIGATURES is a list of ligatures to enable for the set of modes
+described by SPEC.
+
+SPEC can be either a symbol, or a list of symbols.  These symbols should
+correspond to modes for which the associated ligatures should be enabled.
+
+A mode may also be specified in multiple entries.  To configure
+‘go-ts-mode’ to have it’s set of ligatures be a super-set of the
+ligatures for ‘c-ts-mode’, the following two entries could be added:
+
+  '((c-ts-mode go-ts-mode) . (\">=\" \"<=\" \"!=\" \"==\"))
+  '(go-ts-mode             . (\":=\"))")
+
+  (defun x-set-ligatures ()
+    (interactive)
+    (setq ligature-composition-table nil)
+    (dolist (pair x-ligatures-alist)
+      (ligature-set-ligatures (car pair) (cdr pair))))
   :config
-  (ligature-set-ligatures
-   'c-mode
-   '("->" "<=" ">=" "==" "!=" "*=" "__"))
-  (ligature-set-ligatures
-   'go-ts-mode
-   '("<=" ">=" "==" "!=" "*=" ":="))
-  (ligature-set-ligatures
-   'html-mode
-   '("<!--" "-->" "/>"))
+  (x-set-ligatures)
   (global-ligature-mode))
 
 ;;; Set Project List
