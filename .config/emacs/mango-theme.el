@@ -161,4 +161,15 @@ graphically, so I shouldn’t need to have multiple specs per face.
   ;; Marginalia
   (marginalia-documentation
    :foreground ,(mango-theme--get-color 'disabled)
-   :underline nil))
+   :underline nil)
+
+  ;; Tempel
+  (tempel-default
+   :slant italic
+   :background ,(mango-theme--get-color 'middleground))
+  (tempel-field
+   :slant italic
+   :background ,(mango-theme--get-color 'middleground))
+  (tempel-form
+   :slant italic
+   :background ,(mango-theme--get-color 'middleground)))
