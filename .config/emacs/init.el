@@ -81,6 +81,7 @@ it convenient to use in ‘thread-last’."
 (prefer-coding-system 'utf-8)
 (savehist-mode)
 (global-hl-line-mode)
+(setq disabled-command-function nil)
 
 (fset #'yes-or-no-p #'y-or-n-p)
 (dolist (mode #'(blink-cursor-mode
@@ -859,4 +860,3 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
 ;;; Emacs Tetris
 (use-package tetris
   :hook (tetris-mode . (lambda () (evil-local-mode -1))))
-(put 'narrow-to-page 'disabled nil)
