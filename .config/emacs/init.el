@@ -340,7 +340,8 @@ preserved."
     (org-mode          :spaces t)
     (python-mode       :extra-vars (python-indent-offset))
     (sgml-mode         :width 2 :extra-vars (sgml-basic-offset))
-    (sh-mode           :extra-vars (sh-basic-offset)))
+    (sh-mode           :extra-vars (sh-basic-offset))
+    (vimscript-ts-mode :extra-vars (vimscript-ts-mode-indent-level)))
   "A list of per-mode indentation settings.  Each list contains a
 major-mode and the 3 optional keyword arguments of :spaces, :width, and
 :extra-vars.  When setting the settings for a given major-mode, the
@@ -709,6 +710,7 @@ a semicolon following a return statement."
 (customize-set-variable 'c-default-style "mango")
 
 ;;; Additional Mode Support
+(use-package vimscript-ts-mode)
 (push '("\\.go\\'" . go-ts-mode) auto-mode-alist)
 (with-eval-after-load 'tempel
   (push (cons tempel-path #'lisp-data-mode) auto-mode-alist))
