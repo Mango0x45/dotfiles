@@ -121,7 +121,7 @@ it convenient to use in ‘thread-last’."
 (x-set custom-file (expand-file-name
                     (format "emacs-custom-%s.el" (user-uid))
                     temporary-file-directory))
-(load custom-file 'noerror)
+(load custom-file :noerror)
 
 (define-key global-map [remap backward-delete-char-untabify]
             #'backward-delete-char)
@@ -186,7 +186,7 @@ it convenient to use in ‘thread-last’."
          (evil-define-text-object ,inner-name (count &optional beg end type)
            (evil-select-paren ,start-regexp ,end-regexp beg end type count nil))
          (evil-define-text-object ,outer-name (count &optional beg end type)
-           (evil-select-paren ,start-regexp ,end-regexp beg end type count 'inclusive))
+           (evil-select-paren ,start-regexp ,end-regexp beg end type count :inclusive))
          (define-key evil-inner-text-objects-map ,key #',inner-name)
          (define-key evil-outer-text-objects-map ,key #',outer-name))))
 
@@ -201,7 +201,7 @@ the selection.  This is nearly identical to ‘evil-surround-function’
 except it provides a useful prompt, and is language-aware."
     (let ((list-name (or (evil-surround-read-from-minibuffer "Function name: ")
                          "")))
-      (if (derived-mode-p 'lisp-mode 'lisp-data-mode 'emacs-lisp-mode)
+      (if (derived-mode-p #'lisp-mode #'lisp-data-mode #'emacs-lisp-mode)
           (cons (format "(%s " list-name) ")")
         (cons (format "%s(" (or list-name "")) ")"))))
 
@@ -295,7 +295,7 @@ preserved."
     (when (eq (char-before (point)) ?-)
       (goto-char (1- (point))))
     (save-match-data
-      (when (re-search-forward "-?\\([0-9]+\\)" nil 'noerror)
+      (when (re-search-forward "-?\\([0-9]+\\)" nil :noerror)
         (let ((answer (+ (string-to-number (match-string 0) 10)
                          (or arg 1)))
               (width (length (match-string 1))))
@@ -476,7 +476,7 @@ directories if they kill the buffer without saving it."
                            (directory-file-name current-dir))))
 
       (unless (file-exists-p dir-to-create)
-        (make-directory dir-to-create 'parents)))
+        (make-directory dir-to-create :parents)))
 
     ;; Use ‘prog1’ so that we maintain the original return value
     (prog1 (apply original-function filename arguments)
@@ -597,8 +597,8 @@ SPEC can be either a symbol, or a list of symbols.  These symbols should
 correspond to modes for which the associated ligatures should be enabled.
 
 A mode may also be specified in multiple entries.  To configure
-‘go-ts-mode’ to have it’s set of ligatures be a super-set of the
-ligatures for ‘c-ts-mode’, the following two entries could be added:
+`go-ts-mode' to have it’s set of ligatures be a super-set of the
+ligatures for `c-ts-mode', the following two entries could be added:
 
   '((c-ts-mode go-ts-mode) . (\">=\" \"<=\" \"!=\" \"==\"))
   '(go-ts-mode             . (\":=\"))")
@@ -617,12 +617,12 @@ ligatures for ‘c-ts-mode’, the following two entries could be added:
   (interactive)
   (when-let ((no-dotfiles "\\`[^.]")
              (repo-directory (getenv "REPODIR"))
-             (level-1 (directory-files repo-directory 'full-name no-dotfiles)))
-    (setq project--list (cl-loop for directory in level-1
-                                 append (mapcar #'list (directory-files
-                                                        directory
-                                                        'full-name
-                                                        no-dotfiles))))
+             (level-1 (directory-files repo-directory :full no-dotfiles)))
+    (setq
+     project--list
+     (cl-loop for directory in level-1
+              append (mapcar #'list (directory-files
+                                     directory :full no-dotfiles))))
     (project--write-project-list)))
 
 (with-eval-after-load 'project
@@ -647,7 +647,7 @@ a semicolon following a return statement."
       (save-excursion
         (goto-char (line-beginning-position))
         (save-match-data
-          (while (re-search-forward "\\<return\\>" end-position 'noerror)
+          (while (re-search-forward "\\<return\\>" end-position :noerror)
             (when (eq (get-text-property (1- (point)) 'face)
                       'font-lock-keyword-face)
               (throw 'return 'stop))))))))
@@ -748,7 +748,7 @@ a semicolon following a return statement."
 
 ;; <Leader> and <LocalLeader>
 (evil-set-leader nil (kbd "SPC"))
-(evil-set-leader nil (kbd ",") 'localleader)
+(evil-set-leader nil (kbd ",") :localleader)
 
 ;; Evil bindings that aren’t namespaced under ‘<leader>’
 (evil-define-key
