@@ -12,16 +12,23 @@
     native-comp-async-report-warnings-errors nil
     native-comp-verbose 0
     native-comp-debug 0
-    native-comp-jit-compilation t))
+    native-comp-jit-compilation t
+    native-compile-prune-cache t))
 
 (require 'package)
-(let ((scheme (concat "http" (when (gnutls-available-p) "s") "://")))
-  (x-set
-    package-archives
-    `(("gnu"    . ,(concat scheme "elpa.gnu.org/packages/"))
-      ("nongnu" . ,(concat scheme "elpa.nongnu.org/nongnu/"))
-      ("melpa"  . ,(concat scheme "melpa.org/packages/")))))
-(x-set package-user-dir (expand-file-name "pkg" x-data-directory))
+(x-set
+  package-archives (let ((protocol (if (gnutls-available-p) "https" "http")))
+                     (mapcar
+                      (lambda (pair)
+                        (cons (car pair) (concat protocol "://" (cdr pair))))
+                      '(("gnu"    . "elpa.gnu.org/packages/")
+                        ("nongnu" . "elpa.nongnu.org/nongnu/")
+                        ("melpa"  . "melpa.org/packages/"))))
+  package-archive-priorities '(("gnu"    . 3)
+                               ("nongnu" . 2)
+                               ("melpa"  . 1))
+  package-user-dir (expand-file-name "pkg" x-data-directory))
+
 (package-initialize)
 
 (eval-and-compile
