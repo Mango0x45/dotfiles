@@ -504,8 +504,11 @@ related hooks."
     (dolist (dir-to-delete x-dirs-to-delete)
       (when (and (stringp dir-to-delete)
                  (file-exists-p dir-to-delete)
-                 (y-or-n-p (format-prompt "Also delete directory `%s'?" nil
-                                          (directory-file-name dir-to-delete))))
+                 (thread-last
+                   (directory-file-name dir-to-delete)
+                   (format-prompt "Also delete directory `%s'?" nil)
+                   (string-remove-suffix ": ")
+                   (y-or-n-p)))
         (delete-directory dir-to-delete)))))
 
 (defun x-remove-auto-directory-hooks ()
