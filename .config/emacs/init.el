@@ -1,28 +1,27 @@
 ;;; init.el --- Emacs configuration file  -*- lexical-binding: t; -*-
 
 ;;; Preamble
-(setq user-full-name    "Thomas Voss"
-      user-mail-address "mail@thomasvoss.com")
+(x-set user-full-name    "Thomas Voss"
+       user-mail-address "mail@thomasvoss.com")
 
 (when (< emacs-major-version 29)
   (error "Emacs 29 or newer is required"))
 
 (when (featurep 'native-compile)
-  (setq
-   native-comp-async-report-warnings-errors nil
-   native-comp-verbose 0
-   native-comp-debug 0
-   native-comp-jit-compilation t))
+  (x-set
+    native-comp-async-report-warnings-errors nil
+    native-comp-verbose 0
+    native-comp-debug 0
+    native-comp-jit-compilation t))
 
 (require 'package)
 (let ((scheme (concat "http" (when (gnutls-available-p) "s") "://")))
-  (customize-set-variable
-   'package-archives
-   `(("gnu"    . ,(concat scheme "elpa.gnu.org/packages/"))
-     ("nongnu" . ,(concat scheme "elpa.nongnu.org/nongnu/"))
-     ("melpa"  . ,(concat scheme "melpa.org/packages/")))))
-(customize-set-variable
- 'package-user-dir (expand-file-name "pkg" x-data-directory))
+  (x-set
+    package-archives
+    `(("gnu"    . ,(concat scheme "elpa.gnu.org/packages/"))
+      ("nongnu" . ,(concat scheme "elpa.nongnu.org/nongnu/"))
+      ("melpa"  . ,(concat scheme "melpa.org/packages/")))))
+(x-set package-user-dir (expand-file-name "pkg" x-data-directory))
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -84,57 +83,49 @@ it convenient to use in ‘thread-last’."
 (setq disabled-command-function nil)
 
 (fset #'yes-or-no-p #'y-or-n-p)
-(dolist (mode #'(blink-cursor-mode
-                 menu-bar-mode
-                 scroll-bar-mode
-                 show-paren-mode
-                 tool-bar-mode
-                 tooltip-mode))
+(dolist (mode #'(blink-cursor-mode show-paren-mode tooltip-mode))
   (apply mode '(-1)))
 
-(custom-set-variables
- '(large-file-warning-threshold nil)
- '(vc-follow-symlinks t)
- '(ad-redefinition-action 'accept))
+(x-set
+  large-file-warning-threshold nil
+  vc-follow-symlinks t
+  ad-redefinition-action 'accept)
 
-(custom-set-variables
- '(mouse-wheel-scroll-amount '(1 ((shift) . 1)))
- '(mouse-wheel-progressive-speed nil)
- '(mouse-wheel-follow-mouse t)
- '(scroll-step 1))
+(x-set
+  mouse-wheel-scroll-amount '(1 ((shift) . 1))
+  mouse-wheel-progressive-speed nil
+  mouse-wheel-follow-mouse t
+  scroll-step 1)
 (pixel-scroll-precision-mode)
 
-(customize-set-value 'show-paren-delay 0)
+(x-set show-paren-delay 0)
 (dolist (hook '(conf-mode-hook prog-mode-hook))
   (add-hook hook #'show-paren-local-mode))
 
-(customize-set-value
- 'read-extended-command-predicate
- #'command-completion-default-include-p)
+(x-set read-extended-command-predicate
+       #'command-completion-default-include-p)
 
 (setq-default display-line-numbers 'relative)
 (line-number-mode)
 (column-number-mode)
 
 ;; Backup settings
-(custom-set-variables
- '(delete-old-versions t)
- '(version-control t)
- '(kept-new-versions 2)
- '(kept-old-versions 2))
+(x-set
+  delete-old-versions t
+  version-control t
+  kept-new-versions 2
+  kept-old-versions 2)
 
 (setq-default fill-column 73)
 (add-hook 'text-mode-hook #'auto-fill-mode)
 
 (require 'autorevert)
-(customize-set-variable
- 'global-auto-revert-non-file-buffers t)
+(x-set global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode)
 
-(customize-set-variable
- 'custom-file (expand-file-name
-               (format "emacs-custom-%s.el" (user-uid))
-               temporary-file-directory))
+(x-set custom-file (expand-file-name
+                    (format "emacs-custom-%s.el" (user-uid))
+                    temporary-file-directory))
 (load custom-file 'noerror)
 
 (define-key global-map [remap backward-delete-char-untabify]
@@ -327,8 +318,7 @@ preserved."
 (setq-default
  tab-width 4
  indent-tabs-mode t)
-(customize-set-variable 'evil-shift-width
-                        (default-value 'tab-width))
+(x-set evil-shift-width (default-value 'tab-width))
 
 (defvar x-indentation-settings
   '((c-mode            :extra-vars (c-basic-offset))
@@ -458,7 +448,7 @@ existing grammars."
     (add-hook
      (x-mode-to-hook mode)
      (λ (add-hook 'completion-at-point-functions
-                  #'tempel-complete -10 'local)))))
+                  #'tempel-complete -10 :local)))))
 
 ;; NOTE: This will be removed eventually, it’s only here until
 ;; eglot-tempel is fixed.
@@ -502,9 +492,9 @@ directories if they kill the buffer without saving it."
         ;; directories *unless* the buffer was saved, in which case we don’t
         ;; want to do anything.
         (add-hook 'kill-buffer-hook #'x-delete-directories-if-appropriate
-                  'depth 'local)
+                  :depth :local)
         (add-hook 'after-save-hook #'x-remove-auto-directory-hooks
-                  'depth 'local)))))
+                  :depth :local)))))
 
 (dolist (command #'(find-file find-alternate-file write-file))
   (advice-add command :around #'x-auto-create-directories))
@@ -525,8 +515,8 @@ related hooks."
 
 (defun x-remove-auto-directory-hooks ()
   "Clean up directory-deletion hooks, if necessary."
-  (remove-hook 'kill-buffer-hook #'x-delete-directories-if-appropriate 'local)
-  (remove-hook 'after-save-hook #'x-remove-auto-directory-hooks 'local))
+  (remove-hook 'kill-buffer-hook #'x-delete-directories-if-appropriate :local)
+  (remove-hook 'after-save-hook #'x-remove-auto-directory-hooks :local))
 
 ;;; Colorize Compilation Buffer
 (require 'ansi-color)
@@ -537,7 +527,7 @@ related hooks."
 (add-hook 'compilation-filter-hook #'x-colorize-buffer)
 
 ;;; User Interface Themeing
-(load-theme 'mango 'no-confirm)
+(load-theme 'mango :no-confirm)
 (set-fringe-style (cons 32 32))
 
 (defvar x-alpha-background 90
@@ -585,7 +575,10 @@ font name, font weight, and font height in that order.")
                         :height prop-height)))
 
 (if (daemonp)
-    (add-hook 'after-make-frame-functions (lambda (_) (x-set-fonts)))
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (declare (ignore frame))
+                (x-set-fonts)))
   (x-set-fonts))
 
 ;; Setup ligatures
@@ -706,7 +699,7 @@ a semicolon following a return statement."
 ;;; Additional Mode Support
 (push '("\\.go\\'" . go-ts-mode) auto-mode-alist)
 (with-eval-after-load 'tempel
-  (push `(,tempel-path . lisp-data-mode) auto-mode-alist))
+  (push (cons tempel-path #'lisp-data-mode) auto-mode-alist))
 
 ;;; Keybindings
 (defmacro x-define-bindings (&rest body)
