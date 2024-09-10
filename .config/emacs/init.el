@@ -79,6 +79,11 @@ it convenient to use in ‘thread-last’."
   (apply function arguments)
   (recenter))
 
+(defmacro x-comment (&rest body)
+  "Comment out BODY.  A cleaner alternative to line-commenting a region."
+  (declare (indent 0) (ignore body))
+  nil)
+
 ;;; Rational Defaults
 (prefer-coding-system 'utf-8)
 (savehist-mode)
@@ -261,13 +266,14 @@ tabs, regardless of the value of ‘indent-tabs-mode’."
 
 ;;; Completions
 ;; Disable corfu for now (it’s causing Emacs to crash)
-;; (use-package corfu
-;;   :hook ((prog-mode . corfu-mode))
-;;   :custom
-;;   (corfu-auto t)
-;;   (corfu-cycle t)
-;;   (corfu-auto-prefix 1)
-;;   (corfu-auto-delay 0))
+(x-comment
+  (use-package corfu
+    :hook ((prog-mode . corfu-mode))
+    :custom
+    (corfu-auto t)
+    (corfu-cycle t)
+    (corfu-auto-prefix 1)
+    (corfu-auto-delay 0)))
 
 (use-package company
   :init
@@ -457,12 +463,13 @@ existing grammars."
 (use-package yasnippet
   :after eglot)
 
-;; (use-package eglot-tempel
-;;   :init
-;;   (with-eval-after-load 'eglot
-;;     (add-hook 'eglot-managed-mode-hook
-;;               (λ (unless (default-value eglot-tempel-mode)
-;;                    (eglot-tempel-mode))))))
+(x-comment
+  (use-package eglot-tempel
+    :init
+    (with-eval-after-load 'eglot
+      (add-hook 'eglot-managed-mode-hook
+                (λ (unless (default-value eglot-tempel-mode)
+                     (eglot-tempel-mode)))))))
 
 ;;; Automatically Create Directories
 (defun x-auto-create-directories (original-function filename &rest arguments)
