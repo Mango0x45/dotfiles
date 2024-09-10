@@ -415,8 +415,13 @@ indentation-width.")
 or not the grammar is already installed, making it useful for updating
 existing grammars."
     (interactive)
-    (dolist (spec treesit-language-source-alist)
-      (treesit-install-language-grammar (car spec))))
+    (async-start
+     `(lambda ()
+        ,(async-inject-variables "\\`treesit-language-source-alist\\'")
+        (dolist (spec treesit-language-source-alist)
+          (treesit-install-language-grammar (car spec))))
+     (lambda (message)
+       (message "Done syncing Tree-Sitter grammars"))))
 
   (thread-last
     (mapcar #'car treesit-language-source-alist)
