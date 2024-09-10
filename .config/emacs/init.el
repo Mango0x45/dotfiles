@@ -402,11 +402,12 @@ indentation-width.")
 ;;; Tree-Sitter
 (when (treesit-available-p)
   (setq treesit-language-source-alist
-        '((cpp   "https://github.com/tree-sitter/tree-sitter-cpp")
-          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-          (go    "https://github.com/tree-sitter/tree-sitter-go")
-          (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
-          (html  "https://github.com/tree-sitter/tree-sitter-html")))
+        '((cpp        "https://github.com/tree-sitter/tree-sitter-cpp")
+          (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
+          (go         "https://github.com/tree-sitter/tree-sitter-go")
+          (gomod      "https://github.com/camdencheek/tree-sitter-go-mod")
+          (html       "https://github.com/tree-sitter/tree-sitter-html")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")))
 
   (defun x-treesit-source-sync ()
     "Install all the tree-sitter grammars in
