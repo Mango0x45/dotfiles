@@ -78,7 +78,6 @@ it convenient to use in ‘thread-last’."
 (global-hl-line-mode)
 (setq disabled-command-function nil)
 
-(fset #'yes-or-no-p #'y-or-n-p)
 (dolist (mode #'(blink-cursor-mode show-paren-mode tooltip-mode))
   (apply mode '(-1)))
 
