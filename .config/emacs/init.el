@@ -546,6 +546,19 @@ related hooks."
     (ansi-color-apply-on-region (point-min) (point-max))))
 (add-hook 'compilation-filter-hook #'x-colorize-buffer)
 
+;;; Autokill Complation Buffer On Success
+(defun x--compilation-count-number-of-windows (&rest _arguments)
+  (setq x--compilation-number-of-windows (length (window-list))))
+(advice-add #'compile :before #'x--compilation-count-number-of-windows)
+
+(defun x-kill-compilation-buffer-on-success (buffer string)
+  (when (string= string "finished\n")
+    (when (> (length (window-list)) x--compilation-number-of-windows)
+      (delete-window (get-buffer-window buffer)))
+    (kill-buffer buffer)))
+
+(add-hook 'compilation-finish-functions #'x-kill-compilation-buffer-on-success)
+
 ;;; User Interface Themeing
 (load-theme 'mango :no-confirm)
 (set-fringe-style (cons 32 32))
