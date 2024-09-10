@@ -621,8 +621,9 @@ font name, font weight, and font height in that order.")
        (display-graphic-p))
   :init
   (defvar x-ligatures-alist
-    '(((c-mode go-ts-mode)      . ("->" "<=" ">=" "==" "!=" "*=" "__"))
-      (go-ts-mode               . (":="))
+    '(((c-mode go-ts-mode)      . ("<=" ">=" "==" "!=" "*=" "__"))
+      (c-mode                   . ("->")
+      (go-ts-mode               . (":=" "<-"))
       ((html-mode html-ts-mode) . ("<!--" "-->" "/>")))
     "Ligatures to enable in specific modes.
 Elements of this alist are of the form:
