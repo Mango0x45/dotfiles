@@ -24,10 +24,6 @@
 (x-set package-user-dir (expand-file-name "pkg" x-data-directory))
 (package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 (eval-and-compile
   (custom-set-variables
    '(use-package-always-defer t)
