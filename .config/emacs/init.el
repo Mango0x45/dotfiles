@@ -79,9 +79,9 @@ it convenient to use in ‘thread-last’."
   (apply function arguments)
   (recenter))
 
-(defmacro x-comment (&rest body)
+(defmacro x-comment (&rest _body)
   "Comment out BODY.  A cleaner alternative to line-commenting a region."
-  (declare (indent 0) (ignore body))
+  (declare (indent 0))
   nil)
 
 ;;; Rational Defaults
@@ -589,8 +589,7 @@ font name, font weight, and font height in that order.")
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (declare (ignore frame))
+              (lambda (_frame)
                 (x-set-fonts)))
   (x-set-fonts))
 
@@ -652,8 +651,7 @@ ligatures for `c-ts-mode', the following two entries could be added:
  c-auto-newline t
  c-hungry-delete-key t)
 
-(defun x-c-defun-open-safe (syntax position)
-  (declare (ignore syntax position))
+(defun x-c-defun-open-safe (_syntax _position)
   (if (c-cpp-define-name)
       '(after)
     '(before after)))
