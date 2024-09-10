@@ -89,6 +89,7 @@ it convenient to use in ‘thread-last’."
 (savehist-mode)
 (global-hl-line-mode)
 (setq disabled-command-function nil)
+(x-set custom-safe-themes t)
 
 (dolist (mode #'(blink-cursor-mode show-paren-mode tooltip-mode))
   (apply mode '(-1)))
