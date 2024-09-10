@@ -7,7 +7,7 @@
 (when (< emacs-major-version 29)
   (error "Emacs 29 or newer is required"))
 
-(when (featurep 'native-compile)
+(when (native-comp-available-p)
   (x-set
     native-comp-async-report-warnings-errors nil
     native-comp-verbose 0
