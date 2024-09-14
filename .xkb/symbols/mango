@@ -42,7 +42,7 @@ xkb_symbols "basic" {
 partial
 xkb_symbols "german" {
 	include "mango(basic)"
-	name[Group1] = "Mango (German)";
+	name[Group1] = "Mango (German)";
 
 	key <AC10> { [ NoSymbol, NoSymbol, singlelowquotemark,  doublelowquotemark  ] };
 	key <AC11> { [ NoSymbol, NoSymbol, leftsinglequotemark, leftdoublequotemark ] };
