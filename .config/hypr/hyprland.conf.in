@@ -1,5 +1,5 @@
 __setup_env
-exec-once = lux -S 50
+exec-once = lux -S 75
 # exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
 exec-once = wbg $XDG_PICTURES_DIR/bg.png
 exec-once = eww daemon && eww open bar-1
