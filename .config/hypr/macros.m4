@@ -22,3 +22,15 @@ define(__subbind, [
 	__bindX(,,$@)
 	bind = , $1, submap, reset
 ])
+
+define(__setup_env, [
+	esyscmd([
+		sed -E '
+			/^export/!d
+			/`/d
+			s/^export ([A-Z0-9a-z_]+)="(.*)"/env = \1, \2/
+			s/^export ([A-Z0-9a-z_]+)=\x27(.*)\x27/env = \1, \2/
+			s/^export ([A-Z0-9a-z_]+)=(.*)/env = \1, \2/
+		' ~/.bashrc
+	])
+])

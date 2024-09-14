@@ -1,3 +1,4 @@
+__setup_env
 exec-once = lux -S 50
 # exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
 exec-once = wbg $XDG_PICTURES_DIR/bg.png
