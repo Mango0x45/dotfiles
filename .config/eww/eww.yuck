@@ -7,7 +7,7 @@
 (defvar wireless_rev   false)
 
 ;; Listeners
-(deflisten active-workspace
+(deflisten active-workspace :initial '[1]'
   `stdbuf -oL scripts/active-workspace-listener`)
 
 (deflisten workspace-list :initial '[[1]]'
