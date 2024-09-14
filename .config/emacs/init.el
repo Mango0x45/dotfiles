@@ -291,7 +291,7 @@ begin with ‘company-prefix’."
   (company-selection-wrap-around t)
   (company-tooltip-align-annotations t)
   (company-tooltip-flip-when-above t)
-  (company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
+  (company-frontends '(company-pseudo-tooltip-frontend
                        company-preview-frontend
                        company-echo-metadata-frontend))
   (company-transformers '(x-company-require-prefix
