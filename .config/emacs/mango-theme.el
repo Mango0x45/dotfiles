@@ -95,6 +95,10 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :inherit font-lock-variable-name-face
    :weight bold)
 
+  ;; Other literals
+  (font-lock-number-face
+   :foreground ,(mango-theme--get-color 'orange))
+
   ;; Org Mode
   (org-code
    :foreground ,(mango-theme--get-color 'orange))
