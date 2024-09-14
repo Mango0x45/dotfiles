@@ -36,8 +36,7 @@ xkb_symbols "basic" {
 
 	key <SPCE> { [ space, space, nobreakspace, nobreakspace ] };
 
-	replace key <LFSH> { [ Meta_L ] }; // For Emacs
-	// replace key <RCTL> { [ Meta_L ] }; // For Emacs
+	replace key <RCTL> { [ Meta_L ] };
 };
 
 partial
