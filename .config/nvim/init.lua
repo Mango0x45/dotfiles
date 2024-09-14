@@ -417,7 +417,7 @@ lsp.rust_analyzer.setup {
 lsp.templ.setup {
 	capabilities = caps,
 }
-lsp.tsserver.setup {
+lsp.ts_ls.setup {
 	capabilities = caps,
 }
 lsp.lua_ls.setup {
