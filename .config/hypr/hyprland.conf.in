@@ -10,6 +10,7 @@ monitor = , highres, auto, 1
 
 layerrule = noanim, overlay
 
+# Remember to coppy settings to sddm.hyprland.conf
 input {
 	accel_profile  = "adaptive"
 	follow_mouse   = 1
