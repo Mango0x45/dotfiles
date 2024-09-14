@@ -387,7 +387,9 @@ indentation-width.")
 
 (use-package magit-todos
   :after magit
-  :init (magit-todos-mode))
+  :init (magit-todos-mode)
+  :custom
+  (magit-todos-exclude-globs '(".git/" "vendor/")))
 
 (defun x-magit-status ()
   (interactive)
