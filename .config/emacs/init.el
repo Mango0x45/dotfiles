@@ -841,6 +841,12 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
     ("C-l" tempel-next)
     ("C-h" tempel-previous)))
 
+(with-eval-after-load 'yasnippet
+  (x-define-bindings
+    :map yas-minor-mode-map
+    ("C-l" (λi (when (yas-current-field) (yas-next-field))))
+    ("C-h" (λi (when (yas-current-field) (yas-prev-field))))))
+
 (defun x-tetris-rotate-mirror ()
   (interactive)
   (tetris-rotate-next)
