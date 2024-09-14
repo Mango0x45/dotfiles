@@ -403,6 +403,8 @@ indentation-width.")
 
 ;;; Tree-Sitter
 (when (treesit-available-p)
+  (x-set treesit-font-lock-level 4)
+
   (setq treesit-language-source-alist
         '((cpp        "https://github.com/tree-sitter/tree-sitter-cpp")
           (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
