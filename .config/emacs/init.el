@@ -267,16 +267,15 @@ tabs, regardless of the value of ‘indent-tabs-mode’."
 
 ;;; Completions
 ;; Disable corfu for now (it’s causing Emacs to crash)
-(x-comment
-  (use-package corfu
-    :hook ((prog-mode . corfu-mode))
-    :custom
-    (corfu-auto t)
-    (corfu-cycle t)
-    (corfu-auto-prefix 1)
-    (corfu-auto-delay 0)))
+(use-package corfu
+  :hook ((prog-mode . corfu-mode))
+  :custom
+  (corfu-auto t)
+  (corfu-cycle t)
+  (corfu-auto-prefix 1)
+  (corfu-auto-delay 0))
 
-(use-package company
+(x-comment (use-package company
   :init
   (with-eval-after-load 'eglot
     (add-hook 'eglot-managed-mode-hook #'company-mode))
@@ -295,7 +294,7 @@ begin with ‘company-prefix’."
                        company-preview-frontend
                        company-echo-metadata-frontend))
   (company-transformers '(x-company-require-prefix
-                          company-sort-by-backend-importance)))
+                          company-sort-by-backend-importance))))
 
 ;;; Increment- and Decrement Numbers
 (defun x-increment-number-at-point (&optional arg)
