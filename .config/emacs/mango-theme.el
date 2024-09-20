@@ -24,6 +24,7 @@ graphically, so I shouldn’t need to have multiple specs per face.
   '((foreground       "#C5C8C6")
     (background       "#2B303B")
     (background-cool  "#363C4A")
+    (background-dark  "#1D2635")
     (background-faint "#414859")
     (middleground     "#4F5561")
     (disabled         "#999999")
