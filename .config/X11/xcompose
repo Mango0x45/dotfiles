@@ -245,8 +245,8 @@
 <Multi_key> <E> <semicolon> : "Ę" Eogonek
 <Multi_key> <i> <semicolon> : "į" iogonek
 <Multi_key> <I> <semicolon> : "Į" Iogonek
-<Multi_key> <o> <semicolon> : "ǫ" oogonek
-<Multi_key> <O> <semicolon> : "Ǫ" Oogonek
+<Multi_key> <o> <semicolon> : "ǫ" U01EB
+<Multi_key> <O> <semicolon> : "Ǫ" U01EA
 <Multi_key> <u> <semicolon> : "ų" uogonek
 <Multi_key> <U> <semicolon> : "Ų" Uogonek
 
