@@ -409,6 +409,7 @@ indentation-width.")
           (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
           (go         "https://github.com/tree-sitter/tree-sitter-go")
           (gomod      "https://github.com/camdencheek/tree-sitter-go-mod")
+          (gsp        "git://git.thomasvoss.com/tree-sitter-gsp.git")
           (html       "https://github.com/tree-sitter/tree-sitter-html")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript")))
 
