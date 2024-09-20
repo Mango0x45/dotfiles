@@ -1,0 +1,63 @@
+#!/bin/sh
+
+ssid="$(
+	nmcli -g SSID,RATE,BARS device wifi list \
+	| gawk '
+		function conncmp(i1, v1, i2, v2)
+		{
+			if (v1[SGNL] != v2[SGNL])
+				return v2[SGNL] - v1[SGNL]	
+			if (v1[RATE] != v2[RATE])
+				return v2[RATE] - v1[RATE]
+			if (v1[SSID] > v2[SSID])
+				return +1
+			if (v1[SSID] < v2[SSID])
+				return -1
+			return 0
+		}
+
+		BEGIN {
+			FPAT = "([^:\\\\]|\\\\[:\\\\])+"
+
+			SGNL = 1
+			RATE = 2
+			SSID = 3
+
+			ICON[1] = "󰤟"
+			ICON[2] = "󰤢"
+			ICON[3] = "󰤥"
+			ICON[4] = "󰤨"
+		}
+
+		/^:/ { next }
+
+		$3 == "▂___" { conns[NR][SGNL] = 1 }
+		$3 == "▂▄__" { conns[NR][SGNL] = 2 }
+		$3 == "▂▄▆_" { conns[NR][SGNL] = 3 }
+		$3 == "▂▄▆█" { conns[NR][SGNL] = 4 }
+
+		{
+			rate = substr($2, 1, index($2, " ") - 1)
+			conns[NR][RATE] = rate
+			conns[NR][SSID] = $1
+		}
+
+		END {
+			asort(conns, conns, "conncmp")
+			for (i in conns) {
+				printf "%s\t%s (%s Mb/s)\n", \
+					ICON[conns[i][SGNL]], conns[i][SSID], conns[i][RATE]
+			}
+		}
+	' \
+	| fuzzel -d -p 'SSID → '\
+	| sed -E 's/[^\t]+\t(.*) \([0-9]+ Mb\/s\)/\1/'
+)"
+
+# nmcli connection up id "$ssid" && exit 0
+nmcli device wifi connect "$ssid"
+if test $? -eq 4
+then
+	passwd="$(fuzzel -d -l0 -P0 --password --prompt 'Password → ')" || exit 1
+	nmcli device wifi connect "$ssid" password "$passwd"
+fi
