@@ -2,10 +2,10 @@
 
 while :
 do
-	{
-		date +'%A, %-d of %B %Y — %T %Z'
-		TZ='Asia/Kolkata' date +'(%T %Z)'
-	} | paste -sd ' '
-	# date +'%A, %-d of %B %Y — %T %Z'
+	# {
+	# 	date +'%A, %-d of %B %Y — %T %Z'
+	# 	TZ='Asia/Kolkata' date +'(%T %Z)'
+	# } | paste -sd ' '
+	date +'%A, %-d of %B %Y — %T %Z'
 	sleep "$(date +'%s.%N' | dc -e '? d 1 + 1 / r - p')"
 done | ordinal -p1
