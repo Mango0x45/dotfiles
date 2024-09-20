@@ -169,10 +169,10 @@ require 'paq' {
 	'hrsh7th/cmp-nvim-lsp',
 	'hrsh7th/cmp-path',
 	'hrsh7th/nvim-cmp',
-	'https://git.sr.ht/~mango/tree-sitter-gsp',
 	'kylechui/nvim-surround',
 	'L3MON4D3/LuaSnip',
 	'luckasRanarison/tree-sitter-hypr',
+	'Mango0x45/tree-sitter-gsp',
 	'mattn/emmet-vim',
 	'neovim/nvim-lspconfig',
 	'ngalaiko/tree-sitter-go-template',
@@ -262,7 +262,7 @@ require('todo-comments').setup {
 local treeconfs = require('nvim-treesitter.parsers').get_parser_configs()
 treeconfs.gsp = {
 	install_info = {
-		url = 'https://git.sr.ht/~mango/tree-sitter-gsp',
+		url = 'https://github.com/Mango0x45/tree-sitter-gsp',
 		files = { 'src/parser.c' },
 	},
 	filetype = 'gsp',
