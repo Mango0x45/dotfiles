@@ -91,7 +91,7 @@ bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
-__bind(C, foot ec)
+__bind(C, ec)
 __bind(E, emacsclient -ca emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
