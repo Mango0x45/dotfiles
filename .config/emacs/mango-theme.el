@@ -122,10 +122,10 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :background ,(mango-theme--get-color 'background-cool))
   (magit-diff-hunk-heading-highlight
    :background ,(mango-theme--get-color 'middleground))
-  (magit-diff-context-highlight
-   :inherit hl-line)
-  (magit-section-highlight
-   :inherit hl-line)
+  ;; (magit-diff-context-highlight
+  ;;  :inherit hl-line)
+  ;; (magit-section-highlight
+  ;;  :inherit hl-line)
 
   (git-commit-summary
    :foreground ,(mango-theme--get-color 'khaki))
