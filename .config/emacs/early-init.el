@@ -53,6 +53,8 @@
   backup-directory-alist `(("." . ,(expand-file-name
                                     "backups" x-cache-directory))))
 
+(push x-config-directory load-path)
+
 (when (native-comp-available-p)
   (startup-redirect-eln-cache
    (expand-file-name (expand-file-name "eln/" x-cache-directory))))
