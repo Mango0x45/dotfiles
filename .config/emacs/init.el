@@ -871,6 +871,11 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
     ("a" eglot-code-actions)
     ("r" eglot-rename)))
 
+;;; Context-Specific Modes
+(dolist (mode '(c-mode c-ts-mode go-ts-mode))
+  (add-hook (x-mode-to-hook mode) #'electric-pair-local-mode)
+  (add-hook (x-mode-to-hook mode) #'electric-quote-local-mode))
+
 ;;; Emacs Calculator
 (setq
  calc-display-trail nil
