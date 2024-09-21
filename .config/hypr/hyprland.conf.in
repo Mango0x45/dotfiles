@@ -96,7 +96,7 @@ __bind(E, emacsclient -ca emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
 __bind(return, foot)
-__bind(space, fuzzel --log-level=warning --show-actions)
+__bind(space, fuzzel -I --log-level=warning --show-actions)
 __bind(     , print, scst)
 __bind(SHIFT, print, scst -f)
 
