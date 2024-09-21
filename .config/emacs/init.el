@@ -107,7 +107,7 @@ it convenient to use in ‘thread-last’."
 (pixel-scroll-precision-mode)
 
 (x-set show-paren-delay 0)
-(dolist (hook '(conf-mode-hook prog-mode-hook))
+(dolist (hook '(conf-mode-hook prog-mode-hook helpful-mode-hook))
   (add-hook hook #'show-paren-local-mode))
 
 (x-set read-extended-command-predicate
