@@ -455,18 +455,12 @@ existing grammars."
      (λ (add-hook 'completion-at-point-functions
                   #'tempel-complete -10 :local)))))
 
-;; NOTE: This will be removed eventually, it’s only here until
-;; eglot-tempel is fixed.
-(use-package yasnippet
-  :after eglot)
-
-(x-comment
-  (use-package eglot-tempel
-    :init
-    (with-eval-after-load 'eglot
-      (add-hook 'eglot-managed-mode-hook
-                (λ (unless (default-value eglot-tempel-mode)
-                     (eglot-tempel-mode)))))))
+(use-package eglot-tempel
+  :init
+  (with-eval-after-load 'eglot
+    (add-hook 'eglot-managed-mode-hook
+              (λ (unless (default-value eglot-tempel-mode)
+                   (eglot-tempel-mode))))))
 
 ;;; Automatically Create Directories
 (defun x-auto-create-directories (original-function filename &rest arguments)
