@@ -308,12 +308,14 @@ preserved."
 
 (defvar x-indentation-settings
   '((c-mode            :extra-vars (c-basic-offset))
+    (c-ts-mode         :extra-vars (c-ts-mode-indent-offset))
     (css-mode          :extra-vars (css-indent-offset))
-    (emacs-lisp-mode   :spaces t)
+    (emacs-lisp-mode   :width 8 :spaces t) ;; GNU code uses 8-column tabs
     (go-ts-mode        :extra-vars (go-ts-mode-indent-offset))
     (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
-    (lisp-mode         :spaces t)
+    (helpful-mode      :width 8)
     (lisp-data-mode    :spaces t)
+    (lisp-mode         :spaces t)
     (org-mode          :spaces t)
     (python-mode       :extra-vars (python-indent-offset))
     (sgml-mode         :width 2 :extra-vars (sgml-basic-offset))
