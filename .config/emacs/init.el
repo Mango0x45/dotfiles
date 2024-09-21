@@ -872,7 +872,11 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
     ("r" eglot-rename)))
 
 ;;; Emacs Calculator
-(setq calc-display-trail nil)
+(setq
+ calc-display-trail nil
+ calc-point-char ","
+ calc-group-char "."
+ calc-group-digits t)
 
 ;;; Emacs Tetris
 (use-package tetris
