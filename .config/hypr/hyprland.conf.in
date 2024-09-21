@@ -91,7 +91,7 @@ bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
-__bind(C, ec)
+__bind(C, emacsclient -e '(popup-command-full-calc)')
 __bind(E, emacsclient -ca emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
@@ -190,7 +190,3 @@ bindm = $modkey, mouse:273, resizewindow
 windowrulev2 = float,        class:^(org\.pwmt\.zathura)$
 windowrulev2 = size 50% 90%, class:^(org\.pwmt\.zathura)$
 windowrulev2 = center,       class:^(org\.pwmt\.zathura)$
-
-windowrulev2 = float,        class:^(Emacs)$, title:^(ec)$
-windowrulev2 = size 50% 50%, class:^(Emacs)$, title:^(ec)$
-windowrulev2 = center,       class:^(Emacs)$, title:^(ec)$
