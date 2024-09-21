@@ -359,26 +359,29 @@ indentation-width.")
 (x-set-indentation-settings)
 
 ;;; Git Integration
-(use-package magit
-  :custom
-  (magit-display-buffer-function
-   #'magit-display-buffer-same-window-except-diff-v1))
+(x-comment
+  (use-package magit
+    :custom
+    (magit-display-buffer-function
+     #'magit-display-buffer-same-window-except-diff-v1)))
 
-(use-package magit-todos
-  :after magit
-  :init (magit-todos-mode)
-  :custom
-  (magit-todos-exclude-globs '(".git/" "vendor/")))
+(x-comment
+  (use-package magit-todos
+    :after magit
+    :init (magit-todos-mode)
+    :custom
+    (magit-todos-exclude-globs '(".git/" "vendor/"))))
 
-(defun x-magit-status ()
-  (interactive)
-  (thread-last
-    (project-current t)
-    (project-root)
-    (magit-status)))
+(x-comment
+  (defun x-magit-status ()
+    (interactive)
+    (thread-last
+      (project-current t)
+      (project-root)
+      (magit-status)))
 
-(require 'project)
-(add-to-list 'project-switch-commands '(x-magit-status "Git status" ?g))
+  (require 'project)
+  (add-to-list 'project-switch-commands '(x-magit-status "Git status" ?g)))
 
 ;;; Tree-Sitter
 (when (treesit-available-p)
@@ -848,9 +851,9 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
   ("a" x-evil-align-regexp)
   ("s" x-evil-sort-lines)
 
-  :normal
-  :prefix "g"
-  ("g" magit-status)
+  ;; :normal
+  ;; :prefix "g"
+  ;; ("g" magit-status)
 
   :normal
   :prefix "h"
