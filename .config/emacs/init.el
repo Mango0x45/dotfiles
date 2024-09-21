@@ -413,7 +413,9 @@ existing grammars."
   (thread-last
     (mapcar #'car treesit-language-source-alist)
     (seq-remove #'treesit-language-available-p)
-    (mapc #'treesit-install-language-grammar)))
+    (mapc #'treesit-install-language-grammar))
+
+  (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c-ts-mode)))
 
 ;;; Language Server Protocol
 (use-package eglot
