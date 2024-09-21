@@ -719,6 +719,19 @@ a semicolon following a return statement."
 (with-eval-after-load 'tempel
   (push (cons tempel-path #'lisp-data-mode) auto-mode-alist))
 
+;;; Popup Windows
+(require 'popup)
+(popup-define full-calc)
+(use-package calc
+  :ensure nil
+  :config
+  (defun x-calc-quit ()
+    (interactive)
+    (if (popupp)
+        (delete-frame)
+      (calc-quit :non-fatal)))
+  (evil-define-key 'normal 'calc-mode-map "q" #'x-calc-quit))
+
 ;;; Keybindings
 (defmacro x-define-bindings (&rest body)
   (declare (indent 0))
