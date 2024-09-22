@@ -363,6 +363,32 @@ indentation-width.")
                           (x-mode-to-hook (x-mode-to-ts-mode mode))))
 		(add-hook hook callback 95)))))
 
+(defun x-set-tabsize ()
+  "Set the tabsize for the current buffer.  If the current buffers major
+mode requires settings additional variables, those should be listed in
+`x-indentation-settings'."
+  (interactive)
+  (let* ((major-mode-2
+          (if (string-match-p "-ts-mode\\'" (symbol-name major-mode))
+              (x-ts-mode-to-mode major-mode)
+            (x-mode-to-ts-mode major-mode)))
+         (prompt-default (number-to-string (default-value 'tab-width)))
+         (tabsize (string-to-number
+                   (read-string
+                    (format-prompt "Tabsize" prompt-default)
+                    nil nil prompt-default))))
+    (setq-local
+     tab-width tabsize
+     evil-shift-width tabsize)
+    (dolist (plist x-indentation-settings)
+      (let ((mode (car plist))
+            (extra (plist-get (cdr plist) :extra-vars)))
+        (when (or (eq mode major-mode)
+                  (eq mode major-mode-2))
+          (mapc (lambda (var)
+                  (set (make-local-variable var) tabsize))
+                extra))))))
+
 (x-set-indentation-settings)
 
 ;;; Git Integration
