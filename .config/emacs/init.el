@@ -881,7 +881,15 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
     ("o"   x-tetris-rotate-mirror)
     ("SPC" tetris-move-bottom)))
 
+(defun x-dired-in-current-directory ()
+  "Open `dired' in the current directory."
+  (interactive)
+  (dired default-directory))
+
 (x-define-evil-bindings
+  :normal
+  ("d" x-dired-in-current-directory)
+
   :normal&visual
   ("a" x-evil-align-regexp)
   ("s" x-evil-sort-lines)
