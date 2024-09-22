@@ -670,20 +670,13 @@ ligatures for `c-ts-mode', the following two entries could be added:
   (global-ligature-mode))
 
 ;;; Set Project List
-(defun x-set-project-list ()
-  (interactive)
-  (when-let ((no-dotfiles "\\`[^.]")
-             (repo-directory (getenv "REPODIR"))
-             (level-1 (directory-files repo-directory :full no-dotfiles)))
-    (setq
-     project--list
-     (cl-loop for directory in level-1
-              append (mapcar #'list (directory-files
-                                     directory :full no-dotfiles))))
-    (project--write-project-list)))
-
-(with-eval-after-load 'project
-  (x-set-project-list))
+(use-package project
+  :ensure nil
+  :custom
+  (project-remember-projects-under
+   (or (getenv "REPODIR")
+       (expand-file-name "code/repo" (getenv "HOME")))
+   :recursive))
 
 ;;; C-Style
 (setq-default
