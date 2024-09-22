@@ -68,6 +68,13 @@ BODY directly after ‘(interactive)’."
            (string-remove-suffix "-mode" (symbol-name mode))
            "-ts-mode")))
 
+(defun x-ts-mode-to-mode (ts-mode)
+  "Get the non-tree-sitter mode corresponding to TS-MODE."
+  (declare (pure t) (side-effect-free t))
+  (intern (concat
+           (string-remove-suffix "-ts-mode" (symbol-name ts-mode))
+           "-mode")))
+
 (defun x-string-split (separators string)
   "Wrapper around ‘string-split' that puts SEPARATORS first.  This makes
 it convenient to use in ‘thread-last’."
