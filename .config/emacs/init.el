@@ -392,28 +392,27 @@ mode requires settings additional variables, those should be listed in
 (x-set-indentation-settings)
 
 ;;; Git Integration
-(x-comment
-  (use-package magit
-    :custom
-    (magit-display-buffer-function
-     #'magit-display-buffer-same-window-except-diff-v1)))
+(use-package magit
+  :custom
+  (magit-display-buffer-function
+   #'magit-display-buffer-same-window-except-diff-v1))
 
-(x-comment
-  (use-package magit-todos
-    :after magit
-    :init (magit-todos-mode)
-    :custom
-    (magit-todos-exclude-globs '(".git/" "vendor/"))))
+(use-package magit-todos
+  :after magit
+  :init (magit-todos-mode)
+  :custom
+  (magit-todos-exclude-globs '(".git/" "vendor/")))
 
-(x-comment
-  (defun x-magit-status ()
-    (interactive)
-    (thread-last
-      (project-current t)
-      (project-root)
-      (magit-status)))
+(defun x-magit-status ()
+  (interactive)
+  (thread-last
+    (project-current t)
+    (project-root)
+    (magit-status)))
 
-  (require 'project)
+(use-package project
+  :ensure nil
+  :custom
   (add-to-list 'project-switch-commands '(x-magit-status "Git status" ?g)))
 
 ;;; Tree-Sitter
@@ -887,9 +886,9 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
   ("a" x-evil-align-regexp)
   ("s" x-evil-sort-lines)
 
-  ;; :normal
-  ;; :prefix "g"
-  ;; ("g" magit-status)
+  :normal
+  :prefix "g"
+  ("s" magit-status)
 
   :normal
   :prefix "h"
