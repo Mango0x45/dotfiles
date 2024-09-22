@@ -606,15 +606,16 @@ font name, font weight, and font height in that order.")
 
 ;; Setup ligatures
 (use-package ligature
+  :defer nil
   :if
   (and (seq-contains-p (split-string system-configuration-features) "HARFBUZZ")
        (display-graphic-p))
   :init
   (defvar x-ligatures-alist
-    '(((c-mode c-ts-mode go-ts-mode) . ("<=" ">=" "==" "!=" "*=" "__"))
-      (c-mode c-ts-mode              . ("->"))
-      (go-ts-mode                    . (":=" "<-"))
-      ((html-mode html-ts-mode)      . ("<!--" "-->" "/>")))
+    '(((c-mode c-ts-mode go-ts-mode)       . ("<=" ">=" "==" "!=" "*=" "__"))
+      (c-mode c-ts-mode                    . ("->"))
+      (go-ts-mode                          . (":=" "<-"))
+      ((mhtml-mode html-mode html-ts-mode) . ("<!--" "-->" "/>")))
     "Ligatures to enable in specific modes.
 Elements of this alist are of the form:
 
