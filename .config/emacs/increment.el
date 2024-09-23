@@ -45,35 +45,35 @@ the number at point has leading zeros then the width of the number is
 preserved."
   (interactive "*p")
   (save-match-data
-    (let* (hex-style
-           (case-fold-search nil)
-           (base (cond
-                  ((thing-at-point-looking-at
-                    "\\(-\\|\\b\\)0x\\(0*\\)\\([0-9a-f]+\\)\\b")
-                   (setq hex-style 'lower)
-                   16)
-                  ((thing-at-point-looking-at
-                    "\\(-\\|\\b\\)0x\\(0*\\)\\([0-9A-Fa-f]+\\)\\b")
-                   16)
-                  ((thing-at-point-looking-at
-                    "\\(-?\\)\\(0*\\)\\([0-9]+\\)")
-                   10)
-                  ((thing-at-point-looking-at
-                    "\\(-\\|\\b\\)0o\\(0*\\)\\([0-7]+\\)\\b")
-                   8)
-                  ((thing-at-point-looking-at
-                    "\\(-\\|\\b\\)0b\\(0*\\)\\([01]+\\)\\b")
-                   2)))
-           (substr (buffer-substring-no-properties (match-beginning 3)
-                                                   (match-end 3)))
-           (sign (if (= (match-beginning 1) (match-end 1)) +1 -1))
-           (result (+ (* (string-to-number substr base) sign)
-                      (or arg 1))))
-      (replace-match (increment--format-number-with-base
-                      result base
-                      (- (match-end 2)
-                         (match-beginning 2))
-                      substr hex-style)))))
+    (let (hex-style case-fold-search)
+      (when-let* ((base
+                   (cond
+                    ((thing-at-point-looking-at
+                      "\\(-\\|\\b\\)0x\\(0*\\)\\([0-9a-f]+\\)\\b")
+                     (setq hex-style 'lower)
+                     16)
+                    ((thing-at-point-looking-at
+                      "\\(-\\|\\b\\)0x\\(0*\\)\\([0-9A-Fa-f]+\\)\\b")
+                     16)
+                    ((thing-at-point-looking-at
+                      "\\(-?\\)\\(0*\\)\\([0-9]+\\)")
+                     10)
+                    ((thing-at-point-looking-at
+                      "\\(-\\|\\b\\)0o\\(0*\\)\\([0-7]+\\)\\b")
+                     8)
+                    ((thing-at-point-looking-at
+                      "\\(-\\|\\b\\)0b\\(0*\\)\\([01]+\\)\\b")
+                     2)))
+                  (substr (buffer-substring-no-properties
+                           (match-beginning 3) (match-end 3)))
+                  (sign (if (= (match-beginning 1) (match-end 1)) +1 -1))
+                  (result (+ (* (string-to-number substr base) sign)
+                             (or arg 1))))
+        (replace-match (increment--format-number-with-base
+                        result base
+                        (- (match-end 2)
+                           (match-beginning 2))
+                        substr hex-style))))))
 
 ;;;###autoload
 (defun decrement-number-at-point (&optional arg)
