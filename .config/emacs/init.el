@@ -160,7 +160,13 @@ it convenient to use in ‘thread-last’."
             #'backward-delete-char)
 
 ;;; Documentation Improvements
-(use-package helpful)
+(use-package helpful
+  :bind (([remap describe-command]  . helpful-command)
+         ([remap describe-function] . helpful-callable)
+         ([remap describe-key]      . helpful-key)
+         ([remap describe-symbol]   . helpful-symbol)
+         ([remap describe-variable] . helpful-variable)
+         (("C-h C-p" . helpful-at-point))))
 
 ;;; Vim Emulation
 (use-package evil
@@ -931,13 +937,6 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
   :normal
   :prefix "g"
   ("s" magit-status)
-
-  :normal
-  :prefix "h"
-  ("f" helpful-callable)
-  ("s" helpful-symbol)
-  ("k" helpful-key)
-  ("p" helpful-at-point)
 
   :normal&visual
   :prefix "n"
