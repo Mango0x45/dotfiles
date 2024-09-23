@@ -28,7 +28,6 @@
                                ("nongnu" . 2)
                                ("melpa"  . 1))
   package-user-dir (expand-file-name "pkg" x-data-directory))
-
 (package-initialize)
 
 (eval-and-compile
