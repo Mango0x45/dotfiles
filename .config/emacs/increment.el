@@ -1,5 +1,48 @@
 ;;; increment.el -- Increment numbers at point  -*- lexical-binding: t; -*-
 
+(require 'cl-macs)
+
+(defvar increment--binary-number-regexp
+  (rx (group (or ?- word-start))
+      "0b"
+      (group (* ?0))
+      (group (+ (any "01")))
+      word-end))
+
+(defvar increment--octal-number-regexp
+  (rx (group (or ?- word-start))
+      "0o"
+      (group (* ?0))
+      (group (+ (any "0-7")))
+      word-end))
+
+(defvar increment--decimal-number-regexp
+  (rx (group (? ?-))
+      (group (* ?0))
+      (group (+ (any digit)))))
+
+(defvar increment--hexadecimal-number-regexp
+  (rx (group (or ?- word-start))
+      "0x"
+      (group (* ?0))
+      (group (+ (any hex-digit)))
+      word-end))
+
+(defvar increment--hexadecimal-lower-number-regexp
+  (rx (group (or ?- word-start))
+      "0o"
+      (group (* ?0))
+      (group (+ (any "0-9a-f")))
+      word-end))
+
+(defvar increment--number-regexp
+  (rx (or (seq (or ?- word-start)
+               (or (seq "0b" (+ (any "01")))
+                   (seq "0o" (+ (any "0-7")))
+                   (seq "0x" (+ (any hex-digit))))
+               word-end)
+          (seq (? ?-) (+ (any digit))))))
+
 (defun increment--number-to-binary-string (number)
   (let (s)
     (while (not (= number 0))
@@ -37,43 +80,52 @@
        (make-string leading-zeros ?0))
      number-string)))
 
+(defun increment--match-number-at-point ()
+  (cond ((thing-at-point-looking-at
+          increment--binary-number-regexp)
+         (cons 2 nil))
+        ((thing-at-point-looking-at
+          increment--octal-number-regexp)
+         (cons 8 nil))
+        ((thing-at-point-looking-at
+          increment--hexadecimal-number-regexp)
+         (cons 16 nil))
+        ((thing-at-point-looking-at
+          increment--hexadecimal-lower-number-regexp)
+         (cons 16 'lower))
+        ((thing-at-point-looking-at
+          increment--decimal-number-regexp)
+         (cons 10 nil))))
+
 ;;;###autoload
-(defun increment-number-at-point (&optional arg)
+(cl-defun increment-number-at-point (&optional arg)
   "Increment the number at point by ARG or 1 if ARG is nil.  If called
 interactively, the universal argument can be used to specify ARG.  If
 the number at point has leading zeros then the width of the number is
 preserved."
   (interactive "*p")
   (save-match-data
-    (let (hex-style case-fold-search)
-      (when-let* ((base
-                   (cond
-                    ((thing-at-point-looking-at
-                      "\\(-\\|\\b\\)0x\\(0*\\)\\([0-9a-f]+\\)\\b")
-                     (setq hex-style 'lower)
-                     16)
-                    ((thing-at-point-looking-at
-                      "\\(-\\|\\b\\)0x\\(0*\\)\\([0-9A-Fa-f]+\\)\\b")
-                     16)
-                    ((thing-at-point-looking-at
-                      "\\(-?\\)\\(0*\\)\\([0-9]+\\)")
-                     10)
-                    ((thing-at-point-looking-at
-                      "\\(-\\|\\b\\)0o\\(0*\\)\\([0-7]+\\)\\b")
-                     8)
-                    ((thing-at-point-looking-at
-                      "\\(-\\|\\b\\)0b\\(0*\\)\\([01]+\\)\\b")
-                     2)))
-                  (substr (buffer-substring-no-properties
-                           (match-beginning 3) (match-end 3)))
-                  (sign (if (= (match-beginning 1) (match-end 1)) +1 -1))
-                  (result (+ (* (string-to-number substr base) sign)
-                             (or arg 1))))
-        (replace-match (increment--format-number-with-base
-                        result base
-                        (- (match-end 2)
-                           (match-beginning 2))
-                        substr hex-style))))))
+    (let* (case-fold-search
+           (match-pair (increment--match-number-at-point)))
+      (unless match-pair
+        (let ((save-point (point)))
+          (unless (re-search-forward
+                   increment--number-regexp
+                   (line-end-position) :noerror)
+            (goto-char save-point)
+            (cl-return-from increment-number-at-point))
+          (setq match-pair (increment--match-number-at-point))))
+      (let* ((base      (car match-pair))
+             (hex-style (cdr match-pair))
+             (substr (buffer-substring-no-properties
+                      (match-beginning 3) (match-end 3)))
+             (sign (if (= (match-beginning 1) (match-end 1)) +1 -1))
+             (result (+ (* (string-to-number substr base) sign)
+                        (or arg 1))))
+        (replace-match
+         (increment--format-number-with-base
+          result base (- (match-end 2) (match-beginning 2))
+          substr hex-style))))))
 
 ;;;###autoload
 (defun decrement-number-at-point (&optional arg)
