@@ -208,8 +208,37 @@ it convenient to use in ‘thread-last’."
     :restore-point t
     (sort-lines nil start end)))
 
+(defmacro x-evil-define-and-bind-quoted-text-object (name key start-regexp end-regexp)
+  (let ((inner-name (make-symbol (concat "evil-inner-" name)))
+        (outer-name (make-symbol (concat "evil-a-"     name))))
+    `(progn
+       (evil-define-text-object ,inner-name (count &optional beg end type)
+         (evil-select-paren ,start-regexp ,end-regexp beg end type count nil))
+       (evil-define-text-object ,outer-name (count &optional beg end type)
+         (evil-select-paren ,start-regexp ,end-regexp beg end type count :inclusive))
+       (define-key evil-inner-text-objects-map ,key #',inner-name)
+       (define-key evil-outer-text-objects-map ,key #',outer-name))))
+
+(defun x-evil-surround-function ()
+  "Read a function name from the minibuffer and index the list with the
+selection.  This is nearly identical to `evil-surround-function' except
+it provides a useful prompt, and is language-aware."
+  (let ((list-name
+         (or (evil-surround-read-from-minibuffer "Function name: ") "")))
+    (if (derived-mode-p #'(lisp-mode lisp-data-mode emacs-lisp-mode))
+        (cons (format "(%s " list-name) ")")
+      (cons (format "%s(" (or list-name "")) ")"))))
+
 (defun x-evil-surround-mode-if-evil-mode ()
+  "Enable `global-evil-surround-mode' if `evil-mode' is active, and
+disable it otherwise."
   (global-evil-surround-mode (unless (evil-mode) -1)))
+
+(defun x-evil-surround-list ()
+  "Read a list name from the minibuffer and index the list with the
+selection."
+  (let ((list-name (evil-surround-read-from-minibuffer "List name: ")))
+    (cons (format "%s[" (or list-name "")) "]")))
 
 (use-package evil-surround
   :after evil
@@ -217,37 +246,10 @@ it convenient to use in ‘thread-last’."
   :init
   (x-evil-surround-mode-if-evil-mode)
   :config
-  (defmacro x-evil-define-and-bind-quoted-text-object (name key start-regexp end-regexp)
-    (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-          (outer-name (make-symbol (concat "evil-a-"     name))))
-      `(progn
-         (evil-define-text-object ,inner-name (count &optional beg end type)
-           (evil-select-paren ,start-regexp ,end-regexp beg end type count nil))
-         (evil-define-text-object ,outer-name (count &optional beg end type)
-           (evil-select-paren ,start-regexp ,end-regexp beg end type count :inclusive))
-         (define-key evil-inner-text-objects-map ,key #',inner-name)
-         (define-key evil-outer-text-objects-map ,key #',outer-name))))
-
   (x-evil-define-and-bind-quoted-text-object "single-quote-open"  "‘" "‘" "’")
   (x-evil-define-and-bind-quoted-text-object "single-quote-close" "’" "‘" "’")
   (x-evil-define-and-bind-quoted-text-object "double-quote-open"  "“" "“" "”")
   (x-evil-define-and-bind-quoted-text-object "double-quote-open"  "“" "“" "”")
-
-  (defun x-evil-surround-function ()
-    "Read a function name from the minibuffer and index the list with
-the selection.  This is nearly identical to ‘evil-surround-function’
-except it provides a useful prompt, and is language-aware."
-    (let ((list-name (or (evil-surround-read-from-minibuffer "Function name: ")
-                         "")))
-      (if (derived-mode-p #'lisp-mode #'lisp-data-mode #'emacs-lisp-mode)
-          (cons (format "(%s " list-name) ")")
-        (cons (format "%s(" (or list-name "")) ")"))))
-
-  (defun x-evil-surround-list ()
-    "Read a list name from the minibuffer and index the list with the
-selection."
-    (let ((list-name (evil-surround-read-from-minibuffer "List name: ")))
-      (cons (format "%s[" (or list-name "")) "]")))
 
   (setq-default
    evil-surround-pairs-alist
@@ -847,18 +849,20 @@ a semicolon following a return statement."
                    (cdr body)))))
     (macroexp-progn result)))
 
-;; <Leader> and <LocalLeader>
+;; <leader> and <localleader>
 (evil-set-leader nil (kbd "SPC"))
 (evil-set-leader nil (kbd ",") :localleader)
 
 ;; Evil bindings that aren’t namespaced under ‘<leader>’
-(evil-define-key
-  '(normal visual) 'global "gc" #'x-evil-comment-or-uncomment-region)
+(evil-define-key '(normal visual) 'global
+  "gc" #'x-evil-comment-or-uncomment-region
+  "V" #'evil-visual-block)
+
 (let ((modes '(normal insert visual operator motion)))
-  (evil-define-key modes 'global (kbd "C-u") (λi (x-do-and-center #'evil-scroll-up 0)))
-  (evil-define-key modes 'global (kbd "C-d") (λi (x-do-and-center #'evil-scroll-down 0)))
-  (evil-define-key modes 'global (kbd "C-v") #'evil-visual-line)
-  (evil-define-key modes 'global (kbd "M-v") #'evil-visual-block))
+  (evil-define-key modes 'global
+    (kbd "C-u") (λi (x-do-and-center #'evil-scroll-up   0))
+    (kbd "C-d") (λi (x-do-and-center #'evil-scroll-down 0))
+    (kbd "C-v") #'evil-visual-line))
 
 (defun x-minibuffer-backward-kill (arg)
   "When minibuffer completing a filename, delete up to the parent folder,
