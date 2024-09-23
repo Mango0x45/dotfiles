@@ -958,10 +958,16 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
   :config
   (evil-define-key 'normal dired-mode-map "n" #'find-file))
 
+;;; Which-Key
 (use-package which-key
   :ensure nil
   :init
-  (which-key-mode))
+  (which-key-mode)
+  :custom
+  (which-key-popup-type 'minibuffer)
+  (which-key-dont-use-unicode nil)
+  (which-key-ellipsis "..")
+  (which-key-idle-delay 0.5))
 
 ;;; Context-Specific Modes
 (dolist (mode '(c-mode c-ts-mode go-ts-mode))
