@@ -1,1 +1,8 @@
 set database sqlite
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 1
+map <Space> navigate next
+map s snap_to_page
+map a adjust_window best-fit
+map A adjust_window width
