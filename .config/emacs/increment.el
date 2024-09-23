@@ -105,8 +105,8 @@ the number at point has leading zeros then the width of the number is
 preserved."
   (interactive "*p")
   (save-match-data
-    (let* (case-fold-search
-           (match-pair (increment--match-number-at-point)))
+    (let (case-fold-search
+          (match-pair (increment--match-number-at-point)))
       (unless match-pair
         (let ((save-point (point)))
           (unless (re-search-forward
