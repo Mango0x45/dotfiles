@@ -448,7 +448,9 @@ existing grammars."
     (seq-remove #'treesit-language-available-p)
     (mapc #'treesit-install-language-grammar))
 
-  (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c-ts-mode)))
+  (dolist (pair '(("\\.[ch]\\'" . c-ts-mode)
+                  ("\\.js\\'"   . js-ts-mode)))
+    (add-to-list 'auto-mode-alist pair)))
 
 ;;; Language Server Protocol
 (use-package eglot
