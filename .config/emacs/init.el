@@ -493,13 +493,14 @@ existing grammars."
   :pin gnu
   :custom
   (tempel-trigger-prefix ",")
-  (tempel-path (expand-file-name "templates" x-config-directory))
   :init
   (dolist (mode '(conf-mode prog-mode text-mode))
     (add-hook
      (x-mode-to-hook mode)
      (λ (add-hook 'completion-at-point-functions
-                  #'tempel-complete -10 :local)))))
+                  #'tempel-complete -10 :local))))
+  (x-set tempel-path (expand-file-name "templates" x-config-directory))
+  (push (cons tempel-path #'lisp-data-mode) auto-mode-alist))
 
 (use-package eglot-tempel
   :init
@@ -778,8 +779,6 @@ a semicolon following a return statement."
 
 (use-package vimscript-ts-mode)
 (push '("\\.go\\'" . go-ts-mode) auto-mode-alist)
-(with-eval-after-load 'tempel
-  (push (cons tempel-path #'lisp-data-mode) auto-mode-alist))
 
 ;;; Popup Windows
 (require 'popup)
