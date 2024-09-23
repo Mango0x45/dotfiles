@@ -360,9 +360,9 @@ indentation-width.")
                            evil-shift-width width)
                (dolist (var extra)
                  (set var width)))))
-      (dolist (hook (list (x-mode-to-hook mode)
-                          (x-mode-to-hook (x-mode-to-ts-mode mode))))
-		(add-hook hook callback 95)))))
+      (add-hook (x-mode-to-hook mode) callback 95)
+      (unless (string-prefix-p "-ts-mode" (symbol-name mode))
+        (add-hook (x-mode-to-hook (x-mode-to-ts-mode mode)) callback 95)))))
 
 (defun x-set-tabsize ()
   "Set the tabsize for the current buffer.  If the current buffers major
