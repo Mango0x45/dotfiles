@@ -296,30 +296,14 @@ selection."
   (corfu-auto-delay 0))
 
 ;;; Increment- and Decrement Numbers
-(defun x-increment-number-at-point (&optional arg)
-  "Increment the number at point by ARG or 1 if ARG is nil.  If called
-interactively, the universal argument can be used to specify ARG.  If
-the number at point has leading zeros then the width of the number is
-preserved."
-  (interactive "*p")
-  (save-excursion
-    (skip-chars-backward "0123456789")
-    (when (eq (char-before (point)) ?-)
-      (goto-char (1- (point))))
-    (save-match-data
-      (when (re-search-forward "-?\\([0-9]+\\)" nil :noerror)
-        (let ((answer (+ (string-to-number (match-string 0) 10)
-                         (or arg 1)))
-              (width (length (match-string 1))))
-          (replace-match
-           (format
-            (concat "%0" (int-to-string (if (< answer 0) (1+ width) width)) "d")
-            answer)))))))
-
-(defun x-decrement-number-at-point (&optional arg)
-  "The same as ‘x-increment-number-at-point’, but ARG is negated."
-  (interactive "*p")
-  (x-increment-number-at-point (- (or arg 1))))
+(use-package increment
+  :ensure nil
+  :commands (increment-number-at-point
+             decrement-number-at-point)
+  :init
+  (evil-define-key '(normal visual) 'global
+    (kbd "<leader> n i") #'increment-number-at-point
+    (kbd "<leader> n d") #'decrement-number-at-point))
 
 ;;; Indentation Settings
 (setq-default
@@ -939,12 +923,7 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
 
   :normal
   :prefix "g"
-  ("s" magit-status)
-
-  :normal&visual
-  :prefix "n"
-  ("d" x-decrement-number-at-point)
-  ("i" x-increment-number-at-point))
+  ("s" magit-status))
 
 (with-eval-after-load 'eglot
   (x-define-evil-bindings
