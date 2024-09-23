@@ -91,6 +91,14 @@ it convenient to use in ‘thread-last’."
   (declare (indent 0))
   nil)
 
+(defmacro x-with-suppressed-output (&rest body)
+  "Execute BODY while suppressing output to the echo area or the
+*Messages* buffer."
+  (declare (indent 0))
+  `(let ((inhibit-message t)
+         (message-log-max nil))
+    ,@body))
+
 ;;; Rational Defaults
 (prefer-coding-system 'utf-8)
 (savehist-mode)
@@ -417,18 +425,6 @@ mode requires settings additional variables, those should be listed in
   :custom
   (magit-todos-exclude-globs '(".git/" "vendor/")))
 
-(defun x-magit-status ()
-  (interactive)
-  (thread-last
-    (project-current t)
-    (project-root)
-    (magit-status)))
-
-(use-package project
-  :ensure nil
-  :custom
-  (add-to-list 'project-switch-commands '(x-magit-status "Git status" ?g)))
-
 ;;; Tree-Sitter
 (when (treesit-available-p)
   (x-set treesit-font-lock-level 4)
@@ -685,31 +681,28 @@ ligatures for `c-ts-mode', the following two entries could be added:
   (x-set-ligatures)
   (global-ligature-mode))
 
-;;; Set Project List
-;; (defun x-project-root-override (directory)
-;;   "Find the project root of DIRECTORY.  This function works under the
-;; assumption that projects are stored under $REPODIR in the format
-;; OWNER/PROJECT.  This would mean for example that Emacs would be located
-;; under $REPODIR/GNU/Emacs."
-;;   (when-let* ((repo-dir (getenv "REPODIR"))
-;;               (canonical (f-canonical directory))
-;;               (canonical-parts (f-split canonical))
-;;               (length-dir-parts (length canonical-parts))
-;;               (length-repo-parts (length (f-split repo-dir)))
-;;               (projectp (and (string-prefix-p repo-dir canonical)
-;;                              (>= length-dir-parts (+ length-repo-parts 2)))))
-;;     (list
-;;      'vc
-;;      (ignore-errors (vc-responsible-backend canonical))
-;;      (apply #'f-join (take (+ length-repo-parts 2) canonical-parts)))))
+;;; Projects
+(defun x-project-magit-status ()
+  "Open a Git status buffer for the currently selected project.  This is
+intended to be used in `project-switch-commands'."
+  (interactive)
+  (thread-last
+    (project-current t)
+    (project-root)
+    (magit-status)))
 
 (use-package project
   :ensure nil
   :defer nil
   :config
-  ;; (add-hook 'project-find-functions #'x-project-root-override)
-  (mapc #'project-remember-projects-under
-        (directory-files (getenv "REPODIR") :full "\\`[^.]")))
+  (x-with-suppressed-output
+    (mapc #'project-remember-projects-under
+          (directory-files (getenv "REPODIR") :full "\\`[^.]")))
+  (x-set project-switch-commands
+         '((project-dired "Dired")
+           (project-find-file "Find File")
+           (project-find-regexp "Find Regexp")
+           (x-project-magit-status "Git Status" ?s))))
 
 ;;; C-Style
 (setq-default
