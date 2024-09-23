@@ -320,7 +320,7 @@ preserved."
     (emacs-lisp-mode   :width 8 :spaces t) ;; GNU code uses 8-column tabs
     (go-ts-mode        :extra-vars (go-ts-mode-indent-offset))
     (graphviz-dot-mode :extra-vars (graphviz-dot-indent-width))
-    (gsp-ts-mode       :width 2)
+    (gsp-ts-mode       :width 2 :extra-vars (gsp-ts-indent-rules))
     (helpful-mode      :width 8)
     (lisp-data-mode    :spaces t)
     (lisp-mode         :spaces t)
