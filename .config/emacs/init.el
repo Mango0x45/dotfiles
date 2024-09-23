@@ -582,7 +582,6 @@ related hooks."
 
 ;;; User Interface Themeing
 (load-theme 'mango :no-confirm)
-(set-fringe-style (cons 32 32))
 
 (defvar x-alpha-background 90
   "The opacity of a graphical Emacs frame, ranging from 0–100.  A value
