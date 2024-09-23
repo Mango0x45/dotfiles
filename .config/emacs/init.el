@@ -965,7 +965,6 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
   :init
   (which-key-mode)
   :custom
-  (which-key-popup-type 'minibuffer)
   (which-key-dont-use-unicode nil)
   (which-key-ellipsis "..")
   (which-key-idle-delay 0.5))
