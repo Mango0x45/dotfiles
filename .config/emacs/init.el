@@ -396,7 +396,20 @@ mode requires settings additional variables, those should be listed in
 (use-package magit
   :custom
   (magit-display-buffer-function
-   #'magit-display-buffer-same-window-except-diff-v1))
+   #'magit-display-buffer-same-window-except-diff-v1)
+  :config
+  (transient-define-suffix x-magit-push-current-to-all-remotes (args)
+    "Push the current branch to all remotes."
+    :if #'magit-get-current-branch
+    (interactive (list (magit-push-arguments)))
+    (run-hooks 'magit-credential-hook)
+    (let ((branch (magit-get-current-branch)))
+      (dolist (remote (magit-list-remotes))
+        (magit-run-git-async
+         "push" "-v" args remote
+         (format "refs/heads/%s:refs/heads/%s" branch branch)))))
+  (transient-append-suffix 'magit-push '(1 -1)
+    '("a" "all branches" x-magit-push-current-to-all-remotes)))
 
 (use-package magit-todos
   :after magit
