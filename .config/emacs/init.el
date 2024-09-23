@@ -174,7 +174,6 @@ it convenient to use in ‘thread-last’."
   (setq ;; All of the following must be set before loading ‘evil-mode’
    evil-want-Y-yank-to-eol t
    evil-v$-excludes-newline t
-   evil-respect-visual-line-mode t
    evil-split-window-below t
    evil-vsplit-window-right t
    evil-want-fine-undo t
