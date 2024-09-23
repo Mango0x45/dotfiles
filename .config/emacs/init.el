@@ -774,6 +774,15 @@ a semicolon following a return statement."
 (customize-set-variable 'c-default-style "mango")
 
 ;;; Additional Mode Support
+(eval-and-compile
+  (defun x-gsp-ts-mode-load-path ()
+    (expand-file-name "Mango0x45/gsp-ts-mode" (getenv "REPODIR"))))
+(use-package gsp-ts-mode
+  :if (and (treesit-available-p)
+           (getenv "REPODIR"))
+  :load-path (lambda () (list (x-gsp-ts-mode-load-path)))
+  :mode ("\\.gsp\\'" . gsp-ts-mode))
+
 (use-package vimscript-ts-mode)
 (push '("\\.go\\'" . go-ts-mode) auto-mode-alist)
 (with-eval-after-load 'tempel
