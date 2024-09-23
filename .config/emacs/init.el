@@ -85,6 +85,12 @@ it convenient to use in ‘thread-last’."
   (apply function arguments)
   (recenter))
 
+(defun x-no-tab-indentation (function &rest arguments)
+  "Call FUNCTION with ARGUMENTS in an environment in which
+`indent-tabs-mode' is nil."
+  (let (indent-tabs-mode)
+    (apply function arguments)))
+
 (defmacro x-comment (&rest _body)
   "Comment out BODY.  A cleaner alternative to line-commenting a region."
   (declare (indent 0))
@@ -255,14 +261,8 @@ selection."
   (evil-collection-init))
 
 ;;; Force Spaces For Alighment
-(defun x-align-with-spaces (function &rest arguments)
-  "Advice to force a given function to align using spaces instead of
-tabs, regardless of the value of ‘indent-tabs-mode’."
-  (let (indent-tabs-mode)
-    (apply function arguments)))
-
 (dolist (f #'(align-regexp c-backslash-region))
-  (advice-add f :around #'x-align-with-spaces))
+  (advice-add f :around #'x-no-tab-indentation))
 
 ;;; Minibuffer Improvements
 (use-package vertico
