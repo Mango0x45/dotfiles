@@ -422,6 +422,7 @@ mode requires settings additional variables, those should be listed in
 
   (setq treesit-language-source-alist
         '((cpp        "https://github.com/tree-sitter/tree-sitter-cpp")
+          (css        "https://github.com/tree-sitter/tree-sitter-css")
           (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
           (go         "https://github.com/tree-sitter/tree-sitter-go")
           (gomod      "https://github.com/camdencheek/tree-sitter-go-mod")
@@ -449,6 +450,7 @@ existing grammars."
     (mapc #'treesit-install-language-grammar))
 
   (dolist (pair '(("\\.[ch]\\'" . c-ts-mode)
+                  ("\\.css\\'"  . css-ts-mode)
                   ("\\.js\\'"   . js-ts-mode)))
     (add-to-list 'auto-mode-alist pair)))
 
