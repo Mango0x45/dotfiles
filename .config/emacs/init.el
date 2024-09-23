@@ -966,6 +966,11 @@ the comparison of the ‘company-pseudo-tooltip-overlay’ height and 0 using PR
   :config
   (evil-define-key 'normal dired-mode-map "n" #'find-file))
 
+(use-package which-key
+  :ensure nil
+  :init
+  (which-key-mode))
+
 ;;; Context-Specific Modes
 (dolist (mode '(c-mode c-ts-mode go-ts-mode))
   (add-hook (x-mode-to-hook mode) #'electric-pair-local-mode)
