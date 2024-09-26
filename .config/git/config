@@ -41,6 +41,7 @@
 	sl = log --oneline
 	ss = status --short
 	st = status
+	sw = switch
 	ta = tag -as
 	t  = tag
 
