@@ -1,6 +1,7 @@
 ;;; increment.el -- Increment numbers at point  -*- lexical-binding: t; -*-
 
 (require 'cl-macs)
+(require 'rx)
 
 (defvar increment--binary-number-regexp
   (rx (group (or ?- word-start))
@@ -44,27 +45,21 @@
           (seq (? ?-) (+ (any digit))))))
 
 (defun increment--number-to-binary-string (number)
-  (let (s)
-    (while (not (= number 0))
-      (setq s (concat (if (= 1 (logand number 1)) "1" "0") s)
-            number (lsh number -1)))
-    (when (string= s "")
-      (setq s "0"))
-    s))
+  (nreverse
+   (cl-loop for x = number then (lsh x -1)
+            while (not (= x 0))
+            concat (if (= 0 (logand x 1)) "0" "1"))))
 
 (defun increment--format-number-with-base
     (number base leading-zeros buffer-substr hex-style)
   (let* ((neg (> 0 number))
          (number (abs number))
          (number-string
-          (cond ((= base  2) (increment--number-to-binary-string number))
-                ((= base  8) (format "%o" number))
-                ((= base 10) (number-to-string number))
-                ((= base 16) (format (if (eq hex-style 'lower)
-                                         "%x"
-                                       "%X")
-                                     number))
-                ((t (error (format "Invalid base %d") base)))))
+          (pcase base
+            (2  (increment--number-to-binary-string number))
+            (8  (format "%o" number))
+            (10 (number-to-string number))
+            (16 (format (if (eq hex-style 'lower) "%x" "%X") number))))
          (length-diff (- (length buffer-substr)
                          (length number-string)))
          (leading-zeros (if (> leading-zeros 0)
@@ -73,9 +68,10 @@
     (concat
      (when neg
        "-")
-     (cond ((= base  2) "0b")
-           ((= base  8) "0o")
-           ((= base 16) "0x"))
+     (pcase base
+       (2 "0b")
+       (8 "0o")
+       (16 "0x"))
      (when (> leading-zeros 0)
        (make-string leading-zeros ?0))
      number-string)))
