@@ -28,7 +28,7 @@
 
 (setopt user-emacs-directory mm-cache-directory
         auto-save-list-file-prefix (expand-file-name
-                                    "auto-save-lismm-"
+                                    "auto-save-list-"
                                     mm-cache-directory)
         backup-directory-alist `(("." . ,(expand-file-name
                                           "backups" mm-cache-directory))))
