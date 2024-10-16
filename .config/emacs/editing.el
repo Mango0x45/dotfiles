@@ -4,7 +4,7 @@
   "Align the marked region on REGEXP.
 When called interactively REGEXP is read from the minibuffer and the
 user is prompted about whether they would like to REPEAT the alignment.
-nn
+
 This function wraps `align-regexp' and implicitly prepends REGEXP with
 \"\\(\\s-*\\)\"."
   (interactive
