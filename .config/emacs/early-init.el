@@ -1,6 +1,7 @@
 ;;; early-init.el --- Emacs early init file  -*- lexical-binding: t; -*-
 
 ;;; XDG Base Directory Specification Compliance
+
 (defconst mm-cache-directory
   (expand-file-name
    "emacs"
