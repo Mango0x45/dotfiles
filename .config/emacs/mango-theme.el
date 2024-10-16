@@ -6,9 +6,8 @@ Your average not-so-dark dark theme, because none of the other options
 were exactly to my liking.  It’s about time I had a theme to call my
 own.")
 
-(defun mango-theme--color (name)
-  "Get the RGB value of the color NAME from `mango-theme-colors-alist'."
-  (declare (pure t) (side-effect-free t))
+(defsubst mango-theme--color (name)
+  "Get the RGB value of the COLOR."
   (alist-get name mango-theme-colors-alist))
 
 (defmacro mango-theme--generate-set-faces (&rest body)
