@@ -90,7 +90,7 @@ Unicode property."
           ((or 'c 'n) (cons other char))
           ('o         (cons char other))))))
 
-(defun suprround--region (pair beginning end)
+(defun surround--region (pair beginning end)
   (save-excursion
     (goto-char beginning)
     (insert (car pair))
