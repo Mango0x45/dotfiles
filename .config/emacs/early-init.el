@@ -75,7 +75,7 @@
             (* 1024 1024))))
 
 ;; Set ‘file-name-handler-alist’ and ‘vc-handled-backends’ to nil
-;; temporarily and restore them over Emacs has properly initialized.  We
+;; temporarily and restore them once Emacs has properly initialized.  We
 ;; set threshold to 8 MiB which seems to be a good middleground for now.
 ;; A higher threshold means less garbage collections but I’ve had issues
 ;; with those garbage collections causing long freezes when they occur.
