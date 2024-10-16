@@ -14,10 +14,12 @@ layerrule = noanim, overlay
 input {
 	accel_profile  = "adaptive"
 	follow_mouse   = 1
-	kb_layout      = mango, mango
-	kb_variant     = basic, german
-	kb_options     = lv3:lalt_switch,compose:ralt
-	repeat_delay   = 180
+	kb_layout      = mango, mango, us
+	kb_variant     = basic, german, basic
+	kb_options     = lv3:ralt_switch_multikey
+	# kb_options     = lv3:lalt_switch,compose:ralt
+	# kb_options     = lv3:ralt_switch_multikey
+	repeat_delay   = 360 # 180
 	repeat_rate    = 35
 	sensitivity    = 0.8
 	natural_scroll = yes
@@ -92,7 +94,7 @@ bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
 __bind(C, emacsclient -que '(popup-command-full-calc)')
-__bind(E, emacsclient -ca emacs)
+__bind(E, emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
 __bind(return, foot)
