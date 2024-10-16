@@ -19,4 +19,12 @@
 (when (display-graphic-p)
   (mm-ns-raise-emacs))
 
+
+;;; Set Modifier Keys
+
+(setopt mac-option-key-is-meta  nil
+        mac-command-key-is-meta t)
+(setopt mac-option-modifier  'none
+        mac-command-modifier 'meta)
+
 (provide 'mm-darwin)

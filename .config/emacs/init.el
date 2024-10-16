@@ -165,14 +165,6 @@ buffer suppressed."
   (add-hook 'text-mode-hook #'auto-fill-mode)
   (prefer-coding-system 'utf-8)
 
-  ;; Proper Mac support
-  (when mm-darwin-p
-    (setopt
-     mac-option-key-is-meta nil
-     mac-command-key-is-meta t
-     mac-command-modifier 'meta
-     mac-option-modifier 'none))
-
   ;; Disabled modes
   (blink-cursor-mode -1)
   (line-number-mode -1)
