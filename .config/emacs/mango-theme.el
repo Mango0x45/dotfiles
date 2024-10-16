@@ -19,7 +19,9 @@ graphically, so I shouldn’t need to have multiple specs per face.
   (declare (indent 0))
   (let ((ret '('mango custom-theme-set-faces)))
     (dolist (spec body)
-      (add-to-list 'ret `(backquote ,(list (car spec) `((((type graphic)) ,(cdr spec)))))))
+      (add-to-list 'ret `(backquote
+                          ,(list (car spec) `((((type graphic))
+                                               ,(cdr spec)))))))
     (reverse ret)))
 
 (defconst mango-theme-colors-alist
@@ -66,7 +68,7 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :foreground ,(mango-theme--color 'background-cool))
   (window-divider-last-pixel
    :foreground ,(mango-theme--color 'background-cool))
-  
+
   ;; Line Numbers
   (line-number
    :foreground ,(mango-theme--color 'background-faint)
