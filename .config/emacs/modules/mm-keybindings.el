@@ -69,7 +69,9 @@ the first command is remapped to the second command."
   mark-sexp e/mark-entire-sexp
 
   transpose-chars e/transpose-previous-chars
-  transpose-lines e/transpose-current-and-next-lines)
+  transpose-lines e/transpose-current-and-next-lines
+
+  delete-indentation e/join-current-and-next-line)
 
 (with-eval-after-load 'cc-vars
   (setopt c-backspace-function #'backward-delete-char))
@@ -96,9 +98,7 @@ the first command is remapped to the second command."
   "C-c d"   #'duplicate-dwim
   "C-c t a" #'e/align-regexp
   "C-c t f" #'fill-paragraph
-  "C-c t s" #'sort-lines
-  "C-c j"   #'e/join-current-and-next-line
-  "C-c J"   #'join-line)
+  "C-c t s" #'sort-lines)
 
 (mm-keymap-set-repeating global-map
   "j" #'e/join-current-and-next-line

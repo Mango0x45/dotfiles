@@ -16,12 +16,18 @@ This function wraps `align-regexp' and implicitly prepends REGEXP with
         (end   (max (mark) (point))))
     (align-regexp start end regexp 1 1 repeat)))
 
-(defun e/join-current-and-next-line ()
+(defun e/join-current-and-next-line (&optional arg beg end)
   "Join the current- and next lines.
-Join the next line after point to the line point is currently on.  This
-is in effect the reverse of `join-line'."
-  (interactive)
-  (delete-indentation 1))
+This function is identical to `join-line' but it joins the current line
+with the next one instead of the previous one."
+  (interactive
+   (progn (barf-if-buffer-read-only)
+          (cons current-prefix-arg
+                (and (use-region-p)
+                     (list (region-beginning) (region-end))))))
+  (delete-indentation
+   (unless (or beg end) (not arg))
+   beg end))
 
 (defun e/transpose-previous-chars ()
   "Transpose the two characters preceeding point.
