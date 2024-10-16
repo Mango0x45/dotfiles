@@ -36,7 +36,7 @@ xkb_symbols "basic" {
 
 	key <SPCE> { [ space, space, nobreakspace, nobreakspace ] };
 
-	replace key <RCTL> { [ Meta_L ] };
+	// replace key <RCTL> { [ Meta_L ] };
 };
 
 partial
