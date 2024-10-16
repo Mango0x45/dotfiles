@@ -46,7 +46,7 @@
 
 (defun increment--number-to-binary-string (number)
   (nreverse
-   (cl-loop for x = number then (lsh x -1)
+   (cl-loop for x = number then (ash x -1)
             while (not (= x 0))
             concat (if (= 0 (logand x 1)) "0" "1"))))
 

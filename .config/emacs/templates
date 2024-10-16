@@ -19,3 +19,12 @@ c-mode c-ts-mode c++-mode c++-ts-mode
  n
  "#define " header n n r n n
  "#endif /* !" header " */")
+
+emacs-lisp-mode
+
+(header
+ ";;; " (file-name-nondirectory (or (buffer-file-name)
+                                    (buffer-name)))
+ " --- " p "  -*- lexical-binding: t; -*-" n n q)
+
+(section "\f" n ";;; " p n n q)
