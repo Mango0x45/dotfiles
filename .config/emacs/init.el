@@ -127,6 +127,7 @@ buffer suppressed."
   :demand t
   :custom
   (ad-redefinition-action 'accept)
+  (case-fold-search nil)
   (create-lockfiles nil)
   (custom-file (expand-file-name "custom.el" mm-config-directory))
   (custom-safe-themes t)
