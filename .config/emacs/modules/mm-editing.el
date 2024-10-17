@@ -147,10 +147,10 @@ region are marked, otherwise all matches in the buffer are marked."
          ("M-$"   . #'mm-mark-all-in-region-regexp))
   :init
   (with-eval-after-load 'multiple-cursors-core
-    (dolist (command #'(delete-backward-char
-                        delete-forward-char
-                        backward-delete-char
+    (dolist (command #'(backward-delete-char
                         capitalize-dwim
+                        delete-backward-char
+                        delete-forward-char
                         downcase-dwim
                         upcase-dwim))
       (add-to-list 'mc/cmds-to-run-for-all command))
