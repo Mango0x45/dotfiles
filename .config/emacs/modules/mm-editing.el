@@ -98,12 +98,53 @@ those should be listed in `mm-editing-indentation-settings'."
 
 ;;; Multiple Cursors
 
+(defmacro mm--define-mc-marking-command (name search-function noun)
+  (let ((noun-symbol (intern noun)))
+    `(defun ,name (beg end ,noun-symbol)
+       ,(format "Mark all occurances of %s between BEG and END.
+If called interactively with an active region then all matches in the
+region are marked, otherwise all matches in the buffer are marked."
+		(upcase noun))
+       (interactive
+	(list (or (use-region-beginning) (point-min))
+	      (or (use-region-end) (point-max))
+	      (read-string
+	       (format-prompt ,(concat "Match " noun) nil))))
+       (require 'multiple-cursors)
+       (if (string-empty-p ,noun-symbol)
+	   (message "Command aborted")
+         (catch 'mm--no-match
+	   (mc/remove-fake-cursors)
+	   (goto-char beg)
+           (let (did-match-p)
+	     (while (,search-function ,noun-symbol end :noerror)
+               (setq did-match-p t)
+	       (push-mark (match-beginning 0))
+	       (exchange-point-and-mark)
+	       (mc/create-fake-cursor-at-point)
+	       (goto-char (mark)))
+             (unless did-match-p
+               (message "No match for `%s'" ,noun-symbol)
+               (throw 'mm--no-match nil)))
+	   (when-let ((first (mc/furthest-cursor-before-point)))
+	     (mc/pop-state-from-overlay first))
+	   (if (> (mc/num-cursors) 1)
+	       (multiple-cursors-mode 1)
+	     (multiple-cursors-mode 0)))))))
+
+(mm--define-mc-marking-command
+ mm-mark-all-in-region search-forward "string")
+(mm--define-mc-marking-command
+ mm-mark-all-in-region-regexp re-search-forward "regexp")
+
 (use-package multiple-cursors
   :ensure t
   :bind (("C->"   . #'mc/mark-next-like-this)
          ("C-<"   . #'mc/mark-previous-like-this)
          ("C-M-<" . #'mc/mark-all-like-this-dwim)
-         ("C-M->" . #'mc/edit-lines))
+         ("C-M->" . #'mc/edit-lines)
+         ("C-$"   . #'mm-mark-all-in-region)
+         ("M-$"   . #'mm-mark-all-in-region-regexp))
   :init
   (with-eval-after-load 'multiple-cursors-core
     (dolist (command #'(delete-backward-char
