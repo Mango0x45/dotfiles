@@ -159,7 +159,9 @@ region are marked, otherwise all matches in the buffer are marked."
                         helpful-symbol
                         helpful-variable))
       (add-to-list 'mc/cmds-to-run-once command))
-    (add-to-list 'mc/unsupported-minor-modes #'corfu-mode)))
+    (add-to-list 'mc/unsupported-minor-modes #'corfu-mode))
+  :config
+  (keymap-unset mc/keymap "<return>" :remove))
 
 
 ;;; Increment Numbers
