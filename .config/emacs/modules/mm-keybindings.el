@@ -4,7 +4,7 @@
 
 ;; The following keys are either unbound and are free to populate, or are
 ;; bound to functions I don’t care for:
-;; ‘C-i’, ‘C-j’, ‘C-o’, ‘C-.’, ‘C-{’, ‘C-}’, ‘C-|’, ‘C-/’, ‘C-\;’, ‘C-:’
+;; ‘C-i’, ‘C-j’, ‘C-o’, ‘C-{’, ‘C-}’, ‘C-|’, ‘C-/’, ‘C-\;’, ‘C-:’
 
 
 ;;; Helper Macros
