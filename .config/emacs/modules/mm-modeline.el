@@ -44,19 +44,31 @@
 	     (buffer-file-name))
     (propertize " (modified)" 'face 'shadow)))
 
+(defconst mm-modeline-mode-acronyms
+  '("css" "csv" "gsp" "html" "json" "mhtml" "scss" "toml" "tsv")
+  "TODO")
+
 (mm-modeline--define-component mm-modeline-major-mode-name
   (propertize
-   (thread-last
-     major-mode
-     (symbol-name)
-     (capitalize)
-     (string-replace "-" " ")
-     (string-replace "Ts Mode" "Tree-Sitter Mode")
-     ;; Casing doesn’t work for abbreviations, so fix it manually
-     (replace-regexp-in-string "\\<\\(M\\)?html\\>" "\\1HTML")
-     (replace-regexp-in-string "\\<\\(S\\)?css\\>" "\\1CSS")
-     (replace-regexp-in-string "\\<toml\\>" "TOML")
-     (replace-regexp-in-string "\\<gsp\\>" "GSP"))
+   (let ((string
+          (thread-last
+            major-mode
+            (symbol-name)
+            (capitalize)
+            (string-replace "-" " ")
+            ;; TODO: Make a remap alist
+            (replace-regexp-in-string "\\<Js\\>" "JavaScript")
+            (string-replace "Ts Mode" "Tree-Sitter Mode")))
+         (case-fold-search t))
+     ;; TODO: Do I need ‘save-match-data’
+     (save-match-data
+       (if (string-match
+            (concat "\\<" (regexp-opt mm-modeline-mode-acronyms) "\\>") string)
+           (concat
+            (substring string 0 (match-beginning 0))
+            (upcase (substring string (match-beginning 0) (match-end 0)))
+            (substring string (match-end 0) (length string)))
+         string)))
    'face 'bold))
 
 (mm-modeline--define-component mm-modeline-major-mode-symbol
