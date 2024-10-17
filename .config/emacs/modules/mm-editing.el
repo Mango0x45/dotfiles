@@ -227,4 +227,10 @@ is as described by `emmet-expand-line'."
   :ensure t
   :bind ("C-," . mm-editing-emmet-dwim))
 
+
+;;; Additional Major Modes
+
+(use-package csv-mode
+  :ensure t)
+
 (provide 'mm-editing)
