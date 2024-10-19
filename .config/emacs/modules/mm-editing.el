@@ -25,22 +25,23 @@
  indent-tabs-mode t)
 
 (defvar mm-editing-indentation-settings-alist
-  '((c-mode            . (:extras c-basic-offset))
-    (c-ts-mode         . (:extras c-ts-mode-indent-offset))
-    (css-mode          . (:extras css-indent-offset))
-    (emacs-lisp-mode   . (:width 8 :spaces t)) ; GNU code uses 8-column tabs
-    (go-ts-mode        . (:extras go-ts-mode-indent-offset))
-    (go-mod-ts-mode    . (:extras go-ts-mode-indent-offset))
-    (gsp-ts-mode       . (:width 2 :extras gsp-ts-mode-indent-rules))
-    (helpful-mode      . (:width 8))    ; GNU code uses 8-column tabs
-    (lisp-data-mode    . (:spaces t))
-    (lisp-mode         . (:spaces t))
-    (org-mode          . (:spaces t))
-    (python-mode       . (:extras python-indent-offset))
-    (python-ts-mode    . (:extras python-indent-offset))
-    (sgml-mode         . (:extras sgml-basic-offset))
-    (sh-mode           . (:extras sh-basic-offset))
-    (vimscript-ts-mode . (:extras vimscript-ts-mode-indent-level)))
+  '((c-mode                . (:extras c-basic-offset))
+    (c-ts-mode             . (:extras c-ts-mode-indent-offset))
+    (css-mode              . (:extras css-indent-offset))
+    (emacs-lisp-mode       . (:width 8 :spaces t)) ; GNU code uses 8-column tabs
+    (go-ts-mode            . (:extras go-ts-mode-indent-offset))
+    (go-mod-ts-mode        . (:extras go-ts-mode-indent-offset))
+    (gsp-ts-mode           . (:width 2 :extras gsp-ts-mode-indent-rules))
+    (helpful-mode          . (:width 8))    ; GNU code uses 8-column tabs
+    (lisp-data-mode        . (:spaces t))
+    (lisp-interaction-mode . (:spaces t))
+    (lisp-mode             . (:spaces t))
+    (org-mode              . (:spaces t))
+    (python-mode           . (:extras python-indent-offset))
+    (python-ts-mode        . (:extras python-indent-offset))
+    (sgml-mode             . (:extras sgml-basic-offset))
+    (sh-mode               . (:extras sh-basic-offset))
+    (vimscript-ts-mode     . (:extras vimscript-ts-mode-indent-level)))
   "Alist of indentation settings.
 Each pair in this alist is of the form (MODE . SETTINGS) where MODE
 specifies the mode for which the given SETTINGS should apply.
