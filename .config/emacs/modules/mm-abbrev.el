@@ -78,14 +78,18 @@ function."
   :ensure t
   :demand t
   :pin gnu
-  :bind (:map tempel-map
-         ("TAB"   . tempel-next)
-         ("S-TAB" . tempel-previous))
+  :bind ( :map tempel-map
+          ("TAB"   . tempel-next)
+          ("S-TAB" . tempel-previous))
   :custom
-  (tempel-trigger-prefix ",")
+  (tempel-trigger-prefix "<")
   :init
   (setopt tempel-path (expand-file-name "templates" mm-config-directory))
-  (add-hook 'completion-at-point-functions #'tempel-complete -10)
+  (dolist (mode '(conf-mode prog-mode text-mode))
+    (add-hook (mm-mode-to-hook mode)
+              (defun mm-setup-tempel-capf ()
+                (add-hook 'completion-at-point-functions
+                          #'tempel-complete -10 :local))))
   (add-to-list 'auto-mode-alist (cons tempel-path #'lisp-data-mode)))
 
 (provide 'mm-abbrev)
