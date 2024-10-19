@@ -111,6 +111,7 @@ the first command is remapped to the second command."
   "C-<prior>" #'backward-page
 
   "C-." #'repeat
+  "C-^" #'e/split-line
   "C-/" #'e/mark-line-dwim
 
   "C-c d"   #'duplicate-dwim

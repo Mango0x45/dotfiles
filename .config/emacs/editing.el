@@ -156,4 +156,21 @@ point."
     (previous-line 2)
     (end-of-line)))
 
+(defun e/split-line (&optional above)
+  "Split the line at point.
+Place the contents after point on a new line, indenting the new line
+according to the current major mode.  With prefix argument ABOVE the
+contents after point are placed on a new line before point."
+  (interactive "P")
+  (save-excursion
+    (let* ((start (point))
+           (end   (pos-eol))
+           (string (buffer-substring start end)))
+      (delete-region start end)
+      (when above
+        (goto-char (1- (pos-bol))))
+      (newline)
+      (insert string)
+      (indent-according-to-mode))))
+
 (provide 'editing)
