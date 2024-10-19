@@ -28,8 +28,4 @@
       (man symbol)
     (message "No symbol at point.")))
 
-(dolist (mode '(c-mode c++-mode c-ts-mode c++-ts-mode))
-  (with-eval-after-load mode
-    (require 'man)))
-
 (provide 'mm-documentation)
