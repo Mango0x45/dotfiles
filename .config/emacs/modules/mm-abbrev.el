@@ -36,13 +36,13 @@ function."
 `c++-ts-mode'.")
 
 (mm-define-abbreviations mm-c-mode-abbrev-table
-    "flf" "flockfile"
-    "fpf" "fprintf"
-    "fuf" "funlockfile"
-    "pf"  "printf"
-    "se"  "stderr"
-    "si"  "stdin"
-    "so"  "stdout")
+  "flf" "flockfile"
+  "fpf" "fprintf"
+  "fuf" "funlockfile"
+  "pf"  "printf"
+  "se"  "stderr"
+  "si"  "stdin"
+  "so"  "stdout")
 
 (with-eval-after-load 'cc-mode
   (setq c-mode-abbrev-table   (copy-abbrev-table mm-c-mode-abbrev-table)
