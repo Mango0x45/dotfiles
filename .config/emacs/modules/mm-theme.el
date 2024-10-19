@@ -181,16 +181,15 @@ See also the `mm-theme-background-opacity' variable."
 
 (use-package spacious-padding
   :ensure t
-  :demand t
-  :config
-  (spacious-padding-mode))
+  :if (display-graphic-p)
+  :hook after-init)
 
 
 ;;; Pretty Page Boundaries
 
 (use-package page-break-lines
   :ensure t
-  :demand t
+  :hook (after-init . global-page-break-lines-mode)
   :init
   (add-hook
    'change-major-mode-hook

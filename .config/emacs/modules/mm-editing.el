@@ -3,8 +3,7 @@
 ;;; Delete Region When Typing
 
 (use-package delsel
-  :init
-  (delete-selection-mode))
+  :hook (after-init . delete-selection-mode))
 
 
 ;;; Force Spaces For Alignment

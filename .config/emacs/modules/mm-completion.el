@@ -5,23 +5,21 @@
 
 (use-package vertico
   :ensure t
+  :hook after-init
   :custom
   (vertico-cycle t)
-  :init
-  (vertico-mode)
   :config
-  ;; Highlight the current line
   (require 'hl-line))
 
 
 ;;; Annotate Completions
 
+;; TODO: Show git branch descriptions!
 (use-package marginalia
   :ensure t
+  :hook after-init
   :custom
-  (marginalia-field-width 50)
-  :init
-  (marginalia-mode))
+  (marginalia-field-width 50))
 
 
 ;;; Orderless Completion Style
@@ -52,7 +50,6 @@
 ;;; Save Minibuffer History
 
 (use-package savehist-mode
-  :init
-  (savehist-mode))
+  :hook (after-init . savehist-mode))
 
 (provide 'mm-completion)
