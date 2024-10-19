@@ -58,4 +58,21 @@
 (use-package savehist-mode
   :hook (after-init . savehist-mode))
 
+
+;;; Enhanced Replacements for Builtins
+
+;; TODO: Investigate other commands
+(use-package consult
+  :ensure t
+  :bind ( ([remap switch-to-buffer] . consult-buffer)
+          :map consult-narrow-map
+          ("?" . consult-narrow-help))
+  :config
+  (with-eval-after-load 'project
+    (keymap-set project-prefix-map "b" #'consult-project-buffer))
+  (with-eval-after-load 'pulsar
+    (setopt consult-after-jump-hook nil)
+    (dolist (command #'(pulsar-recenter-top pulsar-reveal-entry))
+      (add-hook 'consult-after-jump-hook command))))
+
 (provide 'mm-completion)
