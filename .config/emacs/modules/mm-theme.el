@@ -138,8 +138,7 @@ See also the `mm-theme-background-opacity' variable."
 ;;; Divider Between Windows
 
 (use-package frame
-  :init
-  (window-divider-mode))
+  :hook (after-init . window-divider-mode))
 
 
 ;;; Pulse Line on Jump
