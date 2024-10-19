@@ -16,9 +16,7 @@ input {
 	follow_mouse   = 1
 	kb_layout      = mango, mango, us
 	kb_variant     = basic, german, basic
-	kb_options     = lv3:ralt_switch_multikey
-	# kb_options     = lv3:lalt_switch,compose:ralt
-	# kb_options     = lv3:ralt_switch_multikey
+	kb_options     = lv3:switch,compose:ralt
 	repeat_delay   = 360 # 180
 	repeat_rate    = 35
 	sensitivity    = 0.8
