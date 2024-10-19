@@ -109,17 +109,7 @@ Also see `mm-theme-ligatures-alist'."
                (seq-contains-p (split-string system-configuration-features)
                                "HARFBUZZ"))
            (display-graphic-p))
-  :commands ligature-mode
-  :init
-  ;; Add ‘ligature-mode’ as a hook for all modes configured in
-  ;; ‘mm-theme-ligatures-alist’
-  (thread-last
-    mm-theme-ligatures-alist
-    (mapcar #'car)
-    (flatten-tree)
-    (seq-uniq)
-    (mapcar #'mm-mode-to-hook)
-    (mapc (lambda (mode) (add-hook mode #'ligature-mode))))
+  :hook prog-mode
   :config
   (mm-theme-update-ligatures))
 
