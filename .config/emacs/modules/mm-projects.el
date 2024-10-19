@@ -13,7 +13,6 @@ This is intended to be called interactively via
     (magit-status-setup-buffer)))
 
 (use-package project
-  :defer 1                     ; Marginal startup performance improvement
   :custom
   (project-switch-commands '((project-dired                    "Dired" ?d)
                              (project-find-file                "Find File")
