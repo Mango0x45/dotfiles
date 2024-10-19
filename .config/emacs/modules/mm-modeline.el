@@ -74,9 +74,10 @@
 (mm-modeline--define-component mm-modeline-major-mode-symbol
   (propertize
    (cond
-    ((derived-mode-p 'prog-mode)             "λ ")
-    ((derived-mode-p '(text-mode conf-mode)) "§ ")
-    ((derived-mode-p 'comint-mode)           ">_ ")
+    ((derived-mode-p 'comint-mode) "$ ")
+    ((derived-mode-p 'conf-mode)   "# ")
+    ((derived-mode-p 'prog-mode)   "λ ")
+    ((derived-mode-p 'text-mode)   "§ ")
     (t ""))
    'face 'shadow))
 
