@@ -1,18 +1,5 @@
 ;;; mm-documentation.el --- Configuration related to documentation  -*- lexical-binding: t; -*-
 
-
-;;; Display Available Keybindings
-
-(use-package which-key
-  :demand t
-  :config
-  (which-key-mode)
-  :custom
-  (which-key-dont-use-unicode nil)
-  (which-key-ellipsis "…")
-  (wihch-key-idle-delay .5))
-
-
 ;;; Enhance Describe Commands
 
 (use-package helpful

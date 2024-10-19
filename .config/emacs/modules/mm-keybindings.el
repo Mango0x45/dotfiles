@@ -109,4 +109,14 @@ the first command is remapped to the second command."
     "d" #'decrement-number-at-point
     "i" #'increment-number-at-point))
 
+
+;;; Display Available Keybindings
+
+(use-package which-key
+  :hook after-init
+  :custom
+  (which-key-dont-use-unicode nil)
+  (which-key-ellipsis "…")
+  (wihch-key-idle-delay .5))
+
 (provide 'mm-keybindings)
