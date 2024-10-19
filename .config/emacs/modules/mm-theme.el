@@ -145,7 +145,6 @@ See also the `mm-theme-background-opacity' variable."
 
 (use-package pulsar
   :ensure t
-  :demand t
   :custom
   (pulsar-pulse t)
   (pulsar-delay .05)
