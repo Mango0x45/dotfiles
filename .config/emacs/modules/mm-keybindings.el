@@ -43,6 +43,19 @@ the first command is remapped to the second command."
                       #',to))))
 
 
+;;; Support QMK Hyper
+
+(defun mm-qmk-hyper-as-hyper (args)
+  (let ((chord (cadr args)))
+    (when (string-prefix-p "H-" chord)
+      (setf (cadr args) (concat "C-M-s" (substring chord 1)))))
+  args)
+
+;; Both ‘keymap-global-set’ and ‘keymap-local-set’ call ‘keymap-set’
+;; internally, so this advice covers all cases
+(advice-add #'keymap-set :filter-args #'mm-qmk-hyper-as-hyper)
+
+
 ;;; Disable ESC as Meta
 
 (keymap-global-set "<escape>" #'ignore)
