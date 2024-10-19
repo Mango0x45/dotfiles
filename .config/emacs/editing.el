@@ -8,10 +8,11 @@ user is prompted about whether they would like to REPEAT the alignment.
 This function wraps `align-regexp' and implicitly prepends REGEXP with
 \"\\(\\s-*\\)\"."
   (interactive
-   (list (concat "\\(\\s-*\\)"
-                 (read-string
-                  (format-prompt "Align regexp" nil)))
-         (y-or-n-p "Repeat?")))
+   (progn (barf-if-buffer-read-only)
+          (list (concat "\\(\\s-*\\)"
+                        (read-string
+                         (format-prompt "Align regexp" nil)))
+                (y-or-n-p "Repeat?"))))
   (let ((start (min (mark) (point)))
         (end   (max (mark) (point))))
     (align-regexp start end regexp 1 1 repeat)))
@@ -34,7 +35,7 @@ with the next one instead of the previous one."
 This command is similar to `transpose-chars' except it transposes the
 two characters that preceed the point instead of the characters that
 surround it."
-  (interactive)
+  (interactive "*")
   (save-excursion
     (backward-char)
     (transpose-chars 1)))
@@ -44,7 +45,7 @@ surround it."
 This command is similar to `transpose-lines' except it transposes the
 current and next lines instead of the current and previous lines.  This
 maintains symmetry with `transpose-words'."
-  (interactive)
+  (interactive "*")
   (let ((column (current-column)))
     (forward-line)
     (transpose-lines 1)
@@ -148,7 +149,7 @@ screen after scrolling."
   "Insert and move to a new empty line after point.
 With prefix argument ARG, inserts and moves to a new empty line before
 point."
-  (interactive "P")
+  (interactive "*P")
   (end-of-line)
   (newline-and-indent)
   (when arg
@@ -161,7 +162,7 @@ point."
 Place the contents after point on a new line, indenting the new line
 according to the current major mode.  With prefix argument ABOVE the
 contents after point are placed on a new line before point."
-  (interactive "P")
+  (interactive "*P")
   (save-excursion
     (let* ((start (point))
            (end   (pos-eol))
