@@ -178,13 +178,16 @@ See also the `mm-theme-background-opacity' variable."
 (use-package page-break-lines
   :ensure t
   :hook (after-init . global-page-break-lines-mode)
-  :init
+  :config
+  (dolist (mode '(c-mode c++-mode gsp-ts-mode))
+    (add-to-list 'page-break-lines-modes mode)
+    (let ((ts-mode (mm-mode-to-ts-mode mode)))
+      (when (fboundp ts-mode)
+        (add-to-list 'page-break-lines-modes ts-mode))))
   (add-hook
    'change-major-mode-hook
    (defun mm-theme--set-page-break-max-width ()
      (setopt page-break-lines-max-width fill-column)))
-  (global-page-break-lines-mode)
-  :config
   ;; Since the ‘^L’ character is replaced by a horizontal rule, the
   ;; cursor should appear below the horizontal rule.  When moving
   ;; backwards we need to account for the fact that the cursor is
