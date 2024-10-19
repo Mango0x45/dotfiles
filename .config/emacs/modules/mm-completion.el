@@ -37,14 +37,20 @@
 
 (use-package corfu
   :ensure t
-  :hook ((prog-mode . corfu-mode))
-  :bind (:map corfu-map
-         ("C-<return>" . newline))
+  :hook prog-mode
+  :bind ( :map corfu-map
+          ("C-<return>" . newline))
   :custom
   (corfu-auto t)
   (corfu-cycle t)
   (corfu-auto-prefix 1)
-  (corfu-auto-delay 0))
+  (corfu-auto-delay 0)
+  :config
+  ;; I complete with RET and this interferes with ‘tempel-next’
+  (keymap-unset corfu-map "TAB" :remove)
+  (with-eval-after-load 'savehist
+    (corfu-history-mode)
+    (add-to-list 'savehist-additional-variables 'corfu-history)))
 
 
 ;;; Save Minibuffer History
