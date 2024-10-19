@@ -48,7 +48,7 @@ the first command is remapped to the second command."
 (defun mm-qmk-hyper-as-hyper (args)
   (let ((chord (cadr args)))
     (when (string-prefix-p "H-" chord)
-      (setf (cadr args) (concat "C-M-s" (substring chord 1)))))
+      (setf (cadr args) (concat "C-M-S-s" (substring chord 1)))))
   args)
 
 ;; Both ‘keymap-global-set’ and ‘keymap-local-set’ call ‘keymap-set’
