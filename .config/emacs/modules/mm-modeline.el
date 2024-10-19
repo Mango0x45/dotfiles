@@ -10,7 +10,7 @@
 ;;; Faces
 
 (defface mm-modeline-narrow-face
-  '((t :foreground "#C5C8C6"		; From ‘mango-theme’
+  '((t :foreground "#C5C8C6"            ; From ‘mango-theme’
        :background "dark red"
        :box "dark red"
        :weight bold))
@@ -41,7 +41,7 @@
 
 (mm-modeline--define-component mm-modeline-buffer-modified
   (when (and (buffer-modified-p)
-	     (buffer-file-name))
+             (buffer-file-name))
     (propertize " (modified)" 'face 'shadow)))
 
 (defconst mm-modeline-mode-acronyms
