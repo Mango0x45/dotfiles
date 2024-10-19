@@ -287,4 +287,7 @@ the buffer without saving it."
 
 ;;; Postamble
 
-(message (emacs-init-time "Emacs initialized in %.2f seconds"))
+(add-hook 'after-init-hook
+          (defun mm-echo-init-time ()
+            (message (emacs-init-time "Emacs initialized in %.2f seconds")))
+          100)
