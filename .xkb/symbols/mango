@@ -20,7 +20,8 @@ xkb_symbols "basic" {
 
 	key <AD03> { [ e,         E,   eacute,     Eacute     ] };
 	key <AD07> { [ u,         U,   udiaeresis, Udiaeresis ] };
-	key <AD08> { [ i,         I,   U0133,      U0132      ] }; // ĳ and Ĳ
+	// key <AD08> { [ i,         I,   U0133,      U0132      ] }; // ĳ and Ĳ
+	key <AD08> { [ i,         I,   idiaeresis, Idiaeresis ] };
 	key <AD09> { [ o,         O,   odiaeresis, Odiaeresis ] };
 	key <BKSL> { [ backslash, bar, logicalor,  bar        ] };
 
