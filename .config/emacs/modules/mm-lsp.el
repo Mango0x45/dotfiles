@@ -25,6 +25,11 @@
                '((c-mode c-ts-mode c++-mode c++-ts-mode)
                  . ("clangd" "--header-insertion=never"))))
 
+(use-package eglot-booster
+  :after eglot
+  :config
+  (eglot-booster-mode))
+
 
 ;;; Use Tempel for Snippets
 
