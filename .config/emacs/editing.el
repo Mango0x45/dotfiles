@@ -144,4 +144,16 @@ screen after scrolling."
   (interactive)
   (mm-do-and-center #'cua-scroll-up))
 
+(defun e/open-line (arg)
+  "Insert and move to a new empty line after point.
+With prefix argument ARG, inserts and moves to a new empty line before
+point."
+  (interactive "P")
+  (end-of-line)
+  (newline-and-indent)
+  (when arg
+    (transpose-lines 1)
+    (previous-line 2)
+    (end-of-line)))
+
 (provide 'editing)

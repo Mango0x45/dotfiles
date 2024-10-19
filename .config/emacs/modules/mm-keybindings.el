@@ -63,28 +63,33 @@ the first command is remapped to the second command."
 
 ;;; Enable Repeat Bindings
 
+(defun mm-enable-repeat-mode ()
+  "Enable `repeat-mode' without polluting the echo area."
+  (mm-with-suppressed-output
+    (repeat-mode)))
+
 (use-package repeat
-  :init
-  (repeat-mode))
+  :hook (after-init . mm-enable-repeat-mode)
+  :custom
+  (repeat-exit-timeout 5))
 
 
 ;;; Remap Existing Bindings
 
 (mm-keymap-remap global-map
   backward-delete-char-untabify backward-delete-char
-  kill-ring-save                e/kill-ring-save-dwim
 
   capitalize-word capitalize-dwim
   downcase-word   downcase-dwim
   upcase-word     upcase-dwim
 
-  mark-word e/mark-entire-word
-  mark-sexp e/mark-entire-sexp
-
-  transpose-chars e/transpose-previous-chars
-  transpose-lines e/transpose-current-and-next-lines
-
-  delete-indentation e/join-current-and-next-line)
+  delete-indentation e/join-current-and-next-line
+  kill-ring-save     e/kill-ring-save-dwim
+  mark-sexp          e/mark-entire-sexp
+  mark-word          e/mark-entire-word
+  open-line          e/open-line
+  transpose-chars    e/transpose-previous-chars
+  transpose-lines    e/transpose-current-and-next-lines)
 
 (with-eval-after-load 'cc-vars
   (setopt c-backspace-function #'backward-delete-char))
