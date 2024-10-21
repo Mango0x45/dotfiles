@@ -32,13 +32,14 @@
     (c-ts-mode             . (:extras c-ts-mode-indent-offset))
     (css-mode              . (:extras css-indent-offset))
     (emacs-lisp-mode       . (:width 8 :spaces t)) ; GNU code uses 8-column tabs
-    (go-ts-mode            . (:extras go-ts-mode-indent-offset))
     (go-mod-ts-mode        . (:extras go-ts-mode-indent-offset))
+    (go-ts-mode            . (:extras go-ts-mode-indent-offset))
     (gsp-ts-mode           . (:width 2 :extras gsp-ts-mode-indent-rules))
     (helpful-mode          . (:width 8))    ; GNU code uses 8-column tabs
     (lisp-data-mode        . (:spaces t))
     (lisp-interaction-mode . (:spaces t))
     (lisp-mode             . (:spaces t))
+    (mhtml-mode            . (:extras sgml-basic-offset))
     (org-mode              . (:spaces t))
     (python-mode           . (:extras python-indent-offset))
     (python-ts-mode        . (:extras python-indent-offset))
