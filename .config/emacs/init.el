@@ -149,7 +149,6 @@ buffer suppressed."
   (save-interprogram-paste-before-kill t)
   (scroll-conservatively 101) ; (info "(Emacs)Auto Scrolling")
   (scroll-error-top-bottom t)
-  (show-trailing-whitespace t)
   (user-full-name "Thomas Voss")
   (user-mail-address "mail@thomasvoss.com")
   (vc-follow-symlinks t)
@@ -165,6 +164,12 @@ buffer suppressed."
                 (setq-local fill-column 73))))
   (add-hook 'text-mode-hook #'auto-fill-mode)
   (prefer-coding-system 'utf-8)
+
+  ;; Show trailing whitespace but only in relevant buffers
+  (dolist (mode '(conf-mode prog-mode text-mode))
+    (add-hook (mm-mode-to-hook mode)
+              (defun mm-show-trailing-whitespace ()
+                (setopt show-trailing-whitespace t))))
 
   ;; Disabled modes
   (blink-cursor-mode -1)
