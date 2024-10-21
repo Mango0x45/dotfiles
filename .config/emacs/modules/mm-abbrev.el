@@ -7,16 +7,20 @@
 Expand abbrev DEFINITIONS for the given TABLE.  DEFINITIONS are a
 sequence of either string pairs mapping an abbreviation to its
 expansion, or a string and symbol pair mapping an abbreviation to a
-function."
+function.
+
+After adding all abbreviations to TABLE, this macro marks TABLE as
+case-sensitive to avoid unexpected abbreviation expansions."
   (declare (indent 1))
   (unless (cl-evenp (length definitions))
     (user-error "expected an even-number of elements in DEFINITIONS"))
-  (macroexp-progn
-   (cl-loop for (abbrev expansion) in (seq-partition definitions 2)
-            if (stringp expansion)
-              collect (list #'define-abbrev table abbrev expansion)
-            else
-              collect (list #'define-abbrev table abbrev "" expansion))))
+  `(progn
+     ,@(cl-loop for (abbrev expansion) in (seq-partition definitions 2)
+                if (stringp expansion)
+                  collect (list #'define-abbrev table abbrev expansion)
+                else
+                  collect (list #'define-abbrev table abbrev "" expansion))
+     (abbrev-table-put ,table :case-fixed t)))
 
 
 ;;; Abbreviation Configuration
