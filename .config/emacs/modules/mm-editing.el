@@ -143,6 +143,7 @@ region are marked, otherwise all matches in the buffer are marked."
 
 (use-package multiple-cursors
   :ensure t
+  :defer 2
   :bind (("C->"   . #'mc/mark-next-like-this)
          ("C-<"   . #'mc/mark-previous-like-this)
          ("C-M-<" . #'mc/mark-all-like-this-dwim)
