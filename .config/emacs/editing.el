@@ -212,11 +212,13 @@ If `consult' is available than this command instead calls
 `consult-yank-from-kill-ring' when called with non-nil ARG."
   (declare (interactive-only t))
   (interactive "*P")
-  (cond ((null arg)
-         (yank))
-        ((featurep 'consult)
-         (call-interactively #'consult-yank-from-kill-ring))
-        (t
-         (call-interactively #'yank-from-kill-ring))))
+  ;; Avoid ‘current-prefix-arg’ cascading down to ‘yank-from-kill-ring’
+  (let (current-prefix-arg)
+    (cond ((null arg)
+           (yank))
+          ((featurep 'consult)
+           (call-interactively #'consult-yank-from-kill-ring))
+          (t
+           (call-interactively #'yank-from-kill-ring)))))
 
 (provide 'editing)
