@@ -282,6 +282,7 @@ the buffer without saving it."
 (require 'mm-lsp)                       ; Language Server Protocol
 (require 'mm-modeline)                  ; Modeline
 (require 'mm-projects)                  ; Project Management
+(require 'mm-spellcheck)                ; Spell Checking
 (require 'mm-tetris)                    ; Emacs Tetris
 (require 'mm-theme)                     ; Themeing
 (require 'mm-treesit)                   ; Tree-Sitter
