@@ -70,10 +70,15 @@ The indentation settings are set based on the configured values in
          (spaces (plist-member plist :spaces))
          (width  (plist-member plist :width))
          (extras (plist-member plist :extras)))
-    (when spaces
-      (indent-tabs-mode (and (cadr spaces) -1)))
-    (when width
-      (setq-local tab-width (cadr width)))
+    ;; Some modes like ‘python-mode’ explicitly set ‘tab-width’ and
+    ;; ‘indent-tabs-mode’ so we must override them explicitly.
+    (setq-local
+     indent-tabs-mode (if spaces
+                          (and (cadr spaces) -1)
+                        (default-value 'indent-tabs-mode))
+     tab-width (if width
+                   (cadr width)
+                 (default-value 'tab-width)))
     (when extras
       (setq extras (cadr extras))
       (when (symbolp extras)
