@@ -174,4 +174,49 @@ contents after point are placed on a new line before point."
       (insert string)
       (indent-according-to-mode))))
 
+(defun e/mc/sort-regions (&optional reverse)
+  "Sort marked regions.
+This command is an exact replica of `mc/sort-regions' except that
+calling this command with a prefix argument REVERSE sorts the marked
+regions in reverse order."
+  (interactive "*P")
+  (unless (use-region-p)
+    (mc/execute-command-for-all-cursors))
+  (setq mc--strings-to-replace (sort (mc--ordered-region-strings)
+                                     (if reverse #'string> #'string<)))
+  (mc--replace-region-strings))
+
+(defun e/sort-dwim (&optional reverse)
+  "Sort regions do-what-i-mean.
+When multiple cursors are not being used this command functions just
+like `sort-lines' with the start- and end bounds set to the current
+region beginning and -end.
+
+When using multiple cursors this command sorts the regions marked by
+each cursor (effectively calling `e/mc/sort-regions'.
+
+When called with a prefix argument REVERSE, sorting occurs in reverse
+order."
+  (interactive "*P")
+  (if (> 1 (mc/num-cursors))
+      (e/mc/sort-regions reverse)
+    (sort-lines reverse (region-beginning) (region-end))))
+
+(defun e/yank (&optional arg)
+  "Yank text from the kill-ring.
+Yank the most recent kill from the kill ring via `yank'.  If called with
+prefix argument ARG then interactively yank from the kill ring via
+`yank-from-kill-ring'.
+
+If `consult' is available than this command instead calls
+`consult-yank-from-kill-ring' when called with non-nil ARG."
+  (declare (interactive-only t))
+  (interactive "*P")
+  (cond ((null arg)
+         (yank))
+        ((featurep 'consult)
+         (call-interactively #'consult-yank-from-kill-ring))
+        (t
+         (call-interactively #'yank-from-kill-ring))))
+
 (provide 'editing)

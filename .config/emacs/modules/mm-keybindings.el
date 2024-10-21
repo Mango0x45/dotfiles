@@ -89,7 +89,8 @@ the first command is remapped to the second command."
   mark-word          e/mark-entire-word
   open-line          e/open-line
   transpose-chars    e/transpose-previous-chars
-  transpose-lines    e/transpose-current-and-next-lines)
+  transpose-lines    e/transpose-current-and-next-lines
+  yank               e/yank)
 
 (with-eval-after-load 'cc-vars
   (setopt c-backspace-function #'backward-delete-char))
@@ -117,11 +118,15 @@ the first command is remapped to the second command."
   "C-c d"   #'duplicate-dwim
   "C-c t a" #'e/align-regexp
   "C-c t f" #'fill-paragraph
-  "C-c t s" #'sort-lines)
+  "C-c t s" #'e/sort-dwim)
 
 (mm-keymap-set-repeating global-map
   "j" #'e/join-current-and-next-line
   "J" #'join-line)
+
+(mm-keymap-set-repeating global-map
+  "n" #'next-error
+  "p" #'previous-error)
 
 (with-eval-after-load 'increment
   (mm-keymap-set-repeating global-map
