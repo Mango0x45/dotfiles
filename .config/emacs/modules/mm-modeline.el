@@ -48,22 +48,31 @@
   '("css" "csv" "gsp" "html" "json" "mhtml" "scss" "toml" "tsv")
   "TODO")
 
+(defconst mm-modeline-remap-alist
+  '(("Js"      . "JavaScript")
+    ("Ts Mode" . "Tree-Sitter Mode")
+    ("Gmake"   . "GMake")
+    ("Imake"   . "IMake")
+    ("Bsdmake" . "BSD Make"))
+  "TODO")
+
 (mm-modeline--define-component mm-modeline-major-mode-name
   (propertize
-   (let ((string
-          (thread-last
-            major-mode
-            (symbol-name)
-            (capitalize)
-            (string-replace "-" " ")
-            ;; TODO: Make a remap alist
-            (replace-regexp-in-string "\\<Js\\>" "JavaScript")
-            (string-replace "Ts Mode" "Tree-Sitter Mode")))
-         (case-fold-search t))
+   (let ((string (thread-last
+                   major-mode
+                   (symbol-name)
+                   (capitalize)
+                   (string-replace "-" " ")))
+         (case-fold-search nil))
      ;; TODO: Do I need ‘save-match-data’
      (save-match-data
-       (if (string-match
-            (concat "\\<" (regexp-opt mm-modeline-mode-acronyms) "\\>") string)
+       (dolist (pair mm-modeline-remap-alist)
+         (setq string
+               (replace-regexp-in-string
+                (format "\\<%s\\>" (regexp-quote (car pair)))
+                (cdr pair) string)))
+       (setq case-fold-search t)
+       (if (string-match (regexp-opt mm-modeline-mode-acronyms 'words) string)
            (concat
             (substring string 0 (match-beginning 0))
             (upcase (substring string (match-beginning 0) (match-end 0)))
