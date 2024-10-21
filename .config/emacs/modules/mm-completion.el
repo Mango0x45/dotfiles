@@ -65,6 +65,8 @@
 (use-package consult
   :ensure t
   :bind ( ([remap switch-to-buffer] . consult-buffer)
+          ([remap imenu]            . consult-imenu)
+          ([remap goto-line]        . consult-goto-line)
           :map consult-narrow-map
           ("?" . consult-narrow-help))
   :config
