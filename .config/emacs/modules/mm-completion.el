@@ -44,7 +44,7 @@
   (corfu-auto t)
   (corfu-cycle t)
   (corfu-auto-prefix 1)
-  (corfu-auto-delay 0)
+  (corfu-auto-delay .2)
   :config
   ;; I complete with RET and this interferes with ‘tempel-next’
   (keymap-unset corfu-map "TAB" :remove)
