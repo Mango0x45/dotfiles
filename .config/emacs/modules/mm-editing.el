@@ -74,7 +74,7 @@ The indentation settings are set based on the configured values in
     ;; ‘indent-tabs-mode’ so we must override them explicitly.
     (setq-local
      indent-tabs-mode (if spaces
-                          (and (cadr spaces) -1)
+                          (not (cadr spaces))
                         (default-value 'indent-tabs-mode))
      tab-width (if width
                    (cadr width)
