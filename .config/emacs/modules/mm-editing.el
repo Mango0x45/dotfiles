@@ -14,7 +14,10 @@
   (let (indent-tabs-mode)
     (apply function arguments)))
 
-(dolist (command #'(align c-backslash-region comment-dwim))
+(dolist (command #'(align
+                    c-backslash-region
+                    comment-dwim
+                    makefile-backslash-region))
   (advice-add command :around #'mm-editing-force-space-indentation))
 
 
