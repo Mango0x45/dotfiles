@@ -238,4 +238,11 @@ is as described by `emmet-expand-line'."
 (use-package csv-mode
   :ensure t)
 
+
+;;; Mode-Specific Configurations
+
+(use-package make-mode
+  :custom
+  (makefile-backslash-column 80))
+
 (provide 'mm-editing)
