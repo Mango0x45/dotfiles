@@ -10,7 +10,6 @@
   :hook (((c-mode c-ts-mode
            c++-mode c++-ts-mode
            go-ts-mode
-           python-mode python-ts-mode
            js-mode js-ts-mode)
           . eglot-ensure)
          (eglot-managed-mode . mm-lsp-eglot-no-inlay-hints))
