@@ -263,4 +263,9 @@ is as described by `emmet-expand-line'."
   :custom
   (makefile-backslash-column 80))
 
+(use-package python-mode
+  :custom
+  (python-indent-def-block-scale 1)
+  (python-indent-guess-indent-offset-verbose nil))
+
 (provide 'mm-editing)
