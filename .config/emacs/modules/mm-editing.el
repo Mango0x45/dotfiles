@@ -246,7 +246,9 @@ is as described by `emmet-expand-line'."
 
 (use-package emmet-mode
   :ensure t
-  :bind ("C-," . mm-editing-emmet-dwim))
+  :bind ("C-," . mm-editing-emmet-dwim)
+  :custom
+  (emmet-self-closing-tag-style ""))
 
 
 ;;; Additional Major Modes
