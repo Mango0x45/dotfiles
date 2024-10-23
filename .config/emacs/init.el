@@ -108,8 +108,21 @@ buffer suppressed."
  package-archive-priorities '(("gnu"    . 3)
                               ("nongnu" . 2)
                               ("melpa"  . 1)))
-(package-initialize)
 (setopt use-package-always-defer t)
+
+(package-initialize)
+
+(defun mm-package-sync ()
+  "Remove unused packages and install missing ones."
+  (interactive)
+  (let ((window-configuration (current-window-configuration)))
+    (package-autoremove)
+    (package-install-selected-packages)
+    (package-upgrade-all)
+    (package-vc-install-selected-packages)
+    (package-vc-upgrade-all)
+    (set-window-configuration window-configuration))
+  (message "Done syncing packages."))
 
 
 ;;; Generic Emacs Configuration
