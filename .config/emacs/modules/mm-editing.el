@@ -105,6 +105,17 @@ those should be listed in `mm-editing-indentation-settings'."
         (set (make-local-variable extra) tabsize)))))
 
 
+;;; Make Tab Not Suck
+
+(use-package indent
+  :custom
+  (tab-always-indent t))
+
+(use-package electric
+  :config
+  (setq-default electric-indent-inhibit t))
+
+
 ;;; Multiple Cursors
 
 (defmacro mm--define-mc-marking-command (name search-function noun)
