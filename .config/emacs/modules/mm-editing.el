@@ -14,7 +14,7 @@
   (let (indent-tabs-mode)
     (apply function arguments)))
 
-(dolist (command #'(align
+(dolist (command #'(align-region
                     c-backslash-region
                     comment-dwim
                     makefile-backslash-region))
