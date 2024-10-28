@@ -11,10 +11,10 @@ function s:ConcealZWSpaces()
 		unlet w:zwspaces
 	endif
 	let w:zwspaces = [
-		\	matchadd('Conceal', "\u200B"),
-		\	matchadd('Conceal', "\u200C"),
-		\	matchadd('Conceal', "\u200D"),
-		\	matchadd('Conceal', "\uFEFF"),
+		\	matchadd('Conceal', '\u200B'),
+		\	matchadd('Conceal', '\u200C'),
+		\	matchadd('Conceal', '\u200D'),
+		\	matchadd('Conceal', '\uFEFF'),
 		\ ]
 endfunction
 
