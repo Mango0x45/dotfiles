@@ -40,7 +40,7 @@
     (lisp-interaction-mode . (:spaces t))
     (lisp-mode             . (:spaces t))
     (mhtml-mode            . (:extras sgml-basic-offset))
-    (org-mode              . (:spaces t))
+    (org-mode              . (:width 8 :spaces t))
     (python-mode           . (:extras python-indent-offset))
     (python-ts-mode        . (:extras python-indent-offset))
     (sgml-mode             . (:extras sgml-basic-offset))
