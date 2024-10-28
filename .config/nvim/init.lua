@@ -446,10 +446,6 @@ lsp.lua_ls.setup {
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('mango-lsp-config', { clear = true }),
 	callback = function(ev)
-		local function remap(mode, map, fn)
-			vim.keymap.set(mode, map, fn, { buffer = ev.buf })
-		end
-
 		vim.diagnostic.disable()
 		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 		vim.keymap.set('n', 'gK', vim.lsp.buf.hover,
