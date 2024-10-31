@@ -198,7 +198,8 @@ each cursor (effectively calling `e/mc/sort-regions'.
 When called with a prefix argument REVERSE, sorting occurs in reverse
 order."
   (interactive "*P")
-  (if (< 1 (mc/num-cursors))
+  (if (and (fboundp #'mc/num-cursors)
+           (< 1 (mc/num-cursors)))
       (e/mc/sort-regions reverse)
     (sort-lines reverse (region-beginning) (region-end))))
 
