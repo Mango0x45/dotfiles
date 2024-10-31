@@ -71,7 +71,9 @@ case-sensitive to avoid unexpected abbreviation expansions."
   "re"  "region-end"
   "rsb" "re-search-backward"
   "rsf" "re-search-forward"
+  "sb"  "search-backward"
   "se"  "save-excursion"
+  "sf"  "search-forward"
   "sme" "save-mark-and-excursion"
   "sr"  "save-restriction")
 
