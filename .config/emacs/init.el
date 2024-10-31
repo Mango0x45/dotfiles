@@ -292,7 +292,8 @@ the buffer without saving it."
 (require 'mm-documentation)             ; Documentation
 (require 'mm-editing)                   ; Text Editing
 (require 'mm-keybindings)               ; Keybindings
-(require 'mm-lsp)                       ; Language Server Protocol
+(mm-comment
+  (require 'mm-lsp))                    ; Language Server Protocol
 (require 'mm-modeline)                  ; Modeline
 (require 'mm-projects)                  ; Project Management
 (require 'mm-spellcheck)                ; Spell Checking
