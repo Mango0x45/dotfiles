@@ -221,4 +221,31 @@ If `consult' is available than this command instead calls
           (t
            (call-interactively #'yank-from-kill-ring)))))
 
+(defun mm-search-forward-char (char &optional n)
+  "Search forwards to the Nth occurance of CHAR.
+If called interactively CHAR is read from the minibuffer and N is given
+by the prefix argument.
+
+If N is negative then this function searches backwards.
+
+When searching forwards point is left before CHAR while when searching
+backwards point is left after CHAR."
+  (interactive
+   (list (read-char)
+         (prefix-numeric-value current-prefix-arg)))
+  (when (and (> n 0) (= char (char-after (point))))
+    (forward-char))
+  (search-forward (char-to-string char) nil nil n)
+  (when (> n 0)
+    (backward-char)))
+
+(defun mm-search-backward-char (char &optional n)
+  "Search backwards to the Nth occurance of CHAR.
+This function is identical to `mm-search-forward-char' with N negated."
+  (declare (interactive-only t))
+  (interactive
+   (list (read-char)
+         (prefix-numeric-value current-prefix-arg)))
+  (mm-search-forward-char char (- n)))
+
 (provide 'editing)

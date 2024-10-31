@@ -115,6 +115,9 @@ the first command is remapped to the second command."
   "C-^" #'e/split-line
   "C-/" #'e/mark-line-dwim
 
+  "C-]" #'mm-search-forward-char
+  "M-]" #'mm-search-backward-char
+
   "C-c d"   #'duplicate-dwim
   "C-c t a" #'e/align-regexp
   "C-c t f" #'fill-paragraph
