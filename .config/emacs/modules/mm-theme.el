@@ -145,22 +145,22 @@ See also the `mm-theme-background-opacity' variable."
 
 (use-package pulsar
   :ensure t
+  :hook (after-init . pulsar-global-mode)
   :custom
   (pulsar-pulse t)
   (pulsar-delay .05)
   (pulsar-iterations 10)
+  (pulsar-face 'hl-line)
   :config
-  (add-to-list 'pulsar-pulse-functions #'jump-to-register)
-  (add-to-list 'pulsar-pulse-functions #'e/scroll-up)
-  (add-to-list 'pulsar-pulse-functions #'e/scroll-down)
+  (dolist (command #'(backward-paragraph
+                      e/scroll-down
+                      e/scroll-up
+                      forward-paragraph
+                      jump-to-register
+                      pop-global-mark))
+    (add-to-list 'pulsar-pulse-functions command))
   ;; Integrate with ‘compilation-mode’
   (add-hook 'next-error-hook #'pulsar-pulse-line)
-  (pulsar-global-mode)
-  :hook
-  ((next-error . (pulsar-pulse-line-red
-                  pulsar-recenter-top
-                  pulsar-reveal-entry))
-   (minibuffer-setup . pulsar-pulse-line-red))
   :bind
   (("C-c h l" . pulsar-highlight-dwim)))
 
