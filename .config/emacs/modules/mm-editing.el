@@ -6,6 +6,13 @@
   :hook (after-init . delete-selection-mode))
 
 
+;;; Capitalize ‘ß’ into ‘ẞ’
+
+;; https://lists.gnu.org/archive/html/bug-gnu-emacs/2024-11/msg00030.html
+(set-case-syntax-pair ?ẞ ?ß (standard-case-table))
+(put-char-code-property ?ß 'special-uppercase nil)
+
+
 ;;; Force Spaces For Alignment
 
 (defun mm-editing-force-space-indentation (function &rest arguments)
