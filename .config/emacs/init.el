@@ -68,7 +68,8 @@ This function is meant to be used in conjuction with `read-string' and
 (defun mm-do-and-center (function &rest arguments)
   "Call FUNCTION with ARGUMENTS and then center the screen."
   (apply function arguments)
-  (recenter))
+  (when (called-interactively-p)
+    (recenter)))
 
 (defmacro mm-comment (&rest _body)
   "Comment out BODY.  A cleaner alternative to line-commenting a region."
