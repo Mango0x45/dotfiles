@@ -156,10 +156,12 @@ buffer suppressed."
   (kill-do-not-save-duplicates t)
   (large-file-warning-threshold nil)
   (make-backup-files nil)
+  (mode-require-final-newline nil)
   (next-error-recenter '(4)) ; ‘center of window’
   (read-extended-command-predicate #'command-completion-default-include-p)
   (remote-file-name-inhibit-auto-save t)
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
+  (require-final-newline nil)
   (save-interprogram-paste-before-kill t)
   (scroll-conservatively 101) ; (info "(Emacs)Auto Scrolling")
   (scroll-error-top-bottom t)
@@ -177,6 +179,14 @@ buffer suppressed."
               (defun mm-set-fill-column ()
                 (setq-local fill-column 73))))
   (add-hook 'text-mode-hook #'auto-fill-mode)
+  (add-hook 'before-save-hook
+            (defun mm-delete-final-newline ()
+              (let ((end (point-max)))
+                (unless (or require-final-newline
+                            mode-require-final-newline
+                            (not (= (char-before end) ?\n)))
+                  (delete-region (1- end) end)))))
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (prefer-coding-system 'utf-8)
 
   ;; Show trailing whitespace but only in relevant buffers
