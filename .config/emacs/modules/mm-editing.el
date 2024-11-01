@@ -28,6 +28,16 @@
   (advice-add command :around #'mm-editing-force-space-indentation))
 
 
+;;; Recenter The Screen When Jumping
+
+(dolist (command #'(backward-page
+                    backward-paragraph
+                    forward-page
+                    forward-paragraph
+                    pop-global-mark))
+  (advice-add command :around #'mm-do-and-center))
+
+
 ;;; Indentation Settings
 
 (setq-default
