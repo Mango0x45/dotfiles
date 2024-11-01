@@ -30,29 +30,6 @@ with the next one instead of the previous one."
    (unless (or beg end) (not arg))
    beg end))
 
-(defun e/transpose-previous-chars ()
-  "Transpose the two characters preceeding point.
-This command is similar to `transpose-chars' except it transposes the
-two characters that preceed the point instead of the characters that
-surround it."
-  (interactive "*")
-  (save-excursion
-    (backward-char)
-    (transpose-chars 1)))
-
-(defun e/transpose-current-and-next-lines ()
-  "Transpose the current and next lines.
-This command is similar to `transpose-lines' except it transposes the
-current and next lines instead of the current and previous lines.  This
-maintains symmetry with `transpose-words'."
-  (interactive "*")
-  (let ((column (current-column)))
-    (forward-line)
-    (transpose-lines 1)
-    (forward-line -1)
-    (indent-region (pos-bol) (pos-eol))
-    (move-to-column column)))
-
 (defun e/mark-entire-word (&optional arg allow-extend)
   "Mark ARG words beginning at point.
 This command is a wrapper around `mark-word' that moves the point such

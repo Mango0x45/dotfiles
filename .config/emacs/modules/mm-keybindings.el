@@ -88,8 +88,6 @@ the first command is remapped to the second command."
   mark-sexp          e/mark-entire-sexp
   mark-word          e/mark-entire-word
   open-line          e/open-line
-  transpose-chars    e/transpose-previous-chars
-  transpose-lines    e/transpose-current-and-next-lines
   yank               e/yank)
 
 (with-eval-after-load 'cc-vars
