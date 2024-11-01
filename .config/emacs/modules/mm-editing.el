@@ -89,13 +89,9 @@ The indentation settings are set based on the configured values in
          (extras (plist-member plist :extras)))
     ;; Some modes like ‘python-mode’ explicitly set ‘tab-width’ and
     ;; ‘indent-tabs-mode’ so we must override them explicitly.
-    (setq-local
-     indent-tabs-mode (if spaces
-                          (not (cadr spaces))
-                        (default-value 'indent-tabs-mode))
-     tab-width (if width
-                   (cadr width)
-                 (default-value 'tab-width)))
+    (setq-local indent-tabs-mode (if spaces (not (cadr spaces))
+                                   (default-value 'indent-tabs-mode))
+                tab-width (or (cadr width) (default-value 'tab-width)))
     (when extras
       (setq extras (cadr extras))
       (when (symbolp extras)
