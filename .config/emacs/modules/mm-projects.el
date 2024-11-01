@@ -14,18 +14,24 @@ This is intended to be called interactively via
 
 (use-package project
   :custom
-  (project-switch-commands '((project-dired                    "Dired" ?d)
-                             (project-find-file                "Find File")
-                             (project-find-regexp              "Find Regexp")
-                             (mm-projects-project-magit-status "Git Status" ?s)))
+  (project-switch-commands
+   '((project-dired                    "Dired"      ?d)
+     (project-find-file                "Find File"  ?f)
+     (mm-projects-project-magit-status "Git Status" ?s)))
   :config
   (unless mm-darwin-p
-    (if-let ((repo-directory (getenv "REPODIR")))
-        (mm-with-suppressed-output
-          (thread-last
-            (directory-files repo-directory :full "\\`[^.]")
-            (mapcar (lambda (path) (concat path "/"))) ; Avoid duplicate entries
-            (mapc #'project-remember-projects-under)))
+    (if-let ((repo-directory (getenv "REPODIR"))
+             (directories
+              (cl-loop
+               for author in (directory-files repo-directory :full "\\`[^.]")
+               append (cl-loop
+                       for path in (directory-files author :full "\\`[^.]")
+                       collect (list (concat path "/"))))))
+        (progn
+          (with-temp-buffer
+            (prin1 directories (current-buffer))
+            (write-file project-list-file))
+          (project--read-project-list))
       (warn "The REPODIR environment variable is not set."))))
 
 
