@@ -39,6 +39,9 @@ This is intended to be called interactively via
 
 (use-package magit
   :ensure t
+  :bind ( :map magit-status-mode-map
+          ("[" . magit-section-backward-sibling)
+          ("]" . magit-section-forward-sibling))
   :custom
   (transient-default-level 7)
   (magit-display-buffer-function
