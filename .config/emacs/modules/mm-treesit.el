@@ -137,4 +137,22 @@ This alist is used to configure `auto-mode-alist'.")
               ;; https://github.com/tree-sitter/tree-sitter-c/issues/236
               (append keywords '("constexpr"))))
 
+
+;;; Highlight Predefined Variables
+
+(with-eval-after-load 'treesit
+  (defvar mm-c-font-lock-rules
+    (treesit-font-lock-rules
+     :language 'c
+     :feature 'constant
+     :override t
+     `(((identifier) @font-lock-constant-face
+        (:match ,(rx bos (or "__func__" "__FUNCTION__") eos)
+                @font-lock-constant-face))))))
+
+(add-hook 'c-ts-mode-hook
+          (defun mm-c-apply-font-lock-extras ()
+            (setq treesit-font-lock-settings
+                  (append treesit-font-lock-settings mm-c-font-lock-rules))))
+
 (provide 'mm-treesit)
