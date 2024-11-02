@@ -313,6 +313,7 @@ the buffer without saving it."
 (require 'mm-editing)                   ; Text Editing
 (require 'mm-keybindings)               ; Keybindings
 (require 'mm-modeline)                  ; Modeline
+(require 'mm-org)                       ; Org-Mode
 (require 'mm-projects)                  ; Project Management
 (require 'mm-spellcheck)                ; Spell Checking
 (require 'mm-tetris)                    ; Emacs Tetris
