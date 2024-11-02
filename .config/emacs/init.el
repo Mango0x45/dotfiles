@@ -20,6 +20,14 @@
   (add-to-list 'load-path directory))
 
 
+;;; Disable or Enable LSP?
+
+;; I’m not decided on LSP… so make it a variable
+
+(defvar mm-lsp-p nil
+  "Enable LSP support if non-nil.")
+
+
 ;;; Convenience Macros and -Functions
 
 (defun mm-mode-to-hook (mode)
@@ -303,17 +311,16 @@ the buffer without saving it."
 (require 'mm-documentation)             ; Documentation
 (require 'mm-editing)                   ; Text Editing
 (require 'mm-keybindings)               ; Keybindings
-(mm-comment
-  (require 'mm-lsp))                    ; Language Server Protocol
 (require 'mm-modeline)                  ; Modeline
 (require 'mm-projects)                  ; Project Management
 (require 'mm-spellcheck)                ; Spell Checking
 (require 'mm-tetris)                    ; Emacs Tetris
 (require 'mm-theme)                     ; Themeing
 (require 'mm-treesit)                   ; Tree-Sitter
-
 (when mm-darwin-p
   (require 'mm-darwin))                 ; MacOS
+(when mm-lsp-p
+  (require 'mm-lsp))                    ; Language Server Protocol
 
 
 ;;; Postamble
