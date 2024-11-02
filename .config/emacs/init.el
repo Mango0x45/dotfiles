@@ -157,6 +157,7 @@ buffer suppressed."
   (disabled-command-function nil)
   (duplicate-line-final-position -1)
   (duplicate-region-final-position -1)
+  (echo-keystrokes 0.01)                ; 0 disables echoing
   (echo-keystrokes-help nil)
   (help-window-select t)
   (initial-buffer-choice t)
