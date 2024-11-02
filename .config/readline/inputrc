@@ -1,13 +1,9 @@
 set bell-style none
-set editing-mode vi
-set completion-ignore-case on
+set editing-mode emacs
 
 # Colored completions
 set colored-stats on
 set colored-completion-prefix on
-
-# Treat hyphens and underscores the same in the context of completion
-set completion-map-case on
 
 # Complete prefix and show choices on one tab
 set show-all-if-ambiguous on
@@ -27,11 +23,11 @@ $if editing-mode == vi
 $endif
 
 $if Bash
-	C-p: "| $PAGER"
+	$if editing-mode == vi
+		C-p: "| $PAGER"
+		C-t: reverse-search-history
+	$endif
 	C-o: "./..."
-
-	# Since <C-r> is bound to ‘forward-search-history’
-	C-t: reverse-search-history
 $endif
 
 set keymap vi-command
