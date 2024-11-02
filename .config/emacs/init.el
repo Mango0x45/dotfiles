@@ -173,6 +173,7 @@ buffer suppressed."
   (save-interprogram-paste-before-kill t)
   (scroll-conservatively 101) ; (info "(Emacs)Auto Scrolling")
   (scroll-error-top-bottom t)
+  (scroll-margin 10)
   (user-full-name "Thomas Voss")
   (user-mail-address "mail@thomasvoss.com")
   (vc-follow-symlinks t)
