@@ -70,6 +70,14 @@
   (minibuffer-default-prompt-format " [%s]"))
 
 
+;;; Hide Shadowed Filepaths
+
+(use-package rfn-eshadow
+  :hook (after-init . file-name-shadow-mode)
+  :custom
+  (file-name-shadow-properties '(invisible t intangilble t)))
+
+
 ;;; Completion Popups
 
 (use-package corfu
