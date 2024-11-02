@@ -22,15 +22,52 @@
   (marginalia-field-width 50))
 
 
-;;; Orderless Completion Style
+;;; Minibuffer Completion Styles
 
-;; TODO: Make sure this doesn’t suck
+(use-package minibuffer
+  :bind ( :map minibuffer-local-completion-map
+          ("SPC" . nil)
+          ("?"   . nil))
+  :custom
+  (completion-styles '(basic substring orderless))
+  (completion-category-defaults nil)    ; Avoid needing to override things
+  (completion-category-overrides
+   '((file             (styles . (basic partial-completion orderless)))
+     (bookmark         (styles . (basic substring)))
+     (library          (styles . (basic substring)))
+     (imenu            (styles . (basic substring orderless)))
+     (consult-location (styles . (basic substring orderless)))
+     (kill-ring        (styles . (basic substring orderless)))))
+  (completion-ignore-case t)
+  (read-buffer-completion-ignore-case t)
+  (read-file-name-completion-ignore-case t))
+
 (use-package orderless
   :ensure t
+  :after minibuffer
   :custom
-  (completion-styles '(orderless basic))
-  (orderless-matching-styles '(orderless-prefixes))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (orderless-matching-styles '(orderless-prefixes orderless-regexp)))
+
+
+;;; Disable Minibuffer Recursion Level
+
+(use-package mb-depth
+  :hook (after-init . minibuffer-depth-indicate-mode)
+  :custom
+  (enable-recursive-minibuffers t))
+
+
+;;; Don’t Show Defaults After Typing
+
+;; Usually if a minibuffer prompt has a default value you can access by
+;; hitting RET, the prompt will remain even if you begin typing (meaning
+;; the default will no longer take effect on RET).  Enabling this mode
+;; disables that behaviour.
+
+(use-package minibuf-eldef
+  :hook (after-init . minibuffer-electric-default-mode)
+  :custom
+  (minibuffer-default-prompt-format " [%s]"))
 
 
 ;;; Completion Popups
