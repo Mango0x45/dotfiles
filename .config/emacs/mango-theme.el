@@ -37,6 +37,7 @@ graphically, so I shouldn’t need to have multiple specs per face.
     (violet           . "#E57AE5")
     (khaki            . "#F0E68C")
     (lime             . "#B8F182")
+    (dark-red         . "#841A11")
     (orange           . "#F1B282")
     (pink             . "#ED97F5")
     (spanish-red      . "#E60026"))
@@ -83,6 +84,24 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :foreground ,(mango-theme--color 'disabled))
   (font-lock-doc-face
    :inherit font-lock-comment-face)
+
+  ;; Modeline
+  (mm-modeline-readonly-face
+   :weight bold)
+  (mm-modeline-buffer-name-face
+   :inherit font-lock-constant-face)
+  (mm-modeline-buffer-modified-face
+   :inherit shadow)
+  (mm-modeline-major-mode-name-face
+   :weight bold)
+  (mm-modeline-major-mode-symbol-face
+   :inherit shadow)
+  (mm-modeline-narrow-face
+   :background ,(mango-theme--color 'dark-red)
+   :box ,(mango-theme--color 'dark-red)
+   :weight bold)
+  (mm-modeline-git-branch-face
+   :inherit font-lock-constant-face)
 
   ;; Core Language
   (font-lock-keyword-face

@@ -3,18 +3,11 @@
 (defmacro mm-modeline--define-component (name &rest forms)
   (declare (indent 1))
   `(progn
+     (defface ,(intern (format "%s-face" name))
+       '((t))
+       ,(format "Face for the `%s' component." name))
      (defvar-local ,name '(:eval (or ,(macroexp-progn forms) "")))
      (put ',name 'risky-local-variable t)))
-
-
-;;; Faces
-
-(defface mm-modeline-narrow-face
-  '((t :foreground "#C5C8C6"            ; From ‘mango-theme’
-       :background "dark red"
-       :box "dark red"
-       :weight bold))
-  "Face for the `mm-modeline-narrow' modeline component.")
 
 
 ;;; Support Icons
@@ -34,15 +27,15 @@
 
 (mm-modeline--define-component mm-modeline-readonly
   (when buffer-read-only
-    (propertize " READONLY" 'face 'bold)))
+    (propertize " READONLY" 'face 'mm-modeline-readonly-face)))
 
 (mm-modeline--define-component mm-modeline-buffer-name
-  (propertize "%b" 'face 'font-lock-constant-face))
+  (propertize "%b" 'face 'mm-modeline-buffer-name-face))
 
 (mm-modeline--define-component mm-modeline-buffer-modified
   (when (and (buffer-modified-p)
              (buffer-file-name))
-    (propertize " (modified)" 'face 'shadow)))
+    (propertize " (modified)" 'face 'mm-modeline-buffer-modified-face)))
 
 (defconst mm-modeline-mode-acronyms
   '("css" "csv" "gsp" "html" "json" "mhtml" "scss" "toml" "tsv")
@@ -78,7 +71,7 @@
             (upcase (substring string (match-beginning 0) (match-end 0)))
             (substring string (match-end 0) (length string)))
          string)))
-   'face 'bold))
+   'face 'mm-modeline-major-mode-name-face))
 
 (mm-modeline--define-component mm-modeline-major-mode-symbol
   (propertize
@@ -88,7 +81,7 @@
     ((derived-mode-p 'prog-mode)   "λ ")
     ((derived-mode-p 'text-mode)   "§ ")
     (t ""))
-   'face 'shadow))
+   'face 'mm-modeline-major-mode-symbol-face))
 
 (mm-modeline--define-component mm-modeline-narrow
   (when (buffer-narrowed-p)
@@ -102,7 +95,7 @@
     (concat
      (propertize "\uE907" 'display '(raise 0))
      " "
-     (propertize branch 'face 'font-lock-constant-face)
+     (propertize branch 'face 'mm-modeline-git-branch-face)
      " │ ")))
 
 
