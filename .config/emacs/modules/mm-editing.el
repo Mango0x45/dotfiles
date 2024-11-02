@@ -170,6 +170,20 @@ region are marked, otherwise all matches in the buffer are marked."
 (mm--define-mc-marking-command
  mm-mark-all-in-region-regexp re-search-forward "regexp")
 
+(defun mm-silent-mc-load (args)
+  "Advice to `load' to force it to be silent.  The `multiple-cursors'
+package loads an `.mc-lists.el' file without passing `:nomessage' which
+causes messages to be sent in the minibuffer and *Messages* buffer.  This
+forces that to not happen."
+  (when (and (boundp 'mc/list-file)
+             (string= (car args) mc/list-file))
+    (pcase (length args)
+      (1 (setq args (list (car args) nil :nomessage)))
+      (2 (add-to-list 'args :nomessage :append))
+      (_ (setf (caddr args) :nomessage)))
+    (advice-remove #'load #'mm-silent-mc-load))
+  args)
+
 (use-package multiple-cursors
   :ensure t
   :defer 2
@@ -180,6 +194,7 @@ region are marked, otherwise all matches in the buffer are marked."
          ("C-$"   . #'mm-mark-all-in-region)
          ("M-$"   . #'mm-mark-all-in-region-regexp))
   :init
+  (advice-add #'load :filter-args #'mm-silent-mc-load)
   (with-eval-after-load 'multiple-cursors-core
     (dolist (command #'(backward-delete-char
                         capitalize-dwim
