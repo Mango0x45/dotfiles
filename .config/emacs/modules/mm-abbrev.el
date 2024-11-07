@@ -26,8 +26,7 @@ case-sensitive to avoid unexpected abbreviation expansions."
 ;;; Abbreviation Configuration
 
 (use-package abbrev
-  :init
-  (setq-default abbrev-mode t)
+  :hook prog-mode
   :custom
   (abbrev-file-name (expand-file-name "abbev-defs" mm-data-directory))
   (save-abbrevs 'silently))
@@ -44,9 +43,9 @@ case-sensitive to avoid unexpected abbreviation expansions."
   "fpf" "fprintf"
   "fuf" "funlockfile"
   "pf"  "printf"
-  "se"  "stderr"
-  "si"  "stdin"
-  "so"  "stdout")
+  "sde"  "stderr"
+  "sdi"  "stdin"
+  "sdo"  "stdout")
 
 (with-eval-after-load 'cc-mode
   (setq c-mode-abbrev-table   (copy-abbrev-table mm-c-mode-abbrev-table)

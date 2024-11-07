@@ -175,6 +175,7 @@ buffer suppressed."
   (duplicate-region-final-position -1)
   (echo-keystrokes 0.01)                ; 0 disables echoing
   (echo-keystrokes-help nil)
+  (extended-command-suggest-shorter nil)
   (help-window-select t)
   (initial-buffer-choice t)
   (initial-scratch-message mm-initial-scratch-message)

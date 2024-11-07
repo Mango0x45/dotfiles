@@ -9,7 +9,13 @@
   :custom
   (vertico-cycle t)
   :config
-  (require 'hl-line))
+  (require 'hl-line)
+  ;; When working with ‘file-name-shadow-mode’ enabled, if I shadow old
+  ;; input (i.e.) by typing ‘~/’ after ‘foo/bar’ Vertico will clear the
+  ;; old path to keep only the current input (the old path is hidden by
+  ;; ‘rfn-shadow’ anyways).
+  (with-eval-after-load 'rfn-shadow
+    (add-hook 'rfn-shadow-update-overlay-hook #'vertico-directory-tidy)))
 
 
 ;;; Annotate Completions
@@ -19,7 +25,8 @@
   :ensure t
   :hook after-init
   :custom
-  (marginalia-field-width 50))
+  (marginalia-field-width 50)
+  (marginalia-max-relative-age 0))
 
 
 ;;; Minibuffer Completion Styles
@@ -90,6 +97,7 @@
   (corfu-cycle t)
   (corfu-auto-prefix 1)
   (corfu-auto-delay .1)
+  (corfu-min-width 20)
   :config
   ;; I complete with RET and this interferes with ‘tempel-next’
   (keymap-unset corfu-map "TAB" :remove)
@@ -101,7 +109,12 @@
 ;;; Save Minibuffer History
 
 (use-package savehist-mode
-  :hook (after-init . savehist-mode))
+  :hook (after-init . savehist-mode)
+  :custom
+  (history-length 200)
+  (history-delete-duplicates t)
+  :config
+  (add-to-list 'savehist-additional-variables 'kill-ring))
 
 
 ;;; Enhanced Replacements for Builtins
@@ -109,17 +122,42 @@
 ;; TODO: Investigate other commands
 (use-package consult
   :ensure t
+  :hook (completion-list-mode . consult-preview-at-point-mode)
   :bind ( ([remap switch-to-buffer] . consult-buffer)
           ([remap imenu]            . consult-imenu)
           ([remap goto-line]        . consult-goto-line)
+          ("M-F"                    . consult-focus-lines)
+          :map project-prefix-map
+          ("b" . consult-project-buffer)
           :map consult-narrow-map
           ("?" . consult-narrow-help))
+  :custom
+  (consult-find-args
+   (string-join
+    '("find . -not ("
+      "        -path '*/.git*'    -prune"
+      "    -or -path '*/vendor/*' -prune"
+      ")")
+    " "))
   :config
-  (with-eval-after-load 'project
-    (keymap-set project-prefix-map "b" #'consult-project-buffer))
   (with-eval-after-load 'pulsar
     (setopt consult-after-jump-hook nil)
     (dolist (command #'(pulsar-recenter-top pulsar-reveal-entry))
       (add-hook 'consult-after-jump-hook command))))
+
+
+;;; Dynamic Abbreviations
+
+(use-package dabbrev
+  :commands (dabbrev-completion dabbrev-expand)
+  :custom
+  (dabbrev-upcase-means-case-search t))
+
+
+;;; Finding Things
+
+(use-package find-func
+  :custom
+  (find-library-include-other-files nil))
 
 (provide 'mm-completion)
