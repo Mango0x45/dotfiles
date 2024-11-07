@@ -39,7 +39,7 @@ just as they are with `mark-word.'"
   (if (eq last-command this-command)
       (mark-word arg allow-extend)
     (let ((bounds (bounds-of-thing-at-point 'word))
-          (numeric-arg allow-extend))
+          (numeric-arg (or allow-extend 0)))
       (if bounds
           (goto-char (if (< numeric-arg 0)
                          (cdr bounds)
