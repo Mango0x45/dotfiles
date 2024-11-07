@@ -84,6 +84,10 @@ This function is meant to be used in conjuction with `read-string' and
   (declare (indent 0))
   nil)
 
+(defun mm-nil (&rest _)
+  "Return nil."
+  nil)
+
 (defmacro mm-with-suppressed-output (&rest body)
   "Execute BODY while suppressing output.
 Execute BODY as given with all output to the echo area or the *Messages*
@@ -328,6 +332,7 @@ the buffer without saving it."
 (require 'mm-modeline)                  ; Modeline
 (require 'mm-org)                       ; Org-Mode
 (require 'mm-projects)                  ; Project Management
+(require 'mm-search)                    ; Text Searching
 (require 'mm-spellcheck)                ; Spell Checking
 (require 'mm-tetris)                    ; Emacs Tetris
 (require 'mm-theme)                     ; Themeing
