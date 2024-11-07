@@ -13,7 +13,7 @@ After adding all abbreviations to TABLE, this macro marks TABLE as
 case-sensitive to avoid unexpected abbreviation expansions."
   (declare (indent 1))
   (unless (cl-evenp (length definitions))
-    (user-error "expected an even-number of elements in DEFINITIONS"))
+    (user-error "expected an even number of elements in DEFINITIONS"))
   `(progn
      ,@(cl-loop for (abbrev expansion) in (seq-partition definitions 2)
                 if (stringp expansion)
