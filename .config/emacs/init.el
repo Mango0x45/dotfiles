@@ -93,6 +93,18 @@ buffer suppressed."
          (message-log-max nil))
      ,@body))
 
+(defun mm-rotate-left (n list)
+  "Rotate the elements of LIST N places to the left."
+  (declare (ftype (function (number (list t)) (list t)))
+           (pure t) (side-effect-free t))
+  (append (nthcdr n list) (butlast list (- (length list) n))))
+
+(defun mm-rotate-right (n list)
+  "Rotate the elements of LIST N places to the right."
+  (declare (ftype (function (number (list t)) (list t)))
+           (pure t) (side-effect-free t))
+  (mm-rotate-left (- (length list) n) list))
+
 
 ;;; Silent Native Compilation
 
