@@ -4,12 +4,12 @@ c-mode c-ts-mode c++-mode c++-ts-mode
 
 (guard
  "#ifndef "
- (p 
+ (p
   (thread-last
     (file-name-base (or (buffer-file-name)
                         (buffer-name)))
-    (concat (if-let ((project (project-current)))
-                (concat (project-name project) "_")))
+    (concat (when-let ((project (project-current)))
+              (concat (project-name project) "_")))
     (upcase)
     (string-replace "-" "_")
     (replace-regexp-in-string "^[0-9]+" "_\\&")
