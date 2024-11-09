@@ -206,7 +206,6 @@ See also the `mm-theme-background-opacity' variable."
 ;;; More Intuiative UI for Certain Modes
 
 (use-package line-selection-mode
-  :hook ((dired-mode   . line-selection-mode)
-         (ibuffer-mode . line-selection-mode)))
+  :hook ((bookmark-bmenu-mode dired-mode ibuffer-mode) . line-selection-mode))
 
 (provide 'mm-theme)
