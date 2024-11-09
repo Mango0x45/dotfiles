@@ -39,7 +39,7 @@
 
 (defconst mm-modeline-mode-acronyms
   '("css" "csv" "gsp" "html" "json" "mhtml" "scss" "toml" "tsv")
-  "TODO")
+  "List of acronyms in major mode names that should be capitalized.")
 
 (defconst mm-modeline-remap-alist
   '(("Bmenu"   . "BMenu")
@@ -48,7 +48,12 @@
     ("Imake"   . "IMake")
     ("Js"      . "JavaScript")
     ("Ts Mode" . "Tree-Sitter Mode"))
-  "TODO")
+  "Alist of substrings in major mode names that should be remapped.
+Some major modes have substrings that would be better displayed in
+another manner.  For example expanding an abbreviation such as ‘Js’ to
+its expanded form ‘JavaScript’, or fixing the casing of words with a
+prefix such as ‘Gmake’ to ‘GMake’.  This alist maps the original text to
+the text it should be mapped to.")
 
 (mm-modeline--define-component mm-modeline-major-mode-name
   (propertize
