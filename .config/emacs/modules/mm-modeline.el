@@ -63,7 +63,6 @@ the text it should be mapped to.")
                    (capitalize)
                    (string-replace "-" " ")))
          (case-fold-search nil))
-     ;; TODO: Do I need ‘save-match-data’
      (save-match-data
        (dolist (pair mm-modeline-remap-alist)
          (setq string
