@@ -258,6 +258,13 @@ buffer suppressed."
        (auto-revert-mode)))))
 
 
+;;; Bookmarks
+
+(use-package bookmark
+  :custom
+  (bookmark-save-flag 1))
+
+
 ;;; Smoother Scrolling
 
 (use-package pixel-scroll
