@@ -118,15 +118,20 @@ those should be listed in `mm-editing-indentation-settings'."
         (set (make-local-variable extra) tabsize)))))
 
 
-;;; Make Tab Not Suck
+;;; Code Commenting
 
-(use-package indent
+(defun mm-c-comment-no-leading-stars ()
+  (setq-local comment-continue "   "))
+
+(use-package newcomment
   :custom
-  (tab-always-indent t))
-
-(use-package electric
+  (comment-style 'multi-line)
   :config
-  (setq-default electric-indent-inhibit t))
+  (dolist (mode '(c-mode c++-mode))
+    (add-hook (mm-mode-to-hook mode) #'mm-c-comment-no-leading-stars)
+    (when-let ((ts-mode (mm-mode-to-ts-mode mode))
+               ((fboundp ts-mode)))
+      (add-hook (mm-mode-to-hook ts-mode) #'mm-c-comment-no-leading-stars))))
 
 
 ;;; Multiple Cursors
