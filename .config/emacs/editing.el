@@ -226,4 +226,48 @@ This function is identical to `mm-search-forward-char' with N negated."
          (prefix-numeric-value current-prefix-arg)))
   (mm-search-forward-char char (- n)))
 
+(defun mm-add-cursor-to-next-thing (thing)
+  "Add a fake cursor to the next occurance of THING.
+THING is any symbol that can be given to ‘bounds-of-thing-at-point’.
+
+If there is an active region, the next THING will be marked."
+  (require 'multiple-cursors)
+  (let ((bounds (bounds-of-thing-at-point thing)))
+    (if (null bounds)
+        (progn
+          (forward-thing thing)
+          (goto-char (car (bounds-of-thing-at-point thing))))
+      (mc/save-excursion
+       (when (> (mc/num-cursors) 1)
+         (goto-char (overlay-end (mc/furthest-cursor-after-point))))
+       (goto-char (cdr (bounds-of-thing-at-point thing)))
+       (forward-thing thing)
+       (let ((bounds (bounds-of-thing-at-point thing)))
+         (goto-char (car bounds))
+         (when (use-region-p)
+           (push-mark (cdr bounds)))
+         (mc/create-fake-cursor-at-point))))))
+
+(defun mm-add-cursor-to-next-word ()
+  "Add a fake cursor to the next word."
+  (declare (interactive-only t))
+  (interactive)
+  (mm-add-cursor-to-next-thing 'word)
+  (mc/maybe-multiple-cursors-mode))
+
+(defun mm-transpose-cursor-regions (n)
+  "Interchange the regions of each cursor.
+With prefix arg N, the regions are rotated N places (backwards if N is
+negative)."
+  (interactive "p")
+  (require 'multiple-cursors)
+  (when (= (mc/num-cursors) 1)
+    (user-error "Cannot transpose with only one cursor."))
+  (unless (use-region-p)
+    (user-error "No active region."))
+  (setq mc--strings-to-replace
+        (funcall (if (< n 0) #'mm-rotate-left #'mm-rotate-right)
+                 (abs n) (mc--ordered-region-strings)))
+  (mc--replace-region-strings))
+
 (provide 'editing)
