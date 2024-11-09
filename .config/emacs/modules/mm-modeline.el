@@ -42,11 +42,12 @@
   "TODO")
 
 (defconst mm-modeline-remap-alist
-  '(("Js"      . "JavaScript")
-    ("Ts Mode" . "Tree-Sitter Mode")
+  '(("Bmenu"   . "BMenu")
+    ("Bsdmake" . "BSD Make")
     ("Gmake"   . "GMake")
     ("Imake"   . "IMake")
-    ("Bsdmake" . "BSD Make"))
+    ("Js"      . "JavaScript")
+    ("Ts Mode" . "Tree-Sitter Mode"))
   "TODO")
 
 (mm-modeline--define-component mm-modeline-major-mode-name
