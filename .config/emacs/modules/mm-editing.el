@@ -142,33 +142,33 @@ those should be listed in `mm-editing-indentation-settings'."
        ,(format "Mark all occurances of %s between BEG and END.
 If called interactively with an active region then all matches in the
 region are marked, otherwise all matches in the buffer are marked."
-		(upcase noun))
+                (upcase noun))
        (interactive
-	(list (or (use-region-beginning) (point-min))
-	      (or (use-region-end) (point-max))
-	      (read-string
-	       (format-prompt ,(concat "Match " noun) nil))))
+        (list (or (use-region-beginning) (point-min))
+              (or (use-region-end) (point-max))
+              (read-string
+               (format-prompt ,(concat "Match " noun) nil))))
        (require 'multiple-cursors)
        (if (string-empty-p ,noun-symbol)
-	   (message "Command aborted")
+           (message "Command aborted")
          (catch 'mm--no-match
-	   (mc/remove-fake-cursors)
-	   (goto-char beg)
+           (mc/remove-fake-cursors)
+           (goto-char beg)
            (let (did-match-p)
-	     (while (,search-function ,noun-symbol end :noerror)
+             (while (,search-function ,noun-symbol end :noerror)
                (setq did-match-p t)
-	       (push-mark (match-beginning 0))
-	       (exchange-point-and-mark)
-	       (mc/create-fake-cursor-at-point)
-	       (goto-char (mark)))
+               (push-mark (match-beginning 0))
+               (exchange-point-and-mark)
+               (mc/create-fake-cursor-at-point)
+               (goto-char (mark)))
              (unless did-match-p
                (message "No match for `%s'" ,noun-symbol)
                (throw 'mm--no-match nil)))
-	   (when-let ((first (mc/furthest-cursor-before-point)))
-	     (mc/pop-state-from-overlay first))
-	   (if (> (mc/num-cursors) 1)
-	       (multiple-cursors-mode 1)
-	     (multiple-cursors-mode 0)))))))
+           (when-let ((first (mc/furthest-cursor-before-point)))
+             (mc/pop-state-from-overlay first))
+           (if (> (mc/num-cursors) 1)
+               (multiple-cursors-mode 1)
+             (multiple-cursors-mode 0)))))))
 
 (mm--define-mc-marking-command
  mm-mark-all-in-region search-forward "string")
