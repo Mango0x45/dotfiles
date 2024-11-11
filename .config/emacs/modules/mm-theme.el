@@ -105,10 +105,9 @@ Also see `mm-theme-ligatures-alist'."
 
 (use-package ligature
   :ensure t
-  :if (and (or mm-darwin-p
-               (seq-contains-p (split-string system-configuration-features)
-                               "HARFBUZZ"))
-           (display-graphic-p))
+  :if (or mm-darwin-p
+          (seq-contains-p (split-string system-configuration-features)
+                          "HARFBUZZ"))
   :hook prog-mode
   :config
   (mm-theme-update-ligatures))
@@ -169,7 +168,6 @@ See also the `mm-theme-background-opacity' variable."
 
 (use-package spacious-padding
   :ensure t
-  :if (display-graphic-p)
   :hook after-init)
 
 
