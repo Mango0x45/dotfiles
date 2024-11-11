@@ -43,6 +43,9 @@
 (defconst mm-darwin-p (eq system-type 'darwin)
   "This variable is non-nil if Emacs is running on a Darwin system.")
 
+(defconst mm-humanwave-p (file-exists-p "~/.humanwavep")
+  "This variable is non-nil if Emacs is running on a Humanwave system.")
+
 
 ;;; Basic Frame Settings
 

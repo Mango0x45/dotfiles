@@ -42,7 +42,7 @@
 
 (setq-default
  tab-width 4
- indent-tabs-mode t)
+ indent-tabs-mode (not mm-humanwave-p))
 
 (defvar mm-editing-indentation-settings-alist
   '((c-mode                . (:extras c-basic-offset))
