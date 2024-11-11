@@ -92,7 +92,7 @@ bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
 __bind(C, emacsclient -que '(popup-command-full-calc)')
-__bind(E, emacs)
+__bind(E, emacsclient -ca emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
 __bind(return, foot)
