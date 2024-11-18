@@ -116,6 +116,8 @@ the first command is remapped to the second command."
   "C-]" #'mm-search-forward-char
   "M-]" #'mm-search-backward-char
 
+  "M-\\" #'cycle-spacing
+
   "C-M-@" #'mm-add-cursor-to-next-word
 
   "C-c c t" #'mm-transpose-cursor-regions
