@@ -226,6 +226,24 @@ forces that to not happen."
   :commands (increment-number-at-point decrement-number-at-point))
 
 
+;;; Move Line or Region
+
+(defun mm-move-text-indent (&rest _)
+  (let ((deactivate deactivate-mark))
+    (if (region-active-p)
+        (indent-region (region-beginning) (region-end))
+      (indent-region (line-beginning-position) (line-end-position)))
+    (setq deactivate-mark deactivate)))
+
+(use-package move-text
+  :ensure t
+  :bind (("M-n" . move-text-down)
+         ("M-p" . move-text-up))
+  :config
+  (dolist (command #'(move-text-up move-text-down))
+    (advice-add command :after #'mm-move-text-indent)))
+
+
 ;;; Surround With Delimeters
 
 (defun mm-editing-surround-with-spaces (char)
