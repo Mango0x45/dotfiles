@@ -155,4 +155,34 @@ This alist is used to configure `auto-mode-alist'.")
             (setq treesit-font-lock-settings
                   (append treesit-font-lock-settings mm-c-font-lock-rules))))
 
+
+;;; Region Expansion
+
+(defun mm-expreg-expand (n)
+  "Expand to N syntactic units."
+  (interactive "p")
+  (dotimes (_ n)
+    (expreg-expand)))
+
+(defun mm-expreg-expand-dwim ()
+  "Do-What-I-Mean `expreg-expand' to start with symbol or word.
+If over a real symbol, mark that directly, else start with a word.  Fall
+back to regular `expreg-expand'."
+  (interactive)
+  (if (region-active-p)
+      (expreg-expand)
+    (let ((symbol (bounds-of-thing-at-point 'symbol)))
+      (cond
+       ((equal (bounds-of-thing-at-point 'word) symbol)
+        (mm-expreg-expand 1))
+       (symbol
+        (mm-expreg-expand 2))
+       (:else
+        (expreg-expand))))))
+
+(use-package expreg
+  :ensure t
+  :commands (mm-expreg-expand mm-expreg-expand-dwim)
+  :bind ("M-SPC" . mm-expreg-expand-dwim))
+
 (provide 'mm-treesit)
