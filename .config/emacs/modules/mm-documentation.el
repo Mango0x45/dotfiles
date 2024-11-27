@@ -28,4 +28,17 @@
       (man symbol)
     (message "No symbol at point.")))
 
+
+;;; Browse RFC Pages
+
+(use-package rfc-mode
+  :ensure t
+  :custom
+  (rfc-mode-directory (expand-file-name "rfc" (xdg-user-dir "DOCUMENTS")))
+  :config
+  (unless (featurep 'consult)
+    (keymap-set rfc-mode-map "g" #'imenu))
+  (with-eval-after-load 'consult
+    (keymap-set rfc-mode-map "g" #'consult-imenu)))
+
 (provide 'mm-documentation)
