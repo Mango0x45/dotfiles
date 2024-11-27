@@ -304,8 +304,9 @@ is as described by `emmet-expand-line'."
 
 ;;; Additional Major Modes
 
-(use-package csv-mode
-  :ensure t)
+(use-package csv-mode  :ensure t)
+(use-package git-modes :ensure t)
+(use-package sed-mode  :ensure t)
 
 
 ;;; Mode-Specific Configurations
