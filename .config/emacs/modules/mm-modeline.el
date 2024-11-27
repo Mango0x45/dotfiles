@@ -42,12 +42,15 @@
   "List of acronyms in major mode names that should be capitalized.")
 
 (defconst mm-modeline-remap-alist
-  '(("Bmenu"   . "BMenu")
-    ("Bsdmake" . "BSD Make")
-    ("Gmake"   . "GMake")
-    ("Imake"   . "IMake")
-    ("Js"      . "JavaScript")
-    ("Ts Mode" . "Tree-Sitter Mode"))
+  '(("Bmenu"         . "BMenu")
+    ("Bsdmake"       . "BSD Make")
+    ("Gitattributes" . "Git Attributes")
+    ("Gitconfig"     . "Git Config")
+    ("Gitignore"     . "Git Ignore")
+    ("Gmake"         . "GMake")
+    ("Imake"         . "IMake")
+    ("Js"            . "JavaScript")
+    ("Ts Mode"       . "Tree-Sitter Mode"))
   "Alist of substrings in major mode names that should be remapped.
 Some major modes have substrings that would be better displayed in
 another manner.  For example expanding an abbreviation such as ‘Js’ to
