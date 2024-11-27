@@ -24,6 +24,10 @@ function jc {
 	__dir_search "$1" "$XDG_CONFIG_HOME" -maxdepth 1 -type d
 }
 
+function goto {
+	cd "$(fzf --literal --filepath-word --walker=dir --walker-root="$HOME")"
+}
+
 export BROWSER="firefox"
 export CC="gcc"
 export EDITOR="nvim"
