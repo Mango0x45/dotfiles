@@ -320,4 +320,9 @@ is as described by `emmet-expand-line'."
   (python-indent-def-block-scale 1)
   (python-indent-guess-indent-offset-verbose nil))
 
+
+;;; Add Missing Extensions
+
+(add-to-list 'auto-mode-alist '("\\.tmac\\'" . nroff-mode))
+
 (provide 'mm-editing)
