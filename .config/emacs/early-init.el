@@ -2,25 +2,19 @@
 
 ;;; XDG Base Directory Specification Compliance
 
+(eval-when-compile
+  (require 'xdg))
+
 (defconst mm-cache-directory
-  (expand-file-name
-   "emacs"
-   (or (getenv "XDG_CACHE_HOME")
-       (expand-file-name ".cache" (getenv "HOME"))))
+  (expand-file-name "emacs" (xdg-cache-home))
   "The XDG-conformant cache directory that Emacs should use.")
 
 (defconst mm-config-directory
-  (expand-file-name
-   "emacs"
-   (or (getenv "XDG_CONFIG_HOME")
-       (expand-file-name ".config" (getenv "HOME"))))
+  (expand-file-name "emacs" (xdg-config-home))
   "The XDG-conformant config directory that Emacs should use.")
 
 (defconst mm-data-directory
-  (expand-file-name
-   "emacs"
-   (or (getenv "XDG_DATA_HOME")
-       (expand-file-name ".local/share" (getenv "HOME"))))
+  (expand-file-name "emacs" (xdg-data-home))
   "The XDG-conformant data directory that Emacs should use.")
 
 (mapc (lambda (directory)
