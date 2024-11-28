@@ -52,7 +52,8 @@
     (go-mod-ts-mode        . (:extras go-ts-mode-indent-offset))
     (go-ts-mode            . (:extras go-ts-mode-indent-offset))
     (gsp-ts-mode           . (:width 2 :extras gsp-ts-mode-indent-rules))
-    (helpful-mode          . (:width 8))    ; GNU code uses 8-column tabs
+    (helpful-mode          . (:width 8)) ; GNU code uses 8-column tabs
+    (latex-mode            . (:width 2))
     (lisp-data-mode        . (:spaces t))
     (lisp-interaction-mode . (:spaces t))
     (lisp-mode             . (:spaces t))
@@ -62,6 +63,7 @@
     (python-ts-mode        . (:extras python-indent-offset))
     (sgml-mode             . (:extras sgml-basic-offset))
     (sh-mode               . (:extras sh-basic-offset))
+    (tex-mode              . (:width 2))
     (vimscript-ts-mode     . (:extras vimscript-ts-mode-indent-level)))
   "Alist of indentation settings.
 Each pair in this alist is of the form (MODE . SETTINGS) where MODE
