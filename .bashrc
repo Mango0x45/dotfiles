@@ -25,7 +25,7 @@ function jc {
 }
 
 function goto {
-	cd "$(fzf --literal --filepath-word --walker=dir --walker-root="$HOME")"
+	pushd "$(fzf --literal --filepath-word --walker=dir --walker-root="$HOME")"
 }
 
 export BROWSER="firefox"
