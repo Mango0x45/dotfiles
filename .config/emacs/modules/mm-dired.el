@@ -6,6 +6,9 @@
   :bind ( :map dired-mode-map
           ("f" . find-file))
   :custom
+  (dired-auto-revert-buffer #'dired-directory-changed-p)
+  (dired-dwim-target t)
+  (dired-free-space nil)
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'always)
   (dired-listing-switches
