@@ -102,9 +102,9 @@ alias ..='cd ..'
 alias d='git --git-dir="$REPODIR/Mango0x45/dotfiles.git" --work-tree="$HOME"'
 alias g=git
 alias grep='grep --color=auto'
-alias la='ls --color=auto -A'
-alias ll='ls --color=auto -Alh'
-alias ls='ls --color=auto'
+alias la='ls --color=auto -Av    --group-directories-first'
+alias ll='ls --color=auto -AGhlv --group-directories-first --time-style="+%d %b %Y %T"'
+alias ls='ls --color=auto -v     --group-directories-first'
 alias sl='sl -ac5'
 alias sv=sudoedit
 alias v="$VISUAL"
