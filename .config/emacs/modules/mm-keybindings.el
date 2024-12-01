@@ -104,8 +104,8 @@ the first command is remapped to the second command."
 ;;; Bind Commands Globally
 
 (mm-keymap-set global-map
-  "<next>"    #'e/scroll-up
-  "<prior>"   #'e/scroll-down
+  ;; "<next>"    #'e/scroll-up
+  ;; "<prior>"   #'e/scroll-down
   "C-<next>"  #'forward-page
   "C-<prior>" #'backward-page
 
