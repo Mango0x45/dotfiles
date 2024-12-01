@@ -183,7 +183,7 @@ buffer suppressed."
   (large-file-warning-threshold nil)
   (make-backup-files nil)
   (mode-require-final-newline nil)
-  (next-error-recenter '(4)) ; ‘center of window’
+  (next-error-recenter '(4))            ; ‘center of window’
   (read-extended-command-predicate #'command-completion-default-include-p)
   (remote-file-name-inhibit-auto-save t)
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
