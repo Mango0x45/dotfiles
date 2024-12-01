@@ -87,23 +87,26 @@
 
 ;;; Completion Popups
 
-(use-package corfu
-  :ensure t
-  :hook prog-mode
-  :bind ( :map corfu-map
-          ("C-<return>" . newline))
-  :custom
-  (corfu-auto t)
-  (corfu-cycle t)
-  (corfu-auto-prefix 1)
-  (corfu-auto-delay .1)
-  (corfu-min-width 20)
-  :config
-  ;; I complete with RET and this interferes with ‘tempel-next’
-  (keymap-unset corfu-map "TAB" :remove)
-  (with-eval-after-load 'savehist
-    (corfu-history-mode)
-    (add-to-list 'savehist-additional-variables 'corfu-history)))
+(mm-comment
+  (use-package corfu
+    :ensure t
+    :hook prog-mode
+    :bind ( :map corfu-map
+            ("C-<return>" . newline))
+    :custom
+    (corfu-auto t)
+    (corfu-cycle t)
+    (corfu-auto-prefix 1)
+    (corfu-auto-delay .1)
+    (corfu-min-width 20)
+    :config
+    ;; I complete with RET and this interferes with ‘tempel-next’
+    (keymap-unset corfu-map "TAB" :remove)
+    (with-eval-after-load 'savehist
+      (corfu-history-mode)
+      (add-to-list 'savehist-additional-variables 'corfu-history))
+    (with-eval-after-load 'multiple-cursors
+      (add-to-list 'mc/unsupported-minor-modes #'corfu-mode))))
 
 
 ;;; Save Minibuffer History

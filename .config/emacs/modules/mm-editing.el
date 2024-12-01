@@ -150,7 +150,6 @@ region are marked, otherwise all matches in the buffer are marked."
               (or (use-region-end) (point-max))
               (read-string
                (format-prompt ,(concat "Match " noun) nil))))
-       (require 'multiple-cursors)
        (if (string-empty-p ,noun-symbol)
            (message "Command aborted")
          (catch 'mm--no-match
@@ -177,45 +176,49 @@ region are marked, otherwise all matches in the buffer are marked."
 (mm--define-mc-marking-command
  mm-mark-all-in-region-regexp re-search-forward "regexp")
 
-(defun mm-silent-mc-load (args)
-  "Advice to `load' to force it to be silent.  The `multiple-cursors'
-package loads an `.mc-lists.el' file without passing `:nomessage' which
-causes messages to be sent in the minibuffer and *Messages* buffer.  This
-forces that to not happen."
-  (when (and (boundp 'mc/list-file)
-             (string= (car args) mc/list-file))
-    (pcase (length args)
-      (1 (setq args (list (car args) nil :nomessage)))
-      (2 (add-to-list 'args :nomessage :append))
-      (_ (setf (caddr args) :nomessage)))
-    (advice-remove #'load #'mm-silent-mc-load))
-  args)
+(mm-comment
+  (defun mm-silent-mc-load (args)
+    "Advice to `load' to force it to be silent.
+The `multiple-cursors' package loads an `.mc-lists.el' file without
+passing `:nomessage' which causes messages to be sent in the minibuffer
+and *Messages* buffer.  This forces that to not happen."
+    (when (and (boundp 'mc/list-file)
+               (string= (file-truename (car args))
+                        (file-truename mc/list-file)))
+      (pcase (length args)
+        (1 (setq args (list (car args) nil :nomessage)))
+        (2 (add-to-list 'args :nomessage :append))
+        (_ (setf (caddr args) :nomessage)))
+      (advice-remove #'load #'mm-silent-mc-load))
+    args))
 
 (use-package multiple-cursors
   :ensure t
-  :defer 2
   :bind (("C->"   . #'mc/mark-next-like-this)
          ("C-<"   . #'mc/mark-previous-like-this)
          ("C-M-<" . #'mc/mark-all-like-this-dwim)
          ("C-M->" . #'mc/edit-lines)
-         ("C-$"   . #'mm-mark-all-in-region)
+         :map search-map
+         ("$"     . #'mm-mark-all-in-region)
          ("M-$"   . #'mm-mark-all-in-region-regexp))
+  :commands ( mm-mark-all-in-region mm-mark-all-in-region-regexp
+              mm-add-cursor-to-next-thing mm-transpose-cursor-regions)
   :init
-  (advice-add #'load :filter-args #'mm-silent-mc-load)
-  (with-eval-after-load 'multiple-cursors-core
-    (dolist (command #'(backward-delete-char
-                        capitalize-dwim
-                        delete-backward-char
-                        delete-forward-char
-                        downcase-dwim
-                        upcase-dwim))
-      (add-to-list 'mc/cmds-to-run-for-all command))
-    (dolist (command #'(helpful-callable
-                        helpful-key
-                        helpful-symbol
-                        helpful-variable))
-      (add-to-list 'mc/cmds-to-run-once command))
-    (add-to-list 'mc/unsupported-minor-modes #'corfu-mode))
+  (mm-comment
+    (advice-add #'load :filter-args #'mm-silent-mc-load)
+    (with-eval-after-load 'multiple-cursors-core
+      (dolist (command #'(backward-delete-char
+                          capitalize-dwim
+                          delete-backward-char
+                          delete-forward-char
+                          downcase-dwim
+                          upcase-dwim))
+        (add-to-list 'mc/cmds-to-run-for-all command))
+      (dolist (command #'(helpful-callable
+                          helpful-key
+                          helpful-symbol
+                          helpful-variable))
+        (add-to-list 'mc/cmds-to-run-once command))))
   :config
   (keymap-unset mc/keymap "<return>" :remove))
 

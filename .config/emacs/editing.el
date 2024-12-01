@@ -231,7 +231,6 @@ This function is identical to `mm-search-forward-char' with N negated."
 THING is any symbol that can be given to ‘bounds-of-thing-at-point’.
 
 If there is an active region, the next THING will be marked."
-  (require 'multiple-cursors)
   (let ((bounds (bounds-of-thing-at-point thing)))
     (if (null bounds)
         (progn
@@ -260,7 +259,6 @@ If there is an active region, the next THING will be marked."
 With prefix arg N, the regions are rotated N places (backwards if N is
 negative)."
   (interactive "p")
-  (require 'multiple-cursors)
   (when (= (mc/num-cursors) 1)
     (user-error "Cannot transpose with only one cursor."))
   (unless (use-region-p)
