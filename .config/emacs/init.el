@@ -177,7 +177,6 @@ buffer suppressed."
   (echo-keystrokes 0.01)                ; 0 disables echoing
   (echo-keystrokes-help nil)
   (extended-command-suggest-shorter nil)
-  (help-window-select t)
   (initial-buffer-choice t)
   (initial-scratch-message mm-initial-scratch-message)
   (kill-do-not-save-duplicates t)
@@ -190,18 +189,13 @@ buffer suppressed."
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
   (require-final-newline nil)
   (save-interprogram-paste-before-kill t)
-  (scroll-conservatively 101) ; (info "(Emacs)Auto Scrolling")
-  (scroll-error-top-bottom t)
-  (scroll-margin 10)
   (user-full-name "Thomas Voss")
   (user-mail-address "mail@thomasvoss.com")
   (vc-follow-symlinks t)
   (vc-handled-backends '(Git))
   :config
   (load custom-file :noerror)
-  (setq-default
-   fill-column 80
-   truncate-partial-width-windows nil)
+  (setq-default fill-column 80)
   (dolist (mode '(text-mode emacs-lisp-mode lisp-mode))
     (add-hook (mm-mode-to-hook mode)
               (defun mm-set-fill-column ()
@@ -230,16 +224,6 @@ buffer suppressed."
   (show-paren-delay 0))
 
 
-;;; Display Line Numbers
-
-(use-package display-line-numbers
-  :hook prog-mode
-  :custom
-  (display-line-numbers-type 'relative)
-  (display-line-numbers-width-start 99)
-  (display-line-numbers-grow-only t))
-
-
 ;;; Auto Revert Buffers
 
 (use-package autorevert
@@ -258,17 +242,6 @@ buffer suppressed."
 (use-package bookmark
   :custom
   (bookmark-save-flag 1))
-
-
-;;; Smoother Scrolling
-
-(use-package pixel-scroll
-  :init
-  (pixel-scroll-precision-mode)
-  :config
-  ;; Make it easier to use custom scroll functions
-  (dolist (binding '("<next>" "<prior>"))
-    (keymap-unset pixel-scroll-precision-mode-map binding :remove)))
 
 
 ;;; Automatically Create- and Delete Directories
@@ -340,6 +313,7 @@ the buffer without saving it."
 (require 'mm-tetris)                    ; Emacs Tetris
 (require 'mm-theme)                     ; Themeing
 (require 'mm-treesit)                   ; Tree-Sitter
+(require 'mm-window)                    ; Windowing
 (when mm-darwin-p
   (require 'mm-darwin))                 ; MacOS
 (when mm-lsp-p
