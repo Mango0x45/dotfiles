@@ -15,4 +15,10 @@
    (combine-and-quote-strings
     '("-AFGhlv" "--group-directories-first" "--time-style=+%d %b %Y %T"))))
 
+(use-package dired-aux
+  :custom
+  (dired-create-destination-dirs 'ask)
+  (dired-create-destination-dirs-on-trailing-dirsep t)
+  (dired-isearch-filenames 'dwim))
+
 (provide 'mm-dired)
