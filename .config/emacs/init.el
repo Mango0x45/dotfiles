@@ -217,12 +217,6 @@ buffer suppressed."
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (prefer-coding-system 'utf-8)
 
-  ;; Show trailing whitespace but only in relevant buffers
-  (dolist (mode '(conf-mode prog-mode text-mode))
-    (add-hook (mm-mode-to-hook mode)
-              (defun mm-show-trailing-whitespace ()
-                (setopt show-trailing-whitespace t))))
-
   ;; Disabled modes
   (blink-cursor-mode -1)
   (line-number-mode -1)
