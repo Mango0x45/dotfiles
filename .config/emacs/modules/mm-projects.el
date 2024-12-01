@@ -74,6 +74,7 @@ This is intended to be called interactively via
 
 (use-package magit-repos
   :ensure nil                           ; Part of ‘magit’
+  :if (not mm-darwin-p)
   :commands (magit-list-repositories)
   :init
   (if-let ((directory (getenv "REPODIR")))
