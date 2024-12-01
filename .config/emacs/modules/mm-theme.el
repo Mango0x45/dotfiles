@@ -38,7 +38,7 @@ _FRAME is ignored."
          (prop-height (plist-get prop-props :height)))
     ;; Some characters in this font are larger than usual
     (when (string= mono-family "Iosevka Smooth")
-      (dolist (rune '(?… ?— ?← ?→ ?⇐ ?⇒ ?⇔))
+      (dolist (rune '(?․ ?‥ ?… ?— ?← ?→ ?⇐ ?⇒ ?⇔))
         (set-char-table-range char-width-table rune 2)))
     (set-face-attribute 'default nil
                         :font mono-family
