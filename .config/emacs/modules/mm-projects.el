@@ -35,6 +35,14 @@ This is intended to be called interactively via
       (warn "The REPODIR environment variable is not set."))))
 
 
+;;; Emacs VC
+
+(use-package vc-hooks
+  :custom
+  (vc-follow-symlinks t)
+  (vc-handled-backends '(Git)))
+
+
 ;;; Git Client
 
 (use-package magit
@@ -43,9 +51,13 @@ This is intended to be called interactively via
           ("[" . magit-section-backward-sibling)
           ("]" . magit-section-forward-sibling))
   :custom
-  (transient-default-level 7)
+  (git-commit-style-convention-checks
+   '(non-empty-second-line overlong-summary-line))
+  (git-commit-summary-max-length 50)
+  (magit-diff-refine-hunk t)
   (magit-display-buffer-function
    #'magit-display-buffer-same-window-except-diff-v1)
+  (transient-default-level 7)
   :config
   (transient-define-suffix mm-projects-magit-push-current-to-all-remotes (args)
     "Push the current branch to all remotes."
@@ -59,6 +71,14 @@ This is intended to be called interactively via
          (format "refs/heads/%s:refs/heads/%s" branch branch)))))
   (transient-append-suffix #'magit-push '(1 -1)
     '("a" "all remotes" mm-projects-magit-push-current-to-all-remotes)))
+
+(use-package magit-repos
+  :ensure nil                           ; Part of ‘magit’
+  :commands (magit-list-repositories)
+  :init
+  (if-let ((directory (getenv "REPODIR")))
+      (setopt magit-repository-directories `((,directory . 2)))
+    (warn "The REPODIR environment variable is not set.")))
 
 (use-package magit-todos
   :ensure t

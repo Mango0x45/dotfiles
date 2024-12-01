@@ -191,8 +191,6 @@ buffer suppressed."
   (save-interprogram-paste-before-kill t)
   (user-full-name "Thomas Voss")
   (user-mail-address "mail@thomasvoss.com")
-  (vc-follow-symlinks t)
-  (vc-handled-backends '(Git))
   :config
   (load custom-file :noerror)
   (setq-default fill-column 80)
