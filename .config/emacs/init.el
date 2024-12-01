@@ -122,8 +122,9 @@ buffer suppressed."
 
 (setopt
  package-vc-register-as-project nil
- package-gnupghome-dir (getenv "GNUPGHOME")
  package-user-dir (expand-file-name "pkg" mm-data-directory)
+ package-gnupghome-dir (or (getenv "GNUPGHOME")
+                           (expand-file-name "gnupg" package-user-dir))
  package-archives (cl-loop with proto = (if (gnutls-available-p) "https" "http")
                            for (name . url) in
                              '(("gnu"    . "elpa.gnu.org/packages/")
