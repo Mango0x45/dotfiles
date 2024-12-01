@@ -141,12 +141,7 @@
       "        -path '*/.git*'    -prune"
       "    -or -path '*/vendor/*' -prune"
       ")")
-    " "))
-  :config
-  (with-eval-after-load 'pulsar
-    (setopt consult-after-jump-hook nil)
-    (dolist (command #'(pulsar-recenter-top pulsar-reveal-entry))
-      (add-hook 'consult-after-jump-hook command))))
+    " ")))
 
 
 ;;; Dynamic Abbreviations
