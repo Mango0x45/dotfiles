@@ -207,4 +207,11 @@ See also the `mm-theme-background-opacity' variable."
   :hook ((bookmark-bmenu-mode dired-mode ibuffer-mode magit-repolist-mode)
          . line-selection-mode))
 
+
+;;; Line Highlighting
+
+(use-package hl-line
+  :custom
+  (hl-line-sticky-flag nil))
+
 (provide 'mm-theme)
