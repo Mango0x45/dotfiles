@@ -38,7 +38,7 @@
     (propertize " (modified)" 'face 'mm-modeline-buffer-modified-face)))
 
 (defconst mm-modeline-mode-acronyms
-  '("css" "csv" "gsp" "html" "json" "mhtml" "scss" "toml" "tsv")
+  '("css" "csv" "gsp" "html" "json" "mhtml" "rfc" "scss" "toml" "tsv")
   "List of acronyms in major mode names that should be capitalized.")
 
 (defconst mm-modeline-remap-alist
