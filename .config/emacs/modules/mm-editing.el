@@ -46,7 +46,8 @@
  indent-tabs-mode (not mm-humanwave-p))
 
 (defvar mm-editing-indentation-settings-alist
-  '((c-mode                . (:extras c-basic-offset))
+  '((awk-ts-mode           . (:extras awk-ts-mode-indent-level))
+    (c-mode                . (:extras c-basic-offset))
     (c-ts-mode             . (:extras c-ts-mode-indent-offset))
     (css-mode              . (:extras css-indent-offset))
     (emacs-lisp-mode       . (:width 8 :spaces t)) ; GNU code uses 8-column tabs
@@ -310,9 +311,10 @@ is as described by `emmet-expand-line'."
 
 ;;; Additional Major Modes
 
-(use-package csv-mode  :ensure t)
-(use-package git-modes :ensure t)
-(use-package sed-mode  :ensure t)
+(use-package awk-ts-mode :ensure t)
+(use-package csv-mode    :ensure t)
+(use-package git-modes   :ensure t)
+(use-package sed-mode    :ensure t)
 
 
 ;;; Mode-Specific Configurations

@@ -15,7 +15,8 @@
 
 (setopt treesit-font-lock-level 4)
 (setopt treesit-language-source-alist
-        '((c          "https://github.com/tree-sitter/tree-sitter-c")
+        '((awk        "https://github.com/Beaglefoot/tree-sitter-awk")
+          (c          "https://github.com/tree-sitter/tree-sitter-c")
           (cpp        "https://github.com/tree-sitter/tree-sitter-cpp")
           (css        "https://github.com/tree-sitter/tree-sitter-css")
           (go         "https://github.com/tree-sitter/tree-sitter-go")
