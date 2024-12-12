@@ -34,32 +34,23 @@
 
 ;;; Install Missing Parsers
 
-(defun mm-treesit-sync-sources ()
-  "Sync Tree-Sitter parsers.
-Reinstall the Tree-Sitter parsers specified by
- `treesit-language-source-alist'."
+(defun mm-treesit-install-all ()
+  "Install all Tree-Sitter parsers.
+This is like `mm-treesit-install-missing' but also reinstalls parsers
+that are already installed."
   (interactive)
-  (let ((total (length treesit-language-source-alist))
-        (count 0)
-        (work treesit-language-source-alist)
-        (processors-to-use (max 1 (1- (num-processors)))))
-    (while work
-      (let ((specs (seq-take work processors-to-use)))
-        (dolist (spec specs)
-          (async-start
-           `(lambda ()
-              ,(async-inject-variables "\\`treesit-language-source-alist\\'")
-              (treesit-install-language-grammar ',(car spec)))
-           (lambda (_)
-             (setq count (1+ count))
-             (message "Done syncing Tree-Sitter grammar for `%s' [%d/%d]"
-                      (car spec) count total))))
-        (setq work (seq-drop work processors-to-use))))))
+  (cl-loop for (lang) in treesit-language-source-alist
+           do (treesit-install-language-grammar lang)))
 
-(thread-last
-  (mapcar #'car treesit-language-source-alist)
-  (seq-remove #'treesit-language-available-p)
-  (mapc #'treesit-install-language-grammar))
+(defun mm-treesit-install-missing ()
+  "Install missing Tree-Sitter parsers.
+The parsers are taken from `treesit-language-source-alist'."
+  (interactive)
+  (cl-loop for (lang) in treesit-language-source-alist
+           unless (treesit-language-available-p lang)
+           do (treesit-install-language-grammar lang)))
+
+(mm-treesit-install-missing)
 
 
 ;;; Install Additional TS Modes
