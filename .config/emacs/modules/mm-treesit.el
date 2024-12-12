@@ -23,6 +23,7 @@
           (gomod      "https://github.com/camdencheek/tree-sitter-go-mod")
           (gsp        "git://git.thomasvoss.com/tree-sitter-gsp.git")
           (html       "https://github.com/tree-sitter/tree-sitter-html")
+          (java       "https://github.com/tree-sitter/tree-sitter-java")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
           (python     "https://github.com/tree-sitter/tree-sitter-python")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript"
