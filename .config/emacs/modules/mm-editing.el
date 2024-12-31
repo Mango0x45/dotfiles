@@ -24,7 +24,8 @@
 (dolist (command #'(align-region
                     c-backslash-region
                     comment-dwim
-                    makefile-backslash-region))
+                    makefile-backslash-region
+                    sh-backslash-region))
   (advice-add command :around #'mm-editing-force-space-indentation))
 
 
