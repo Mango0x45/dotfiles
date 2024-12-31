@@ -100,6 +100,10 @@ the first command is remapped to the second command."
 (keymap-global-unset "C-x C-l" :remove) ; ‘downcase-region’
 (keymap-global-unset "C-x C-u" :remove) ; ‘upcase-region’
 
+;; The following conflict with ‘ace-window’
+(with-eval-after-load 'mhtml-mode
+  (keymap-unset html-mode-map "M-o" :remove))
+
 
 ;;; Bind Commands Globally
 
