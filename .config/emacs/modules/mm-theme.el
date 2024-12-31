@@ -74,7 +74,7 @@ _FRAME is ignored."
     ((mhtml-mode html-mode html-ts-mode vue-ts-mode)
      . ("<!--" "-->" "/>"))
     (prog-mode
-     . ("<=" ">=" "==" "!=" "*=" "__")))
+     . ("<<=" "<=" ">=" "==" "!=" "*=" "__")))
   "Ligatures to enable in specific modes.
 Elements of this alist are of the form:
 
