@@ -210,7 +210,7 @@ See also the `mm-theme-background-opacity' variable."
   :hook ((bookmark-bmenu-mode dired-mode ibuffer-mode magit-repolist-mode)
          . line-selection-mode)
   :config
-  (add-hook wdired-mode-hook #'mm-disable-line-selection-mode))
+  (add-hook 'wdired-mode-hook #'mm-disable-line-selection-mode))
 
 
 ;;; Line Highlighting
