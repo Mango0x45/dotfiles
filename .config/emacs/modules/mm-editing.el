@@ -310,6 +310,14 @@ is as described by `emmet-expand-line'."
   (emmet-self-closing-tag-style ""))
 
 
+;;; Number Formatting
+
+(use-package number-format-mode
+  :commands ( number-format-buffer number-format-region
+              number-unformat-buffer number-unformat-region
+              number-format-mode))
+
+
 ;;; Additional Major Modes
 
 (use-package awk-ts-mode :ensure t)
