@@ -313,9 +313,14 @@ is as described by `emmet-expand-line'."
 ;;; Additional Major Modes
 
 (use-package awk-ts-mode :ensure t)
-(use-package csv-mode    :ensure t)
 (use-package git-modes   :ensure t)
 (use-package sed-mode    :ensure t)
+
+(use-package csv-mode
+  :ensure t
+  :custom
+  (csv-align-style 'auto)
+  (csv-align-padding 2))
 
 
 ;;; Mode-Specific Configurations
