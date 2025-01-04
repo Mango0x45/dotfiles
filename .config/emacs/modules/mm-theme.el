@@ -203,9 +203,14 @@ See also the `mm-theme-background-opacity' variable."
 
 ;;; More Intuiative UI for Certain Modes
 
+(defun mm-disable-line-selection-mode ()
+  (line-selection-mode -1))
+
 (use-package line-selection-mode
   :hook ((bookmark-bmenu-mode dired-mode ibuffer-mode magit-repolist-mode)
-         . line-selection-mode))
+         . line-selection-mode)
+  :config
+  (add-hook wdired-mode-hook #'mm-disable-line-selection-mode))
 
 
 ;;; Line Highlighting
