@@ -36,6 +36,7 @@ export MANPAGER="nvimpager"
 export TERM="xterm-256color"
 export VISUAL="nvim"
 export MANSECT="3,2,1,8,5,7,4,6,3p,1p,0p"
+export LC_NUMERIC="nl_NL.UTF-8"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_DIRS="/etc/xdg"
