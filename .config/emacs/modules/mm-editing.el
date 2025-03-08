@@ -222,8 +222,8 @@ and *Messages* buffer.  This forces that to not happen."
                           helpful-symbol
                           helpful-variable))
         (add-to-list 'mc/cmds-to-run-once command))))
-  :config
-  (keymap-unset mc/keymap "<return>" :remove))
+  (with-eval-after-load 'multiple-cursors-core
+    (keymap-unset mc/keymap "<return>" :remove)))
 
 
 ;;; Increment Numbers
