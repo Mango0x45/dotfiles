@@ -202,7 +202,45 @@
 <Multi_key> <z> <asciicircum> : "ẑ" U1E91
 
 # Latin Alphabet — Dot
-# TODO
+<Multi_key> <A> <period> : "Ȧ" U0226
+<Multi_key> <a> <period> : "ȧ" U0227
+<Multi_key> <b> <period> : "ḃ" babovedot
+<Multi_key> <B> <period> : "Ḃ" Babovedot
+<Multi_key> <c> <period> : "ċ" cabovedot
+<Multi_key> <C> <period> : "Ċ" Cabovedot
+<Multi_key> <d> <period> : "ḋ" dabovedot
+<Multi_key> <D> <period> : "Ḋ" Dabovedot
+<Multi_key> <e> <period> : "ė" eabovedot
+<Multi_key> <E> <period> : "Ė" Eabovedot
+<Multi_key> <f> <period> : "ḟ" fabovedot
+<Multi_key> <F> <period> : "Ḟ" Fabovedot
+<Multi_key> <g> <period> : "ġ" gabovedot
+<Multi_key> <G> <period> : "Ġ" Gabovedot
+<Multi_key> <h> <period> : "ḣ" habovedot
+<Multi_key> <H> <period> : "Ḣ" Habovedot
+<Multi_key> <I> <period> : "İ" Iabovedot
+<Multi_key> <m> <period> : "ṁ" mabovedot
+<Multi_key> <M> <period> : "Ṁ" Mabovedot
+<Multi_key> <N> <period> : "Ṅ" U1E44
+<Multi_key> <n> <period> : "ṅ" U1E45
+<Multi_key> <O> <period> : "Ȯ" U022E
+<Multi_key> <o> <period> : "ȯ" U022F
+<Multi_key> <p> <period> : "ṗ" pabovedot
+<Multi_key> <P> <period> : "Ṗ" Pabovedot
+<Multi_key> <R> <period> : "Ṙ" U1E58
+<Multi_key> <r> <period> : "ṙ" U1E59
+<Multi_key> <s> <period> : "ṡ" sabovedot
+<Multi_key> <S> <period> : "Ṡ" Sabovedot
+<Multi_key> <t> <period> : "ṫ" tabovedot
+<Multi_key> <T> <period> : "Ṫ" Tabovedot
+<Multi_key> <W> <period> : "Ẇ" U1E86
+<Multi_key> <w> <period> : "ẇ" U1E87
+<Multi_key> <X> <period> : "Ẋ" U1E8A
+<Multi_key> <x> <period> : "ẋ" U1E8B
+<Multi_key> <Y> <period> : "Ẏ" U1E8E
+<Multi_key> <y> <period> : "ẏ" U1E8F
+<Multi_key> <z> <period> : "ż" zabovedot
+<Multi_key> <Z> <period> : "Ż" Zabovedot
 
 # Latin Alphabet — Diaeresis
 <Multi_key> <a> <colon> : "ä" adiaeresis
