@@ -22,8 +22,8 @@
 #   C ^ ⋆    Superscript ‘⋆’                        (¹)
 #   C l ⋆    Propositional logic operators          (⇒)
 #
-#   Ligatures or other glyphs that are compose of multiple characters are
-#   straight forwards.  For example ‘C I J’ produces ‘Ĳ’.
+#   Ligatures or other glyphs that are composed of multiple characters
+#   are straight forwards.  For example ‘C I J’ produces ‘Ĳ’.
 #
 #   Math symbols typically use programming counterparts if they exist,
 #   for example ‘C ! =’ produces ‘≠’.  Other symbols that look similar to
