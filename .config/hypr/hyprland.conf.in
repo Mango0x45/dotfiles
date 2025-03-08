@@ -10,6 +10,10 @@ monitor = , highres, auto, 1
 
 layerrule = noanim, overlay
 
+ecosystem {
+	no_update_news = yes
+}
+
 # Remember to coppy settings to sddm.hyprland.conf
 input {
 	accel_profile  = "adaptive"
