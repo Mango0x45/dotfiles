@@ -16,7 +16,7 @@
   "The default monospace font.
 This is a plist containing a font name, -weight, and -height.")
 
-(defvar mm-theme-proportional-font '("SF Pro" :weight regular :height 162)
+(defvar mm-theme-proportional-font '("OpenSans" :weight regular :height 162)
   "The default proportional font.
 This is a plist containing a font name, -weight, and -height.")
 
