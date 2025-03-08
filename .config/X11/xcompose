@@ -3,24 +3,24 @@
 #   ‘C X’ means ‘Compose + X’
 #   U+22C6 STAR OPERATOR (‘⋆’) represents an arbitrary key
 #
-#   C ⋆ '    A letter with an acute
-#   C ⋆ u    A letter with a breve
-#   C ⋆ v    A letter with a caron
-#   C ⋆ ,    A letter with a cedilla
-#   C ⋆ ^    A letter with a circumflex
-#   C ⋆ :    A letter with a diaeresis
-#   C ⋆ .    A letter with a dot
-#   C ⋆ "    A letter with a double-acute
-#   C ⋆ `    A letter with a grave
-#   C ⋆ -    A letter with a macron
-#   C ⋆ ;    A letter with an ogonek
-#   C ⋆ o    A letter with a ring
-#   C ⋆ /    A letter with a slash or strikethrough
-#   C ⋆ ~    A letter with a tilde
-#   C ⋆ *    The Greek letter ‘⋆’
-#   C _ ⋆    Subscript ‘⋆’
-#   C ^ ⋆    Superscript ‘⋆’
-#   C l ⋆    Propositional logic operators
+#   C ⋆ '    A letter with an acute (á)
+#   C ⋆ u    A letter with a breve (ă)
+#   C ⋆ v    A letter with a caron (ǎ)
+#   C ⋆ ,    A letter with a cedilla (ç)
+#   C ⋆ ^    A letter with a circumflex (â)
+#   C ⋆ :    A letter with a diaeresis (ä)
+#   C ⋆ .    A letter with a dot (ġ)
+#   C ⋆ "    A letter with a double-acute (ő)
+#   C ⋆ `    A letter with a grave (à)
+#   C ⋆ -    A letter with a macron (ā)
+#   C ⋆ ;    A letter with an ogonek (ą)
+#   C ⋆ o    A letter with a ring (å)
+#   C ⋆ /    A letter with a slash or strikethrough (ø)
+#   C ⋆ ~    A letter with a tilde (ã)
+#   C ⋆ *    The Greek letter ‘⋆’ (α)
+#   C _ ⋆    Subscript ‘⋆’ (₁)
+#   C ^ ⋆    Superscript ‘⋆’ (¹)
+#   C l ⋆    Propositional logic operators (⇒)
 #
 #   Ligatures or other glyphs that are compose of multiple characters are
 #   straight forwards.  For example ‘C I J’ produces ‘Ĳ’.
