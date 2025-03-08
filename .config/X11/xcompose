@@ -270,11 +270,39 @@
 <Multi_key> <u> <quotedbl> : "ű" udoubleacute
 <Multi_key> <U> <quotedbl> : "Ű" Udoubleacute
 
-# Latin Alphabet — Grave
-# TODO
+# Latin Alphabet — Grave
+<Multi_key> <a> <grave> : "à" agrave
+<Multi_key> <A> <grave> : "À" Agrave
+<Multi_key> <e> <grave> : "è" egrave
+<Multi_key> <E> <grave> : "È" Egrave
+<Multi_key> <i> <grave> : "ì" igrave
+<Multi_key> <I> <grave> : "Ì" Igrave
+<Multi_key> <n> <grave> : "ǹ" U01F9
+<Multi_key> <N> <grave> : "Ǹ" U01F8
+<Multi_key> <o> <grave> : "ò" ograve
+<Multi_key> <O> <grave> : "Ò" Ograve
+<Multi_key> <u> <grave> : "ù" ugrave
+<Multi_key> <U> <grave> : "Ù" Ugrave
+<Multi_key> <w> <grave> : "ẁ" wgrave
+<Multi_key> <W> <grave> : "Ẁ" Wgrave
+<Multi_key> <y> <grave> : "ỳ" ygrave
+<Multi_key> <Y> <grave> : "Ỳ" Ygrave
 
-# Latin Alphabet — Macron
-# TODO
+# Latin Alphabet — Macron
+<Multi_key> <a> <minus> : "ā" amacron
+<Multi_key> <A> <minus> : "Ā" Amacron
+<Multi_key> <e> <minus> : "ē" emacron
+<Multi_key> <E> <minus> : "Ē" Emacron
+<Multi_key> <g> <minus> : "ḡ" U1E21
+<Multi_key> <G> <minus> : "Ḡ" U1E20
+<Multi_key> <i> <minus> : "ī" imacron
+<Multi_key> <I> <minus> : "Ī" Imacron
+<Multi_key> <o> <minus> : "ō" omacron
+<Multi_key> <O> <minus> : "Ō" Omacron
+<Multi_key> <u> <minus> : "ū" umacron
+<Multi_key> <U> <minus> : "Ū" Umacron
+<Multi_key> <y> <minus> : "ȳ" U0233
+<Multi_key> <Y> <minus> : "Ȳ" U0232
 
 # Latin Alphabet — Ogonek
 <Multi_key> <a> <semicolon> : "ą" aogonek
@@ -310,8 +338,23 @@
 <Multi_key> <o> <slash> : "ø" oslash
 <Multi_key> <O> <slash> : "Ø" Oslash
 
-# Latin Alphabet — Tilde
-# TODO
+# Latin Alphabet — Tilde
+<Multi_key> <a> <asciitilde> : "ã" atilde
+<Multi_key> <A> <asciitilde> : "Ã" Atilde
+<Multi_key> <e> <asciitilde> : "ẽ" etilde
+<Multi_key> <E> <asciitilde> : "Ẽ" Etilde
+<Multi_key> <i> <asciitilde> : "ĩ" itilde
+<Multi_key> <I> <asciitilde> : "Ĩ" Itilde
+<Multi_key> <n> <asciitilde> : "ñ" ntilde
+<Multi_key> <N> <asciitilde> : "Ñ" Ntilde
+<Multi_key> <o> <asciitilde> : "õ" otilde
+<Multi_key> <O> <asciitilde> : "Õ" Otilde
+<Multi_key> <u> <asciitilde> : "ũ" utilde
+<Multi_key> <U> <asciitilde> : "Ũ" Utilde
+<Multi_key> <v> <asciitilde> : "ṽ" U1E7D
+<Multi_key> <V> <asciitilde> : "Ṽ" U1E7C
+<Multi_key> <y> <asciitilde> : "ỹ" ytilde
+<Multi_key> <Y> <asciitilde> : "Ỹ" Ytilde
 
 # Latin Alphabet — Ligatures & Multiglyphs
 <Multi_key> <a> <e>               : "æ" ae
