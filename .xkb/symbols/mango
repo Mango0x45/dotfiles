@@ -15,7 +15,7 @@ xkb_symbols "basic" {
 	key <AE07> { [ ampersand,   7,          logicaland,  7        ] };
 	key <AE08> { [ asterisk,    8,          U22C5,       8        ] }; // ⋅
 	key <AE09> { [ parenleft,   9,          parenleft,   9        ] };
-	key <AE10> { [ parenright,  0,          parenright,  0        ] };
+	key <AE10> { [ parenright,  0,          U00B0,       0        ] }; // °
 	key <AE11> { [ minus,       underscore, endash,      emdash   ] };
 
 	key <AD03> { [ e,         E,   eacute,     Eacute     ] };
