@@ -8,7 +8,7 @@ function __dir_search {
 	shift 2
 
 	local dir=$(
-		find "$base" "$@" -printf '%P\n' \
+		find "$base" "$@" -type d -printf '%P\n' \
 		| sed 1i. \
 		| sort -r \
 		| fzf -q "$qry"
