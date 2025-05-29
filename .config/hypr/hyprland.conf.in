@@ -175,6 +175,10 @@ __bind(SHIFT, xf86monbrightnessup,   lux -S 50)
 __binde(,     xf86monbrightnessdown, lux -D 5)
 __bind(SHIFT, xf86monbrightnessdown, lux -s 0)
 
+__binde(, xf86audioplay, playerctl play-pause)
+__binde(, xf86audionext, playerctl next)
+__binde(, xf86audioprev, playerctl previous)
+
 # Settings key on Framework laptop
 __binde(, xf86audiomedia,
           foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in')
