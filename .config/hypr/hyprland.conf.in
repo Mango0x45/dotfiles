@@ -92,7 +92,7 @@ bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
-__bind(C, emacsclient -que '(popup-command-full-calc)')
+__bind(C, qalculate-gtk)
 __bind(E, emacsclient -ca emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
@@ -191,3 +191,8 @@ bindm = $modkey, mouse:273, resizewindow
 windowrulev2 = float,        class:^(org\.pwmt\.zathura)$
 windowrulev2 = size 50% 90%, class:^(org\.pwmt\.zathura)$
 windowrulev2 = center,       class:^(org\.pwmt\.zathura)$
+
+# Open calculator in a floating window
+windowrulev2 = float,        class:^(qalculate-gtk)$
+windowrulev2 = size 50% 50%, class:^(qalculate-gtk)$
+windowrulev2 = center,       class:^(qalculate-gtk)$
