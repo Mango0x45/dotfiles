@@ -356,6 +356,7 @@ is as described by `emmet-expand-line'."
 
 ;;; Add Missing Extensions
 
-(add-to-list 'auto-mode-alist '("\\.tmac\\'" . nroff-mode))
+(dolist (pattern '("\\.tmac\\'" "\\.mom\\'"))
+  (add-to-list 'auto-mode-alist (cons pattern 'nroff-mode)))
 
 (provide 'mm-editing)
