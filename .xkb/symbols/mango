@@ -19,6 +19,7 @@ xkb_symbols "basic" {
 	key <AE11> { [ minus,       underscore, endash,      emdash   ] };
 
 	key <AD03> { [ e,         E,   eacute,     Eacute     ] };
+	key <AD05> { [ t,         T,   thorn,      THORN      ] };
 	key <AD07> { [ u,         U,   udiaeresis, Udiaeresis ] };
 	// key <AD08> { [ i,         I,   U0133,      U0132      ] }; // ĳ and Ĳ
 	key <AD08> { [ i,         I,   idiaeresis, Idiaeresis ] };
