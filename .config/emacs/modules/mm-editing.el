@@ -334,6 +334,13 @@ is as described by `emmet-expand-line'."
   (csv-align-style 'auto)
   (csv-align-padding 2))
 
+(use-package xcompose-mode
+  :vc ( :url "https://git.thomasvoss.com/xcompose-mode"
+        :branch "master"
+        :rev :newest
+        :vc-backend Git)
+  :ensure t)
+
 
 ;;; Mode-Specific Configurations
 
