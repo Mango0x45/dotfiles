@@ -52,7 +52,8 @@
     ("Imake"         . "IMake")
     ("Js"            . "JavaScript")
     ("Ts Mode"       . "Tree-Sitter Mode")
-    ("Wdired"        . "WDired"))
+    ("Wdired"        . "WDired")
+    ("Xcompose"      . "XCompose"))
   "Alist of substrings in major mode names that should be remapped.
 Some major modes have substrings that would be better displayed in
 another manner.  For example expanding an abbreviation such as ‘Js’ to
