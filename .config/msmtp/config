@@ -11,12 +11,19 @@ from mail@thomasvoss.com
 user mail@thomasvoss.com
 passwordeval vlt raw Email mail@thomasvoss.com
 
-account eurocash
+account eurocash-admin
 host smtp.migadu.com
 port 465
 from mail@euro-cash.eu
 user mail@euro-cash.eu
 passwordeval vlt raw Email mail@euro-cash.eu
+
+account eurocash-bugs
+host smtp.migadu.com
+port 465
+from bugs@euro-cash.eu
+user bugs@euro-cash.eu
+passwordeval vlt raw Email bugs@euro-cash.eu
 
 account legacy
 host smtp.office365.com

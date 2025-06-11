@@ -23,21 +23,40 @@ Patterns *
 
 # mail@euro-cash.eu
 
-IMAPStore eurocash-remote
+IMAPStore eurocash-admin-remote
 Host imap.migadu.com
 User mail@euro-cash.eu
 PassCmd "vlt raw Email mail@euro-cash.eu"
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-MaildirStore eurocash-local
+MaildirStore eurocash-admin-local
 Path ~/mail/mail@euro-cash.eu/
 Inbox ~/mail/mail@euro-cash.eu/Inbox
 SubFolders Verbatim
 
-Channel eurocash
-Far :eurocash-remote:
-Near :eurocash-local:
+Channel eurocash-admin
+Far :eurocash-admin-remote:
+Near :eurocash-admin-local:
+Patterns *
+
+# bugs@euro-cash.eu
+
+IMAPStore eurocash-bugs-remote
+Host imap.migadu.com
+User bugs@euro-cash.eu
+PassCmd "vlt raw Email bugs@euro-cash.eu"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore eurocash-bugs-local
+Path ~/mail/bugs@euro-cash.eu/
+Inbox ~/mail/bugs@euro-cash.eu/Inbox
+SubFolders Verbatim
+
+Channel eurocash-bugs
+Far :eurocash-bugs-remote:
+Near :eurocash-bugs-local:
 Patterns *
 
 # thomasvoss@live.com

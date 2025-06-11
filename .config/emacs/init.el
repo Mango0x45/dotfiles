@@ -306,6 +306,7 @@ the buffer without saving it."
 ;;; Load Modules
 
 (require 'mm-abbrev)                    ; Text Expansion
+(require 'mm-buffer-menu)               ; Buffer Menu
 (require 'mm-calc)                      ; Emacs Calc
 (require 'mm-completion)                ; Completions
 (require 'mm-dired)                     ; Dired

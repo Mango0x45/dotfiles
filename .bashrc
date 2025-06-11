@@ -8,7 +8,7 @@ function __dir_search {
 	shift 2
 
 	local dir=$(
-		find "$base" "$@" -printf '%P\n' \
+		find "$base" "$@" -type d -printf '%P\n' \
 		| sed 1i. \
 		| sort -r \
 		| fzf -q "$qry"
@@ -36,6 +36,7 @@ export MANPAGER="nvimpager"
 export TERM="xterm-256color"
 export VISUAL="nvim"
 export MANSECT="3,2,1,8,5,7,4,6,3p,1p,0p"
+export LC_NUMERIC="nl_NL.UTF-8"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_DIRS="/etc/xdg"
@@ -67,9 +68,10 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
 export GOROOT="/usr/lib/go"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export HISTFILE="$XDG_STATE_HOME/bash/history"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME/java\""
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME/java\" -Djavafx.cachedir=\"$XDG_CACHE_HOME/openjfx\""
 export MAILDIR="$HOME/mail"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
@@ -98,6 +100,7 @@ export PRINTER='HP_OfficeJet_8010'
 export QT_IM_MODULE=xim
 export VAULT_2FA='2 Factor Authentication'
 
+alias irssi='irssi --config="$XDG_CONFIG_HOME/irssi/config" --home="$XDG_DATA_HOME/irssi"'
 alias ..='cd ..'
 alias d='git --git-dir="$REPODIR/Mango0x45/dotfiles.git" --work-tree="$HOME"'
 alias g=git

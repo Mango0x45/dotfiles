@@ -10,12 +10,16 @@ monitor = , highres, auto, 1
 
 layerrule = noanim, overlay
 
-# Remember to coppy settings to sddm.hyprland.conf
+ecosystem {
+	no_update_news = yes
+}
+
+# Remember to copy settings to sddm.hyprland.conf
 input {
 	accel_profile  = "adaptive"
 	follow_mouse   = 1
-	kb_layout      = mango, mango, us
-	kb_variant     = basic, german, basic
+	kb_layout      = mango, mango, mango, us
+	kb_variant     = basic, swedish, german, basic
 	kb_options     = lv3:switch,compose:ralt
 	repeat_delay   = 360 # 180
 	repeat_rate    = 35
@@ -88,10 +92,11 @@ bind = $modkey, Q, killactive
 bind = $modkey SHIFT, F, togglefloating
 
 # Global programs
-__bind(C, emacsclient -que '(popup-command-full-calc)')
+__bind(C, qalculate-gtk)
 __bind(E, emacsclient -ca emacs)
 __bind(M, foot aerc)
 __bind(W, firefox)
+__bind(Z, woomer)
 __bind(return, foot)
 __bind(space, fuzzel -I --log-level=warning --show-actions)
 __bind(     , print, scst)
@@ -171,6 +176,10 @@ __bind(SHIFT, xf86monbrightnessup,   lux -S 50)
 __binde(,     xf86monbrightnessdown, lux -D 5)
 __bind(SHIFT, xf86monbrightnessdown, lux -s 0)
 
+__binde(, xf86audioplay, playerctl play-pause)
+__binde(, xf86audionext, playerctl next)
+__binde(, xf86audioprev, playerctl previous)
+
 # Settings key on Framework laptop
 __binde(, xf86audiomedia,
           foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in')
@@ -187,3 +196,8 @@ bindm = $modkey, mouse:273, resizewindow
 windowrulev2 = float,        class:^(org\.pwmt\.zathura)$
 windowrulev2 = size 50% 90%, class:^(org\.pwmt\.zathura)$
 windowrulev2 = center,       class:^(org\.pwmt\.zathura)$
+
+# Open calculator in a floating window
+windowrulev2 = float,        class:^(qalculate-gtk)$
+windowrulev2 = size 50% 50%, class:^(qalculate-gtk)$
+windowrulev2 = center,       class:^(qalculate-gtk)$

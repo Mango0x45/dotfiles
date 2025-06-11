@@ -21,22 +21,17 @@ This is intended to be called interactively via
   :config
   (unless mm-darwin-p
     (if-let ((repo-directory (getenv "REPODIR")))
-        (with-eval-after-load 'async
-          (async-start
-           (lambda ()
-             (require 'project)
-             (let* ((list-dir
-                     (lambda (path)
-                       (directory-files path :full "\\`[^.]")))
-                    (directories
-                     (cl-loop for author in (funcall list-dir (getenv "REPODIR"))
-                              append (cl-loop for path in (funcall list-dir author)
-                                              collect (list (concat path "/"))))))
-               (with-temp-buffer
-                 (prin1 directories (current-buffer))
-                 (write-file project-list-file))))
-           (lambda (_proc)
-             (project--read-project-list))))
+        (let* ((list-dir
+                (lambda (path)
+                  (directory-files path :full "\\`[^.]")))
+               (directories
+                (cl-loop for author in (funcall list-dir (getenv "REPODIR"))
+                         append (cl-loop for path in (funcall list-dir author)
+                                         collect (list (concat path "/"))))))
+          (with-temp-buffer
+            (prin1 directories (current-buffer))
+            (write-file project-list-file))
+          (project--read-project-list))
       (warn "The REPODIR environment variable is not set."))))
 
 

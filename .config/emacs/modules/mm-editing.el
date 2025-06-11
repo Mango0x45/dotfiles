@@ -125,18 +125,22 @@ those should be listed in `mm-editing-indentation-settings'."
 
 ;;; Code Commenting
 
-(defun mm-c-comment-no-leading-stars ()
+(defun mm-c-comment-no-continue ()
   (setq-local comment-continue "   "))
+
+(defun mm-mhtml-comment-no-continue ()
+  (setq-local comment-continue "     "))
 
 (use-package newcomment
   :custom
   (comment-style 'multi-line)
   :config
   (dolist (mode '(c-mode c++-mode))
-    (add-hook (mm-mode-to-hook mode) #'mm-c-comment-no-leading-stars)
+    (add-hook (mm-mode-to-hook mode) #'mm-c-comment-no-continue)
     (when-let ((ts-mode (mm-mode-to-ts-mode mode))
                ((fboundp ts-mode)))
-      (add-hook (mm-mode-to-hook ts-mode) #'mm-c-comment-no-leading-stars))))
+      (add-hook (mm-mode-to-hook ts-mode) #'mm-c-comment-no-leading-stars)))
+  (add-hook 'mhtml-mode #'mm-mhtml-comment-no-continue))
 
 
 ;;; Multiple Cursors
@@ -222,8 +226,8 @@ and *Messages* buffer.  This forces that to not happen."
                           helpful-symbol
                           helpful-variable))
         (add-to-list 'mc/cmds-to-run-once command))))
-  :config
-  (keymap-unset mc/keymap "<return>" :remove))
+  (with-eval-after-load 'multiple-cursors-core
+    (keymap-unset mc/keymap "<return>" :remove)))
 
 
 ;;; Increment Numbers
@@ -310,12 +314,32 @@ is as described by `emmet-expand-line'."
   (emmet-self-closing-tag-style ""))
 
 
+;;; Number Formatting
+
+(use-package number-format-mode
+  :commands ( number-format-buffer number-format-region
+              number-unformat-buffer number-unformat-region
+              number-format-mode))
+
+
 ;;; Additional Major Modes
 
 (use-package awk-ts-mode :ensure t)
-(use-package csv-mode    :ensure t)
 (use-package git-modes   :ensure t)
 (use-package sed-mode    :ensure t)
+
+(use-package csv-mode
+  :ensure t
+  :custom
+  (csv-align-style 'auto)
+  (csv-align-padding 2))
+
+(use-package xcompose-mode
+  :vc ( :url "https://git.thomasvoss.com/xcompose-mode"
+        :branch "master"
+        :rev :newest
+        :vc-backend Git)
+  :ensure t)
 
 
 ;;; Mode-Specific Configurations
@@ -332,6 +356,7 @@ is as described by `emmet-expand-line'."
 
 ;;; Add Missing Extensions
 
-(add-to-list 'auto-mode-alist '("\\.tmac\\'" . nroff-mode))
+(dolist (pattern '("\\.tmac\\'" "\\.mom\\'"))
+  (add-to-list 'auto-mode-alist (cons pattern 'nroff-mode)))
 
 (provide 'mm-editing)
