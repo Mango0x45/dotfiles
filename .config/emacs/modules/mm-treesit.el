@@ -15,21 +15,41 @@
 
 (setopt treesit-font-lock-level 4)
 (setopt treesit-language-source-alist
-        '((awk        "https://github.com/Beaglefoot/tree-sitter-awk")
-          (c          "https://github.com/tree-sitter/tree-sitter-c")
-          (cpp        "https://github.com/tree-sitter/tree-sitter-cpp")
-          (css        "https://github.com/tree-sitter/tree-sitter-css")
-          (go         "https://github.com/tree-sitter/tree-sitter-go")
-          (gomod      "https://github.com/camdencheek/tree-sitter-go-mod")
-          (gsp        "git://git.thomasvoss.com/tree-sitter-gsp.git")
-          (html       "https://github.com/tree-sitter/tree-sitter-html")
-          (java       "https://github.com/tree-sitter/tree-sitter-java")
-          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
-          (python     "https://github.com/tree-sitter/tree-sitter-python")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript"
-                      "master" "typescript/src")
-          (vim        "https://github.com/tree-sitter-grammars/tree-sitter-vim")
-          (vue        "https://github.com/ikatyang/tree-sitter-vue")))
+        '((awk
+           "https://github.com/Beaglefoot/tree-sitter-awk")
+          (c
+           "https://github.com/tree-sitter/tree-sitter-c")
+          (cpp
+           "https://github.com/tree-sitter/tree-sitter-cpp")
+          (css
+           "https://github.com/tree-sitter/tree-sitter-css")
+          (go
+           "https://github.com/tree-sitter/tree-sitter-go")
+          (gomod
+           "https://github.com/camdencheek/tree-sitter-go-mod")
+          (gsp
+           "git://git.thomasvoss.com/tree-sitter-gsp.git")
+          (html
+           "https://github.com/tree-sitter/tree-sitter-html")
+          (java
+           "https://github.com/tree-sitter/tree-sitter-java")
+          (javascript
+           "https://github.com/tree-sitter/tree-sitter-javascript")
+          (markdown
+           "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
+           "split_parser" "tree-sitter-markdown/src")
+          (markdown-inline
+           "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
+           "split_parser" "tree-sitter-markdown-inline/src")
+          (python
+           "https://github.com/tree-sitter/tree-sitter-python")
+          (typescript
+           "https://github.com/tree-sitter/tree-sitter-typescript"
+           "master" "typescript/src")
+          (vim
+           "https://github.com/tree-sitter-grammars/tree-sitter-vim")
+          (vue
+           "https://github.com/ikatyang/tree-sitter-vue")))
 
 
 ;;; Install Missing Parsers
@@ -78,6 +98,11 @@ The parsers are taken from `treesit-language-source-alist'."
         :vc-backend Git)
   :ensure t
   :mode "\\.vue\\'")
+
+;; NOTE: This package doesn’t autoload its ‘auto-mode-alist’ entries
+(use-package markdown-ts-mode
+  :ensure t
+  :mode "\\.md\\'")
 
 
 ;;; Prefer Tree-Sitter Modes
