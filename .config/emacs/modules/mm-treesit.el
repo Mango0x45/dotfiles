@@ -72,10 +72,10 @@ The parsers are taken from `treesit-language-source-alist'."
 
 ;; NOTE: This package doesn’t autoload its ‘auto-mode-alist’ entries
 (use-package vue-ts-mode
-  :vc (:url "https://github.com/8uff3r/vue-ts-mode.git"
-       :branch "main"
-       :rev :newest
-       :vc-backend Git)
+  :vc ( :url "https://github.com/8uff3r/vue-ts-mode.git"
+        :branch "main"
+        :rev :newest
+        :vc-backend Git)
   :ensure t
   :mode "\\.vue\\'")
 
