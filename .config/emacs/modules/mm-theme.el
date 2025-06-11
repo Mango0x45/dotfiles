@@ -214,4 +214,16 @@ See also the `mm-theme-background-opacity' variable."
   :custom
   (hl-line-sticky-flag nil))
 
+
+;;; Indent Guides
+
+(when mm-darwin-p
+  (use-package highlight-indent-guides
+    :ensure t
+    :hook ((jinja2-mode vue-ts-mode mhtml-mode) . highlight-indent-guides-mode)
+    :custom
+    (highlight-indent-guides-method 'fill)
+    (highlight-indent-guides-auto-even-face-perc 30)
+    (highlight-indent-guides-auto-odd-face-perc   0)))
+
 (provide 'mm-theme)
