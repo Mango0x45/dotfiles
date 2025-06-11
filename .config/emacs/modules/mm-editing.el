@@ -139,7 +139,7 @@ those should be listed in `mm-editing-indentation-settings'."
     (add-hook (mm-mode-to-hook mode) #'mm-c-comment-no-continue)
     (when-let ((ts-mode (mm-mode-to-ts-mode mode))
                ((fboundp ts-mode)))
-      (add-hook (mm-mode-to-hook ts-mode) #'mm-c-comment-no-leading-stars)))
+      (add-hook (mm-mode-to-hook ts-mode) #'mm-c-comment-no-continue)))
   (add-hook 'mhtml-mode #'mm-mhtml-comment-no-continue))
 
 
