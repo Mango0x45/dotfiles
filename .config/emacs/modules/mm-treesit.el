@@ -116,7 +116,7 @@ The parsers are taken from `treesit-language-source-alist'."
     (typescript . "\\.ts\\'"))
   "Alist mapping languages to their associated file-names.
 This alist is a set of pairs of the form (LANG . REGEXP) where LANG is
-the symbol corresponding to a major mode with the ‘-ts-mode’ suffix
+the symbol corresponding to a major mode with the `-ts-mode' suffix
 removed.  REGEXP is a regular expression matching filenames for which
 the associated language’s major-mode should be enabled.
 
