@@ -122,18 +122,27 @@ the associated language’s major-mode should be enabled.
 
 This alist is used to configure `auto-mode-alist'.")
 
+(defvar mm-treesit-dont-have-modes
+  '(markdown-inline)
+  "List of languages that don't have modes.
+Some languages may come with multiple parsers, (e.g. `markdown' and
+`markdown-inline') and as a result one-or-more of the parsers won't be
+associated with a mode.  To avoid breaking the configuration, these
+languages should be listed here.")
+
 (dolist (spec treesit-language-source-alist)
   (let* ((lang (car spec))
          (lang (alist-get lang mm-treesit-language-remap-alist lang))
-         (symbol-name (symbol-name lang))
-         (name-mode    (intern (concat symbol-name    "-mode")))
-         (name-ts-mode (intern (concat symbol-name "-ts-mode"))))
+         (name-mode    (intern (format    "%s-mode" lang)))
+         (name-ts-mode (intern (format "%s-ts-mode" lang))))
     ;; If ‘name-ts-mode’ is already in ‘auto-mode-alist’ then we don’t
     ;; need to do anything, however if that’s not the case then if
     ;; ‘name-ts-mode’ and ‘name-mode’ are both bound we do a simple
     ;; remap.  If the above is not true then we lookup the extensions in
     ;; ‘mm-treesit-language-file-name-alist’.
     (cond
+     ((memq lang mm-treesit-dont-have-modes)
+      nil)
      ((not (fboundp name-ts-mode))
       (warn "`%s' is missing." name-ts-mode))
      ((rassq name-ts-mode auto-mode-alist)
