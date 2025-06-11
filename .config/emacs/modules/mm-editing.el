@@ -201,6 +201,7 @@ and *Messages* buffer.  This forces that to not happen."
 
 (use-package multiple-cursors
   :ensure t
+  :demand t
   :bind (("C->"   . #'mc/mark-next-like-this)
          ("C-<"   . #'mc/mark-previous-like-this)
          ("C-M-<" . #'mc/mark-all-like-this-dwim)
