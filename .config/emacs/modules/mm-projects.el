@@ -96,4 +96,49 @@ This is intended to be called interactively via
   (require 'ansi-color)
   (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter))
 
+
+;;; GitHub Pull Requests
+
+(require 'gh)
+(keymap-global-set "C-c p" #'gh-create-pr)
+
+;; (defun mm-gh--get-labels ()
+;;   (with-temp-buffer
+;;     (call-process "gh" nil t nil "label" "list" "--json" "name")
+;;     (goto-char (point-min))
+;;     (let* ((data (json-parse-buffer))
+;;            (labels (seq-map (lambda (x) (gethash "name" x)) data)))
+;;       (sort labels
+;;             :in-place t
+;;             :lessp (lambda (x y)
+;;                      (let ((prefix-x-p (string-prefix-p "Sprint " x))
+;;                            (prefix-y-p (string-prefix-p "Sprint " y)))
+;;                        (cond
+;;                         ((and prefix-x-p prefix-y-p) (string> x y))
+;;                         (prefix-x-p t)
+;;                         (prefix-y-p nil)
+;;                         (:else (string< x y)))))))))
+
+;; (defun mm-gh-create-pr (title draftp labels)
+;;   "Create a GitHub pull request using the gh CLI.
+;; If DRAFT is non-nil, the PR will be created as a draft.
+;; LABELS should be a comma-separated string of GitHub labels."
+;;   (interactive
+;;    (list
+;;     (read-string (format-prompt "PR Title" nil))
+;;     (y-or-n-p "Create as draft PR? ")
+;;     (completing-read-multiple (format-prompt "PR Labels" nil)
+;;                               (mm-gh--get-labels))))
+;;   (let* ((branch (car (vc-git-branches)))
+;;          (title (format "%s %s" branch title))
+;;          (flags `("--fill-verbose" "--title" ,title "--assignee" "@me"))
+;;          (label-string (mapconcat #'identity labels ",")))
+;;     (when draftp
+;;       (setq flags (append flags '("--draft"))))
+;;     (when labels
+;;       (setq flags (append flags `("--label" ,label-string))))
+;;     (with-temp-buffer
+;;       (apply #'call-process "gh" nil t nil "pr" "create" flags)
+;;       (message (buffer-string)))))
+
 (provide 'mm-projects)
