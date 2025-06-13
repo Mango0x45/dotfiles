@@ -76,17 +76,14 @@
 ;; set threshold to 8 MiB which seems to be a good middleground for now.
 ;; A higher threshold means less garbage collections but I’ve had issues
 ;; with those garbage collections causing long freezes when they occur.
-(let ((saved-file-name-handler-alist file-name-handler-alist)
-      (saved-vc-handled-backends vc-handled-backends))
-  (setopt file-name-handler-alist nil
-          vc-handled-backends nil)
+(let ((saved-file-name-handler-alist file-name-handler-alist))
+  (setopt file-name-handler-alist nil)
   (add-hook
    'emacs-startup-hook
    (defun mm-restore-emacs-settings ()
      (setopt gc-cons-threshold (* 1024 1024 8)
              gc-cons-percentage 0.1
-             file-name-handler-alist saved-file-name-handler-alist
-             vc-handled-backends saved-vc-handled-backends))))
+             file-name-handler-alist saved-file-name-handler-alist))))
 
 
 ;;; Avoid Flashbang
