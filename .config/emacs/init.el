@@ -294,15 +294,6 @@ the buffer without saving it."
   (advice-add command :around #'mm-auto-create-directories))
 
 
-;;; Emacs Lisp Libraries
-
-;; The following are included here because they’re required by some of
-;; the modules.
-
-(use-package async
-  :ensure t)
-
-
 ;;; Load Modules
 
 (require 'mm-abbrev)                    ; Text Expansion
