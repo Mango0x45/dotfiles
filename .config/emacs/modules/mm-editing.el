@@ -67,7 +67,10 @@
     (sgml-mode             . (:extras sgml-basic-offset))
     (sh-mode               . (:extras sh-basic-offset))
     (tex-mode              . (:width 2))
-    (vimscript-ts-mode     . (:extras vimscript-ts-mode-indent-level)))
+    (typescript-ts-mode    . (:extras typescript-ts-mode-indent-offset))
+    (vimscript-ts-mode     . (:extras vimscript-ts-mode-indent-level))
+    (vue-ts-mode           . (:extras (typescript-ts-mode-indent-offset
+                                       vue-ts-mode-indent-offset))))
   "Alist of indentation settings.
 Each pair in this alist is of the form (MODE . SETTINGS) where MODE
 specifies the mode for which the given SETTINGS should apply.
