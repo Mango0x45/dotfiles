@@ -43,6 +43,9 @@
            "split_parser" "tree-sitter-markdown-inline/src")
           (python
            "https://github.com/tree-sitter/tree-sitter-python")
+          (tsx
+           "https://github.com/tree-sitter/tree-sitter-typescript"
+           "master" "tsx/src")
           (typescript
            "https://github.com/tree-sitter/tree-sitter-typescript"
            "master" "typescript/src")
@@ -112,7 +115,8 @@ The parsers are taken from `treesit-language-source-alist'."
 ;; anyway.  Same goes for ‘typescript-ts-mode’.
 (defvar mm-treesit-language-file-name-alist
   '((go         . "\\.go\\'")
-    (go-mod     . "/go\\.mod\\'")
+    (gomod      . "/go\\.mod\\'")
+    (tsx        . "\\.tsx\\'")
     (typescript . "\\.ts\\'"))
   "Alist mapping languages to their associated file-names.
 This alist is a set of pairs of the form (LANG . REGEXP) where LANG is
@@ -132,9 +136,9 @@ languages should be listed here.")
 
 (dolist (spec treesit-language-source-alist)
   (let* ((lang (car spec))
-         (lang (alist-get lang mm-treesit-language-remap-alist lang))
-         (name-mode    (intern (format    "%s-mode" lang)))
-         (name-ts-mode (intern (format "%s-ts-mode" lang))))
+         (lang-remap (alist-get lang mm-treesit-language-remap-alist lang))
+         (name-mode    (intern (format    "%s-mode" lang-remap)))
+         (name-ts-mode (intern (format "%s-ts-mode" lang-remap))))
     ;; If ‘name-ts-mode’ is already in ‘auto-mode-alist’ then we don’t
     ;; need to do anything, however if that’s not the case then if
     ;; ‘name-ts-mode’ and ‘name-mode’ are both bound we do a simple
@@ -154,6 +158,9 @@ languages should be listed here.")
                 (alist-get lang mm-treesit-language-file-name-alist)))
           (add-to-list 'auto-mode-alist (cons file-regexp name-ts-mode))
         (warn "Unable to determine the extension for `%s'." name-ts-mode))))))
+
+;; JavaScript being difficult as usual
+(add-to-list 'major-mode-remap-alist '(javascript-mode . js-ts-mode))
 
 
 ;;; Hack For C23
