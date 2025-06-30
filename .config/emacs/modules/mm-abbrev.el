@@ -78,6 +78,14 @@ case-sensitive to avoid unexpected abbreviation expansions."
   "sme" "save-mark-and-excursion"
   "sr"  "save-restriction")
 
+(when mm-darwin-p
+  (with-eval-after-load 'python-ts-mode
+    (mm-define-abbreviations python-ts-mode-abbrev-table
+      "empb" "with emphasize.Block():"
+      "empf" "@emphasize.func"
+      "empi" "from shared.system import emphasize"
+      "empt" "emphasize.this")))
+
 
 ;;; Template Configuration
 
