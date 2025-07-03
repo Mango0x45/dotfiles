@@ -47,9 +47,10 @@ This is intended to be called interactively via
 
 (use-package magit
   :ensure t
-  :bind ( :map magit-status-mode-map
-          ("[" . magit-section-backward-sibling)
-          ("]" . magit-section-forward-sibling))
+  :bind (("C-c b" . magit-blame-addition)
+         :map magit-status-mode-map
+         ("[" . magit-section-backward-sibling)
+         ("]" . magit-section-forward-sibling))
   :custom
   (git-commit-style-convention-checks
    '(non-empty-second-line overlong-summary-line))
