@@ -187,7 +187,7 @@ buffer suppressed."
   (read-extended-command-predicate #'command-completion-default-include-p)
   (remote-file-name-inhibit-auto-save t)
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
-  (require-final-newline nil)
+  (require-final-newline mm-humanwave-p)
   (save-interprogram-paste-before-kill t)
   (user-full-name "Thomas Voss")
   (user-mail-address "mail@thomasvoss.com")
