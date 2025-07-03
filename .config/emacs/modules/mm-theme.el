@@ -8,7 +8,7 @@
 
 ;;; Fonts
 
-(defvar mm-theme-monospace-font `(,(if mm-darwin-p
+(defvar mm-theme-monospace-font `(,(if mm-humanwave-p
                                        "Iosevka Custom"
                                      "Iosevka Smooth")
                                   :weight regular
@@ -224,7 +224,7 @@ See also the `mm-theme-background-opacity' variable."
 
 ;;; Indent Guides
 
-(when mm-darwin-p
+(when mm-humanwave-p
   (use-package highlight-indent-guides
     :ensure t
     :hook ((jinja2-mode vue-ts-mode mhtml-mode) . highlight-indent-guides-mode)

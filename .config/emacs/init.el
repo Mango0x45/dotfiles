@@ -8,7 +8,7 @@
 ;; Lord knows why this needs to be so complicated…
 ;;
 ;; The ‘eval’ is required in the case that this file is byte-compiled.
-(if mm-darwin-p
+(if mm-humanwave-p
     (eval '(setq inhibit-startup-echo-area-message "thomasvoss"))
   (eval '(setq inhibit-startup-echo-area-message "thomas")))
 

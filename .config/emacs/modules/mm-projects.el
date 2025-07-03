@@ -19,7 +19,7 @@ This is intended to be called interactively via
      (project-find-file                "Find File"  ?f)
      (mm-projects-project-magit-status "Git Status" ?s)))
   :config
-  (unless mm-darwin-p
+  (unless mm-humanwave-p
     (if-let ((repo-directory (getenv "REPODIR")))
         (let* ((list-dir
                 (lambda (path)
@@ -70,11 +70,18 @@ This is intended to be called interactively via
          "push" "-v" args remote
          (format "refs/heads/%s:refs/heads/%s" branch branch)))))
   (transient-append-suffix #'magit-push '(1 -1)
-    '("a" "all remotes" mm-projects-magit-push-current-to-all-remotes)))
+    '("a" "all remotes" mm-projects-magit-push-current-to-all-remotes))
+  (add-to-list 'magit-blame-styles
+               '(margin
+                 (show-lines       . t)
+                 (margin-format    . (" %C %a" " %s%f" " "))
+                 (margin-width     . 73)
+                 (margin-face      . magit-blame-margin)
+                 (margin-body-face . (magit-blame-dimmed)))))
 
 (use-package magit-repos
   :ensure nil                           ; Part of ‘magit’
-  :if (not mm-darwin-p)
+  :if (not mm-humanwave-p)
   :commands (magit-list-repositories)
   :init
   (if-let ((directory (getenv "REPODIR")))
