@@ -4,7 +4,6 @@ Categories=Utility;Database;TextTools;Archiving;Security
 Comment=Store and Retrieve Passwords
 Exec=vlt get
 GenericName=Password Store
-Icon=/home/thomas/down/lock.png
 Keywords=Password
 Name=Vault
 Terminal=false
