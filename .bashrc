@@ -117,6 +117,7 @@ alias z='2>/dev/null zathura --fork "$@" 2>/dev/null'
 PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
 eval "$(fzf --bash)"
+eval "$(eww shell-completions --shell bash)"
 
 # Autocompletions for auto-cpufreq.  Inlined from the generated output
 # for performance reasons.
