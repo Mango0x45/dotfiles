@@ -177,7 +177,7 @@ buffer suppressed."
   (echo-keystrokes 0.01)                ; 0 disables echoing
   (echo-keystrokes-help nil)
   (extended-command-suggest-shorter nil)
-  (initial-buffer-choice t)
+  (initial-buffer-choice nil)
   (initial-scratch-message mm-initial-scratch-message)
   (kill-do-not-save-duplicates t)
   (large-file-warning-threshold nil)
