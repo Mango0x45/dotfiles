@@ -8,9 +8,8 @@ xkb_symbols "basic" {
 	key <AE01> { [ exclam,      1,          exclam,      1        ] };
 	key <AE02> { [ at,          2,          at,          2        ] };
 	key <AE03> { [ numbersign,  3,          numbersign,  3        ] };
-	key <AE04> { [ EuroSign,    4,          dollar,      4        ] };
 	key <AE04> { [ dollar,      4,          EuroSign,    EuroSign ] };
-	key <AE05> { [ percent,     5,          dollar,      5        ] };
+	key <AE05> { [ percent,     5,          EuroSign,    EuroSign ] };
 	key <AE06> { [ asciicircum, 6,          asciicircum, 6        ] };
 	key <AE07> { [ ampersand,   7,          logicaland,  7        ] };
 	key <AE08> { [ asterisk,    8,          U22C5,       8        ] }; // ⋅
