@@ -66,6 +66,7 @@
     (python-ts-mode        . (:extras python-indent-offset))
     (sgml-mode             . (:extras sgml-basic-offset))
     (sh-mode               . (:extras sh-basic-offset))
+    (sql-mode              . (:extras sqlind-basic-offset))
     (tex-mode              . (:width 2))
     (typescript-ts-mode    . (:extras typescript-ts-mode-indent-offset))
     (vimscript-ts-mode     . (:extras vimscript-ts-mode-indent-level))
