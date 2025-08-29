@@ -35,6 +35,8 @@
            "https://github.com/tree-sitter/tree-sitter-java")
           (javascript
            "https://github.com/tree-sitter/tree-sitter-javascript")
+          (json
+           "https://github.com/tree-sitter/tree-sitter-json")
           (markdown
            "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
            "split_parser" "tree-sitter-markdown/src")
@@ -116,6 +118,7 @@ The parsers are taken from `treesit-language-source-alist'."
 (defvar mm-treesit-language-file-name-alist
   '((go         . "\\.go\\'")
     (gomod      . "/go\\.mod\\'")
+    (json       . "\\.json\\'")
     (tsx        . "\\.tsx\\'")
     (typescript . "\\.ts\\'"))
   "Alist mapping languages to their associated file-names.
