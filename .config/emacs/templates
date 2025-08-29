@@ -28,3 +28,11 @@ emacs-lisp-mode
  " --- " p "  -*- lexical-binding: t; -*-" n n q)
 
 (section "\f" n ";;; " p n n q)
+
+vue-ts-mode
+
+(fcrow
+ > "<div class=\"fc-row\">"
+ n> "<label>{{ _('" p "') }}</label>"
+ n> q
+ n> "</div>")
