@@ -318,6 +318,26 @@ the buffer without saving it."
 (when mm-lsp-p
   (require 'mm-lsp))                    ; Language Server Protocol
 
+;; TODO: Put this somewhere reasonable
+
+(defvar mm-placeholder-text "‹XX›")
+
+(defun mm-placeholder-insert ()
+  (interactive)
+  (insert mm-placeholder-text))
+
+(defun mm-placeholder-next ()
+  (interactive)
+  (let ((point (point)))
+    (if (search-forward mm-placeholder-text nil :noerror)
+        (delete-region (match-beginning 0) (match-end 0))
+      (goto-char point)
+      (message "No more placeholders after point."))))
+
+(keymap-global-set "C-c i p" #'mm-placeholder-insert)
+(keymap-global-set "C-c n"   #'mm-placeholder-next)
+
+
 
 ;;; Postamble
 
