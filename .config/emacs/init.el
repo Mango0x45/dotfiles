@@ -317,6 +317,8 @@ the buffer without saving it."
   (require 'mm-darwin))                 ; MacOS
 (when mm-lsp-p
   (require 'mm-lsp))                    ; Language Server Protocol
+(when mm-humanwave-p
+  (require 'mm-humanwave))              ; Humanwave Extras
 
 ;; TODO: Put this somewhere reasonable
 
