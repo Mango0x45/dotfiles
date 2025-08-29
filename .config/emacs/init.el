@@ -182,7 +182,7 @@ buffer suppressed."
   (kill-do-not-save-duplicates t)
   (large-file-warning-threshold nil)
   (make-backup-files nil)
-  (mode-require-final-newline nil)
+  (mode-require-final-newline t)
   (next-error-recenter '(4))            ; ‘center of window’
   (read-extended-command-predicate #'command-completion-default-include-p)
   (remote-file-name-inhibit-auto-save t)
