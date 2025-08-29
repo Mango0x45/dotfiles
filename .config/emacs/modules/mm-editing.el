@@ -56,6 +56,7 @@
     (go-ts-mode            . (:extras go-ts-mode-indent-offset))
     (gsp-ts-mode           . (:width 2 :extras gsp-ts-mode-indent-rules))
     (helpful-mode          . (:width 8)) ; GNU code uses 8-column tabs
+    (json-ts-mode          . (:extras json-ts-mode-indent-offset))
     (latex-mode            . (:width 2))
     (lisp-data-mode        . (:spaces t))
     (lisp-interaction-mode . (:spaces t))
