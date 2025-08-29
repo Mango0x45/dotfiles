@@ -394,6 +394,12 @@ is as described by `emmet-expand-line'."
 ;;; Add Missing Extensions
 
 (dolist (pattern '("\\.tmac\\'" "\\.mom\\'"))
-  (add-to-list 'auto-mode-alist (cons pattern 'nroff-mode)))
+  (add-to-list 'auto-mode-alist (cons pattern #'nroff-mode)))
+
+
+;;; Subword Navigation
+
+(use-package subword
+  :hook prog-mode)
 
 (provide 'mm-editing)
