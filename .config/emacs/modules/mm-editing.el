@@ -320,6 +320,36 @@ is as described by `emmet-expand-line'."
   (emmet-self-closing-tag-style ""))
 
 
+;;; JQ Manipulation in JSON Mode
+
+(defun mm-jq-filter (query &optional beg end)
+  "TODO"
+  (interactive
+   (list
+    (read-string (format-prompt "Query" nil))
+    (when (use-region-p) (region-beginning))
+    (when (use-region-p) (region-end))))
+  (let* ((beg (or beg (point-min)))
+         (end (or end (point-max)))
+         (temp-buffer (generate-new-buffer "* jq temp*"))
+         (exit-code (call-process-region beg end "jq" nil temp-buffer nil
+                                         "--tab" query))
+         (output (with-current-buffer temp-buffer (buffer-string))))
+    (if (zerop exit-code)
+        (atomic-change-group
+          (delete-region beg end)
+          (insert output)
+          (indent-region beg (point)))
+      (message "%s" output))
+    (kill-buffer temp-buffer)))
+
+(use-package json-ts-mode
+  :bind ( :map json-ts-mode-map
+          ("C-|" . #'mm-jq-filter))
+  :config
+  (require 'live-jq))
+
+
 ;;; Number Formatting
 
 (use-package number-format-mode
