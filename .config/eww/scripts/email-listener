@@ -8,6 +8,17 @@ export NOTIFY_LONG=email
 readonly CACHE="${XDG_CACHE_HOME:=$HOME/.cache}/email-listener"
 touch "$CACHE"
 
+T()
+{
+	en="$1"
+	sv="$2"
+	shift 2
+	case "${LC_ALL:-$LANG}" in
+	en_*) printf "$en" "$@" ;;
+	sv_*) printf "$sv" "$@"
+	esac
+}
+
 count()
 {
 	local cur=`find "$MAILDIR"/*/Inbox/cur -type f | wc -l`
@@ -16,16 +27,16 @@ count()
 
 	case $sum in
 	0)
-		printf 'icon=\ntext=No Email'
+		T 'icon=\ntext=No Emails' 'icon=\ntext=Inga meddelanden'
 		;;
 	1)
-		printf 'icon=\ntext=1 Email'
+		T 'icon=\ntext=1 Email' 'icon=\ntext=1 meddelande'
 		;;
 	*)
-		printf 'icon=\ntext=%d Emails' $sum
+		T 'icon=\ntext=%d Emails' 'icon=\ntext=%d meddelanden' $sum
 		;;
 	esac
-	[ $new -gt 0 ] && printf ' (%d Unread)' $new
+	[ $new -gt 0 ] && T ' (%d Unread)' ' (%d ölasta)' $new
 	echo
 	echo $new >"$CACHE"
 }
@@ -42,12 +53,14 @@ count()
 
 			case $((new_mails - prev)) in
 			1)
-				title='New Email'
-				desc='1 new email has been received'
+				title="$(T 'New Email' 'Nytt meddelande')"
+				desc="$(T '1 new email has been received'
+						  '1 nytt meddelande har mottagits')"
 				;;
 			*)
-				title='New Emails'
-				desc="$new_mails new emails have been received"
+				title="$(T 'New Emails' 'Nya meddelanden')"
+				desc="$(T "$new_mails new emails have been received"
+						  "$new_mails nya meddelanden har mottagits")"
 				;;
 			esac
 

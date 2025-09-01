@@ -14,7 +14,7 @@
   `stdbuf -oL scripts/workspace-list-listener`)
 
 (deflisten datetime
-  `stdbuf -oL scripts/datetime-listener`)
+  `LANG=sv_SE.UTF-8 stdbuf -oL scripts/datetime-listener`)
 
 (deflisten brightness
   `stdbuf -oL scripts/backlight-listener`)
@@ -26,7 +26,7 @@
   `stdbuf -oL scripts/keymap-listener`)
 
 (deflisten emails :initial '{"icon":"","text":""}'
-  `stdbuf -oL scripts/email-listener`)
+  `LANG=sv_SE.UTF-8 stdbuf -oL scripts/email-listener`)
 
 ;; Pollers
 (defpoll user :interval "69h"
