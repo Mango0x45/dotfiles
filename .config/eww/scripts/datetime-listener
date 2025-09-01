@@ -7,7 +7,7 @@ en_*)
 	;;
 sv_*)
 	fmt='%A, %-d %B %Y — %H:%M %Z'
-	pat='den (\d+)'
+	pat=', (\d+)'
 esac
 
 while :
