@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-01 22:42+0200\n"
+"POT-Creation-Date: 2025-09-01 22:58+0200\n"
 "PO-Revision-Date: 2025-09-01 22:45+0200\n"
 "Last-Translator: Thomas Voss <mail@thomasvoss.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -19,7 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: vlt:25
-#, fuzzy
 msgid "Invalid input"
 msgstr "Ogiltig inmatning"
 
@@ -27,138 +26,153 @@ msgstr "Ogiltig inmatning"
 msgid "Empty strings do not constitute valid input"
 msgstr "Tomma strängar utgör ej giltig indata"
 
-#: vlt:98
+#: vlt:34
+#, sh-printf-format
+msgid ""
+"Usage: %s add [-c]\n"
+"       %s edit [-c]\n"
+"       %s get\n"
+"       %s raw category password\n"
+"       %s rm [-c]\\n"
+msgstr ""
+"Användning: %s add [-c]\n"
+"            %s edit [-c]\n"
+"            %s get\n"
+"            %s raw kategori lösenord\n"
+"            %s rm [-c]\\n"
+
+#: vlt:97
 msgid "Password name"
 msgstr "Lösenordsnamn"
 
-#: vlt:103
+#: vlt:102
 msgid "Failed to add password"
 msgstr "Misslyckades med att skapa lösenord"
 
-#: vlt:104
+#: vlt:103
 #, sh-printf-format
 msgid "The password ‘%s’ already exists"
 msgstr "Lösenordet ”%s” finns redan"
 
-#: vlt:110 vlt:260
+#: vlt:109 vlt:259
 msgid "Secret key"
 msgstr "Hemlig nyckel"
 
-#: vlt:111 vlt:261
+#: vlt:110 vlt:260
 msgid "Digits"
 msgstr "Siffror"
 
-#: vlt:112 vlt:262
+#: vlt:111 vlt:261
 msgid "Period"
 msgstr "Period"
 
-#: vlt:126 vlt:276
+#: vlt:125 vlt:275
 msgid "2FA key added"
 msgstr "2FA-nyckel tillagd"
 
-#: vlt:127 vlt:277
+#: vlt:126 vlt:276
 #, sh-printf-format
 msgid "The 2FA key ‘%s’ was added with the digit length ‘%d’ and period ‘%d’"
 msgstr "2FA-nyckeln ”%s” lades till med siffralägden ”%d” och perioden ”%d”"
 
-#: vlt:129 vlt:279
+#: vlt:128 vlt:278
 msgid "Password"
 msgstr "Lösenord"
 
-#: vlt:134
+#: vlt:133
 msgid "Password added"
 msgstr "Lösenord tillagt"
 
-#: vlt:135
+#: vlt:134
 #, sh-printf-format
 msgid "The password ‘%s’ was added to the category ‘%s’"
 msgstr "Lösenordet ”%s” tillagt till kategorin ”%s”"
 
-#: vlt:143
+#: vlt:142
 msgid "Category to create"
 msgstr "Kategori att skapa"
 
-#: vlt:146
+#: vlt:145
 msgid "Failed to Create Category"
 msgstr "Misslyckades med att skapa kategori"
 
-#: vlt:146
+#: vlt:145
 #, sh-printf-format
 msgid "The category ‘%s’ already exists"
 msgstr "Kategorin ”%s” finns redan"
 
-#: vlt:154
+#: vlt:153
 msgid "Category created"
 msgstr "Kategori skapad"
 
-#: vlt:154
+#: vlt:153
 #, sh-printf-format
 msgid "The password category ‘%s’ was created"
 msgstr "Lösenordskategorin ”%s” skapades"
 
-#: vlt:178
+#: vlt:177
 msgid "2FA code copied to the clipboard"
 msgstr "2FA-kod kopierad till urklipp"
 
-#: vlt:179
+#: vlt:178
 #, sh-printf-format
 msgid "The 2FA code for ‘%s’ was copied to the clipboard"
 msgstr "2FA-koden för ”%s” har kopierats till urklipp"
 
-#: vlt:184
+#: vlt:183
 msgid "Password copied to the clipboard"
 msgstr "Lösenord kopierat till urklipp"
 
-#: vlt:185
+#: vlt:184
 #, sh-printf-format
 msgid "The password for ‘%s’ was copied to the clipboard"
 msgstr "Lösenordet ”%s” har kopierats till urklipp"
 
-#: vlt:214
+#: vlt:213
 msgid "Password removed"
 msgstr "Lösenord borttaget"
 
-#: vlt:215
+#: vlt:214
 #, sh-printf-format
 msgid "The password ‘%s’ was removed from the category ‘%s’"
 msgstr "Lösenordet ”%s” har tagits bort från kategorin ”%s”"
 
-#: vlt:226
+#: vlt:225
 msgid "Failed to remove category"
 msgstr "Kategorin kunde ej tas bort"
 
-#: vlt:226
+#: vlt:225
 #, sh-printf-format
 msgid "The category ‘%s’ is not empty"
 msgstr "Kategorin ”%s” är ej tom"
 
-#: vlt:233
+#: vlt:232
 msgid "Category removed"
 msgstr "Kategori borttagen"
 
-#: vlt:233
+#: vlt:232
 #, sh-printf-format
 msgid "The category ‘%s’ was removed"
 msgstr "Kategorin ”%s” har tagits bort"
 
-#: vlt:283
+#: vlt:282
 msgid "Password edited"
 msgstr "Lösenord redigerat"
 
-#: vlt:284
+#: vlt:283
 #, sh-printf-format
 msgid "The password ‘%s’ in the category ‘%s’ was edited"
 msgstr "Lösenordet ”%s” i kategorin ”%s” har redigerats"
 
-#: vlt:293
+#: vlt:292
 msgid "Category name"
 msgstr "Kategorinamn"
 
-#: vlt:298
+#: vlt:297
 msgid "Category edited"
 msgstr "Kategori redigerad"
 
-#: vlt:298
+#: vlt:297
 #, sh-printf-format
 msgid "The category ‘%s’ was renamed"
 msgstr "Kategorin ”%s” har bytt namn"

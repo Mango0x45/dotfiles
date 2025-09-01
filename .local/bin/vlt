@@ -30,13 +30,12 @@ sanitize()
 
 usage()
 {
-	# TODO: Translate into Swedish
-	cat <<-EOF >&2
-	Usage: ${0##*/} add [-c]
-	       ${0##*/} edit [-c]
-	       ${0##*/} get
-	       ${0##*/} rm [-c]
-	EOF
+	s="${0##*/}"
+	_ "Usage: %s add [-c]
+       %s edit [-c]
+       %s get
+       %s raw category password
+       %s rm [-c]\n" "$s" "$s" "$s" "$s" "$s"
 	exit 1
 }
 
