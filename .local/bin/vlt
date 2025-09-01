@@ -5,19 +5,32 @@ set -e
 export NOTIFY_LONG=vault
 export NOTIFY_SHORT="${0##*/}"
 
+export TEXTDOMAIN=vlt
+export TEXTDOMAINDIR=/usr/local/share/locale
+
+. gettext.sh
+_()
+{
+	fmt="$1"
+	shift
+	printf "$(eval_gettext "$fmt")" "$@"
+}
+
 sanitize()
 {
 	s="${1#"${1%%[![:space:]]*}"}"
 	s="${s%"${s##*[![:space:]]}"}"
 	if [ "${#s}" -eq 0 ]
 	then
-		notify 'Invalid Input' 'Empty strings do not constitute valid input'
+		notify "$(_ 'Invalid input')" \
+		       "$(_ 'Empty strings do not constitute valid input')"
 		exit 1
 	fi
 }
 
 usage()
 {
+	# TODO: Translate into Swedish
 	cat <<-EOF >&2
 	Usage: ${0##*/} add [-c]
 	       ${0##*/} edit [-c]
@@ -82,20 +95,21 @@ add()
 
 	c="$(xecho "$data" | jq -r 'keys | .[]' | osel)"
 
-	prompt 'Password name'
+	prompt "$(_ 'Password name')"
 	n="$s"
 
 	xecho "$data" \
 	| jq -e --arg c "$c" --arg n "$n" '.[$c] | has($n) | not' >/dev/null || {
-		notify 'Failed To Add Password' "The password ‘$n’ already exists"
+		notify "$(_ 'Failed to add password')" \
+		       "$(_ "The password ‘%s’ already exists" "$n")"
 		exit 1
 	}
 
 	if [ "$VAULT_2FA" = "$c" ]
 	then
-		xprompt 'Secret key'; k="$s"
-		prompt 'Digits'; d="$s"
-		prompt 'Period'
+		xprompt "$(_ 'Secret key')"; k="$s"
+		prompt "$(_ 'Digits')"; d="$s"
+		prompt "$(_ 'Period')"
 
 		xecho "$data" \
 		| jq --arg c "$c" \
@@ -109,16 +123,16 @@ add()
 				"period": ($p | tonumber)
 			}}' \
 		| enchive archive >"$VAULT"
-		[ ! -t 2 ] && notify '2FA Key Added' \
-			"The 2FA key ‘$n’ was added with the digit length ‘$d’ and period ‘$p’"
+		[ ! -t 2 ] && notify "$(_ '2FA key added')" \
+			"$(_ "The 2FA key ‘%s’ was added with the digit length ‘%d’ and period ‘%d’" "$n" "$d" "$p")"
 	else
-		xprompt 'Password'
+		xprompt "$(_ 'Password')"
 
 		xecho "$data" \
 		| jq --arg c "$c" --arg n "$n" --arg s "$s" '.[$c] += {($n): $s}' \
 		| enchive archive >"$VAULT"
-		[ ! -t 2 ] && notify 'Password Added' \
-			"The password ‘$n’ was added to the category ‘$c’"
+		[ ! -t 2 ] && notify "$(_ 'Password added')" \
+			"$(_ "The password ‘%s’ was added to the category ‘%s’" "$n" "$c")"
 	fi
 }
 
@@ -126,10 +140,10 @@ add_c()
 {
 	readonly data="$(enchive extract <"$VAULT")"
 
-	prompt 'Category to create'
+	prompt "$(_ 'Category to create')"
 
 	xecho "$data" | jq -e --arg s "$s" 'has($s) | not' >/dev/null || {
-		notify 'Failed To Create Category' "The category ‘$s’ already exists"
+		notify "$(_ 'Failed to Create Category')" "$(_ "The category ‘%s’ already exists" "$s")"
 		exit 1
 	}
 
@@ -137,7 +151,7 @@ add_c()
 	| jq --arg s "$s" '. + {($s): {}}' \
 	| enchive archive >"$VAULT"
 	[ ! -t 2 ] && \
-		notify 'Category Created' "The password category ‘$s’ was created"
+		notify "$(_ 'Category created')" "$(_ "The password category ‘%s’ was created" "$s")"
 }
 
 get()
@@ -161,14 +175,14 @@ get()
 		')" \
 		| wl-copy -no \
 		&& [ ! -t 2 ] \
-		&& notify '2FA Code Copied To The Clipboard' \
-		"The 2FA code for ‘$o’ was copied to the clipboard"
+		&& notify "$(_ '2FA code copied to the clipboard')" \
+		"$(_ "The 2FA code for ‘%s’ was copied to the clipboard" "$o")"
 	else
 		jq -r --arg c "$c" --arg o "$o" '.[$c] | .[$o]' \
 		| wl-copy -no \
 		&& [ ! -t 2 ] \
-		&& notify 'Password Copied To The Clipboard' \
-		"The password for ‘$o’ was copied to the clipboard"
+		&& notify "$(_ 'Password copied to the clipboard')" \
+		"$(_ "The password for ‘%s’ was copied to the clipboard" "$o")"
 	fi
 }
 
@@ -197,8 +211,8 @@ rm_()
 	xecho "$data" \
 	| jq --arg c "$c" --arg n "$n" 'del(.[$c] | .[$n])' \
 	| enchive archive >"$VAULT"
-	[ ! -t 2 ] && notify 'Removed Password' \
-		"The password ‘$n’ was removed from the category ‘$c’"
+	[ ! -t 2 ] && notify "$(_ 'Password removed')" \
+		"$(_ "The password ‘%s’ was removed from the category ‘%s’" "$n" "$c")"
 }
 
 rm_c()
@@ -209,14 +223,14 @@ rm_c()
 
 	xecho "$data" \
 	| jq -e --arg c "$c" '.[$c] | length == 0' >/dev/null || {
-		notify 'Failed To Remove Category' "The category ‘$c’ is not empty"
+		notify "$(_ 'Failed to remove category')" "$(_ "The category ‘%s’ is not empty" "$c")"
 		exit 1
 	}
 
 	xecho "$data" \
 	| jq --arg c "$c" 'del(.[$c])' \
 	| enchive archive >"$VAULT"
-	[ ! -t 2 ] && notify 'Removed Category' "The category ‘$c’ was removed"
+	[ ! -t 2 ] && notify "$(_ 'Category removed')" "$(_ "The category ‘%s’ was removed" "$c")"
 }
 
 edit()
@@ -243,9 +257,9 @@ edit()
 
 	if [ "$VAULT_2FA" = "$c" ]
 	then
-		xprompt 'Secret key'; k="$s"
-		prompt 'Digits'; d="$s"
-		prompt 'Period'
+		xprompt "$(_ 'Secret key')"; k="$s"
+		prompt "$(_ 'Digits')"; d="$s"
+		prompt "$(_ 'Period')"
 
 		xecho "$data" \
 		| jq --arg c "$c" \
@@ -259,15 +273,15 @@ edit()
 				"period": ($p | tonumber)
 			}}' \
 		| enchive archive >"$VAULT"
-		[ ! -t 2 ] && notify '2FA Key Added' \
-			"The 2FA key ‘$n’ was added with the digit length ‘$d’ and period ‘$p’"
+		[ ! -t 2 ] && notify "$(_ '2FA key added')" \
+			"$(_ "The 2FA key ‘%s’ was added with the digit length ‘%d’ and period ‘%d’" "$n" "$d" "$p")"
 	else
-		xprompt 'Password'
+		xprompt "$(_ 'Password')"
 		xecho "$data" \
 		| jq --arg c "$c" --arg n "$n" --arg s "$s" '.[$c] += {($n): $s}' \
 		| enchive archive >"$VAULT"
-		[ ! -t 2 ] && notify 'Password Edit' \
-			"The password ‘$n’ in the category ‘$c’ was changed"
+		[ ! -t 2 ] && notify "$(_ 'Password edited')" \
+			"$(_ "The password ‘%s’ in the category ‘%s’ was edited" "$n" "$c")"
 	fi
 }
 
@@ -276,12 +290,12 @@ edit_c()
 	readonly data="$(enchive extract <"$VAULT")"
 
 	c="$(xecho "$data" | jq -r 'keys | .[]' | osel)"
-	prompt 'Category name'
+	prompt "$(_ 'Category name')"
 	xecho "$data" \
 	| jq --arg o "$c" --arg n "$s" \
 		 'with_entries(if .key == $o then .key = $n else . end)' \
 	| enchive archive >"$VAULT"
-	[ ! -t 2 ] && notify 'Category Edit' "The category ‘$c’ was renamed"
+	[ ! -t 2 ] && notify "$(_ 'Category edited')" "$(_ "The category ‘%s’ was renamed" "$c")"
 }
 
 raw()

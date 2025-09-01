@@ -1,0 +1,164 @@
+# Swedish translations for PACKAGE package
+# Svenska översättningar för paket PACKAGE.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Thomas Voss <mail@thomasvoss.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-01 22:42+0200\n"
+"PO-Revision-Date: 2025-09-01 22:45+0200\n"
+"Last-Translator: Thomas Voss <mail@thomasvoss.com>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: vlt:25
+#, fuzzy
+msgid "Invalid input"
+msgstr "Ogiltig inmatning"
+
+#: vlt:26
+msgid "Empty strings do not constitute valid input"
+msgstr "Tomma strängar utgör ej giltig indata"
+
+#: vlt:98
+msgid "Password name"
+msgstr "Lösenordsnamn"
+
+#: vlt:103
+msgid "Failed to add password"
+msgstr "Misslyckades med att skapa lösenord"
+
+#: vlt:104
+#, sh-printf-format
+msgid "The password ‘%s’ already exists"
+msgstr "Lösenordet ”%s” finns redan"
+
+#: vlt:110 vlt:260
+msgid "Secret key"
+msgstr "Hemlig nyckel"
+
+#: vlt:111 vlt:261
+msgid "Digits"
+msgstr "Siffror"
+
+#: vlt:112 vlt:262
+msgid "Period"
+msgstr "Period"
+
+#: vlt:126 vlt:276
+msgid "2FA key added"
+msgstr "2FA-nyckel tillagd"
+
+#: vlt:127 vlt:277
+#, sh-printf-format
+msgid "The 2FA key ‘%s’ was added with the digit length ‘%d’ and period ‘%d’"
+msgstr "2FA-nyckeln ”%s” lades till med siffralägden ”%d” och perioden ”%d”"
+
+#: vlt:129 vlt:279
+msgid "Password"
+msgstr "Lösenord"
+
+#: vlt:134
+msgid "Password added"
+msgstr "Lösenord tillagt"
+
+#: vlt:135
+#, sh-printf-format
+msgid "The password ‘%s’ was added to the category ‘%s’"
+msgstr "Lösenordet ”%s” tillagt till kategorin ”%s”"
+
+#: vlt:143
+msgid "Category to create"
+msgstr "Kategori att skapa"
+
+#: vlt:146
+msgid "Failed to Create Category"
+msgstr "Misslyckades med att skapa kategori"
+
+#: vlt:146
+#, sh-printf-format
+msgid "The category ‘%s’ already exists"
+msgstr "Kategorin ”%s” finns redan"
+
+#: vlt:154
+msgid "Category created"
+msgstr "Kategori skapad"
+
+#: vlt:154
+#, sh-printf-format
+msgid "The password category ‘%s’ was created"
+msgstr "Lösenordskategorin ”%s” skapades"
+
+#: vlt:178
+msgid "2FA code copied to the clipboard"
+msgstr "2FA-kod kopierad till urklipp"
+
+#: vlt:179
+#, sh-printf-format
+msgid "The 2FA code for ‘%s’ was copied to the clipboard"
+msgstr "2FA-koden för ”%s” har kopierats till urklipp"
+
+#: vlt:184
+msgid "Password copied to the clipboard"
+msgstr "Lösenord kopierat till urklipp"
+
+#: vlt:185
+#, sh-printf-format
+msgid "The password for ‘%s’ was copied to the clipboard"
+msgstr "Lösenordet ”%s” har kopierats till urklipp"
+
+#: vlt:214
+msgid "Password removed"
+msgstr "Lösenord borttaget"
+
+#: vlt:215
+#, sh-printf-format
+msgid "The password ‘%s’ was removed from the category ‘%s’"
+msgstr "Lösenordet ”%s” har tagits bort från kategorin ”%s”"
+
+#: vlt:226
+msgid "Failed to remove category"
+msgstr "Kategorin kunde ej tas bort"
+
+#: vlt:226
+#, sh-printf-format
+msgid "The category ‘%s’ is not empty"
+msgstr "Kategorin ”%s” är ej tom"
+
+#: vlt:233
+msgid "Category removed"
+msgstr "Kategori borttagen"
+
+#: vlt:233
+#, sh-printf-format
+msgid "The category ‘%s’ was removed"
+msgstr "Kategorin ”%s” har tagits bort"
+
+#: vlt:283
+msgid "Password edited"
+msgstr "Lösenord redigerat"
+
+#: vlt:284
+#, sh-printf-format
+msgid "The password ‘%s’ in the category ‘%s’ was edited"
+msgstr "Lösenordet ”%s” i kategorin ”%s” har redigerats"
+
+#: vlt:293
+msgid "Category name"
+msgstr "Kategorinamn"
+
+#: vlt:298
+msgid "Category edited"
+msgstr "Kategori redigerad"
+
+#: vlt:298
+#, sh-printf-format
+msgid "The category ‘%s’ was renamed"
+msgstr "Kategorin ”%s” har bytt namn"
