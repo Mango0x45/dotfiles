@@ -76,4 +76,61 @@ If METHOD is nil, a GET request is performed."
 (add-hook 'after-change-major-mode-hook
           #'mm-humanwave-handler-topic-imenu-setup)
 
+
+;;; Insert Imports in Vue
+
+
+(defun mm-humanwave-insert-vue-import-path (base-directory target-file)
+  "Insert an import directive at POINT.
+The import directive imports TARGET-FILE relative from BASE-DIRECTORY.
+When called interactively BASE-DIRECTORY is the directory of the current
+open Vue file and TARGET-FILE is a file in the current project that is
+queried interactively.
+
+When called interactively the prefix argument can be used to emulate the
+behaviour of the INCLUDE-ALL-P argument to `mm-project-read-file-name'."
+  (interactive
+   (list
+    default-directory
+    (mm-humanwave-project-read-file-name current-prefix-arg)))
+  (let ((path (file-name-sans-extension
+               (file-relative-name target-file base-directory))))
+    (insert "import ")
+    (save-excursion
+      (insert (format " from '%s';" path)))))
+
+(defun mm-humanwave-project-read-file-name (&optional include-all-p)
+  "Prompt for a project file.
+This function is similar to `project-find-file', but it returns the path
+to the selected file instead of opening it.
+
+When called interactively the selected file is printed to the minibuffer,
+otherwise it is returned.
+
+The prefix argument INCLUDE-ALL-P is the same as the INCLUDE-ALL argument
+to the `project-find-file' command."
+  (interactive "P")
+  (let* ((project (project-current :maybe-prompt))
+         (root (project-root project))
+         (files (if include-all-p
+                    (let ((vc-ignores (mapcar
+                                       (lambda (dir) (concat dir "/"))
+                                       vc-directory-exclusion-list)))
+                      (project--files-in-directory root vc-ignores))
+                  (project-files project)))
+         (canditates (mapcar (lambda (f) (file-relative-name f root))
+                             files))
+         (table (lambda (string predicate action)
+                  (if (eq action 'metadata)
+                      '(metadata (category . file))
+                    (complete-with-action action canditates string predicate))))
+         (default-directory root)
+         (choice (completing-read (format-prompt "Find project file" nil)
+                                  table nil :require-match)))
+    (let ((path (expand-file-name choice root)))
+      (if (called-interactively-p 'any)
+          (message "%s" path)
+        path))))
+
+
 (provide 'mm-humanwave)
