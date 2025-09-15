@@ -300,6 +300,18 @@ surround with spaces."
               (push '("`" . "'") surround-pairs))))
 
 
+;;; Insert Webpage Contents
+
+(defun mm-insert-from-url (url)
+  "Insert the contents of URL at point."
+  (interactive
+   (let ((url-at-point (thing-at-point 'url)))
+     (list (read-string
+            (format-prompt "URL" url-at-point)
+            nil nil url-at-point))))
+  (call-process "curl" nil '(t nil) nil url))
+
+
 ;;; Emmet Mode
 
 (defun mm-editing-emmet-dwim (arg)
