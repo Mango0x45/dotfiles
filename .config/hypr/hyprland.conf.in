@@ -70,8 +70,7 @@ animations {
 }
 
 gestures {
-	workspace_swipe                    = yes
-	workspace_swipe_fingers            = 4
+	gesture = 4, horizontal, workspace
 	workspace_swipe_distance           = 400
 	workspace_swipe_min_speed_to_force = 10
 }
