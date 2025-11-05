@@ -16,6 +16,9 @@
 (deflisten datetime
   `LANG=sv_SE.UTF-8 stdbuf -oL scripts/datetime-listener`)
 
+(deflisten timer-1
+  `stdbuf -oL scripts/timer-listener`)
+
 (deflisten brightness
   `stdbuf -oL scripts/backlight-listener`)
 
@@ -64,7 +67,9 @@
   (workspaces :monitor monitor))
 
 (defwidget middle []
-  (clock))
+  (box :space-evenly false
+       (clock)
+       (timer)))
 
 (defwidget end []
   (box :halign "end"
@@ -88,6 +93,10 @@
 
 (defwidget clock []
   datetime)
+
+(defwidget timer []
+  (box :class "timer"
+	   (label :text timer-1)))
 
 (defwidget wireless []
   (eventbox
