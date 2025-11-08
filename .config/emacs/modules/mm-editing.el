@@ -127,6 +127,11 @@ those should be listed in `mm-editing-indentation-settings'."
                        extras))
         (set (make-local-variable extra) tabsize)))))
 
+(use-package sh-mode
+  :custom
+  (sh-indent-for-case-label 0)
+  (sh-indent-for-case-alt #'+))
+
 
 ;;; Code Commenting
 
