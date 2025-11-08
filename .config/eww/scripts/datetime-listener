@@ -1,9 +1,21 @@
 #!/bin/sh
 
-stdbuf -oL -- tiktok                 \
-	'%A, %-d %B %Y — %T %Z'          \
-	TZ=Europe/Helsinki ' (%H:%M %Z,' \
-	TZ=Pacific/Auckland ' %H:%M %Z)' \
+veckaord()
+{
+	case "${LANG:-LC_ALL}" in
+	sv_*.*)
+		echo vecka ;;
+	pt_*.*)
+		echo semana ;;
+	*)
+		echo Week ;;
+	esac
+}
+
+stdbuf -oL -- tiktok                            \
+	"%A, %-d %B %Y, $(veckaord) %V — %T %Z"    \
+	TZ=Europe/Helsinki ' (%H:%M %Z,'            \
+	TZ=Pacific/Auckland ' %H:%M %Z)'            \
 | while read line
 do
 	echo "$line" | ordinal -p '^\w+, (\d+)'
