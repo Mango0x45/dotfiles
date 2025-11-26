@@ -55,7 +55,15 @@ xkb_symbols "swedish" {
 	include "mango(basic)"
 	name[Group1] = "Mango (Swedish)";
 
-	key <AD11> { [ aring,      Aring,      bracketleft,          braceleft ] };
-	key <AC10> { [ odiaeresis, Odiaeresis, semicolon,            colon     ] };
-	key <AC11> { [ adiaeresis, Adiaeresis, rightsinglequotemark, rightdoublequotemark ] };
+	key <AD11> { [ aring,      Aring,      bracketleft,  braceleft  ] };
+	key <AD12> { [ U0301,      U0300,      bracketright, braceright ] }; // ◌́ and ◌̀
+	key <AC10> { [ odiaeresis, Odiaeresis, semicolon,    colon      ] };
+	key <AC11> { [ adiaeresis, Adiaeresis, apostrophe,   quotedbl   ] };
+
+	key <AC08> { [ k, K, rightsinglequotemark, rightdoublequotemark ] };
+	key <AC09> { [ l, L, rightsinglequotemark, rightdoublequotemark ] };
+
+	// Dansk och norsk bokstäver på nivå 3
+	key <AC01> { [ a, A, ae,     AE     ] };
+	key <AD09> { [ o, O, oslash, Oslash ] };
 };
