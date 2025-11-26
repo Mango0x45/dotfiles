@@ -19,7 +19,7 @@ input {
 	accel_profile  = "adaptive"
 	follow_mouse   = 1
 	kb_layout      = mango, mango, mango, us
-	kb_variant     = basic, swedish, german, basic
+	kb_variant     = swedish, basic, german, basic
 	kb_options     = lv3:switch,compose:ralt
 	repeat_delay   = 360 # 180
 	repeat_rate    = 35
