@@ -46,8 +46,13 @@ xkb_symbols "german" {
 	include "mango(basic)"
 	name[Group1] = "Mango (German)";
 
-	key <AC10> { [ NoSymbol, NoSymbol, singlelowquotemark,  doublelowquotemark  ] };
-	key <AC11> { [ NoSymbol, NoSymbol, leftsinglequotemark, leftdoublequotemark ] };
+	key <AD11> { [ udiaeresis, Udiaeresis, bracketleft,  braceleft  ] };
+	key <AD12> { [ ssharp,     U1E9E,      bracketright, braceright ] }; // ẞ
+	key <AC10> { [ odiaeresis, Odiaeresis, semicolon,    colon      ] };
+	key <AC11> { [ adiaeresis, Adiaeresis, apostrophe,   quotedbl   ] };
+
+	key <AC08> { [ k, K, singlelowquotemark,  doublelowquotemark  ] };
+	key <AC09> { [ l, L, leftsinglequotemark, leftdoublequotemark ] };
 };
 
 partial
