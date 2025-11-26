@@ -68,7 +68,7 @@ xkb_symbols "swedish" {
 	key <AC08> { [ k, K, rightsinglequotemark, rightdoublequotemark ] };
 	key <AC09> { [ l, L, rightsinglequotemark, rightdoublequotemark ] };
 
-	// Dansk och norsk bokstäver på nivå 3
+	// Danska och norska bokstäver på nivå 3
 	key <AC01> { [ a, A, ae,     AE     ] };
 	key <AD09> { [ o, O, oslash, Oslash ] };
 };
