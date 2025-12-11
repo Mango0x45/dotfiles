@@ -108,6 +108,7 @@ This is intended to be called interactively via
 ;;; GitHub Pull Requests
 
 (require 'gh)
-(keymap-global-set "C-c p" #'gh-create-pr)
+(keymap-global-set "C-c p c" #'gh-create-pr)
+(keymap-global-set "C-c p o" #'gh-open-previous-pr)
 
 (provide 'mm-projects)
