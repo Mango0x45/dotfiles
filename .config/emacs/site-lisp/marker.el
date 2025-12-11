@@ -1,8 +1,6 @@
 (require 'hi-lock)
 (require 'seq)
 
-(defvar-local marker--overlays nil)
-
 (defun marker-mark ()
   (interactive)
   (marker-mark-region (if (use-region-p)
@@ -19,13 +17,13 @@
     (overlay-put ov 'priority 1)
     (overlay-put ov 'face 'hi-yellow)
     (overlay-put ov 'evaporate t)
-    (push ov marker--overlays)))
+    (overlay-put ov 'marker--mark-p t)))
 
 (defun marker-unmark ()
   (interactive)
-  (marker-unmark-region (if (use-region-p)
-                            (region-bounds)
-                          `((,(pos-bol) . ,(pos-eol)))))
+  (if (use-region-p)
+      (marker-unmark-region (region-bounds))
+    (marker-clear))
   (when (region-active-p)
     (deactivate-mark)))
 
@@ -33,7 +31,7 @@
   (dolist (x bounds) (marker--unmark-region (car x) (cdr x))))
 
 (defun marker--unmark-region (beg end)
-  (dolist (ov (seq-filter (lambda (ov) (memq ov marker--overlays))
+  (dolist (ov (seq-filter (lambda (ov) (overlay-get ov 'marker--mark-p))
                           (overlays-in beg end)))
     (cond ((< (overlay-start ov) beg)
            (move-overlay ov (overlay-start ov) beg))
@@ -44,7 +42,6 @@
 
 (defun marker-clear ()
   (interactive)
-  (mapc #'delete-overlay marker--overlays)
-  (setq marker--overlays nil))
+  (remove-overlays nil nil 'marker--mark-p t))
 
 (provide 'marker)
