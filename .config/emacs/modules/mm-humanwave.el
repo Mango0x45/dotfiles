@@ -79,7 +79,6 @@ If METHOD is nil, a GET request is performed."
 
 ;;; Insert Imports in Vue
 
-
 (defun mm-humanwave-insert-vue-import-path (base-directory target-file)
   "Insert an import directive at POINT.
 The import directive imports TARGET-FILE relative from BASE-DIRECTORY.
@@ -95,8 +94,15 @@ behaviour of the INCLUDE-ALL-P argument to `mm-project-read-file-name'."
     (mm-humanwave-project-read-file-name current-prefix-arg)))
   (let ((path (file-name-sans-extension
                (file-relative-name target-file base-directory))))
+    (unless (string-match-p "/" path)
+      (setq path (concat "./" path)))
     (insert "import ")
     (save-excursion
+      (insert (thread-last
+                (file-name-base path)
+                (mm-string-split "-")
+                (mapconcat #'capitalize)))
+      (push-mark (point))
       (insert (format " from '%s';" path)))))
 
 (defun mm-humanwave-project-read-file-name (&optional include-all-p)
@@ -131,6 +137,5 @@ to the `project-find-file' command."
       (if (called-interactively-p 'any)
           (message "%s" path)
         path))))
-
 
 (provide 'mm-humanwave)

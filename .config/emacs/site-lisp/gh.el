@@ -36,4 +36,24 @@ via `gh-get-labels'."
       (apply #'call-process "gh" nil t nil "pr" "create" flags)
       (message (buffer-string)))))
 
+(defvar gh-pr-regexp
+  "\\`https://\\(?:www\\.\\)?github\\.com/[^/]+/[^/]+/pull/[[:digit:]]+\\'")
+
+(defun gh--pr-link-p (s)
+  (declare (pure t) (side-effect-free t))
+  (string-match-p gh-pr-regexp s))
+
+(defun gh-open-previous-pr ()
+  "Open the previous GitHub pull request.
+Opens the previous pull request created by `gh-create-pr' by searching
+for the echoed URL in the `*Messages*' buffer."
+  (interactive)
+  (with-current-buffer "*Messages*"
+    (goto-char (point-max))
+    (while (not (gh--pr-link-p (buffer-substring-no-properties
+                                (pos-bol) (pos-eol))))
+      (unless (line-move -1 :noerror)
+        (user-error "No previous pull request found.")))
+      (browse-url-at-point)))
+
 (provide 'gh)
