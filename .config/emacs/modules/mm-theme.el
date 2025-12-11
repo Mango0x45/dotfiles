@@ -166,6 +166,16 @@ See also the `mm-theme-background-opacity' variable."
   (("C-c h l" . pulsar-highlight-dwim)))
 
 
+;;; In-buffer highlighting
+
+(require 'hi-lock)                      ; For extra face definitions
+(use-package highlighter
+  :bind (("C-c h m" . #'highlighter-mark)
+         ("C-c h u" . #'highlighter-unmark)
+         ("C-c h U" . #'highlighter-unmark-buffer))
+  :commands (highlighter-mark highlighter-unmark highlighter-unmark-buffer))
+
+
 ;;; Add Padding
 
 (use-package spacious-padding
