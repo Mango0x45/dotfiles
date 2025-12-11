@@ -94,8 +94,15 @@ behaviour of the INCLUDE-ALL-P argument to `mm-project-read-file-name'."
     (mm-humanwave-project-read-file-name current-prefix-arg)))
   (let ((path (file-name-sans-extension
                (file-relative-name target-file base-directory))))
+    (unless (string-match-p "/" path)
+      (setq path (concat "./" path)))
     (insert "import ")
     (save-excursion
+      (insert (thread-last
+                (file-name-base path)
+                (mm-string-split "-")
+                (mapconcat #'capitalize)))
+      (push-mark (point))
       (insert (format " from '%s';" path)))))
 
 (defun mm-humanwave-project-read-file-name (&optional include-all-p)
