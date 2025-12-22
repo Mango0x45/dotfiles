@@ -396,6 +396,10 @@ is as described by `emmet-expand-line'."
         :vc-backend Git)
   :ensure t)
 
+(use-package yaml-pro
+  :hook ((yaml-mode . yaml-pro-mode)
+         (yaml-ts-mode . yaml-pro-ts-mode)))
+
 
 ;;; Mode-Specific Configurations
 
