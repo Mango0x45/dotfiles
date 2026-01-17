@@ -54,7 +54,9 @@
           (vim
            "https://github.com/tree-sitter-grammars/tree-sitter-vim")
           (vue
-           "https://github.com/ikatyang/tree-sitter-vue")))
+           "https://github.com/ikatyang/tree-sitter-vue")
+          (yaml
+           "https://github.com/tree-sitter-grammars/tree-sitter-yaml")))
 
 
 ;;; Install Missing Parsers
@@ -120,7 +122,8 @@ The parsers are taken from `treesit-language-source-alist'."
     (gomod      . "/go\\.mod\\'")
     (json       . "\\.json\\'")
     (tsx        . "\\.tsx\\'")
-    (typescript . "\\.ts\\'"))
+    (typescript . "\\.ts\\'")
+    (yaml       . "\\.ya?ml\\'"))
   "Alist mapping languages to their associated file-names.
 This alist is a set of pairs of the form (LANG . REGEXP) where LANG is
 the symbol corresponding to a major mode with the `-ts-mode' suffix

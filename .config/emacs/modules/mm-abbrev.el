@@ -43,9 +43,9 @@ case-sensitive to avoid unexpected abbreviation expansions."
   "fpf" "fprintf"
   "fuf" "funlockfile"
   "pf"  "printf"
-  "sde"  "stderr"
-  "sdi"  "stdin"
-  "sdo"  "stdout")
+  "sde" "stderr"
+  "sdi" "stdin"
+  "sdo" "stdout")
 
 (with-eval-after-load 'cc-mode
   (setq c-mode-abbrev-table   (copy-abbrev-table mm-c-mode-abbrev-table)

@@ -39,7 +39,7 @@
 
 (defconst mm-modeline-mode-acronyms
   '("css" "csv" "gsp" "html" "json" "mhtml" "rfc" "scss" "sql" "toml" "tsv"
-    "url")
+    "url" "yaml")
   "List of acronyms in major mode names that should be capitalized.")
 
 (defconst mm-modeline-remap-alist
