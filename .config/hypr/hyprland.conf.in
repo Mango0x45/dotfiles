@@ -8,7 +8,7 @@ exec-once = mako
 
 monitor = , highres, auto, 1
 
-layerrule = noanim, overlay
+layerrule = no_anim on, match:namespace overlay
 
 ecosystem {
 	no_update_news = yes
