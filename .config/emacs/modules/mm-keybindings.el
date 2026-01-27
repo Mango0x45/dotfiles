@@ -124,6 +124,8 @@ the first command is remapped to the second command."
 
   "C-M-@" #'mm-add-cursor-to-next-word
 
+  "C-c c a" #'mc/vertical-align-with-space
+  "C-c c i" #'mc/insert-numbers
   "C-c c t" #'mm-transpose-cursor-regions
   "C-c d"   #'duplicate-dwim
   "C-c t a" #'e/align-regexp
