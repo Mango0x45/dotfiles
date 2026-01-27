@@ -26,7 +26,9 @@ via `gh-get-labels'."
          (label-string (mapconcat #'identity labels ",")))
     ;; TODO: Remove this
     (when (string= project "blixem")
-      (setq title (format "%s %s" (car (vc-git-branches)) title)))
+      (setq title (format "%s %s" (car (vc-git-branches)) title))
+      (when (member "Patch" labels)
+        (setq flags (append flags '("--base" "release")))))
     (setq flags (append flags `("--title" ,title)))
     (when draftp
       (setq flags (append flags '("--draft"))))
