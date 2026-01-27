@@ -79,7 +79,7 @@ case-sensitive to avoid unexpected abbreviation expansions."
   "sr"  "save-restriction")
 
 (when mm-humanwave-p
-  (with-eval-after-load 'python-ts-mode
+  (with-eval-after-load 'python
     (mm-define-abbreviations python-ts-mode-abbrev-table
       "empb" "with emphasize.Block():"
       "empf" "@emphasize.func"
