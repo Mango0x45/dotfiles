@@ -3,7 +3,8 @@
 (defun gh-get-labels ()
   "Return a list of labels in the current GitHub repository."
   (with-temp-buffer
-    (call-process "gh" nil t nil "label" "list" "--sort" "name" "--json" "name")
+    (call-process "gh" nil t nil "label" "list"
+                  "--sort" "name" "--json" "name" "--limit" "1000000")
     (goto-char (point-min))
     (seq-map (lambda (x) (gethash "name" x))
              (json-parse-buffer))))
