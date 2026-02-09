@@ -146,6 +146,14 @@ the first command is remapped to the second command."
     "i" #'increment-number-at-point))
 
 
+;;; Other Bindings
+
+(when mm-humanwave-p
+  (with-eval-after-load 'project
+    (mm-keymap-set project-prefix-map
+      "q" #'mm-humanwave-query)))
+
+
 ;;; Display Available Keybindings
 
 (use-package which-key

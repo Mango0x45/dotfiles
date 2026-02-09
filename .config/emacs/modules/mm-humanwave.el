@@ -32,8 +32,6 @@ If METHOD is nil, a GET request is performed."
         (goto-char (point-min)))
       (display-buffer output-buffer))))
 
-(keymap-set project-prefix-map "q" #'mm-humanwave-query)
-
 
 ;;; IMenu Support for Handlers
 
