@@ -114,7 +114,16 @@ alias sv=sudoedit
 alias v="$VISUAL"
 alias z='2>/dev/null zathura --fork "$@" 2>/dev/null'
 
-PS1='\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
+__ps1_newline() {
+	local _ y x _
+	local RESET="\e[0m"
+	local HL="\e[30;47m"
+
+	IFS='[;' read -p $'\e[6n' -d R -rs _ y x _
+	[[ "$x" != 1 ]] && printf "${HL}␀\n${RESET}"
+}
+
+PS1="\$(__ps1_newline)"'\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
 eval "$(fzf --bash)"
 eval "$(eww shell-completions --shell bash)"
