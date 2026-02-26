@@ -51,6 +51,7 @@
     (c-mode                . (:extras c-basic-offset))
     (c-ts-mode             . (:extras c-ts-mode-indent-offset))
     (css-mode              . (:extras css-indent-offset))
+    (elixir-ts-mode        . (:width 2 :extras elixir-ts-indent-offset))
     (emacs-lisp-mode       . (:width 8 :spaces t)) ; GNU code uses 8-column tabs
     (go-mod-ts-mode        . (:extras go-ts-mode-indent-offset))
     (go-ts-mode            . (:extras go-ts-mode-indent-offset))

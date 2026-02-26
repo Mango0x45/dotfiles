@@ -23,12 +23,16 @@
            "https://github.com/tree-sitter/tree-sitter-cpp")
           (css
            "https://github.com/tree-sitter/tree-sitter-css")
+          (elixir
+           "https://github.com/elixir-lang/tree-sitter-elixir")
           (go
            "https://github.com/tree-sitter/tree-sitter-go")
           (gomod
            "https://github.com/camdencheek/tree-sitter-go-mod")
           (gsp
            "git://git.thomasvoss.com/tree-sitter-gsp.git")
+          (heex
+           "https://github.com/phoenixframework/tree-sitter-heex")
           (html
            "https://github.com/tree-sitter/tree-sitter-html")
           (java
@@ -118,8 +122,10 @@ The parsers are taken from `treesit-language-source-alist'."
 ;; isn’t autoloaded as of 2024-09-29 so we need to do it ourselves
 ;; anyway.  Same goes for ‘typescript-ts-mode’.
 (defvar mm-treesit-language-file-name-alist
-  '((go         . "\\.go\\'")
+  '((elixir     . "\\.exs?\\'")
+    (go         . "\\.go\\'")
     (gomod      . "/go\\.mod\\'")
+    (heex       . "\\.heex\\'")
     (json       . "\\.json\\'")
     (tsx        . "\\.tsx\\'")
     (typescript . "\\.ts\\'")
