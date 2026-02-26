@@ -158,6 +158,11 @@ the first command is remapped to the second command."
     (mm-keymap-set project-prefix-map
       "q" #'mm-humanwave-query)))
 
+(with-eval-after-load 'eat
+  (with-eval-after-load 'ace-window
+    (mm-keymap-set eat-semi-char-mode-map
+      "M-o" #'ace-window)))
+
 
 ;;; Display Available Keybindings
 
