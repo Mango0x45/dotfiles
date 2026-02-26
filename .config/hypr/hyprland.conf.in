@@ -198,7 +198,7 @@ windowrule {
 
 	float  = yes
 	center = yes
-	size   = 50%, 90%
+	size = window_w window_h
 }
 
 windowrule {
@@ -207,5 +207,5 @@ windowrule {
 
 	float  = yes
 	center = yes
-	size   = 50%, 50%
+	size   = 50% 50%
 }
