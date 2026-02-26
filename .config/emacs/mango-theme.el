@@ -86,6 +86,8 @@ graphically, so I shouldn’t need to have multiple specs per face.
    :inherit font-lock-comment-face)
 
   ;; Modeline
+  (mm-modeline-overwrite-face
+   :weight bold)
   (mm-modeline-readonly-face
    :weight bold)
   (mm-modeline-buffer-name-face

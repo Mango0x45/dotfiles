@@ -25,6 +25,10 @@
 
 ;;; Modeline Components
 
+(mm-modeline--define-component mm-modeline-overwrite
+  (when overwrite-mode
+    (propertize " OVERWRITE" 'face 'mm-modeline-overwrite-face)))
+
 (mm-modeline--define-component mm-modeline-readonly
   (when buffer-read-only
     (propertize " READONLY" 'face 'mm-modeline-readonly-face)))
@@ -124,6 +128,7 @@ the text it should be mapped to.")
 
 (setq
  mm-modeline-left (list mm-modeline-narrow
+                        mm-modeline-overwrite
                         mm-modeline-readonly
                         " "
                         mm-modeline-buffer-name
