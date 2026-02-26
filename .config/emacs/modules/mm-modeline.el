@@ -102,7 +102,7 @@ the text it should be mapped to.")
 (mm-modeline--define-component mm-modeline-narrow
   (when (buffer-narrowed-p)
     (propertize
-     " Narrow "
+     " NARROW "
      'face 'mm-modeline-narrow-face)))
 
 (mm-modeline--define-component mm-modeline-git-branch
