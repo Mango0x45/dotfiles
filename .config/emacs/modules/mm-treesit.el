@@ -126,7 +126,8 @@ The parsers are taken from `treesit-language-source-alist'."
 ;; isn’t autoloaded as of 2024-09-29 so we need to do it ourselves
 ;; anyway.  Same goes for ‘typescript-ts-mode’.
 (defvar mm-treesit-language-file-name-alist
-  '((elixir     . "\\.exs?\\'")
+  '((dockerfile . "/[Dd]ockerfile\\'")
+    (elixir     . "\\.exs?\\'")
     (go         . "\\.go\\'")
     (gomod      . "/go\\.mod\\'")
     (heex       . "\\.heex\\'")
