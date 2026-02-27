@@ -90,11 +90,6 @@ the first command is remapped to the second command."
   open-line          e/open-line
   yank               e/yank)
 
-(with-eval-after-load 'project
-  (mm-keymap-remap project-prefix-map
-    project-find-regexp             mm-project-find-regexp
-    project-or-external-find-regexp mm-project-or-external-find-regexp))
-
 (with-eval-after-load 'cc-vars
   (setopt c-backspace-function #'backward-delete-char))
 
@@ -153,8 +148,12 @@ the first command is remapped to the second command."
 
 ;;; Other Bindings
 
-(when mm-humanwave-p
-  (with-eval-after-load 'project
+(with-eval-after-load 'project
+  (mm-keymap-set project-prefix-map
+    "g" #'mm-project-find-regexp
+    "G" #'mm-project-or-external-find-regexp)
+
+  (when mm-humanwave-p
     (mm-keymap-set project-prefix-map
       "q" #'mm-humanwave-query)))
 
