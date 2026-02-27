@@ -35,6 +35,9 @@ If METHOD is nil, a GET request is performed."
 
 ;;; IMenu Support for Handlers
 
+(require 'imenu)
+(require 'which-func)
+
 (defvar mm-humanwave-handler--regexp
   (rx bol
       (* blank)
@@ -44,29 +47,48 @@ If METHOD is nil, a GET request is performed."
       (* blank)
       "=="
       (* blank)
-      (or (seq ?\' (* (not ?\')) ?\')
-          (seq ?\" (* (not ?\")) ?\"))
+      (or ?\' ?\")
+      (group (+ (not (or ?\' ?\"))))
+      (or ?\' ?\")
       (* blank)
       ?:
       (* blank)
       eol))
 
+(defun mm-humanwave-handler--insert-entry (topic-index function-parts route pos)
+  (if (null function-parts)
+      (cons (cons (format "%s (route)" route) pos) topic-index)
+    (let* ((current-group (car function-parts))
+           (rest-parts    (cdr function-parts))
+           (existing-sublist (assoc current-group topic-index)))
+      (if existing-sublist
+          (progn
+            (setcdr existing-sublist
+                    (mm-humanwave-handler--insert-entry
+                     (cdr existing-sublist) rest-parts route pos))
+            topic-index)
+        (cons (cons current-group
+                    (mm-humanwave-handler--insert-entry
+                     nil rest-parts route pos))
+              topic-index)))))
+
 (defun mm-humanwave-handler-topic-imenu-index ()
-  (let ((tree-index (when (fboundp 'treesit-simple-imenu--generic-function)
-                      (treesit-simple-imenu--generic-function
-                       treesit-simple-imenu-settings)))
+  (let ((case-fold-search nil)
+        (tree-index (python-imenu-treesit-create-index))
         (topic-index '()))
     (save-excursion
       (goto-char (point-min))
       (while (re-search-forward mm-humanwave-handler--regexp nil :noerror)
-        (let ((label (match-string 0))
-              (pos (match-beginning 0)))
-          (push (cons (format "Topic: %s" (string-trim label)) pos) topic-index))))
+        (let ((route (match-string-no-properties 1))
+              (pos (match-beginning 0))
+              (function-parts (split-string (which-function) "\\.")))
+          (setq topic-index (mm-humanwave-handler--insert-entry
+                             topic-index function-parts route pos)))))
     (append (nreverse topic-index) tree-index)))
 
 (defun mm-humanwave-handler-topic-imenu-setup ()
   "Setup custom imenu index for `python-ts-mode'."
-  (when (and (string-match-p "handlers?" (or (buffer-file-name) ""))
+  (when (and (string-match-p "/handlers?" (or (buffer-file-name) ""))
              (derived-mode-p #'python-ts-mode))
     (setq-local imenu-create-index-function
                 #'mm-humanwave-handler-topic-imenu-index)))
