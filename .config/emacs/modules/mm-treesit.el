@@ -23,6 +23,8 @@
            "https://github.com/tree-sitter/tree-sitter-cpp")
           (css
            "https://github.com/tree-sitter/tree-sitter-css")
+          (dockerfile
+           "https://github.com/camdencheek/tree-sitter-dockerfile")
           (elixir
            "https://github.com/elixir-lang/tree-sitter-elixir")
           (go
@@ -49,6 +51,8 @@
            "split_parser" "tree-sitter-markdown-inline/src")
           (python
            "https://github.com/tree-sitter/tree-sitter-python")
+          (rust
+           "https://github.com/tree-sitter/tree-sitter-rust")
           (tsx
            "https://github.com/tree-sitter/tree-sitter-typescript"
            "master" "tsx/src")
@@ -127,6 +131,7 @@ The parsers are taken from `treesit-language-source-alist'."
     (gomod      . "/go\\.mod\\'")
     (heex       . "\\.heex\\'")
     (json       . "\\.json\\'")
+    (rust       . "\\.rs\\'")
     (tsx        . "\\.tsx\\'")
     (typescript . "\\.ts\\'")
     (yaml       . "\\.ya?ml\\'"))
