@@ -54,6 +54,7 @@
       (add-to-list 'default-frame-alist '(fullscreen . maximized))
       (when (featurep 'ns)
         (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))))
+  (add-to-list 'default-frame-alist '(undecorated . t))
   (menu-bar-mode -1))
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
