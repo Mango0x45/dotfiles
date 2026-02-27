@@ -4,18 +4,11 @@ xkb_symbols "basic" {
 	include "us(basic)"
 	name[Group1] = "Mango";
 
-	key <TLDE> { [ grave,       tilde,      minutes,     seconds  ] };
-	key <AE01> { [ exclam,      1,          exclam,      1        ] };
-	key <AE02> { [ at,          2,          at,          2        ] };
-	key <AE03> { [ numbersign,  3,          numbersign,  3        ] };
-	key <AE04> { [ dollar,      4,          EuroSign,    EuroSign ] };
-	key <AE05> { [ percent,     5,          EuroSign,    EuroSign ] };
-	key <AE06> { [ asciicircum, 6,          asciicircum, 6        ] };
-	key <AE07> { [ ampersand,   7,          logicaland,  7        ] };
-	key <AE08> { [ asterisk,    8,          U22C5,       8        ] }; // ⋅
-	key <AE09> { [ parenleft,   9,          parenleft,   9        ] };
-	key <AE10> { [ parenright,  0,          U00B0,       0        ] }; // °
-	key <AE11> { [ minus,       underscore, endash,      emdash   ] };
+	key <AE04> { [ 4,     dollar,     4,      EuroSign   ] };
+	key <AE07> { [ 7,     ampersand,  7,      logicaland ] };
+	key <AE08> { [ 8,     asterisk,   8,      U22C5      ] };  // ⋅
+	key <AE10> { [ 0,     parenright, 0,      U00B0      ] };  // °
+	key <AE11> { [ minus, underscore, endash, emdash     ] };
 
 	key <AD03> { [ e,         E,   eacute,     Eacute     ] };
 	key <AD05> { [ t,         T,   thorn,      THORN      ] };
@@ -37,8 +30,6 @@ xkb_symbols "basic" {
 	key <AB09> { [ period, greater, ellipsis                         ] };
 
 	key <SPCE> { [ space, space, nobreakspace, nobreakspace ] };
-
-	// replace key <RCTL> { [ Meta_L ] };
 };
 
 partial
@@ -62,7 +53,6 @@ xkb_symbols "swedish" {
 
 	key <AD11> { [ aring,      Aring,      bracketleft,  braceleft  ] };
 	key <AD12> { [ dead_acute, dead_grave, bracketright, braceright ] }; // ◌́ and ◌̀
-	// key <AD12> { [ U0301,      U0300,      bracketright, braceright ] }; // ◌́ and ◌̀
 	key <AC10> { [ odiaeresis, Odiaeresis, semicolon,    colon      ] };
 	key <AC11> { [ adiaeresis, Adiaeresis, apostrophe,   quotedbl   ] };
 
