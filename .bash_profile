@@ -1,3 +1,8 @@
+readonly tty="$(tty)"
 [[ -f ~/.bashrc ]] && source ~/.bashrc
-[[ -z "$DISPLAY" && `tty` == /dev/tty1 ]] && exec start-hyprland
-[[ -z "$DISPLAY" && `tty` == /dev/tty2 ]] && exec niri-session
+if [[ -z "$DISPLAY" && -z "$NIRI_LOADED" && "$tty" = /dev/tty1 ]]
+then
+	export NIRI_LOADED=1
+	exec niri-session
+fi
+[[ -z "$DISPLAY" && "$tty" = /dev/tty2 ]] && exec start-hyprland
