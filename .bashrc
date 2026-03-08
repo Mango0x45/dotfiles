@@ -33,7 +33,11 @@ export BROWSER="firefox"
 export CC="gcc"
 export EDITOR="nvim"
 export PAGER="less"
-export MANPAGER="nvimpager"
+case "$(hostname)" in
+	mangobox) export MANPAGER="manpager" ;;
+	mango-os) export MANPAGER="nvimpager" ;;
+	*) export MANPAGER="less" ;;
+esac
 export TERM="xterm-256color"
 export VISUAL="nvim"
 export MANSECT="3,2,1,8,5,7,4,6,3p,1p,0p"
