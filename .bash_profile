@@ -15,4 +15,3 @@ then
 	[[ "$(hostname)" = "mangobox" ]] && exec dbus-run-session niri --session
 	exec niri-session
 fi
-[[ -z "$DISPLAY" && "$tty" = /dev/tty2 ]] && exec start-hyprland
