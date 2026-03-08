@@ -2,8 +2,8 @@
 family = "Iosevka Smooth"
 spacing = "normal"
 serifs = "sans"
-no-cv-ss = false
-export-glyph-names = true
+noCvSs = false
+exportGlyphNames = true
 
 [buildPlans.iosevka-smooth.variants.design]
 capital-g = "toothless-corner-serifless-hooked"
@@ -13,20 +13,20 @@ a = "double-storey-toothless-corner"
 b = "toothless-corner-serifless"
 d = "toothless-corner-serifless"
 g = "single-storey-earless-corner"
-i = "tailed-serifed"
-l = "tailed-serifed"
+i = "serifed-flat-tailed"
+l = "serifed-flat-tailed"
 m = "earless-corner-double-arch-serifless"
 n = "earless-corner-straight-serifless"
 p = "earless-corner-serifless"
 q = "earless-corner-straight-serifless"
 u = "toothless-corner-serifless"
 long-s = "bent-hook-middle-serifed-xh"
-eszet = "sulzbacher-descending"
+eszet = "sulzbacher-descending-serifless"
 lower-delta = "flat-top"
 lower-mu = "toothless-corner-serifless"
 zero = "tall-slashed"
-two = "straight-neck"
-three = "flat-top"
+two = "straight-neck-serifless"
+three = "flat-top-serifless"
 brace = "straight"
 ampersand = "et-toothless-corner"
 percent = "rings-continuous-slash"
@@ -40,7 +40,7 @@ lig-hyphen-chain = "without-notch"
 [buildPlans.iosevka-smooth.variants.italic]
 k = "straight-serifless"
 long-s = "flat-hook-tailed"
-eszet = "sulzbacher-tailed"
+eszet = "sulzbacher-tailed-serifless"
 
 [buildPlans.iosevka-smooth.ligations]
 inherits = "dlig"
@@ -49,8 +49,8 @@ inherits = "dlig"
 family = "Iosevka Smooth Term"
 spacing = "term"
 serifs = "sans"
-no-cv-ss = false
-export-glyph-names = true
+noCvSs = false
+exportGlyphNames = true
 
 [buildPlans.iosevka-smooth-term.variants.design]
 capital-g = "toothless-corner-serifless-hooked"
@@ -60,20 +60,20 @@ a = "double-storey-toothless-corner"
 b = "toothless-corner-serifless"
 d = "toothless-corner-serifless"
 g = "single-storey-earless-corner"
-i = "tailed-serifed"
-l = "tailed-serifed"
+i = "serifed-flat-tailed"
+l = "serifed-flat-tailed"
 m = "earless-corner-double-arch-serifless"
 n = "earless-corner-straight-serifless"
 p = "earless-corner-serifless"
 q = "earless-corner-straight-serifless"
 u = "toothless-corner-serifless"
 long-s = "bent-hook-middle-serifed-xh"
-eszet = "sulzbacher-descending"
+eszet = "sulzbacher-descending-serifless"
 lower-delta = "flat-top"
 lower-mu = "toothless-corner-serifless"
 zero = "tall-slashed"
-two = "straight-neck"
-three = "flat-top"
+two = "straight-neck-serifless"
+three = "flat-top-serifless"
 brace = "straight"
 ampersand = "et-toothless-corner"
 percent = "rings-continuous-slash"
@@ -87,7 +87,7 @@ lig-hyphen-chain = "without-notch"
 [buildPlans.iosevka-smooth-term.variants.italic]
 k = "straight-serifless"
 long-s = "flat-hook-tailed"
-eszet = "sulzbacher-tailed"
+eszet = "sulzbacher-tailed-serifless"
 
 [buildPlans.iosevka-smooth-term.ligations]
 inherits = "dlig"
