@@ -381,6 +381,7 @@ is as described by `emmet-expand-line'."
 (use-package awk-ts-mode :ensure t)
 (use-package cmake-mode  :ensure t)
 (use-package git-modes   :ensure t)
+(use-package kdl-mode    :ensure t)
 (use-package po-mode     :ensure t)
 (use-package sed-mode    :ensure t)
 
