@@ -16,16 +16,18 @@ vim.opt.grepprg = 'rg --vimgrep'
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.inccommand = 'split'
-vim.opt.list = false
 vim.opt.listchars = { tab = '» ', trail = '․', nbsp = '␣' }
+vim.opt.list = false
 vim.opt.matchpairs:append('<:>')
+vim.opt.matchpairs:append('»:«')
 vim.opt.matchpairs:append('‘:’')
 vim.opt.matchpairs:append('“:”')
-vim.opt.matchpairs:append('»:«')
 vim.opt.matchpairs:append('›:‹')
 vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.runtimepath:append("/usr/share/vim/vimfiles")
+vim.opt.runtimepath:append("/usr/share/vim/vimfiles/after")
 vim.opt.scrolloff = 8
 vim.opt.secure = true
 vim.opt.shiftwidth = 4
