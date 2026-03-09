@@ -1,10 +1,5 @@
-include "dms/alttab.kdl"
-include "dms/binds.kdl"
-include "dms/cursor.kdl"
-include "dms/layout.kdl"
-include "dms/outputs.kdl"
-include "dms/windowrules.kdl"
-include "dms/wpblur.kdl"
+spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "gentoo-pipewire-launcher"
 
 // https://yalter.github.io/niri/Configuration:-Input
 input {
@@ -40,8 +35,30 @@ input {
 	workspace-auto-back-and-forth
 }
 
-output "DP-2" {
+
+output "DP-1" {
+    mode "5120x1440@144.000"
+    scale 1
+    position x=0 y=0
 	focus-at-startup
+}
+
+output "DP-2" {
+    mode "5120x1440@144.000"
+    scale 1
+    position x=0 y=0
+	focus-at-startup
+}
+
+output "eDP-1" {
+    mode "2256x1504@60.000"
+    scale 1
+    position x=1432 y=1440
+}
+
+cursor {
+	xcursor-theme "Adwaita"
+	xcursor-size 24
 }
 
 layout {
@@ -100,7 +117,7 @@ hotkey-overlay {
 
 prefer-no-csd
 
-screenshot-path "~/media/gfx/screen/%Y-%m-%d_%H-%M-%S.png"
+screenshot-path "~/media/img/screen/%Y-%m-%d_%H-%M-%S.png"
 
 // Animation settings.
 // The wiki explains how to configure individual animations:
@@ -119,9 +136,6 @@ animations {
 
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
-	// This app-id regular expression will work for both:
-	// - host Firefox (app-id is "firefox")
-	// - Flatpak Firefox (app-id is "org.mozilla.firefox")
 	match app-id=r#"firefox$"# title="^Picture-in-Picture$"
 	open-floating true
 }
@@ -138,11 +152,9 @@ window-rule {
 	// block-out-from "screencast"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
-	geometry-corner-radius 12
-	clip-to-geometry true
+layer-rule {
+	match namespace="^noctalia-overview*"
+	place-within-backdrop true
 }
 
 binds {
