@@ -108,7 +108,7 @@ export VAULT_2FA='2 Factor Authentication'
 
 alias irssi='irssi --config="$XDG_CONFIG_HOME/irssi/config" --home="$XDG_DATA_HOME/irssi"'
 alias ..='cd ..'
-alias d='git --git-dir="$REPODIR/Mango0x45/dotfiles.git" --work-tree="$HOME"'
+alias d='git --git-dir="$REPODIR/@me/dotfiles.git" --work-tree="$HOME"'
 alias g=git
 alias grep='grep --color=auto'
 alias la='ls --color=auto -Av    --group-directories-first'
