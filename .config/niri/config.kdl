@@ -147,6 +147,13 @@ window-rule {
 	default-window-height { fixed 600; }
 }
 
+window-rule {
+	match app-id="qalculate-(gtk|qt)"
+	open-floating true
+	default-column-width { fixed 800; }
+	default-window-height { fixed 600; }
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
