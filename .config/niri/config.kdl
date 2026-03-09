@@ -70,12 +70,12 @@ layout {
 
 	preset-column-widths {
 		proportion 0.33333
-		proportion 0.5
+		proportion 0.50000
 		proportion 0.66667
 	}
 
 	default-column-width {
-		proportion 0.5
+		proportion 0.33333
 	}
 
 	focus-ring {
