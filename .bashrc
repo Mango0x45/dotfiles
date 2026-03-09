@@ -130,44 +130,12 @@ __ps1_newline() {
 
 PS1="\$(__ps1_newline)"'\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
-eval "$(fzf --bash)"
-eval "$(eww shell-completions --shell bash)"
+command -v fzf >/dev/null && eval "$(fzf --bash)"
+command -v eww >/dev/null && eval "$(eww shell-completions --shell bash)"
+command -v niri >/dev/null && eval "$(niri completions bash)"
 
-# Autocompletions for auto-cpufreq.  Inlined from the generated output
-# for performance reasons.
-_auto_cpufreq_completion() {
-	local IFS=$'\n'
-	local response
-
-	response=$(
-		env \
-			COMP_WORDS="${COMP_WORDS[*]}"        \
-			COMP_CWORD=$COMP_CWORD               \
-			_AUTO_CPUFREQ_COMPLETE=bash_complete \
-			$1
-	)
-
-	for completion in $response; do
-		IFS=',' read type value <<<"$completion"
-
-		case $type in
-		dir)
-			COMPREPLY=()
-			compopt -o dirnames
-			;;
-		file)
-			COMPREPLY=()
-			compopt -o default
-			;;
-		plain)
-			COMPREPLY+=($value)
-			;;
-		esac
-	done
-
-	return 0
-}
-
-complete -o nosort -F _auto_cpufreq_completion auto-cpufreq
-
-# sed '1s/^/[3m‘/; $s/$/’[0m/' "$XDG_CACHE_HOME/qotd" | fold -sw 80
+if [[ -d "$NVM_DIR" ]]
+then
+	. "$NVM_DIR/nvm.sh"
+	. "$NVM_DIR/bash_completion"
+fi
