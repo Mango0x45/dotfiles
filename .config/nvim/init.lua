@@ -166,83 +166,23 @@ end
 require 'paq' {
 	'folke/todo-comments.nvim',
 	'folke/tokyonight.nvim',
-	'hrsh7th/cmp-nvim-lsp',
-	'hrsh7th/cmp-path',
-	'hrsh7th/nvim-cmp',
 	'kylechui/nvim-surround',
-	'L3MON4D3/LuaSnip',
 	'luckasRanarison/tree-sitter-hypr',
 	'Mango0x45/tree-sitter-gsp',
-	'mattn/emmet-vim',
-	'neovim/nvim-lspconfig',
 	'ngalaiko/tree-sitter-go-template',
 	'nvim-lua/plenary.nvim',
-	'nvim-telescope/telescope.nvim',
-	'nvim-telescope/telescope-ui-select.nvim',
-	{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+	{
+		'nvim-treesitter/nvim-treesitter',
+		branch = 'master',
+		build = ':TSUpdate',
+	},
 	'nvim-treesitter/nvim-treesitter-textobjects',
-	'saadparwaiz1/cmp_luasnip',
 	'savq/paq-nvim',
 	'wellle/targets.vim',
 }
 
--- emmet-vim
-vim.g.user_emmet_install = false
-
 -- tokyonight.nvim
 vim.cmd.colorscheme 'tokyonight-night'
-
--- telescope.nvim
-local telescope = require 'telescope'
-local tsactions = require 'telescope.actions'
-local tsbuiltin = require 'telescope.builtin'
-local tsthemes  = require 'telescope.themes'
-
-telescope.setup {
-	defaults = {
-		scroll_strategy = 'limit',
-		path_display = { 'filename_first' },
-		get_status_text = function(_) return '' end,
-		mappings = {
-			i = {
-				['<Esc>'] = {
-					tsactions.close,
-					type = 'action',
-					opts = { nowait = true, silent = true },
-				},
-				['<C-j>'] = {
-					tsactions.move_selection_next,
-					type = 'action',
-					opts = { nowait = true, silent = true },
-				},
-				['<C-k>'] = {
-					tsactions.move_selection_previous,
-					type = 'action',
-					opts = { nowait = true, silent = true },
-				},
-			},
-		},
-	},
-	extensions = {
-		['ui-select'] = { tsthemes.get_dropdown() },
-	}
-}
-
-pcall(telescope.load_exetension, 'fzf')
-pcall(telescope.load_exetension, 'ui-select')
-
-vim.keymap.set('n', '<Leader>ff', tsbuiltin.find_files,
-	{ desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<Leader>fh', tsbuiltin.help_tags,
-	{ desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<Leader>fg', tsbuiltin.live_grep,
-	{ desc = '[F]ind [G]rep' })
-vim.keymap.set('n', '<Leader>/', function()
-	tsbuiltin.current_buffer_fuzzy_find(tsthemes.get_dropdown {
-		winblend = 10,
-		previewer = false,
-	})
-end, { desc = 'Fuzzily search in current buffer' })
 
 -- todo-comments.nvim
 require('todo-comments').setup {
@@ -398,117 +338,6 @@ require('nvim-surround').setup {
 			},
 		},
 	}
-}
-
--- nvim-lspconfig
-local lsp = require 'lspconfig'
-local caps = require('cmp_nvim_lsp').default_capabilities()
-
-lsp.clangd.setup {
-	cmd = { 'clangd', '-header-insertion=never' },
-	capabilities = caps,
-}
-lsp.gopls.setup {
-	capabilities = caps,
-}
-lsp.rust_analyzer.setup {
-	capabilities = caps,
-}
-lsp.templ.setup {
-	capabilities = caps,
-}
-lsp.ts_ls.setup {
-	capabilities = caps,
-}
-lsp.lua_ls.setup {
-	settings = {
-		Lua = {
-			runtime = {
-				version = 'LuaJIT',
-			},
-			diagnostics = {
-				globals = {
-					'vim',
-					'require',
-				},
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file('', true),
-			},
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
-	capabilities = caps,
-}
-
-vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('mango-lsp-config', { clear = true }),
-	callback = function(ev)
-		vim.diagnostic.disable()
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-		vim.keymap.set('n', 'gK', vim.lsp.buf.hover,
-			{ buffer = ev.buf, desc = 'View symbol hover information' })
-		vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
-			{ buffer = ev.buf, desc = 'Goto [D]efinition' })
-		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
-			{ buffer = ev.buf, desc = 'Goto [I]mplementation' })
-		vim.keymap.set('n', 'gr', vim.lsp.buf.rename,
-			{ buffer = ev.buf, desc = '[R]ename symbol' })
-		vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition,
-			{ buffer = ev.buf, desc = 'Goto [T]ype definition' })
-	end,
-})
-
--- nvim-cmp & luasnip
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-luasnip.config.setup {
-	history = true,
-	updateevents = 'TextChanged,TextChangedI',
-}
-require 'snippets'
-
-cmp.setup {
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	completion = { completeopt = 'menu,menuone,noinsert' },
-	mapping = cmp.mapping.preset.insert {
-		['<CR>'] = cmp.mapping.confirm { select = true },
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-p>'] = cmp.mapping.scroll_docs(-1),
-		['<C-n>'] = cmp.mapping.scroll_docs(1),
-		['<C-c>'] = cmp.mapping.abort(),
-		['<C-j>'] = cmp.mapping.select_next_item({
-			behaviour = cmp.SelectBehavior.Select,
-		}),
-		['<C-k>'] = cmp.mapping.select_prev_item({
-			behaviour = cmp.SelectBehavior.Select,
-		}),
-		['<C-l>'] = cmp.mapping(function()
-			if luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
-			end
-		end, {'i', 's'}),
-		['<C-h>'] = cmp.mapping(function()
-			if luasnip.expand_or_locally_jumpable(-1) then
-				luasnip.expand_or_jump(-1)
-			end
-		end, {'i', 's'}),
-	},
-	sources = {
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip'  },
-		{ name = 'path'     },
-	},
-	experimental = {
-		ghost_text = true,
-	},
 }
 
 -- Pipe
