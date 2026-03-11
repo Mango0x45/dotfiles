@@ -143,8 +143,8 @@ window-rule {
 window-rule {
 	match app-id="scratch-term"
 	open-floating true
-	default-column-width { fixed 800; }
-	default-window-height { fixed 600; }
+	default-column-width { fixed 1200; }
+	default-window-height { fixed 800; }
 }
 
 window-rule {
