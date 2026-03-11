@@ -426,4 +426,17 @@ is as described by `emmet-expand-line'."
 (use-package subword
   :hook prog-mode)
 
+
+;;; Edit Files via Doas/Sudo
+
+(defvar mm-root-editing-program
+  (if (string= (system-name) "mangobox") "doas" "sudo"))
+
+(defun mm-edit-root-protected-file-buffer ()
+  (interactive)
+  (when (and buffer-file-name (not (file-writable-p buffer-file-name)))
+    (find-alternate-file (format "/%s:root@localhost:%s"
+                                 mm-root-editing-program
+                                 buffer-file-name))))
+
 (provide 'mm-editing)
