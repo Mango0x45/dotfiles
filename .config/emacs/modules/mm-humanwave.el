@@ -158,4 +158,14 @@ to the `project-find-file' command."
           (message "%s" path)
         path))))
 
+(defun mm-humanwave-insert-last-commit-message ()
+  "TODO"
+  (interactive)
+  (insert
+   (with-temp-buffer
+     (call-process "git" nil t nil "log" "-1" "--pretty=%s")
+     (goto-char (point-min))
+     (replace-regexp "\\`HW-[0-9]+ " "")
+     (string-trim (buffer-string)))))
+
 (provide 'mm-humanwave)
