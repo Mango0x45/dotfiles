@@ -20,10 +20,80 @@
 
 ;;; Annotate Completions
 
-;; TODO: Show git branch descriptions!
 (use-package marginalia
   :ensure t
   :hook after-init
+  :config
+  (with-eval-after-load 'magit
+    (defvar mm-marginalia--magit-cache nil)
+    (add-hook 'minibuffer-setup-hook
+              (lambda () (setq mm-marginalia--magit-cache nil)))
+
+    (defvar-local mm-marginalia-magit-base-branch "master")
+
+    (defface mm-diffstat-counter-added
+      '((t :inherit magit-diffstat-added))
+      "TODO")
+    (defface mm-diffstat-counter-removed
+      '((t :inherit magit-diffstat-removed))
+      "TODO")
+
+    (defun mm-marginalia-populate-magit-cache ()
+      "Batch-fetch all Git branch descriptions and stats into the cache."
+      (setq mm-marginalia--magit-cache (make-hash-table :test #'equal))
+      (when-let ((default-directory (magit-toplevel)))
+        (dolist (line (magit-git-lines "config" "list"))
+          (when (string-match "^branch\\.\\(.*?\\)\\.description=\\(.*\\)$" line)
+            (puthash (match-string 1 line)
+                     (list :desc (match-string 2 line) :stats "")
+                     mm-marginalia--magit-cache)))
+        (dolist (line (magit-git-lines
+                       "for-each-ref"
+                       (format
+                        "--format=%%(refname:short)\x1F%%(ahead-behind:%s)"
+                        mm-marginalia-magit-base-branch)
+                       "refs/heads/"))
+          (when (string-match (rx bol (group (1+ (not #x1F)))
+                                  #x1F (group (1+ digit))
+                                  " " (group (1+ digit)) eol)
+                              line)
+            (let* ((branch (match-string 1 line))
+                   (ahead  (+ (string-to-number (match-string 2 line))))
+                   (behind (- (string-to-number (match-string 3 line))))
+                   (ahead-str (if (zerop ahead)
+                                  ""
+                                (propertize (format "%+d" ahead)
+                                            'face 'mm-diffstat-counter-added)))
+                   (behind-str (if (zerop behind)
+                                   ""
+                                 (propertize (format "%+d" behind)
+                                             'face 'mm-diffstat-counter-removed)))
+                   (stats-str (format "%5s %5s" ahead-str behind-str))
+                   (existing (gethash branch mm-marginalia--magit-cache
+                                      (list :desc "" :stats ""))))
+              (puthash branch (plist-put existing :stats stats-str)
+                       mm-marginalia--magit-cache))))))
+
+    (defun mm-marginalia-annotate-magit-branch (cand)
+      "Annotate Git branch CAND with ahead/behind stats and description."
+      (unless mm-marginalia--magit-cache
+        (mm-marginalia-populate-magit-cache))
+      (let* ((data (gethash cand mm-marginalia--magit-cache '(:desc "" :stats "")))
+             (desc  (or (plist-get data :desc)  ""))
+             (stats (or (plist-get data :stats) "")))
+        (marginalia--fields
+         (stats :width 10)
+         (desc :truncate 1.0 :face 'marginalia-documentation))))
+
+    (add-to-list 'marginalia-annotators
+                 '(magit-branch mm-marginalia-annotate-magit-branch builtin none))
+    (dolist (cmd '(magit-branch-and-checkout
+                   magit-branch-checkout
+                   magit-branch-delete
+                   magit-checkout
+                   magit-merge
+                   magit-rebase-branch))
+      (add-to-list 'marginalia-command-categories (cons cmd 'magit-branch))))
   :custom
   (marginalia-field-width 50)
   (marginalia-max-relative-age 0))
