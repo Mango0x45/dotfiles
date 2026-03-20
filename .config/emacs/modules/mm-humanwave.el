@@ -168,4 +168,17 @@ to the `project-find-file' command."
      (replace-regexp "\\`HW-[0-9]+ " "")
      (string-trim (buffer-string)))))
 
+
+;;; Jira Integration
+
+(use-package jira
+  :ensure t
+  :custom
+  (jira-api-version 3)
+  (jira-base-url "https://humanwave.atlassian.net")
+  (jira-detail-show-announcements nil)
+  (jira-issues-max-results 100)
+  (jira-issues-table-fields '(:key :status-name :assignee-name :summary))
+  (jira-token-is-personal-access-token nil))
+
 (provide 'mm-humanwave)
