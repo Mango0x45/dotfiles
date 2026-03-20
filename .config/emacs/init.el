@@ -73,6 +73,15 @@ This function is meant to be used in conjuction with `read-string' and
       (string-to-number string-or-number)
     string-or-number))
 
+(defun mm-camel-to-lisp (string)
+  "Convert STRING from camelCase to lisp-case."
+  (declare (ftype (function (string) string))
+           (pure t) (side-effect-free t))
+  (let ((case-fold-search nil))
+    (downcase
+     (replace-regexp-in-string
+      (rx (group (or lower digit)) (group upper)) "\\1-\\2" string))))
+
 (defun mm-do-and-center (function &rest arguments)
   "Call FUNCTION with ARGUMENTS and then center the screen."
   (apply function arguments)
