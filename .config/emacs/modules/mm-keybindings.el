@@ -151,7 +151,7 @@ the first command is remapped to the second command."
 (with-eval-after-load 'project
   (mm-keymap-set project-prefix-map
     "g" #'mm-project-find-regexp
-    "G" #'mm-project-or-external-find-regexp)
+    "G" #'project-git-grab)
 
   (when mm-humanwave-p
     (mm-keymap-set project-prefix-map
