@@ -181,4 +181,74 @@ to the `project-find-file' command."
   (jira-issues-table-fields '(:key :status-name :assignee-name :summary))
   (jira-token-is-personal-access-token nil))
 
+
+;;; Icon Autocompletion
+
+(defvar mm-humanwave-icon-component-file "web/src/components/icon.vue"
+  "Path to the <icon /> component definition.")
+
+(defun mm-humanwave--find-icon-map ()
+  (let* ((project (project-current :maybe-prompt))
+         (path (expand-file-name mm-humanwave-icon-component-file
+                                 (project-root project))))
+    (unless (file-exists-p path)
+      (user-error "File `%s' does not exist." path))
+    (with-current-buffer (find-file-noselect path)
+      (let* ((parser (treesit-parser-create 'typescript))
+             (root-node (treesit-parser-root-node parser))
+             (query `((((lexical_declaration
+                         (variable_declarator
+                          name: (identifier) @name)) @the_catch)
+                       (:equal @name "ICON_MAP"))
+                      (((variable_declaration
+                         (variable_declarator
+                          name: (identifier) @name)) @the_catch)
+                       (:equal @name "ICON_MAP"))))
+             (captures (treesit-query-capture root-node query))
+             (found-node (alist-get 'the_catch captures)))
+        found-node))))
+
+(defun mm-humanwave--icon-list (found-node)
+  (let ((captures (treesit-query-capture found-node '((pair) @the_pair)))
+        (pairs nil))
+    (when captures
+      (dolist (capture captures)
+        (let* ((pair-node (cdr capture))
+               (key-node (treesit-node-child-by-field-name pair-node "key"))
+               (val-node (treesit-node-child-by-field-name pair-node "value")))
+          (when (and key-node val-node)
+            (push (cons (mm-camel-to-lisp
+                         (treesit-node-text key-node :no-property))
+                        (treesit-node-text val-node :no-property))
+                  pairs))))
+      (sort pairs :key #'car :lessp #'string<))))
+
+(defun mm-humanwave-insert-icon-component ()
+  "Insert an icon at point with completion.
+
+This command provides completion for the available props that can be
+given to the <icon /> component.  The parser searches for the `ICON_MAP'
+definition in the file specified by `mm-humanwave-icon-component-file'."
+  (interactive "" vue-ts-mode)
+  (if-let* ((node (mm-humanwave--find-icon-map))
+            (alist (mm-humanwave--icon-list node)))
+      (let* ((max-key-width
+              (thread-last
+                alist
+                (mapcar (lambda (pair) (length (car pair))))
+                (apply #'max)
+                (+ 4)))
+             (completion-extra-properties
+              `(:annotation-function
+                ,(lambda (key)
+                   (concat
+                    (propertize " "
+                                'display `(space :align-to ,max-key-width))
+                    (propertize (cdr (assoc key alist))
+                                'face 'font-lock-string-face)))))
+             (prompt (format-prompt "Icon" nil))
+             (icon (completing-read prompt alist nil :require-match)))
+        (insert (format "<icon %s />" icon)))
+    (error "Unable to find ICON_MAP definitions")))
+
 (provide 'mm-humanwave)
