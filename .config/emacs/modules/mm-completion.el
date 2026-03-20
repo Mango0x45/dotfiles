@@ -158,4 +158,12 @@
   :custom
   (find-library-include-other-files nil))
 
+
+;;; Completion at Point Live Completions
+
+(use-package completion-preview
+  :hook (after-init . global-completion-preview-mode)
+  :custom
+  (completion-preview-minimum-symbol-length 1))
+
 (provide 'mm-completion)
