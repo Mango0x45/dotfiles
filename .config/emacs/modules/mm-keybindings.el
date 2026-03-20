@@ -162,6 +162,11 @@ the first command is remapped to the second command."
     (mm-keymap-set eat-semi-char-mode-map
       "M-o" #'ace-window)))
 
+(with-eval-after-load 'minibuffer
+  (when mm-humanwave-p
+    (mm-keymap-set minibuffer-mode-map
+      "C-c m" #'mm-humanwave-insert-last-commit-message)))
+
 
 ;;; Display Available Keybindings
 
