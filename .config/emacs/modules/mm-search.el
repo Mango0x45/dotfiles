@@ -46,4 +46,10 @@ matching respectively."
   (interactive (list (project--read-regexp)))
   (mm--project-find-wrapper #'project-or-external-find-regexp regexp))
 
+
+;;; Grab Integration
+
+(use-package grab
+  :commands (grab git-grab project-grab project-git-grab))
+
 (provide 'mm-search)
