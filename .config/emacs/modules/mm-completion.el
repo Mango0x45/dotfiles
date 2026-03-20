@@ -159,6 +159,23 @@
   (find-library-include-other-files nil))
 
 
+;;; Completion at Point Functions
+
+(defun mm-cape-file--not-dot-path-p (cand)
+  (declare (ftype (function (string) boolean))
+           (pure t) (side-effect-free t))
+  (not (or (string= cand "./")
+           (string= cand "../"))))
+
+(use-package cape
+  :ensure t
+  :init
+  (add-hook 'completion-at-point-functions
+            (cape-capf-predicate #'cape-file #'mm-cape-file--not-dot-path-p))
+  (add-hook 'completion-at-point-functions
+            (cape-capf-prefix-length #'cape-dabbrev 3)))
+
+
 ;;; Completion at Point Live Completions
 
 (use-package completion-preview
