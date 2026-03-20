@@ -136,22 +136,29 @@ those should be listed in `mm-editing-indentation-settings'."
 
 ;;; Code Commenting
 
-(defun mm-c-comment-no-continue ()
+(defun mm-newcomment-c-config ()
   (setq-local comment-continue "   "))
 
-(defun mm-mhtml-comment-no-continue ()
+(defun mm-newcomment-html-config ()
   (setq-local comment-continue "     "))
+
+(defun mm-newcomment-rust-config ()
+  (setq-local comment-start "/* "
+              comment-end " */"
+              comment-continue " * "    ; rustfmt doesn’t play nice
+              comment-quote-nested nil))
 
 (use-package newcomment
   :custom
   (comment-style 'multi-line)
   :config
   (dolist (mode '(c-mode c++-mode))
-    (add-hook (mm-mode-to-hook mode) #'mm-c-comment-no-continue)
+    (add-hook (mm-mode-to-hook mode) #'mm-newcomment-c-config)
     (when-let ((ts-mode (mm-mode-to-ts-mode mode))
                ((fboundp ts-mode)))
-      (add-hook (mm-mode-to-hook ts-mode) #'mm-c-comment-no-continue)))
-  (add-hook 'mhtml-mode #'mm-mhtml-comment-no-continue))
+      (add-hook (mm-mode-to-hook ts-mode) #'mm-newcomment-c-config)))
+  (add-hook 'mhtml-mode #'mm-newcomment-html-config)
+  (add-hook 'rust-ts-mode #'mm-newcomment-rust-config))
 
 
 ;;; Multiple Cursors
