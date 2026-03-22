@@ -151,7 +151,7 @@ the first command is remapped to the second command."
 (with-eval-after-load 'project
   (mm-keymap-set project-prefix-map
     "g" #'mm-project-find-regexp
-    "G" #'mm-project-or-external-find-regexp)
+    "G" #'project-git-grab)
 
   (when mm-humanwave-p
     (mm-keymap-set project-prefix-map
@@ -161,6 +161,11 @@ the first command is remapped to the second command."
   (with-eval-after-load 'ace-window
     (mm-keymap-set eat-semi-char-mode-map
       "M-o" #'ace-window)))
+
+(with-eval-after-load 'minibuffer
+  (when mm-humanwave-p
+    (mm-keymap-set minibuffer-mode-map
+      "C-c m" #'mm-humanwave-insert-last-commit-message)))
 
 
 ;;; Display Available Keybindings

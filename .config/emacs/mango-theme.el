@@ -175,6 +175,12 @@ graphically, so I shouldn’t need to have multiple specs per face.
   (marginalia-documentation
    :foreground ,(mango-theme--color 'disabled)
    :underline nil)
+  (mm-diffstat-counter-added
+   :foreground "green"
+   :weight bold)
+  (mm-diffstat-counter-removed
+   :foreground "red"
+   :weight bold)
 
   ;; Tempel
   (tempel-default
