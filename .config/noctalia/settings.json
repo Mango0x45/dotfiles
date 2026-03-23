@@ -409,8 +409,8 @@
         "telemetryEnabled": false
     },
     "hooks": {
-        "darkModeChange": "",
-        "enabled": false,
+        "darkModeChange": "/home/thomas/.local/sbin/chtheme $1",
+        "enabled": true,
         "performanceModeDisabled": "",
         "performanceModeEnabled": "",
         "screenLock": "",
