@@ -41,7 +41,7 @@ alias sl='sl -ac5'
 alias de=doasedit
 alias se=sudoedit
 alias e="$VISUAL"
-alias z='2>/dev/null zathura --fork "$@" 2>/dev/null'
+alias z='2>/dev/null zathura --fork "$@"'
 
 __ps1_newline() {
 	local _ y x _
