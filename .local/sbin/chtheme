@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" = true ]
+then
+	theme=Adwaita-dark
+else
+	theme=Adwaita
+fi
+
+gsettings set org.gnome.desktop.interface gtk-theme $theme
