@@ -38,9 +38,9 @@ alias la='ls --color=auto -Av    --group-directories-first'
 alias ll='ls --color=auto -AGhlv --group-directories-first --time-style="+%d %b %Y %T"'
 alias ls='ls --color=auto -v     --group-directories-first'
 alias sl='sl -ac5'
-alias dv=doasedit
-alias sv=sudoedit
-alias v="$VISUAL"
+alias de=doasedit
+alias se=sudoedit
+alias e="$VISUAL"
 alias z='2>/dev/null zathura --fork "$@" 2>/dev/null'
 
 __ps1_newline() {
