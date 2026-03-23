@@ -43,6 +43,14 @@ the first command is remapped to the second command."
                       #',to))))
 
 
+;;; Support the Kitty Keyboard Protocol
+
+(use-package kkp
+  :ensure t
+  :unless (or (display-graphic-p) mm-humanwave-p)
+  :hook (tty-setup . global-kkp-mode))
+
+
 ;;; Support QMK Hyper
 
 (defun mm-qmk-hyper-as-hyper (args)
