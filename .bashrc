@@ -55,7 +55,6 @@ __ps1_newline() {
 PS1="\$(__ps1_newline)"'\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
 
 command -v fzf >/dev/null && eval "$(fzf --bash)"
-command -v eww >/dev/null && eval "$(eww shell-completions --shell bash)"
 command -v niri >/dev/null && eval "$(niri completions bash)"
 
 if [ -d "$NVM_DIR" ]
