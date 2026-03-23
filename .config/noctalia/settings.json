@@ -457,7 +457,7 @@
         "disableDiscoverability": false,
         "networkPanelView": "wifi",
         "wifiDetailsViewMode": "grid",
-        "wifiEnabled": false
+        "wifiEnabled": true
     },
     "nightLight": {
         "autoSchedule": true,
