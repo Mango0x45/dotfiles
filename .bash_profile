@@ -8,10 +8,3 @@ fi
 
 readonly tty="$(tty)"
 [ -f ~/.bashrc ] && source ~/.bashrc
-if [[ -z "$DISPLAY" && -z "$NIRI_LOADED" && "$tty" = /dev/tty1 ]]
-then
-	export LIBSEAT_BACKEND=seatd
-	export NIRI_LOADED=1
-	[[ "$(hostname)" = "mangobox" ]] && exec dbus-run-session niri --session
-	exec niri-session
-fi
