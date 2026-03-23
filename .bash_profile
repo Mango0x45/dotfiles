@@ -1,3 +1,4 @@
+[ -f ~/.config/setup-env ] && source ~/.config/setup-env
 [ -z "$XDG_RUNTIME_DIR" ] && export XDG_RUNTIME_DIR="/run/user/$UID"
 
 if [ ! -d "$XDG_RUNTIME_DIR" ]
