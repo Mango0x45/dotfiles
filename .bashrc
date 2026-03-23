@@ -1,6 +1,6 @@
 # If not running interactively, don’t do anything
 [[ $- != *i* ]] && return
-[[ -f /etc/bashrc ]] && . /etc/bashrc
+[ -f /etc/bashrc ] && . /etc/bashrc
 
 function __dir_search {
 	local qry="$1"
@@ -13,7 +13,7 @@ function __dir_search {
 		| sort -r \
 		| fzf -q "$qry"
 	)
-	[[ -n "$dir" ]] && pushd "$base/$dir"
+	[ -n "$dir" ] && pushd "$base/$dir"
 }
 
 function jr {
@@ -135,7 +135,7 @@ command -v fzf >/dev/null && eval "$(fzf --bash)"
 command -v eww >/dev/null && eval "$(eww shell-completions --shell bash)"
 command -v niri >/dev/null && eval "$(niri completions bash)"
 
-if [[ -d "$NVM_DIR" ]]
+if [ -d "$NVM_DIR" ]
 then
 	. "$NVM_DIR/nvm.sh"
 	. "$NVM_DIR/bash_completion"
