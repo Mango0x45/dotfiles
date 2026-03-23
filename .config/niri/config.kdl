@@ -318,6 +318,7 @@ binds {
 	Mod+R { switch-preset-column-width; }
 	Mod+W { toggle-column-tabbed-display; }
 	Mod+O { toggle-overview; }
+	Mod+T { toggle-window-floating; }
 
 	Print { screenshot; }
 	Ctrl+Print { screenshot-screen; }
