@@ -134,22 +134,15 @@ animations {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
-// Open the Firefox picture-in-picture player as floating by default.
 window-rule {
-	match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-	open-floating true
-}
-
-window-rule {
-	match app-id="scratch-term"
+	match app-id="-floating$"
 	open-floating true
 	default-column-width { fixed 1200; }
 	default-window-height { fixed 800; }
 }
 
 window-rule {
-	match app-id="qalculate-(gtk|qt)"
-	open-floating true
+	match app-id="^qalculate-(gtk|qt)-floating$"
 	default-column-width { fixed 800; }
 	default-window-height { fixed 600; }
 }
@@ -173,29 +166,22 @@ layer-rule {
 
 binds {
 	Mod+Shift+Slash { show-hotkey-overlay; }
-	XF86Tools { spawn "emacsclient" "-ca" "emacs" "/home/thomas/.config"; }
+	XF86Tools {
+		spawn "wl-proxy" "-a" "emacsclient-floating" "--" \
+			"emacsclient" "-ca" "emacs" "/home/thomas/.config"
+	}
 
-	/* Applikationer */
-	// Mod+C hotkey-overlay-title="Calculator" {
-	//		spawn "qalculate-gtk"
-	// }
-	// Mod+E hotkey-overlay-title="Editor" {
-	//		spawn "emacsclient" "-ca" "emacs"
-	// }
-	// Mod+M hotkey-overlay-title="Email" {
-	//		spawn "foot" "aerc"
-	// }
-	// Mod+W hotkey-overlay-title="Web Browser" {
-	//		spawn "firefox"
-	// }
 	Mod+Return hotkey-overlay-title="Terminal" {
 		spawn "foot"
 	}
 	Mod+Ctrl+Return hotkey-overlay-title="Terminal (Scratch)" {
-		spawn "foot" "--app-id" "scratch-term"
+		spawn "foot" "-a" "foot-floating"
 	}
 	Mod+Space hotkey-overlay-title="App Launcher" {
 		spawn "fuzzel" "-I" "--log-level=warning" "--show-actions"
+	}
+	Mod+Ctrl+Space hotkey-overlay-title="App Launcher (Scratch)" {
+		spawn "fuzzel" "-I" "--log-level=warning" "--launch-prefix=fuzzel-floating"
 	}
 
 	/- Super+Alt+L hotkey-overlay-title="Screenlock" {
