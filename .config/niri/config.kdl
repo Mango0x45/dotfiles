@@ -93,10 +93,10 @@ layout {
 		on
 		draw-behind-window true
 
-		softness 30
-		spread 25
-		offset x=8 y=8
-		color "#0007"
+		softness 10
+		spread 12
+		offset x=12 y=12
+		color "#0005"
 	}
 
 	default-column-display "tabbed"
