@@ -167,8 +167,7 @@ layer-rule {
 binds {
 	Mod+Shift+Slash { show-hotkey-overlay; }
 	XF86Tools {
-		spawn "wl-proxy" "-a" "emacsclient-floating" "--" \
-			"emacsclient" "-ca" "emacs" "/home/thomas/.config"
+		spawn "emacs" "/home/thomas/.config"
 	}
 
 	Mod+Return hotkey-overlay-title="Terminal" {
