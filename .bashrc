@@ -1,6 +1,7 @@
 # If not running interactively, don’t do anything
 [[ $- != *i* ]] && return
 [ -f /etc/bashrc ] && . /etc/bashrc
+[ -f ~/.config/setup-env ] && . ~/.config/setup-env
 
 function __dir_search {
 	local qry="$1"
