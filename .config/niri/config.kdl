@@ -5,8 +5,8 @@ spawn-at-startup "gentoo-pipewire-launcher"
 input {
 	keyboard {
 		xkb {
-			layout "mango,mango,us"
-			variant "basic,swedish,basic"
+			layout "mango,mango,mango"
+			variant "english,german,swedish"
 			options "lv3:switch,compose:ralt"
 		}
 
