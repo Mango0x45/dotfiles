@@ -63,3 +63,5 @@ then
 	. "$NVM_DIR/nvm.sh"
 	. "$NVM_DIR/bash_completion"
 fi
+
+stty -ixon -ixoff
