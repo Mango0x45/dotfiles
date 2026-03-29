@@ -123,11 +123,154 @@ screenshot-path "~/media/img/screen/%Y-%m-%d_%H-%M-%S.png"
 // The wiki explains how to configure individual animations:
 // https://yalter.github.io/niri/Configuration:-Animations
 animations {
-	// Uncomment to turn off all animations.
-	// off
+	window-open {
+		duration-ms 250
+		curve "linear"
+		custom-shader r#"
+			vec4
+			open_color(vec3 coords_geo, vec3 size_geo)
+			{
+			  if (coords_geo.x < 0.0 || coords_geo.x > 1.0
+				  || coords_geo.y < 0.0 || coords_geo.y > 1.0)
+				{
+				  return vec4(0.0);
+				}
 
-	// Slow down all animations by this factor. Values below 1 speed them up instead.
-	// slowdown 3.0
+			  float p = niri_clamped_progress;
+			  float ease_out = 1.0 - pow(1.0 - p, 3.0);
+			  float scale = mix(0.92, 1.0, ease_out);
+
+			  vec2 uv = coords_geo.xy;
+			  uv -= vec2(0.5);
+			  uv /= scale;
+			  uv += vec2(0.5);
+
+			  if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0)
+				return vec4(0.0);
+
+			  vec3 coords_tex = niri_geo_to_tex * vec3(uv, 1.0);
+			  vec4 color = texture2D(niri_tex, coords_tex.st);
+
+			  float flash_amount = pow(1.0 - p, 4.0);
+
+			  color.rgb *= (1.0 + flash_amount * 5.0);
+
+			  vec3 pure_white = vec3(0.5) * color.a;
+			  color.rgb += pure_white * (flash_amount * 1.5);
+
+			  color.rgb = clamp(color.rgb, 0.0, color.a);
+
+			  float fade_in = smoothstep(0.0, 0.05, p);
+			  color *= fade_in;
+
+			  return color;
+			}
+		"#
+	}
+
+	window-close {
+		duration-ms 500
+		curve "ease-out-quad"
+		custom-shader r#"
+			vec4
+			close_color(vec3 coords_geo, vec3 size_geo)
+			{
+			  float p = niri_clamped_progress;
+
+			  float t_vert = clamp(p / 0.5, 0.0, 1.0);
+			  float t_horz = clamp((p - 0.5) / 0.3, 0.0, 1.0);
+			  float t_fade = clamp((p - 0.8) / 0.2, 0.0, 1.0);
+
+			  float scale_y = max(1.0 - (t_vert * t_vert * t_vert), 0.002);
+			  float scale_x = max(1.0 - (t_horz * t_horz), 0.002);
+
+			  vec2 uv = coords_geo.xy;
+			  uv -= vec2(0.5);
+			  uv.y /= scale_y;
+			  uv.x /= scale_x;
+			  uv += vec2(0.5);
+
+			  vec4 color = vec4(0.0);
+
+			  if (uv.x >= 0.0 && uv.x <= 1.0 && uv.y >= 0.0 && uv.y <= 1.0) {
+				vec3 mapped_geo = vec3(uv, 1.0);
+				vec3 coords_tex = niri_geo_to_tex * mapped_geo;
+				color = texture2D(niri_tex, coords_tex.st);
+
+				float exposure = 1.0 + (25.0 * t_vert);
+				color.rgb *= exposure;
+
+				color.rgb = clamp(color.rgb, 0.0, color.a);
+			  }
+
+			  color *= (1.0 - t_horz);
+
+			  float aspect = size_geo.x / size_geo.y;
+			  vec2 center_dist = coords_geo.xy - vec2(0.5);
+			  center_dist.x *= aspect;
+			  float dist = length(center_dist);
+
+			  float dot_size = mix(0.012, 0.000, t_fade);
+
+			  float core = smoothstep(dot_size, 0.0, dist);
+			  float glow = smoothstep(dot_size * 6.0, 0.0, dist) * 0.8;
+
+			  float dot_intensity = clamp(core + glow, 0.0, 1.0);
+
+			  vec3 current_dot_color = vec3(1.0);
+
+			  vec4 dot_color = vec4(current_dot_color * dot_intensity, dot_intensity);
+
+			  float dot_visibility = smoothstep(0.0, 0.5, t_horz);
+			  dot_color *= dot_visibility;
+
+			  return clamp(color + dot_color, 0.0, 1.0);
+			}
+		"#
+	}
+
+	window-resize {
+		duration-ms 200
+		curve "ease-out-quad"
+		custom-shader r#"
+			vec4
+			resize_color(vec3 coords_curr_geo, vec3 size_curr_geo)
+			{
+			  if (coords_curr_geo.x < 0.0 || coords_curr_geo.x > 1.0
+				  || coords_curr_geo.y < 0.0 || coords_curr_geo.y > 1.0)
+				{
+				  return vec4(0.0);
+				}
+
+			  float p = niri_clamped_progress;
+			  float ease_out = 1.0 - (1.0 - p) * (1.0 - p);
+			  float ghost_activity = sin(p * 3.14159);
+
+			  vec2 uv = coords_curr_geo.xy;
+			  vec3 coords_next_tex = niri_geo_to_tex_next * vec3(uv, 1.0);
+			  vec4 color_next = texture2D(niri_tex_next, coords_next_tex.st);
+
+			  float next_flash = ghost_activity * 0.1;
+			  color_next.rgb += vec3(1.0) * next_flash * color_next.a;
+
+			  vec3 coords_prev_tex = niri_geo_to_tex_prev * vec3(uv, 1.0);
+			  vec4 color_prev = texture2D(niri_tex_prev, coords_prev_tex.st);
+
+			  float luminance = dot(color_prev.rgb, vec3(0.299, 0.587, 0.114));
+			  vec3 phosphor_color = vec3(0.5);
+			  vec4 ghost = vec4(phosphor_color * (luminance * 2.5), color_prev.a);
+
+			  ghost.rgb += vec3(1.0) * (pow(luminance, 4.0) * 1.5);
+			  float ghost_intensity = ghost_activity * 0.7;
+			  ghost *= ghost_intensity;
+
+			  vec4 base_color = mix(color_prev, color_next, ease_out);
+			  vec4 color = clamp(base_color + ghost, 0.0, 1.0);
+			  color.rgb = clamp(color.rgb, 0.0, color.a);
+			  return color;
+			}
+		"#
+	}
 }
 
 // Window rules let you adjust behavior for individual windows.
