@@ -157,8 +157,8 @@ those should be listed in `mm-editing-indentation-settings'."
     (when-let ((ts-mode (mm-mode-to-ts-mode mode))
                ((fboundp ts-mode)))
       (add-hook (mm-mode-to-hook ts-mode) #'mm-newcomment-c-config)))
-  (add-hook 'mhtml-mode #'mm-newcomment-html-config)
-  (add-hook 'rust-ts-mode #'mm-newcomment-rust-config))
+  (add-hook 'mhtml-mode-hook #'mm-newcomment-html-config)
+  (add-hook 'rust-ts-mode-hook #'mm-newcomment-rust-config))
 
 
 ;;; Multiple Cursors
