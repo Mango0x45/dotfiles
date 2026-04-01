@@ -5,164 +5,147 @@
 ;; Keywords: matching, tools
 
 ;;; Commentary:
+
 ;; TODO
 
 ;;; Code:
 
 (require 'ansi-color)
-(require 'compile)
+(require 'dired)
 (require 'project)
+(require 'rx)
+(require 'xref)
 
 (defgroup grab nil
   "Settings for `grab'."
   :group 'tools)
 
 (defcustom grab-command "grab"
-  "The base executable for the grab tool."
+  "The base executable for the Grab tool."
   :type 'string)
 
 (defcustom git-grab-command "git-grab"
-  "The base executable for the git-grab tool."
+  "The base executable for the Git Grab tool."
   :type 'string)
 
-(defcustom grab-command-arguments '("-c" "-Halways")
-  "TODO"
+(defcustom grab-command-arguments '("-c" "-Hmulti")
+  "Arguments to pass to `grab-command'."
   :type '(repeat string))
 
 (defcustom git-grab-command-arguments grab-command-arguments
-  "TODO"
+  "Arguments to pass to `git-grab-command'."
   :type '(repeat string))
 
 (defcustom grab-default-pattern '("x// h//" . 3)
-  "TODO"
+  "The default pattern in Grab prompts"
   :type '(choice (cons string natnum)
                  (string)))
 
+(defvar grab-history nil
+  "Minibuffer history for Grab search patterns.")
+
+
+;;; Xref Location Class
+
+(cl-defstruct grab-location
+  "A location in a file specified by a byte offset."
+  file offset)
+
+(cl-defmethod xref-location-marker ((loc grab-location))
+  "Return a marker for the grab location LOC."
+  (let* ((file (grab-location-file loc))
+         (offset (grab-location-offset loc))
+         (buf (find-file-noselect file)))
+    (with-current-buffer buf
+      (save-restriction
+        (widen)
+        (goto-char (byte-to-position (1+ offset)))
+        (point-marker)))))
+
+(cl-defmethod xref-location-group ((loc grab-location))
+  "Group matches by their file name in the xref buffer."
+  (grab-location-file loc))
+
+(cl-defmethod xref-location-line ((loc grab-location))
+  "Return the position of the match.
+
+`xref' internally performs a log on this value, so we need to handle the
+0 case."
+  (max 1 (grab-location-offset loc)))
+
+
+;;; Process Management & Parsing
+
 (defvar grab--header-regexp
-  "^\\([^:\n]+\\):\\([0-9]+\\):")
+  (rx-let ((ansi-escape (seq "\e[" (* (any "0-9;")) "m"))
+           (highlighted (thing)
+                        (seq (* ansi-escape)
+                             thing
+                             (* ansi-escape))))
+    (rx line-start
+        (highlighted (group (+ (not (any ?: ?\e ?\n)))))
+        (highlighted ?:)
+        (highlighted (group (+ digit)))
+        (highlighted ?:)))
+  "Regular expression matching the grab output header.")
 
-(defvar grab-results-mode-map
-  (let ((map (make-sparse-keymap)))
-    (keymap-set map "RET" #'grab-goto-match)
-    (keymap-set map "n"   #'grab-next-match)
-    (keymap-set map "p"   #'grab-prev-match)
-    map)
-  "Keymap for navigating grab matches.")
+(defun grab--format-summary (summary)
+  (let* ((summary (ansi-color-apply (string-trim-right summary)))
+         (pos 0)
+         (len (length summary)))
+    (while (< pos len)
+      (let ((next (next-property-change pos summary len)))
+        (when (or (get-text-property pos 'font-lock-face summary)
+                  (get-text-property pos 'face summary))
+          (put-text-property pos next 'font-lock-face 'xref-match summary)
+          (remove-list-of-text-properties pos next '(face) summary))
+        (setq pos next)))
+    summary))
 
-(define-derived-mode grab-results-mode compilation-mode "Grab"
-  "TODO"
-  (setq-local compilation-error-regexp-alist nil
-              compilation-error-regexp-alist-alist nil
-              next-error-function #'grab-next-error)
-  (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter nil :local)
-  (font-lock-add-keywords nil
-    `((,grab--header-regexp
-       (1 'compilation-info)
-       (2 'compilation-line-number)))))
-
-
-;;; Process Management
-
-(defun grab--run-process (command-args buffer-name)
-  (let ((cmd-string (mapconcat #'shell-quote-argument command-args " ")))
-    (compilation-start cmd-string
-                       #'grab-results-mode
-                       (lambda (_) buffer-name))))
-
-
-;;; Navigation & Core Logic
-
-(defun grab--valid-match-p ()
-  "Return non-nil if the current line is a match."
-  (save-excursion
-    (beginning-of-line)
-    (and (looking-at grab--header-regexp)
-         (not (string-prefix-p "Grab started"  (match-string 1)))
-         (not (string-prefix-p "Grab finished" (match-string 1))))))
-
-(defun grab-display-match (&optional select-window-p)
-  "Parse current line and display the match in the source buffer."
-  (interactive "P")
-  (save-excursion
-    (beginning-of-line)
-    (if (grab--valid-match-p)
-        (let* ((file (match-string-no-properties 1))
-               (offset (string-to-number (match-string-no-properties 2)))
-               (full-path (expand-file-name file default-directory)))
-          (if (not (file-exists-p full-path))
-              (error "File `%s' does not exist" full-path)
-            (let* ((buffer (find-file-noselect full-path))
-                   (window (display-buffer
-                            buffer '(display-buffer-reuse-window
-                                     display-buffer-pop-up-window))))
-              (with-selected-window window
-                (let ((pos (or (byte-to-position (1+ offset)) (1+ offset))))
-                  (goto-char pos)
-                  (when (fboundp 'pulse-momentary-highlight-one-line)
-                    (pulse-momentary-highlight-one-line pos))))
-              (when select-window-p
-                (select-window window)))))
-      (user-error "No match found on the current line"))))
-
-(defun grab-goto-match ()
-  "Go to match on current line and select its window."
-  (interactive)
-  (grab-display-match :select-window-p))
-
-(defun grab--search-forward ()
-  (catch 'found
+(defun grab--parse-output (dir)
+  (let (xrefs file offset match-start)
+    (goto-char (point-min))
     (while (re-search-forward grab--header-regexp nil :noerror)
-      (when (grab--valid-match-p)
-        (throw 'found t)))
-    nil))
+      (let ((next-file (match-string-no-properties 1))
+            (next-offset (string-to-number (match-string-no-properties 2)))
+            (next-start (point)))
+        (when file
+          (let* ((summary (buffer-substring-no-properties
+                           match-start (match-beginning 0)))
+                 (summary (grab--format-summary summary))
+                 (full-path (expand-file-name file dir))
+                 (loc (make-grab-location :file full-path :offset offset)))
+            (push (xref-make summary loc) xrefs)))
+        (setq file next-file
+              offset next-offset
+              match-start next-start)))
+    (when file
+      (let* ((summary (buffer-substring-no-properties
+                       match-start (point-max)))
+             (summary (grab--format-summary summary))
+             (full-path (expand-file-name file dir))
+             (loc (make-grab-location :file full-path :offset offset)))
+        (push (xref-make summary loc) xrefs)))
+    (unless xrefs
+      (user-error "No matches found for grab pattern"))
+    (nreverse xrefs)))
 
-(defun grab--search-backward ()
-  (catch 'found
-    (while (re-search-backward grab--header-regexp nil :noerror)
-      (when (grab--valid-match-p)
-        (throw 'found t)))
-    nil))
+(defun grab--directory (cmd args pattern dir)
+  (grab--files cmd args pattern dir
+               (directory-files-recursively dir "." nil t)))
 
-(defun grab-next-match ()
-  "Move to the next match and display it."
-  (interactive)
-  (forward-line 1)
-  (if (grab--search-forward)
-      (progn
-        (beginning-of-line)
-        (grab-display-match))
-    (forward-line -1)
-    (message "No more matches")))
+(defun grab--files (cmd args pattern dir files)
+  (lambda ()
+    (let ((default-directory dir))
+      (with-temp-buffer
+        (apply #'call-process cmd nil t nil
+               (flatten-tree (list args "--" pattern files)))
+        (grab--parse-output dir)))))
 
-(defun grab-prev-match ()
-  "Move to the previous match and display it."
-  (interactive)
-  (forward-line -1)
-  (if (grab--search-backward)
-      (progn
-        (beginning-of-line)
-        (grab-display-match))
-    (forward-line 1)
-    (message "No previous matches")))
-
-(defun grab-next-error (&optional arg reset)
-  "TODO"
-  (interactive "p")
-  (when reset
-    (goto-char (point-min)))
-  (let ((direction (if (< arg 0) -1 +1))
-        (count (abs arg)))
-    (dotimes (_ count)
-      (if (> direction 0)
-          (progn
-            (end-of-line)
-            (unless (grab--search-forward)
-              (error "No more matches")))
-        (beginning-of-line)
-        (unless (grab--search-backward)
-          (error "No previous matches"))))
-    (beginning-of-line)
-    (grab-goto-match)))
+(defun grab--read-pattern ()
+  (read-string (format-prompt "Grab Pattern" nil)
+               grab-default-pattern
+               'grab-history))
 
 
 ;;; Interactive Commands
@@ -170,42 +153,63 @@
 ;;;###autoload
 (defun grab (pattern)
   "Run grab with PATTERN in the current directory."
-  (interactive
-   (list (read-string (format-prompt "Grab Pattern" nil) grab-default-pattern)))
-  (grab--run-process
-   (flatten-tree (list grab-command grab-command-arguments pattern))
-   "*grab*"))
+  (interactive (list (grab--read-pattern)))
+  (xref-show-xrefs
+   (grab--directory grab-command
+                    grab-command-arguments
+                    pattern
+                    default-directory)
+   nil))
 
 ;;;###autoload
 (defun git-grab (pattern)
   "Run git grab with PATTERN in the current directory."
-  (interactive
-   (list (read-string (format-prompt "Grab Pattern" nil) grab-default-pattern)))
-  (grab--run-process
-   (flatten-tree (list git-grab-command git-grab-command-arguments pattern))
-   "*grab*"))
+  (interactive (list (grab--read-pattern)))
+  (xref-show-xrefs
+   (grab--files git-grab-command
+                git-grab-command-arguments
+                pattern
+                default-directory
+                nil)
+   nil))
 
 ;;;###autoload
 (defun project-grab (pattern)
   "Run grab with PATTERN at the project root."
-  (interactive
-   (list (read-string (format-prompt "Grab Pattern" nil) grab-default-pattern)))
+  (interactive (list (grab--read-pattern)))
   (let* ((project (project-current t))
          (default-directory (project-root project)))
-    (grab--run-process
-     (flatten-tree (list grab-command grab-command-arguments pattern))
-     "*grab*")))
+    (xref-show-xrefs
+     (grab--directory grab-command
+                      grab-command-arguments
+                      pattern
+                      default-directory)
+     nil)))
 
 ;;;###autoload
 (defun project-git-grab (pattern)
   "Run git grab with PATTERN at the project root."
-  (interactive
-   (list (read-string (format-prompt "Grab Pattern" nil) grab-default-pattern)))
+  (interactive (list (grab--read-pattern)))
   (let* ((project (project-current t))
          (default-directory (project-root project)))
-    (grab--run-process
-     (flatten-tree (list git-grab-command git-grab-command-arguments pattern))
-     "*grab*")))
+    (xref-show-xrefs
+     (grab--files git-grab-command
+                  git-grab-command-arguments
+                  pattern
+                  default-directory
+                  nil)
+     nil)))
+
+;;;###autoload
+(defun dired-grab-marked-files (pattern)
+  "TODO"
+  (interactive (list (grab--read-pattern)))
+  (let* ((project (project-current t))
+         (default-directory (project-root project)))
+    (xref-show-xrefs
+     (grab--files grab-command grab-command-arguments pattern
+                  default-directory (dired-get-marked-files))
+     nil)))
 
 (provide 'grab)
 ;;; grab.el ends here
