@@ -50,6 +50,8 @@ matching respectively."
 ;;; Grab Integration
 
 (use-package grab
-  :commands (grab git-grab project-grab project-git-grab))
+  :commands (grab git-grab project-grab project-git-grab)
+  :custom
+  (grab-default-pattern '("x/^.*?$/ g// h//" . 12)))
 
 (provide 'mm-search)
