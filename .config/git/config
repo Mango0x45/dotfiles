@@ -4,7 +4,6 @@
 	signingKey = /home/thomas/.ssh/id_ed25519.pub
 
 [core]
-	editor = nvim
 	quotepath = off
 
 [init]
@@ -28,7 +27,7 @@
 	l  = log
 	ls = ls-files
 	m  = merge
-	pa = "!f() { git remote | xargs -I% -n1 git push \"%\" \"$@\"; }; f \"$@\""
+	pa = "!f() { git remote | xargs -I% -n1 git push % \"$@\"; }; f \"$@\""
 	pl = pull
 	ps = push
 	rb = rebase
