@@ -88,7 +88,7 @@ If METHOD is nil, a GET request is performed."
 
 (defun mm-humanwave-handler-topic-imenu-setup ()
   "Setup custom imenu index for `python-ts-mode'."
-  (when (and (string-match-p "/handlers?" (or (buffer-file-name) ""))
+  (when (and (string-match-p "/handlers?/" (or (buffer-file-name) ""))
              (derived-mode-p #'python-ts-mode))
     (setq-local imenu-create-index-function
                 #'mm-humanwave-handler-topic-imenu-index)))
