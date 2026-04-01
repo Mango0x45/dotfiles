@@ -43,7 +43,7 @@ If METHOD is nil, a GET request is performed."
       (* blank)
       (or "if" "elif")
       (* blank)
-      (or "topic" "schedule")
+      (or "dialog" "topic" "schedule")
       (* blank)
       "=="
       (* blank)
