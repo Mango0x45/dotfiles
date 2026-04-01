@@ -82,4 +82,3 @@ export LESS='-RF'
 export PRINTER='HP_OfficeJet_8010'
 export QT_IM_MODULE=xim
 export VAULT_2FA='2 Factor Authentication'
-
