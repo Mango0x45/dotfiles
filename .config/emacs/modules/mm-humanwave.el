@@ -113,7 +113,7 @@ the behaviour of the INCLUDE-ALL-P argument to
      (barf-if-buffer-read-only)
      (list
       default-directory
-      (mm-humanwave-project-read-file-name current-prefix-arg)))
+      (mm-humanwave-project-read-file-name current-prefix-arg))))
   (let ((path (file-name-sans-extension
                (file-relative-name target-file base-directory))))
     (unless (string-match-p "/" path)
