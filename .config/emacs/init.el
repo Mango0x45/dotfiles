@@ -194,7 +194,7 @@ the buffer without saving it."
 (require 'mm-tetris)
 (require 'mm-theme)
 (require 'mm-window)
-(when mm-darwin-p
+(when (eq system-type 'darwin)
   (require 'mm-darwin))
 (when mm-humanwave-p
   (require 'mm-humanwave))

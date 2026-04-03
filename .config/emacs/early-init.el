@@ -36,9 +36,6 @@
 
 ;;; Useful Constants
 
-(defconst mm-darwin-p (eq system-type 'darwin)
-  "This variable is non-nil if Emacs is running on a Darwin system.")
-
 (defconst mm-humanwave-p (file-exists-p "~/.humanwavep")
   "This variable is non-nil if Emacs is running on a Humanwave system.")
 
@@ -51,7 +48,7 @@
         use-short-answers t
         inhibit-splash-screen t
         inhibit-startup-buffer-menu t)
-(if mm-darwin-p
+(if (eq system-type 'darwin)
     (progn
       (add-to-list 'default-frame-alist '(fullscreen . maximized))
       (when (featurep 'ns)
