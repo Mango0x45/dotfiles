@@ -2,9 +2,9 @@
 
 if [ "$1" = true ]
 then
-	theme=Adwaita-dark
+	theme=prefer-dark
 else
-	theme=Adwaita
+	theme=prefer-light
 fi
 
-gsettings set org.gnome.desktop.interface gtk-theme $theme
+gsettings set org.gnome.desktop.interface color-scheme $theme
