@@ -50,7 +50,7 @@ COMMANDS the first command is remapped to the second command."
 ;; PKG-EXTERN
 (use-package kkp
   :ensure t
-  :unless (or (display-graphic-p) mm-humanwave-p)
+  :unless (display-graphic-p)
   :hook (tty-setup . global-kkp-mode))
 
 
