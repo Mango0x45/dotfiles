@@ -27,7 +27,7 @@
 
 (defun mm-completion-sw-try-completion (string table pred point)
   "Return STRING if it matches any candidates."
-  (when (mm-completion-space-all-completions string table pred point)
+  (when (mm-completion-sw-all-completions string table pred point)
     (cons string point)))
 
 (use-package icomplete
