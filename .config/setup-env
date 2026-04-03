@@ -79,9 +79,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export CLANGD_FLAGS='-header-insertion=never'
 export GPG_TTY="$(tty)"
-export GTK_IM_MODULE=xim
 export HISTSIZE=100000
 export LESS='-RF'
 export PRINTER='HP_OfficeJet_8010'
-export QT_IM_MODULE=xim
 export VAULT_2FA='2 Factor Authentication'
