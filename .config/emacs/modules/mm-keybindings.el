@@ -160,9 +160,8 @@ COMMANDS the first command is remapped to the second command."
 ;;; Other Bindings
 
 (with-eval-after-load 'project
-  (with-eval-after-load 'grab
-    (mm-keybindings-keymap-set project-prefix-map
-      "G" #'project-git-grab))
+  (mm-keybindings-keymap-set project-prefix-map
+    "G" #'project-git-grab)
 
   (when mm-humanwave-p
     (mm-keybindings-keymap-set project-prefix-map
