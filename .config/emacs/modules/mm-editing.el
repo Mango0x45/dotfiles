@@ -373,4 +373,12 @@ is as described by `emmet-expand-line'."
 (use-package subword
   :hook prog-mode)
 
+
+;;; Make Camel-Case More Readable
+
+(use-package glasses-mode
+  :hook prog-mode
+  :custom
+  (glasses-separate-parentheses-p nil))
+
 (provide 'mm-editing)
