@@ -188,7 +188,7 @@ the buffer without saving it."
 (require 'mm-documentation)
 (require 'mm-editing)
 (require 'mm-keybindings)
-;; (require 'mm-modeline)
+(require 'mm-modeline)
 (require 'mm-projects)
 (require 'mm-search)
 (require 'mm-tetris)
