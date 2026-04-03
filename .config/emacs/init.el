@@ -163,10 +163,10 @@ buffer suppressed."
 ;;; Generic Emacs Configuration
 
 (defvar mm-initial-scratch-message
-  (format
-   ";; This is `%s'.  Use `%s' to evaluate and print results.\n\n"
-   initial-major-mode
-   (propertize
+  (substitute-quotes
+   (format
+    ";; This is `%s'.  Use `%s' to evaluate and print results.\n\n"
+    initial-major-mode
     (substitute-command-keys
      "\\<lisp-interaction-mode-map>\\[eval-print-last-sexp]")))
   "The initial message to display in the scratch buffer.")
