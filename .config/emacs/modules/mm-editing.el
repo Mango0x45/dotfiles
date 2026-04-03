@@ -123,6 +123,13 @@ those should be listed in `mm-editing-indentation-settings-alist'."
   (sh-indent-for-case-label 0)
   (sh-indent-for-case-alt #'+))
 
+;; Indent with tabs and align with spaces
+;; PKG-INTERN
+(use-package smart-tabs-mode
+  :load-path (lambda () (expand-file-name "site-lisp/smart-tabs-mode.el"
+                                          mm-config-directory))
+  :hook after-init)
+
 
 ;;; Code Commenting
 
