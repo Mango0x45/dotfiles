@@ -22,9 +22,9 @@
 
 ;;; Set Modifier Keys
 
-(setopt mac-option-key-is-meta  nil
-        mac-command-key-is-meta t)
-(setopt mac-option-modifier  'none
-        mac-command-modifier 'meta)
+(setopt mac-option-key-is-meta t
+        mac-command-key-is-meta nil)
+(setopt mac-option-modifier 'meta
+        mac-command-modifier 'none)
 
 (provide 'mm-darwin)
