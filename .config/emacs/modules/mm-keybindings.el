@@ -107,9 +107,10 @@ COMMANDS the first command is remapped to the second command."
 
 ;;; Remove Unwanted Bindings
 
-(keymap-global-unset "C-x C-c" :remove) ; ‘capitalize-region’
-(keymap-global-unset "C-x C-l" :remove) ; ‘downcase-region’
-(keymap-global-unset "C-x C-u" :remove) ; ‘upcase-region’
+(keymap-global-unset "C-x C-c" :remove)    ; ‘capitalize-region’
+(keymap-global-unset "C-x C-l" :remove)    ; ‘downcase-region’
+(keymap-global-unset "C-x C-u" :remove)    ; ‘upcase-region’
+(keymap-unset diff-mode-map "M-o" :remove) ; ‘diff-goto-source’
 
 ;; The following conflicts with ‘ace-window’
 (use-package mhtml-mode
