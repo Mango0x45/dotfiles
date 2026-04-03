@@ -6,6 +6,7 @@
 
 (defvar mm-treesit-language-remap-alist
   '((cpp        . c++)
+    (gitcommit  . git-commit)
     (gomod      . go-mod)
     (javascript . js)
     (vim        . vimscript))
@@ -39,6 +40,8 @@
            "https://github.com/camdencheek/tree-sitter-dockerfile")
           (elixir
            "https://github.com/elixir-lang/tree-sitter-elixir")
+          (gitcommit
+           "https://github.com/gbprod/tree-sitter-gitcommit")
           (go
            "https://github.com/tree-sitter/tree-sitter-go")
           (gomod
@@ -146,6 +149,7 @@ The parsers are taken from `treesit-language-source-alist'."
 (defvar mm-treesit-language-file-name-alist
   '((dockerfile . "/[Dd]ockerfile\\'")
     (elixir     . "\\.exs?\\'")
+    (gitcommit  . "\\.COMMIT_EDITMSG\\'")
     (go         . "\\.go\\'")
     (gomod      . "/go\\.mod\\'")
     (heex       . "\\.heex\\'")
