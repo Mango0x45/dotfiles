@@ -10,10 +10,6 @@
     (eval '(setq inhibit-startup-echo-area-message "thomasvoss"))
   (eval '(setq inhibit-startup-echo-area-message "thomas")))
 
-;; Add custom lisp code into the load path
-(dolist (directory '("." "modules" "site-lisp"))
-  (add-to-list 'load-path (expand-file-name directory mm-config-directory)))
-
 ;; Require helpers used by the rest of the config
 (require 'mm-lib)
 

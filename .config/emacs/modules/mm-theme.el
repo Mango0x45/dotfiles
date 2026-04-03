@@ -1,10 +1,31 @@
 ;;; mm-theme.el --- Emacs theme settings  -*- lexical-binding: t; -*-
 
-
-;;; Themes
+;;; Auto Theme Switching
 
-(setopt custom-theme-directory (expand-file-name "themes" mm-config-directory))
-(load-theme 'mango-dark :no-confirm)
+(defun mm-theme-switch-theme (darkp)
+  "Switch to a light or dark theme."
+  (mapc #'disable-theme custom-enabled-themes)
+  (load-theme (if darkp 'mango-dark 'mango-light) :no-confirm))
+
+(defun mm-theme-dbus-theme-handler (namespace key value)
+  "Listen for Freedesktop color-scheme changes and switch themes."
+  (when (and (string= namespace "org.freedesktop.appearance")
+             (string= key "color-scheme"))
+    (let* ((value (car value))
+           (darkp (eq value 1)))
+      (mm-theme-switch-theme darkp))))
+
+(use-package dbus
+  :demand t
+  :config
+  (when (dbus-ping :session "org.freedesktop.portal.Desktop" 100)
+    (dbus-register-signal
+     :session
+     "org.freedesktop.portal.Desktop"
+     "/org/freedesktop/portal/desktop"
+     "org.freedesktop.portal.Settings"
+     "SettingChanged"
+     #'mm-theme-dbus-theme-handler)))
 
 
 ;;; Disable Cursor Blink

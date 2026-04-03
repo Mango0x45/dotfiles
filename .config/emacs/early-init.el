@@ -90,19 +90,28 @@
              file-name-handler-alist saved-file-name-handler-alist))))
 
 
-;;; Avoid Flashbang
+;;; Set Load Paths
 
-;; (setq-default mode-line-format nil) ; This will be set in init.el
+(dolist (directory '("." "modules" "site-lisp"))
+  (add-to-list 'load-path (expand-file-name directory mm-config-directory)))
+(setopt custom-theme-directory (expand-file-name "themes" mm-config-directory))
 
-;; Colors taken from ‘mango-theme’
-(let ((background "#2B303B")
-      (foreground "#C5C8C6"))
-      (set-face-attribute
-       'default nil
-       :background background
-       :foreground foreground)
-      (set-face-attribute
-       'mode-line nil
-       :background background
-       :foreground foreground
-       :box 'unspecified))
+
+;;; Set Theme
+
+(defun mm-dark-p ()
+  (cond
+   ((eq system-type 'gnu/linux)
+    (string-match-p
+     "prefer-dark"
+     (shell-command-to-string
+      "gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")))
+   ((eq system-type 'darwin)
+    (if (boundp 'ns-system-appearance)
+        (eq ns-system-appearance 'dark)
+      (string-match-p
+       "Dark"
+       (shell-command-to-string
+        "defaults read -g AppleInterfaceStyle 2>/dev/null"))))))
+
+(load-theme (if (mm-dark-p) 'mango-dark 'mango-light) :no-confirm)
