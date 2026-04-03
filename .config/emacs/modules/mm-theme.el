@@ -2,30 +2,38 @@
 
 ;;; Auto Theme Switching
 
-(defun mm-theme-switch-theme (darkp)
+(defun mm-theme-switch-theme (style)
   "Switch to a light or dark theme."
   (mapc #'disable-theme custom-enabled-themes)
-  (load-theme (if darkp 'mango-dark 'mango-light) :no-confirm))
+  (load-theme (pcase style
+                ('light 'mango-light)
+                ('dark  'mango-dark))
+              :no-confirm))
 
-(defun mm-theme-dbus-theme-handler (namespace key value)
-  "Listen for Freedesktop color-scheme changes and switch themes."
-  (when (and (string= namespace "org.freedesktop.appearance")
-             (string= key "color-scheme"))
-    (let* ((value (car value))
-           (darkp (eq value 1)))
-      (mm-theme-switch-theme darkp))))
+(pcase system-type
+  ('darwin
+   (add-hook 'ns-system-appearance-change-functions
+             #'mm-theme-switch-theme))
+  ('gnu/linux
+   (defun mm-theme-dbus-switch-theme-hook (namespace key value)
+     "Listen for Freedesktop color-scheme changes and switch themes."
+     (when (and (string= namespace "org.freedesktop.appearance")
+                (string= key "color-scheme"))
+       (let* ((value (car value))
+              (style (if (eq value 1) 'dark 'light)))
+         (mm-theme-switch-theme style))))
 
-(use-package dbus
-  :demand t
-  :config
-  (when (dbus-ping :session "org.freedesktop.portal.Desktop" 100)
-    (dbus-register-signal
-     :session
-     "org.freedesktop.portal.Desktop"
-     "/org/freedesktop/portal/desktop"
-     "org.freedesktop.portal.Settings"
-     "SettingChanged"
-     #'mm-theme-dbus-theme-handler)))
+   (use-package dbus
+     :demand t
+     :config
+     (when (dbus-ping :session "org.freedesktop.portal.Desktop" 100)
+       (dbus-register-signal
+        :session
+        "org.freedesktop.portal.Desktop"
+        "/org/freedesktop/portal/desktop"
+        "org.freedesktop.portal.Settings"
+        "SettingChanged"
+        #'mm-theme-dbus-switch-theme-hook)))))
 
 
 ;;; Disable Cursor Blink
@@ -46,8 +54,9 @@
 This is a plist containing a font name, -weight, and -height.")
 
 (defvar mm-theme-proportional-font
-  ;; TODO: SF font?
-  `(,(if mm-darwin-p "Microsoft Sans Serif" "SF Pro Text")
+  `(,(if (eq system-type 'darwin)
+         "Microsoft Sans Serif"
+       "SF Pro Text")
     :weight regular :height 162)
   "The default proportional font.
 This is a plist containing a font name, -weight, and -height.")
@@ -149,7 +158,7 @@ Also see `mm-theme-ligatures-alist'."
   :if (and (display-graphic-p)
            (or (seq-contains-p (split-string system-configuration-features)
                                "HARFBUZZ")
-               mm-darwin-p))
+               (eq system-type 'darwin)))
   :hook prog-mode
   :config
   (mm-theme-update-ligatures))
