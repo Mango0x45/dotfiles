@@ -150,8 +150,8 @@ COMMANDS the first command is remapped to the second command."
 
 (with-eval-after-load 'increment
   (mm-keybindings-keymap-set-repeating global-map
-    "d" #'decrement-number-at-point
-    "i" #'increment-number-at-point))
+    "C-x" #'decrement-number-at-point
+    "C-a" #'increment-number-at-point))
 
 
 ;;; Other Bindings
