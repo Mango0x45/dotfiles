@@ -76,4 +76,13 @@
   (aw-keys (cl-loop for x from ?A to ?Z collect x))
   (aw-translate-char-function #'upcase))
 
+
+;;; Tab Bar Configuration
+
+(use-package tab-bar
+  :custom
+  (tab-bar-separator "")
+  (tab-bar-new-button-show nil)
+  (tab-bar-close-button-show nil))
+
 (provide 'mm-window)
