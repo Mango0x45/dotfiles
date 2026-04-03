@@ -99,7 +99,9 @@ COMMANDS the first command is remapped to the second command."
   mark-sexp          ef-mark-entire-sexp
   mark-word          ef-mark-entire-word
   open-line          ef-open-line
-  yank               ef-yank)
+  yank               ef-yank
+
+  vc-dir vc-dir-root)
 
 (with-eval-after-load 'cc-vars
   (setopt c-backspace-function #'backward-delete-char))
