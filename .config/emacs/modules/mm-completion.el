@@ -2,6 +2,34 @@
 
 ;;; Vertical Completions
 
+(defun mm-completion-sw-highlight-matches (string words)
+  "Apply the standard completion face to all WORDS in STRING."
+  (let ((s (copy-sequence string))
+        (case-fold-search completion-ignore-case))
+    (dolist (word words)
+      (let ((start 0)
+            (regexp (regexp-quote word)))
+        (while (string-match regexp s start)
+          (add-face-text-property (match-beginning 0) (match-end 0)
+                                  'completions-common-part nil s)
+          (setq start (match-end 0)))))
+    s))
+
+(defun mm-completion-sw-all-completions (string table pred point)
+  "Match candidates containing all space-separated words in STRING."
+  (let* ((words (split-string string " " t))
+         (completion-regexp-list (mapcar #'regexp-quote words))
+         (candidates (all-completions "" table pred)))
+    (if words
+        (mapcar (lambda (cand) (mm-completion-sw-highlight-matches cand words))
+                candidates)
+      candidates)))
+
+(defun mm-completion-sw-try-completion (string table pred point)
+  "Return STRING if it matches any candidates."
+  (when (mm-completion-space-all-completions string table pred point)
+    (cons string point)))
+
 (use-package icomplete
   :hook (after-init . icomplete-vertical-mode)
   :bind ( :map icomplete-minibuffer-map
@@ -31,8 +59,14 @@
   :bind ( :map minibuffer-local-completion-map
           ("SPC" . nil)
           ("?"   . nil))
+  :config
+  (add-to-list 'completion-styles-alist
+               '(spaced-words
+                 mm-completion-sw-try-completion
+                 mm-completion-sw-all-completions
+                 "Orderless matching of space-separated words."))
   :custom
-  (completion-styles '(basic substring))
+  (completion-styles '(basic substring spaced-words))
   (completion-category-defaults nil)   ; Avoid needing to override things
   (completion-category-overrides
    '((file             (styles . (basic partial-completion)))
