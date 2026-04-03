@@ -158,7 +158,7 @@ calling this command with a prefix argument REVERSE sorts the marked
 regions in reverse order."
   (interactive "*P")
   (unless (use-region-p)
-    (mc/execute-command-for-all-cursors))
+    (user-error "No active region."))
   (setq mc--strings-to-replace (sort (mc--ordered-region-strings)
                                      (if reverse #'string> #'string<)))
   (mc--replace-region-strings))
