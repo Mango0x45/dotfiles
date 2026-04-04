@@ -327,22 +327,18 @@ binds {
 		spawn "fuzzel" "-I" "--log-level=warning" "--launch-prefix=fuzzel-floating"
 	}
 
-	/- Super+Alt+L hotkey-overlay-title="Screenlock" {
-		spawn "swaylock"
-	}
-
 	/* Ljudkontroll */
 	XF86AudioRaiseVolume allow-when-locked=true {
-		spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"
+		spawn "chvol" "up"
 	}
 	XF86AudioLowerVolume allow-when-locked=true {
-		spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+		spawn "chvol" "down"
 	}
 	XF86AudioMute allow-when-locked=true {
-		spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+		spawn "chvol" "toggle"
 	}
 	XF86AudioMicMute allow-when-locked=true {
-		spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
+		spawn "chvol" "toggle" "@DEFAULT_AUDIO_SOURCE@"
 	}
 
 	/* Mediakontroll */
