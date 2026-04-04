@@ -151,7 +151,7 @@ The parsers are taken from `treesit-language-source-alist'."
 (defvar mm-treesit-language-file-name-alist
   '((dockerfile . "/[Dd]ockerfile\\'")
     (elixir     . "\\.exs?\\'")
-    (gitcommit  . "\\.COMMIT_EDITMSG\\'")
+    (gitcommit  . "\\COMMIT_EDITMSG\\'")
     (go         . "\\.go\\'")
     (gomod      . "/go\\.mod\\'")
     (heex       . "\\.heex\\'")
