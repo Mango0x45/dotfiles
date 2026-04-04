@@ -254,4 +254,28 @@ See also the `mm-theme-background-opacity' variable."
   :custom
   (show-paren-delay 0))
 
+
+;;; Highlight Keywords in Comments
+
+(defface mm-theme-hl-todo-fixme
+  '((t :inherit hl-todo))
+  "Face for FIXME markers in comments.")
+
+(defface mm-theme-hl-todo-note
+  '((t :inherit hl-todo))
+  "Face for NOTE markers in comments.")
+
+(defface mm-theme-hl-todo-todo
+  '((t :inherit hl-todo))
+  "Face for TODO markers in comments.")
+
+;; PKG-EXTERN
+(use-package hl-todo
+  :ensure t
+  :hook prog-mode
+  :custom
+  (hl-todo-keyword-faces '(("FIXME" . mm-theme-hl-todo-fixme)
+                           ("NOTE"  . mm-theme-hl-todo-note)
+                           ("TODO"  . mm-theme-hl-todo-todo))))
+
 (provide 'mm-theme)
