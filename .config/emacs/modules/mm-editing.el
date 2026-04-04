@@ -341,6 +341,13 @@ is as described by `emmet-expand-line'."
   :hook (csv-mode . number-format-mode)
   :after number-format-mode)
 
+;; PKG-EXTERN
+(use-package git-commit-ts-mode
+  :ensure t
+  :hook (git-commit-ts-mode . auto-fill-mode)
+  :custom
+  (git-commit-ts-max-message-size 50))
+
 ;; PKG-INTERN
 (use-package xcompose-mode
   :vc ( :url "https://git.thomasvoss.com/xcompose-mode"
