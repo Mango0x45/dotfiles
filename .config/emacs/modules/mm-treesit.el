@@ -237,32 +237,10 @@ languages should be listed here.")
 
 ;;; Region Expansion
 
-(defun mm-treesit-expreg-expand (n)
-  "Expand to N syntactic units."
-  (interactive "p")
-  (dotimes (_ n)
-    (expreg-expand)))
-
-(defun mm-treesit-expreg-expand-dwim ()
-  "Do-What-I-Mean `expreg-expand' to start with symbol or word.
-If over a real symbol, mark that directly, else start with a word.  Fall
-back to regular `expreg-expand'."
-  (interactive)
-  (if (region-active-p)
-      (expreg-expand)
-    (let ((symbol (bounds-of-thing-at-point 'symbol)))
-      (cond
-       ((equal (bounds-of-thing-at-point 'word) symbol)
-        (mm-treesit-expreg-expand 1))
-       (symbol
-        (mm-treesit-expreg-expand 2))
-       (:else
-        (expreg-expand))))))
-
 ;; PKG-EXTERN
 (use-package expreg
   :ensure t
-  :commands (mm-treesit-expreg-expand mm-treesit-expreg-expand-dwim)
-  :bind ("M-SPC" . mm-treesit-expreg-expand-dwim))
+  :bind (("M-SPC"   . expreg-expand)
+         ("C-M-SPC" . expreg-contract)))
 
 (provide 'mm-treesit)
