@@ -186,12 +186,6 @@ See also the `mm-theme-background-opacity' variable."
  'default-frame-alist (cons 'alpha-background mm-theme-background-opacity))
 
 
-;;; Divider Between Windows
-
-(use-package frame
-  :hook (after-init . window-divider-mode))
-
-
 ;;; In-Buffer Highlighting
 
 ;; PKG-INTERN
