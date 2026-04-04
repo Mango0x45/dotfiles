@@ -68,6 +68,8 @@
            "https://github.com/tree-sitter/tree-sitter-python")
           (rust
            "https://github.com/tree-sitter/tree-sitter-rust")
+          (toml
+           "https://github.com/ikatyang/tree-sitter-toml")
           (tsx
            "https://github.com/tree-sitter/tree-sitter-typescript"
            "master" "tsx/src")
@@ -155,6 +157,7 @@ The parsers are taken from `treesit-language-source-alist'."
     (heex       . "\\.heex\\'")
     (json       . "\\.json\\'")
     (rust       . "\\.rs\\'")
+    (toml       . "\\.\\(?:ini\\|toml\\)\\'")
     (tsx        . "\\.tsx\\'")
     (typescript . "\\.ts\\'")
     (yaml       . "\\.ya?ml\\'"))
