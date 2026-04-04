@@ -383,8 +383,13 @@ is as described by `emmet-expand-line'."
 
 ;;; Make Camel-Case More Readable
 
+(defvar mm-editing-camel-case-modes
+  '(js-mode js-ts-mode java-mode java-ts-mode))
+
 (use-package glasses-mode
-  :hook prog-mode
+  :init
+  (dolist (mode mm-editing-camel-case-modes)
+    (add-hook (mm-mode-to-hook mode) #'glasses-mode))
   :custom
   (glasses-separate-parentheses-p nil))
 
