@@ -108,7 +108,7 @@ If there is an active region, the next THING will be marked."
   (mce-add-cursor-to-next-thing 'symbol)
   (mc/maybe-multiple-cursors-mode))
 
-(defun emc-sort-regions (&optional reversep)
+(defun mce-sort-regions (&optional reversep)
   "Sort marked regions.
 This command is an exact replica of `mc/sort-regions' except that
 calling this command with a prefix argument REVERSE sorts the marked

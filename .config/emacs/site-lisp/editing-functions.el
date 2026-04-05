@@ -113,14 +113,14 @@ like `sort-lines' with the start- and end bounds set to the current
 region beginning and -end.
 
 When using multiple cursors this command sorts the regions marked by
-each cursor (effectively calling `emc-sort-regions'.
+each cursor (effectively calling `mce-sort-regions'.
 
 When called with a prefix argument REVERSEP, sorting occurs in reverse
 order."
   (interactive "*P")
   (if (and (featurep 'multiple-cursors-extensions)
            (< 1 (mc/num-cursors)))
-      (emc-sort-regions reversep)
+      (mce-sort-regions reversep)
     (sort-lines reversep (region-beginning) (region-end))))
 
 (defun ef-yank (&optional arg)
