@@ -18,12 +18,13 @@
   (dired-auto-revert-buffer #'dired-directory-changed-p)
   (dired-dwim-target t)
   (dired-free-space nil)
-  (dired-recursive-copies 'always)
-  (dired-recursive-deletes 'always)
   (dired-hide-details-preserved-columns '(1))
   (dired-listing-switches
    (combine-and-quote-strings
-    '("-AFGhlv" "--group-directories-first" "--time-style=+%d %b %Y %T"))))
+    '("-AFGhlv" "--group-directories-first" "--time-style=+%d %b %Y %T")))
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  (dired-switches-in-mode-line 0))
 
 (use-package dired-aux
   :custom
