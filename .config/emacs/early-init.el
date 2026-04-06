@@ -6,15 +6,15 @@
   (require 'xdg))
 
 (defconst mm-cache-directory
-  (expand-file-name "emacs" (xdg-cache-home))
+  (expand-file-name "emacs/" (xdg-cache-home))
   "The XDG-conformant cache directory that Emacs should use.")
 
 (defconst mm-config-directory
-  (expand-file-name "emacs" (xdg-config-home))
+  (expand-file-name "emacs/" (xdg-config-home))
   "The XDG-conformant config directory that Emacs should use.")
 
 (defconst mm-data-directory
-  (expand-file-name "emacs" (xdg-data-home))
+  (expand-file-name "emacs/" (xdg-data-home))
   "The XDG-conformant data directory that Emacs should use.")
 
 (dolist (directory (list mm-cache-directory
@@ -22,10 +22,8 @@
                          mm-data-directory))
   (make-directory directory :parents))
 
-;; NOTE: ‘user-emacs-directory’ should end with a directory separator
-(setopt user-emacs-directory (concat mm-cache-directory "/"))
-
-(setopt auto-save-list-file-prefix (expand-file-name
+(setopt user-emacs-directory (concat mm-cache-directory "/")
+        auto-save-list-file-prefix (expand-file-name
                                     "auto-save-list-"
                                     mm-cache-directory)
         backup-directory-alist `(("." . ,(expand-file-name
