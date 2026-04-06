@@ -1,10 +1,7 @@
 ;;; mango-dark-theme.el --- Just your average dark theme  -*- lexical-binding: t; -*-
 
 (deftheme mango-dark
-  "Mildly dark, dark theme.
-Your average not-so-dark dark theme, because none of the other options
-were exactly to my liking.  It’s about time I had a theme to call my
-own.")
+  "Just your average dark theme.")
 
 (defconst mango-dark-theme-colors-alist
   '((fg-dim         . ("#939CA8" "color-246" "brightblack"))

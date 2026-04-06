@@ -1,42 +1,39 @@
 ;;; mango-light-theme.el --- Just your average light theme  -*- lexical-binding: t; -*-
 
 (deftheme mango-light
-  "Mildly light, light theme.
-Your average not-so-light light theme, because none of the other options
-were exactly to my liking.  It’s about time I had a theme to call my
-own.")
+  "Just your average light theme.")
 
 (defconst mango-light-theme-colors-alist
-  '((fg-dim         . ("#6B7A8F" "color-243" "brightblack"))
-    (fg-main        . ("#2E3440" "color-237" "black"))
-    (fg-bright      . ("#181B21" "color-234" "black"))
-    (bg-dim         . ("#E5E9F0" "color-254" "white"))
-    (bg-main        . ("#FAFBFC" "color-231" "brightwhite"))
-    (bg-bright      . ("#FFFFFF" "color-231" "brightwhite"))
-    (red-dim        . ("#D44A50" "color-167" "red"))
-    (red-main       . ("#B51A22" "color-160" "brightred"))
-    (red-bright     . ("#8A0D14" "color-88"  "red"))
-    (orange-dim     . ("#D97A3E" "color-173" "yellow"))
-    (orange-main    . ("#B84C09" "color-166" "brightyellow"))
-    (orange-bright  . ("#8A3300" "color-88"  "red"))
-    (yellow-dim     . ("#A68435" "color-137" "yellow"))
-    (yellow-main    . ("#735610" "color-94"  "yellow"))
-    (yellow-bright  . ("#523B06" "color-58"  "yellow"))
-    (green-dim      . ("#42A835" "color-71"  "green"))
-    (green-main     . ("#286620" "color-28"  "green"))
-    (green-bright   . ("#154210" "color-22"  "green"))
-    (cyan-dim       . ("#009EE6" "color-38"  "cyan"))
-    (cyan-main      . ("#006B8F" "color-31"  "cyan"))
-    (cyan-bright    . ("#004761" "color-23"  "cyan"))
-    (blue-dim       . ("#3B80F2" "color-69"  "blue"))
-    (blue-main      . ("#1856B8" "color-26"  "blue"))
-    (blue-bright    . ("#0D3A82" "color-18"  "blue"))
-    (magenta-dim    . ("#AD47C7" "color-134" "magenta"))
-    (magenta-main   . ("#8828A1" "color-127" "magenta"))
-    (magenta-bright . ("#5C1770" "color-53"  "magenta"))
-    (violet-dim     . ("#924BB8" "color-133" "magenta"))
-    (violet-main    . ("#6B338A" "color-97"  "magenta"))
-    (violet-bright  . ("#4A1E61" "color-54"  "magenta")))
+  '((fg-dim         . ("#696C77" "color-243" "brightblack"))
+    (fg-main        . ("#383A42" "color-237" "black"))
+    (fg-bright      . ("#000000" "color-16"  "black"))
+    (bg-dim         . ("#E8EAEF" "color-254" "white"))
+    (bg-main        . ("#F4F5F7" "color-255" "brightwhite"))
+    (bg-bright      . ("#E1E4EA" "color-252" "white"))
+    (red-dim        . ("#A02B2B" "color-124" "red"))
+    (red-main       . ("#D03E3E" "color-160" "brightred"))
+    (red-bright     . ("#E84A4A" "color-167" "brightred"))
+    (orange-dim     . ("#8F4512" "color-94"  "yellow"))
+    (orange-main    . ("#B85C19" "color-130" "brightyellow"))
+    (orange-bright  . ("#D97325" "color-166" "brightyellow"))
+    (yellow-dim     . ("#7A5300" "color-94"  "yellow"))
+    (yellow-main    . ("#986800" "color-136" "yellow"))
+    (yellow-bright  . ("#B57D00" "color-142" "brightyellow"))
+    (green-dim      . ("#2E5C16" "color-22"  "green"))
+    (green-main     . ("#40801F" "color-28"  "green"))
+    (green-bright   . ("#52A628" "color-70"  "brightgreen"))
+    (cyan-dim       . ("#1B546A" "color-23"  "cyan"))
+    (cyan-main      . ("#287A99" "color-31"  "cyan"))
+    (cyan-bright    . ("#359BBD" "color-38"  "brightcyan"))
+    (blue-dim       . ("#204A87" "color-18"  "blue"))
+    (blue-main      . ("#2E68B8" "color-25"  "brightblue"))
+    (blue-bright    . ("#3E84E5" "color-33"  "brightblue"))
+    (magenta-dim    . ("#7A287A" "color-89"  "magenta"))
+    (magenta-main   . ("#A838A8" "color-127" "magenta"))
+    (magenta-bright . ("#C44DC4" "color-163" "brightmagenta"))
+    (violet-dim     . ("#632582" "color-54"  "magenta"))
+    (violet-main    . ("#8F38B8" "color-90"  "brightmagenta"))
+    (violet-bright  . ("#A94AD9" "color-134" "brightmagenta")))
   "The color palette used throughout `mango-light-theme'.")
 
 (defsubst mango-light-theme-color (name &optional display)
@@ -84,7 +81,7 @@ automatically mapped to their correct display colors."
      :foreground 'fg-main
      :background 'bg-main))
  `(fringe
-   ((t (:inherit default))))
+   ((t ( :inherit default))))
 
  ;; Modeline
  `(mm-modeline-modified
@@ -94,10 +91,10 @@ automatically mapped to their correct display colors."
  `(mm-modeline-read-only
    ,(mango-light-theme-spec
      :foreground 'yellow-main
-     :weight 'bold))
+     :weight 'semi-bold))
  `(mm-modeline-narrowed
    ,(mango-light-theme-spec
-     :foreground 'blue-main
+     :foreground 'green-main
      :weight 'bold))
  `(mm-modeline-overwrite
    ,(mango-light-theme-spec
@@ -105,8 +102,7 @@ automatically mapped to their correct display colors."
      :weight 'bold))
  `(mm-modeline-region
    ,(mango-light-theme-spec
-     :foreground 'fg-main
-     :background 'bg-dim
+     :background 'bg-bright
      :weight 'bold))
  `(mm-modeline-position
    ,(mango-light-theme-spec
@@ -124,7 +120,7 @@ automatically mapped to their correct display colors."
  ;; Tab Bar
  `(tab-bar
    ,(mango-light-theme-spec
-     :background 'bg-bright
+     :background 'bg-dim
      :foreground 'fg-main))
  `(tab-bar-tab
    ,(mango-light-theme-spec
@@ -142,33 +138,33 @@ automatically mapped to their correct display colors."
  ;; Lines
  `(hl-line
    ,(mango-light-theme-spec
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(region
    ,(mango-light-theme-spec
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(header-line
    ,(mango-light-theme-spec
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(mode-line-active
    ((t ( :box ,(mango-light-theme-color 'fg-main 'gui)
          :inherit header-line))))
  `(mode-line-inactive
    ,(mango-light-theme-spec
-     :background 'bg-bright
-     :box 'bg-dim
+     :background 'bg-dim
+     :box 'bg-bright
      :weight 'light))
  `(icomplete-selected-match
    ,(mango-light-theme-spec
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(window-divider
    ,(mango-light-theme-spec
-     :foreground 'bg-bright))
+     :foreground 'bg-dim))
  `(window-divider-first-pixel
    ,(mango-light-theme-spec
-     :foreground 'bg-bright))
+     :foreground 'bg-dim))
  `(window-divider-last-pixel
    ,(mango-light-theme-spec
-     :foreground 'bg-bright))
+     :foreground 'bg-dim))
 
  ;; Line Numbers
  `(line-number
@@ -195,7 +191,8 @@ automatically mapped to their correct display colors."
    ((t (:inherit font-lock-preprocessor-face))))
  `(font-lock-keyword-face
    ,(mango-light-theme-spec
-     :foreground 'violet-main))
+     :foreground 'violet-main
+     :weight 'bold))
  `(font-lock-type-face
    ,(mango-light-theme-spec
      :foreground 'blue-main))
@@ -206,7 +203,7 @@ automatically mapped to their correct display colors."
      :foreground 'yellow-main))
  `(font-lock-preprocessor-face
    ,(mango-light-theme-spec
-     :foreground 'magenta-bright
+     :foreground 'magenta-main
      :weight 'bold))
 
  ;; Variables
@@ -236,7 +233,7 @@ automatically mapped to their correct display colors."
      :foreground 'green-main))
  `(org-block
    ,(mango-light-theme-spec
-     :background 'bg-bright))
+     :background 'bg-dim))
  `(org-hide
    ,(mango-light-theme-spec
      :foreground 'bg-main))
@@ -252,16 +249,16 @@ automatically mapped to their correct display colors."
    ((t (:inherit hl-line))))
  `(magit-diff-hunk-heading
    ,(mango-light-theme-spec
-     :background 'bg-bright))
+     :background 'bg-dim))
  `(magit-diff-hunk-heading-highlight
    ,(mango-light-theme-spec
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(git-commit-summary
    ,(mango-light-theme-spec
      :foreground 'yellow-main))
  `(git-commit-overlong-summary
    ,(mango-light-theme-spec
-     :foreground 'fg-bright
+     :foreground 'bg-main
      :background 'red-main
      :weight 'bold))
 
@@ -286,15 +283,15 @@ automatically mapped to their correct display colors."
  `(tempel-default
    ,(mango-light-theme-spec
      :slant 'italic
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(tempel-field
    ,(mango-light-theme-spec
      :slant 'italic
-     :background 'bg-dim))
+     :background 'bg-bright))
  `(tempel-form
    ,(mango-light-theme-spec
      :slant 'italic
-     :background 'bg-dim))
+     :background 'bg-bright))
 
  ;; Hl-Todo
  `(mm-theme-hl-todo-fixme
@@ -307,7 +304,7 @@ automatically mapped to their correct display colors."
      :inherit 'hl-todo))
  `(mm-theme-hl-todo-todo
    ,(mango-light-theme-spec
-     :foreground 'violet-main
+     :foreground 'magenta-main
      :inherit 'hl-todo)))
 
 (provide-theme 'mango-light)
