@@ -43,6 +43,12 @@
   (blink-cursor-mode -1))
 
 
+;;; Set Fringes
+
+(use-package fringe
+  :hook after-init)
+
+
 ;;; Fonts
 
 (defvar mm-theme-monospace-font `(,(if mm-humanwave-p
