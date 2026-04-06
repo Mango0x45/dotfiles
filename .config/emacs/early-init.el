@@ -22,8 +22,10 @@
                          mm-data-directory))
   (make-directory directory :parents))
 
-(setopt user-emacs-directory mm-cache-directory
-        auto-save-list-file-prefix (expand-file-name
+;; NOTE: ‘user-emacs-directory’ should end with a directory separator
+(setopt user-emacs-directory (concat mm-cache-directory "/"))
+
+(setopt auto-save-list-file-prefix (expand-file-name
                                     "auto-save-list-"
                                     mm-cache-directory)
         backup-directory-alist `(("." . ,(expand-file-name
