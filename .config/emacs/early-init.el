@@ -89,7 +89,7 @@
 
 ;;; Set Load Paths
 
-(dolist (directory '("." "modules" "site-lisp"))
+(dolist (directory '("." "modules" "user-lisp"))
   (add-to-list 'load-path (expand-file-name directory mm-config-directory)))
 (setopt custom-theme-directory (expand-file-name "themes" mm-config-directory))
 
