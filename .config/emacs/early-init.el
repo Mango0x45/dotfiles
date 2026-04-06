@@ -1,5 +1,8 @@
 ;;; early-init.el --- Emacs early init file  -*- lexical-binding: t; -*-
 
+(when (< emacs-major-version 30)
+  (warn "Emacsen older than Emacs 30 may not be supported"))
+
 ;;; XDG Base Directory Specification Compliance
 
 (eval-when-compile
