@@ -113,14 +113,16 @@ COMMANDS the first command is remapped to the second command."
 (keymap-global-unset "C-x C-l" :remove) ; ‘downcase-region’
 (keymap-global-unset "C-x C-u" :remove) ; ‘upcase-region’
 
-(with-eval-after-load 'diff-mode
-  (keymap-unset diff-mode-map "M-o" :remove)) ; ‘diff-goto-source’
+(use-package diff-mode
+  :after ace-window
+  :config
+  (keymap-unset diff-mode-map "M-o"))   ; ‘diff-goto-source’
 
-;; The following conflicts with ‘ace-window’
 (use-package mhtml-mode
   :after ace-window
   :config
-  (keymap-unset html-mode-map "M-o" :remove))
+  (keymap-unset html-mode-map "M-o"))   ; ‘facemenu-set-*’
+
 
 
 ;;; Bind Commands Globally
