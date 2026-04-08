@@ -88,7 +88,9 @@
   (next-error-recenter '(4))            ; ‘center of window’
   (read-extended-command-predicate #'command-completion-default-include-p)
   (remote-file-name-inhibit-auto-save t)
+  (remote-file-name-inhibit-auto-save-visited t)
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
+  (remote-file-name-inhibit-locks t)
   (save-interprogram-paste-before-kill t)
   (user-full-name "Thomas Voss")
   (user-mail-address "mail@thomasvoss.com")
@@ -193,6 +195,7 @@ the buffer without saving it."
 (require 'mm-search)
 (require 'mm-tetris)
 (require 'mm-theme)
+(require 'mm-tramp)
 (require 'mm-window)
 (when (eq system-type 'darwin)
   (require 'mm-darwin))
