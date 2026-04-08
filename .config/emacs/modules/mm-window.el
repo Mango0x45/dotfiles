@@ -46,6 +46,7 @@
   (scroll-conservatively 101)           ; (info "(Emacs)Auto Scrolling")
   (scroll-error-top-bottom t)
   (scroll-margin 10)
+  (window-resize-pixelwise t)
   :config
   (setq-default truncate-partial-width-windows nil))
 
