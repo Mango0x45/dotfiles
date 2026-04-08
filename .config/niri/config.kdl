@@ -447,7 +447,7 @@ binds {
 	Mod+T { toggle-window-floating; }
 
 	Mod+K { spawn "chkb"; }
-	Mod+V { spawn "vlt"; }
+	Mod+V { spawn "vlt" "get"; }
 
 	Print { screenshot; }
 	Ctrl+Print { screenshot-screen; }
