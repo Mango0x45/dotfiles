@@ -446,6 +446,9 @@ binds {
 	Mod+O { toggle-overview; }
 	Mod+T { toggle-window-floating; }
 
+	Mod+K { spawn "chkb"; }
+	Mod+V { spawn "vlt"; }
+
 	Print { screenshot; }
 	Ctrl+Print { screenshot-screen; }
 	Alt+Print { screenshot-window; }
