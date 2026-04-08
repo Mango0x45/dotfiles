@@ -309,6 +309,11 @@ automatically mapped to their correct display colors."
  `(mm-theme-hl-todo-todo
    ,(mango-light-theme-spec
      :foreground 'magenta-main
-     :inherit 'hl-todo)))
+     :inherit 'hl-todo))
+
+ ;; Multiple Cursors
+ `(mc/cursor-face
+   ,(mango-dark-theme-spec
+     :background 'fg-dim)))
 
 (provide-theme 'mango-light)
