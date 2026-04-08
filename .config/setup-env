@@ -81,5 +81,6 @@ export CLANGD_FLAGS='-header-insertion=never'
 export GPG_TTY="$(tty)"
 export HISTSIZE=100000
 export LESS='-RF'
+export MOZ_ENABLE_WAYLAND=1
 export PRINTER='HP_OfficeJet_8010'
 export VAULT_2FA='2 Factor Authentication'
