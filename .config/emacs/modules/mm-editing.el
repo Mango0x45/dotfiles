@@ -200,8 +200,8 @@ those should be listed in `mm-editing-indentation-settings-alist'."
 
 ;; PKG-INTERN
 (use-package increment
-  :bind (("C-c C-a" . #'increment-number-at-point)
-         ("C-c C-x" . #'decrement-number-at-point))
+  :bind (("C-c a" . #'increment-number-at-point)
+         ("C-c x" . #'decrement-number-at-point))
   :commands (increment-number-at-point decrement-number-at-point))
 
 
