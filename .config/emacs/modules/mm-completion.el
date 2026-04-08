@@ -138,17 +138,9 @@
   :custom
   (consult-async-min-input 1)
   (consult-async-split-style nil)
-  (consult-async-input-debounce .2)
+  (consult-async-input-debounce 0)
   (consult-async-input-throttle 0)
-  (consult-find-args
-   (string-join
-    (mapcar #'shell-quote-argument
-            '("find" "." "-not" "("
-              "-path" "*/.git/*"       "-prune"
-              "-path" "*/vendor"       "-prune"
-              "-path" "*/node_modules" "-prune"
-              ")"))
-    " ")))
+  (consult-find-args "find . -not ( -path */.git/* -prune -path */vendor -prune -path */node_modules -prune )"))
 
 
 ;;; Dynamic Abbreviations
