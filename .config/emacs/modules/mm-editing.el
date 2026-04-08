@@ -169,6 +169,7 @@ those should be listed in `mm-editing-indentation-settings-alist'."
 ;; PKG-INTERN
 (use-package multiple-cursors-extensions
   :after multiple-cursors
+  :demand t
   :bind (("C-M-@" . #'mce-add-cursor-to-next-word)
          ("C-M-o" . #'mce-add-cursor-to-next-symbol)
          :map search-map
