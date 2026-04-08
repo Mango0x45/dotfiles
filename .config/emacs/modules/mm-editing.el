@@ -393,4 +393,11 @@ is as described by `emmet-expand-line'."
   :custom
   (glasses-separate-parentheses-p nil))
 
+
+;;; Doasedit support
+
+;; PKG-INTERN
+(use-package doasedit
+  :hook (after-init . global-doasedit-mode))
+
 (provide 'mm-editing)
