@@ -10,7 +10,7 @@ page="$(apropos . \
 
 if [ -n "$page" -a ! -t 2 ]
 then
-	man -Tpdf "$page" | zathura -
+	man -Tpdf "$page" | zathura-full -
 elif [ -n "$page" -a -t 2 ]
 then
 	man "$page"
