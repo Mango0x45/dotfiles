@@ -1,3 +1,5 @@
+;;; mm-modeline.el --- Modeline configuration  -*- lexical-binding: t; -*-
+
 (defface mm-modeline-modified
   '((t :inherit font-lock-warning-face :weight bold))
   "Face for unsaved changes in the modeline.")
@@ -9,6 +11,10 @@
 (defface mm-modeline-narrowed
   '((t :inherit font-lock-string-face :weight bold))
   "Face for narrowed buffer status.")
+
+(defface mm-modeline-recording-macro
+  '((t :inherit font-lock-warning-face :weight bold))
+  "Face for recording macro status.")
 
 (defface mm-modeline-overwrite
   '((t :inherit font-lock-builtin-face :weight bold))
@@ -30,14 +36,38 @@
   '((t :inherit font-lock-keyword-face :weight bold))
   "Face for the major mode.")
 
-;; Emacs 30: Tell the right-align feature to align to the window edge
-(setq-default mode-line-right-align-edge 'window)
+(defun mm-modeline--selection ()
+  (declare (ftype (function () (cons number number)))
+           (side-effect-free t))
+  (let ((lines (count-lines (region-beginning) (region-end)))
+        (chars (- (region-end) (region-beginning))))
+    (when (bound-and-true-p multiple-cursors-mode)
+      (dolist (cursor (mc/all-fake-cursors))
+        (when-let* ((_ (overlay-get cursor 'mark-active))
+                    (beg (overlay-get cursor 'mark))
+                    (end (overlay-get cursor 'point))
+                    (r-beg (min beg end))
+                    (r-end (max beg end)))
+          (cl-incf lines (count-lines r-beg r-end))
+          (cl-incf chars (- r-end r-beg)))))
+    (cons lines chars)))
 
+(setq-default mode-line-right-align-edge 'right-margin)
 (setq-default mode-line-format
-              '(
-                "%e" ; Prints memory/eval error messages if they occur
+              '("%e" ; Prints memory/eval error messages if they occur
 
-                ;; 3. Read-only & 7. Unsaved changes
+                (:eval
+                 (when (buffer-narrowed-p)
+                   (propertize " NRW" 'face 'mm-modeline-narrowed)))
+
+                (:eval
+                 (when defining-kbd-macro
+                   (propertize " REC" 'face 'mm-modeline-recording-macro)))
+
+                (:eval
+                 (when overwrite-mode
+                   (propertize " OVR" 'face 'mm-modeline-overwrite)))
+
                 (:eval
                  (cond
                   (buffer-read-only
@@ -47,47 +77,24 @@
                   (t
                    (propertize " -- " 'face 'shadow))))
 
-                ;; Buffer Name (Added for basic usability)
-                " "
                 (:propertize "%b" face bold)
+                (:propertize " %m" face mm-modeline-major-mode)
 
-                ;; Version Control (VC) Status
-                (:eval
-                 (when vc-mode
-                   (propertize (substring-no-properties vc-mode) 'face 'mm-modeline-vc)))
-                " "
-
-                ;; 4. Narrowing Status
-                (:eval
-                 (when (buffer-narrowed-p)
-                   (propertize " Narrowed " 'face 'mm-modeline-narrowed)))
-
-                ;; 5. Overwrite Mode Status
-                (:eval
-                 (when overwrite-mode
-                   (propertize " OVR " 'face 'mm-modeline-overwrite)))
-
-                ;; 6. Active Region Line Count
-                (:eval
-                 (when (use-region-p)
-                   (let ((lines (count-lines (region-beginning) (region-end))))
-                     (propertize (if (= lines 1)
-                                     "1 line selected "
-                                   (format "%d lines selected " lines))
-                                 'face 'mm-modeline-region))))
-
-                ;; --- EMACS 30 MAGIC ---
-                ;; Everything after this symbol is pushed to the right margin!
                 mode-line-format-right-align
 
-                ;; 1. Major Mode
-                (:propertize " %m " face mm-modeline-major-mode)
+                (:eval
+                 (when (use-region-p)
+                   (cl-destructuring-bind (lines . chars) (mm-modeline--selection)
+                     (propertize (format "%d:%d " lines chars)
+                                 'face 'mm-modeline-region))))
 
-                ;; Separator
-                " | "
-
-                ;; 2. Cursor Position (Line & Column)
                 (:propertize "%l:%c " face mm-modeline-position)
-                ))
+
+                (:eval
+                 (when vc-mode
+                   (concat
+                    (propertize (string-trim (substring-no-properties vc-mode))
+                                'face 'mm-modeline-vc)
+                    " ")))))
 
 (provide 'mm-modeline)

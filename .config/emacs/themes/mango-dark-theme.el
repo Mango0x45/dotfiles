@@ -100,6 +100,10 @@ automatically mapped to their correct display colors."
    ,(mango-dark-theme-spec
      :foreground 'magenta-main
      :weight 'bold))
+ `(mm-modeline-recording-macro
+   ,(mango-dark-theme-spec
+     :foreground 'red-main
+     :weight 'bold))
  `(mm-modeline-region
    ,(mango-dark-theme-spec
      :background 'bg-bright
