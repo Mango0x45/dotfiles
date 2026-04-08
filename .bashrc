@@ -1,7 +1,13 @@
 # If not running interactively, don’t do anything
 [[ $- != *i* ]] && return
-[ -f /etc/bashrc ] && . /etc/bashrc
-[ -f ~/.config/setup-env ] && . ~/.config/setup-env
+
+for f in /etc/bashrc /etc/bash/bashrc ~/.config/setup-env
+do
+	[ -f $f ] && . $f
+done
+
+shopt -s histappend
+export HISTCONTROL=ignoredups:erasedups
 
 function __dir_search {
 	local qry="$1"
