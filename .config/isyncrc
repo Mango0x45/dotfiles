@@ -1,3 +1,4 @@
+# -*- mode: conf-space; -*-
 Create Both
 Expunge Both
 SyncState *
@@ -64,8 +65,9 @@ Patterns *
 IMAPStore legacy-remote
 Host outlook.office365.com
 User thomasvoss@live.com
-PassCmd "vlt raw Email thomasvoss@live.com"
+PassCmd "~/opt/mutt_oauth2/mutt_oauth2.py ~/.cache/mutt-oauth2-outlook.token"
 Port 993
+AuthMechs XOAUTH2
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
