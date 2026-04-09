@@ -183,6 +183,7 @@ the buffer without saving it."
 ;;; Load Modules
 
 (require 'mm-abbrev)
+(require 'mm-auth)
 (require 'mm-buffer-menu)
 (require 'mm-calc)
 (require 'mm-completion)
