@@ -128,10 +128,10 @@ COMMANDS the first command is remapped to the second command."
 ;;; Bind Commands Globally
 
 (mm-keybindings-keymap-set global-map
-  "<next>"    #'forward-page
-  "<prior>"   #'backward-page
-  "C-<next>"  #'scroll-up
-  "C-<prior>" #'scroll-down
+  "<next>"  #'scroll-up
+  "<prior>" #'scroll-down
+  "C-<next>"  #'forward-page
+  "C-<prior>" #'backward-page
 
   "C-." #'repeat
   "C-^" #'ef-split-line
