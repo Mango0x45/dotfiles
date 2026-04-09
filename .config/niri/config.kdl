@@ -324,9 +324,6 @@ binds {
 	Mod+Space hotkey-overlay-title="App Launcher" {
 		spawn "fuzzel" "-I" "--log-level=warning" "--show-actions"
 	}
-	Mod+Ctrl+Space hotkey-overlay-title="App Launcher (Scratch)" {
-		spawn "fuzzel" "-I" "--log-level=warning" "--launch-prefix=fuzzel-floating"
-	}
 
 	/* Ljudkontroll */
 	XF86AudioRaiseVolume allow-when-locked=true {
