@@ -41,9 +41,9 @@ alias ..='cd ..'
 alias d='git --git-dir="$REPODIR/@me/dotfiles.git" --work-tree="$HOME"'
 alias g=git
 alias grep='grep --color=auto'
-alias la='ls --color=auto -Av    --group-directories-first'
-alias ll='ls --color=auto -AGhlv --group-directories-first --time-style="+%d %b %Y %T"'
-alias ls='ls --color=auto -v     --group-directories-first'
+alias la='ls --color=auto -xvA    -w80 --group-directories-first'
+alias ll='ls --color=auto -xvAGhl -w80 --group-directories-first --time-style="+%d %b %Y"'
+alias ls='ls --color=auto -xv     -w80 --group-directories-first'
 alias sl='sl -ac5'
 alias de=doasedit
 alias se=sudoedit
