@@ -86,4 +86,12 @@
   (tab-bar-new-button-show nil)
   (tab-bar-close-button-show nil))
 
+
+;;; Set Fringes
+
+(use-package fringe
+  :init
+  (add-hook 'after-init-hook (defun mm-window-set-fringes ()
+                               (fringe-mode 16))))
+
 (provide 'mm-window)
