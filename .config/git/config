@@ -74,6 +74,7 @@
 
 [safe]
 	directory = /opt/flutter
+	directory = /mnt/hw/Documents/blixem
 
 [transfer]
 	fsckObjects = true
