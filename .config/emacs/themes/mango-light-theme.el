@@ -313,7 +313,7 @@ automatically mapped to their correct display colors."
 
  ;; Multiple Cursors
  `(mc/cursor-face
-   ,(mango-dark-theme-spec
+   ,(mango-light-theme-spec
      :background 'fg-dim)))
 
 (provide-theme 'mango-light)
