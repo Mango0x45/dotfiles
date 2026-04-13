@@ -391,7 +391,7 @@ is as described by `emmet-expand-line'."
 ;;; Make Camel-Case More Readable
 
 (defvar mm-editing-camel-case-modes
-  '(js-mode js-ts-mode java-mode java-ts-mode))
+  '(java-mode java-ts-mode js-mode js-ts-mode typescript-ts-mode vue-ts-mode))
 
 (use-package glasses-mode
   :init
