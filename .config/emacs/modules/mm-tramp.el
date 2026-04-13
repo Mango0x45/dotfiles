@@ -1,26 +1,39 @@
 ;;; mm-tramp.el --- Tramp configuration  -*- lexical-binding: t; -*-
 
 (use-package tramp
+  :custom
+  (tramp-default-method "ssh")
+  (tramp-use-ssh-controlmaster-options nil)
+  (remote-file-name-inhibit-cache nil))
+
+(use-package vc
+  :after tramp
   :config
-  (connection-local-set-profile-variables
-   'remote-direct-async-process
-   '((tramp-direct-async-process . t)))
+  ;; Disable built-in ‘vc-mode’ for remote files
+  (setq vc-ignore-dir-regexp
+        (format "%s\\|%s" vc-ignore-dir-regexp tramp-file-name-regexp)))
 
-  (connection-local-set-profiles
-   '(:application tramp :protocol "rsync")
-   'remote-direct-async-process)
-  :custom
-  (tramp-verbose 2))
+(defun mm-tramp-magit-tramp-settings ()
+  "Disable performance-heavy magit sections only for remote repositories."
+  (when (file-remote-p default-directory)
+    (remove-hook 'magit-status-sections-hook
+                 'magit-insert-tags-header
+                 :local)
+    (remove-hook 'magit-status-sections-hook
+                 'magit-insert-unpushed-to-pushremote
+                 :local)
+    (remove-hook 'magit-status-sections-hook
+                 'magit-insert-unpulled-from-pushremote
+                 :local)
+    (remove-hook 'magit-status-sections-hook
+                 'magit-insert-unpulled-from-upstream
+                 :local)
+    (remove-hook 'magit-status-sections-hook
+                 'magit-insert-unpushed-to-upstream-or-recent
+                 :local)))
 
-(use-package tramp
-  :after magit
-  :custom
-  (magit-tramp-pipe-stty-settings 'pty))
-
-(use-package tramp-sh
-  :custom
-  (tramp-copy-size-limit (* 1024 1024)) ; 1 MiB
-  (tramp-use-scp-direct-remote-copying t)
-  (tramp-default-method (or (executable-find "rsync") "scp")))
+(use-package magit
+  :after tramp
+  :hook (magit-status-mode . mm-tramp-magit-tramp-settings))
 
 (provide 'mm-tramp)
