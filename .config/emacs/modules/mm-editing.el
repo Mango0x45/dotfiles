@@ -322,7 +322,7 @@ is as described by `emmet-expand-line'."
               number-format-mode))
 
 
-;;; Additional Major Modes
+;;; Major Modes
 
 (use-package awk-ts-mode :ensure t)     ; PKG-EXTERN
 (use-package cmake-mode  :ensure t)     ; PKG-EXTERN
@@ -331,9 +331,18 @@ is as described by `emmet-expand-line'."
 (use-package po-mode     :ensure t)     ; PKG-EXTERN
 (use-package sed-mode    :ensure t)     ; PKG-EXTERN
 
+(defun mm-editing-csv-setup-fstab ()
+  (when (and buffer-file-name
+             (string= (expand-file-name buffer-file-name) "/etc/fstab"))
+    (csv-set-separator ?\s)
+    (csv-align-mode)))
+
 ;; PKG-EXTERN
 (use-package csv-mode
   :ensure t
+  :hook (csv-mode . mm-editing-csv-setup-fstab)
+  :init
+  (add-to-list 'auto-mode-alist '("\\`/etc/fstab\\'" . csv-mode))
   :custom
   (csv-align-style 'auto)
   (csv-align-padding 2))
@@ -356,9 +365,6 @@ is as described by `emmet-expand-line'."
         :rev :newest
         :vc-backend Git)
   :ensure t)
-
-
-;;; Mode-Specific Configurations
 
 (use-package make-mode
   :custom
