@@ -4,7 +4,7 @@ sink="${2:-@DEFAULT_AUDIO_SINK@}"
 
 usage()
 {
-	>&1 printf 'Usage: %s up|down|toggle [sink]\n' "${0##*/}"
+	>&2 printf 'Usage: %s up|down|toggle [sink]\n' "${0##*/}"
 	exit 1
 }
 
