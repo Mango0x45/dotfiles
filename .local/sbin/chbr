@@ -1,0 +1,52 @@
+#!/bin/sh
+
+usage()
+{
+	>&2 printf 'Usage: %s cache|max|min|up|down\n' "${0##*/}"
+	exit 1
+}
+
+get_i2c_device()
+{
+	: ${XDG_CACHE_DIR:=$HOME/.cache}
+	if [ -z "$1" -a -f "$XDG_CACHE_DIR/chbrdev" ]
+	then
+		cat "$XDG_CACHE_DIR/chbrdev"
+	else
+		ddcutil detect -t | grab '
+			x#I2C bus: */dev/i2c-\d+#
+			X/.*-/
+		' | tee "$XDG_CACHE_DIR/chbrdev"
+	fi
+}
+
+act()
+{
+	ddcutil -b "$(get_i2c_device)" setvcp 10 $@ >/dev/null
+}
+
+[ $# -gt 2 ] && usage
+
+case "$1" in
+cache)
+	get_i2c_device 1
+	;;
+up)
+	act + 10
+	;;
+down)
+	act - 10
+	;;
+max)
+	act 100
+	;;
+min)
+	act 0
+	;;
+'')
+	usage
+	;;
+*)
+	>&2 printf '%s: invalid subcommand — ‘%s’\n' "${0##*/}" "$1"
+	usage
+esac
