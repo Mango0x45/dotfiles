@@ -2,6 +2,7 @@ spawn-at-startup "dbus-update-activation-environment --all"
 spawn-at-startup "gentoo-pipewire-launcher"
 spawn-at-startup "qs" "-c" "noctalia-shell"
 spawn-at-startup "foot" "--server"
+spawn-at-startup "chbr" "cache"
 
 // https://yalter.github.io/niri/Configuration:-Input
 input {
@@ -343,10 +344,16 @@ binds {
 	}
 
 	XF86MonBrightnessUp allow-when-locked=true {
-		spawn "brightnessctl" "--class=backlight" "set" "+10%"
+		spawn "chbr" "up"
 	}
 	XF86MonBrightnessDown allow-when-locked=true {
-		spawn "brightnessctl" "--class=backlight" "set" "10%-"
+		spawn "chbr" "down"
+	}
+	Shift+XF86MonBrightnessUp allow-when-locked=true {
+		spawn "chbr" "max"
+	}
+	Shift+XF86MonBrightnessDown allow-when-locked=true {
+		spawn "chbr" "min"
 	}
 
 	Mod+Q repeat=false { close-window; }
