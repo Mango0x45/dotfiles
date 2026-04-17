@@ -8,6 +8,7 @@ x-scheme-handler/mailto=userapp-Thunderbird-FX0HU2.desktop
 x-scheme-handler/unknown=firefox.desktop
 message/rfc822=userapp-Thunderbird-FX0HU2.desktop
 x-scheme-handler/mid=userapp-Thunderbird-FX0HU2.desktop
+x-scheme-handler/slack=slack.desktop
 
 [Added Associations]
 x-scheme-handler/mailto=userapp-Thunderbird-FX0HU2.desktop;
