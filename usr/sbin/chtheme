@@ -1,12 +1,17 @@
 #!/bin/sh
 
-if [ "$1" = true ]
-then
+case "$1" in
+true)
 	theme=prefer-dark
 	killall -USR1 foot
-else
+	;;
+false)
 	theme=prefer-light
 	killall -USR2 foot
-fi
+	;;
+*)
+	>&2 printf 'Usage: %s true|false\n' "${0##*/}"
+	exit 1
+esac
 
 gsettings set org.gnome.desktop.interface color-scheme $theme
