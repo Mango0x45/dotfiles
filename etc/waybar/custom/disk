@@ -1,0 +1,3 @@
+#!/bin/sh
+
+df -BG | awk '$6 == "/" { print $3 }'

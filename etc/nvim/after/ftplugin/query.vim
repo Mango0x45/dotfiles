@@ -1,0 +1,1 @@
+setlocal autoindent expandtab lisp

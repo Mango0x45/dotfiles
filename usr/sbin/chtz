@@ -1,0 +1,8 @@
+#!/usr/local/bin/andy
+
+set -e NOTIFY_LONG  timezone
+set -e NOTIFY_SHORT `basename $args[0]
+
+set choice `timedatectl list-timezones | grep ./. | osel
+sudo timedatectl set-timezone $choice
+&& notify 'Timezone Changed' "The system timezone was changed to ‘$choice’"

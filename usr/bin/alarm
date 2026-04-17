@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+export NOTIFY_LONG=alarm
+export NOTIFY_SHORT="${0##*/}"
+
+readonly PIPE="${XDG_CONFIG_HOME:-$HOME/.config}/eww/data/timer.pipe"
+exec >"$PIPE"
+
+if [ $# -gt 1 ]
+then
+	>&2 printf 'Usage: %s [duration]\n' "${0##*/}"
+	exit 1
+fi
+
+stdbuf -oL -- patience -f '%m:%02S' "${1:-m=1}"
+echo ''
+exec >&-
+
+notify 'Timer Complete' 'The global timer has reached its end'
+aplay -q ~/media/sfx/alarm.wav

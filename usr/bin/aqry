@@ -1,0 +1,13 @@
+#!/usr/local/bin/andy
+
+set ADDR_FILE $(XDG_CONFIG_HOME:$HOME/.config)/aerc/addresses
+
+awk -v qry=$args[1] '
+	BEGIN {
+		FS = "\t"
+	}
+
+	$1 ~ qry {
+		printf "%s\t%s\n", $2, $1
+	}
+' $ADDR_FILE

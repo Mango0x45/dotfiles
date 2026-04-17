@@ -1,2 +1,2 @@
-[ -f ~/.config/setup-env ] && source ~/.config/setup-env
+[ -f ~/etc/setup-env ] && source ~/etc/setup-env
 [ -f ~/.bashrc ] && source ~/.bashrc

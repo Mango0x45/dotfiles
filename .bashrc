@@ -1,10 +1,11 @@
 # If not running interactively, don’t do anything
 [[ $- != *i* ]] && return
 
-for f in /etc/bashrc /etc/bash/bashrc ~/.config/setup-env
-do
-	[ -f $f ] && . $f
-done
+[ -f ~/etc/setup-env ] && . ~/etc/setup-env
+# for f in /etc/bashrc /etc/bash/bashrc ~/etc/setup-env
+# do
+# 	[ -f $f ] && . $f
+# done
 
 shopt -s histappend
 export HISTCONTROL=ignoredups:erasedups

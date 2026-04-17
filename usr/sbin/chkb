@@ -1,0 +1,14 @@
+#!/bin/sh
+
+export NOTIFY_LONG=keyboard
+export NOTIFY_SHORT="$(basename "$0")"
+
+readonly LAYOUTS="$(niri msg -j keyboard-layouts)"
+sel="$(echo "$LAYOUTS" | jq -r '.names.[]' | osel -i)"
+if [ -n "$sel" ]
+then
+	niri msg action switch-layout "$sel"
+	choice="$(echo "$LAYOUTS" | jq -r ".names.[$sel]")"
+	notify 'Keyboard Layout Changed' \
+		"The keyboard layout was changed to ‘$choice’"
+fi

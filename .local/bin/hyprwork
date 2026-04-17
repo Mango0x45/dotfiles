@@ -1,6 +1,0 @@
-#!/bin/sh
-
-chronic hyprctl dispatch workspace "$(
-	hyprctl -j activeworkspace \
-	| jq --arg n "$1" '.monitorID * 10 + ($n | tonumber)'
-)"

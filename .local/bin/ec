@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if test -t 2
-then
-	FLAGS=-t
-else
-	FLAGS=-cnqu
-fi
-exec emacsclient -s ec $FLAGS

@@ -1,0 +1,25 @@
+#!/usr/local/bin/andy
+
+func older_than_today file {
+	if test ! -f $file {
+		set mod 0000-00-00
+	} else {
+		set mod `stat -c %y $file | xargs -I{} -- date -d{} +%F
+	}
+	test $mod != `date +%F
+}
+
+set -e WGETRC $(XDG_CONFIG_HOME:$HOME/.config)/wgetrc
+
+set QUOTES $(XDG_DATA_HOME:$HOME/.local/share)/romir/quotes.yml
+set QOTD $(XDG_CACHE_HOME:$HOME/.cache)/qotd
+
+if older_than_today $QUOTES {
+	mkdir -p `dirname $QUOTES
+	chronic wget 'https://romir.eu/mangoes.yaml' -O $QUOTES
+}
+
+older_than_today $QOTD
+&& yq -0 '.mangoes.[].quote.content' <$QUOTES
+| shuf -zn1
+| tr '\0' '\n' >!$QOTD

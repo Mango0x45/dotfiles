@@ -1,0 +1,11 @@
+#!/bin/sh
+
+hyprctl devices | sed -En '
+/^\tKeyboard at/ {
+	:loop
+	n
+	/^\t\t\trules: /! b loop
+	s/.* l "([^"]+)", v "([^"]+)".*/\1(\2)/p
+	q
+}
+'

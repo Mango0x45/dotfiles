@@ -1,0 +1,26 @@
+#!/usr/local/bin/andy
+
+for sig in hup int quit abrt kill alrm term {
+	func sig$sig {
+		notify (
+			'Timer Interrupted'
+			'The timer was unexpectedly interrupted'
+			-u critical
+		)
+		exit 1
+	}
+}
+
+set -e NOTIFY_LONG  timer
+set -e NOTIFY_SHORT `basename $args[0]
+
+if test $#args -lt 2 {
+	echo 'Usage: timer duration [message]' >/dev/stderr
+	exit 1
+}
+
+if sleep $args[1] {
+	notify 'Timer Finished' $args[2]
+} else {
+	sigint
+}

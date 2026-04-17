@@ -1,0 +1,40 @@
+#!/usr/local/bin/andy
+
+set -e NOTIFY_LONG  unicode
+set -e NOTIFY_SHORT `basename $args[0]
+
+func setup {
+	curl 'https://www.unicode.org/Public/UNIDATA/UnicodeData.txt'
+	| awk '
+	BEGIN             { FS = ";" }
+	$2 == "<control>" { $2 = $11 }
+	$2 !~ /(First|Last)>$/ {
+		while (match($2, /[A-Z]{2,}([^)]|$)/)) {
+			car = substr($2, RSTART, 1)
+			cdr = substr($2, RSTART + 1, RLENGTH - 1)
+			sub(/[A-Z]{2,}([^)]|$)/, car tolower(cdr), $2)
+		}
+		long = substr("00000000", 1, 8 - length($1)) $1
+		printf "\\U%s;U+%s %s\n", long, $1, $2
+	}
+	' >$DATA
+}
+
+set DATA $(XDG_DATA_HOME:$HOME/.local/share)/unicode-data
+test -f $DATA || setup
+
+func read_runes {
+	cut -d';' -f1 $DATA | read -gd\n runes
+}
+
+async read_runes
+set i `cut -d';' -f2 $DATA | osel -i
+wait
+set rune `printf $runes[$i]
+
+if test -t 2 {
+	wl-copy -n $rune
+	| notify 'Rune Copied' "The rune ‘$rune’ was copied to the clipboard"
+} else {
+	wtype -- $rune
+}

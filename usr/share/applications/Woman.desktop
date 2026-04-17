@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Woman
+Comment=Search manual pages and view them as PDFs
+Categories=System;Utility
+Exec=woman
+GenericName=Manual Page Viewer
+Terminal=false
+Icon=help-browser

@@ -1,0 +1,211 @@
+__setup_env
+exec-once = lux -S 75
+# exec-once = ewd && ewctl $XDG_PICTURES_DIR/bg.jxl
+exec-once = wbg $XDG_PICTURES_DIR/bg.png
+exec-once = eww daemon && eww open bar-1
+exec-once = dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
+exec-once = mako
+
+monitor = , highres, auto, 1
+
+layerrule = no_anim on, match:namespace overlay
+
+ecosystem {
+	no_update_news = yes
+}
+
+# Remember to copy settings to sddm.hyprland.conf
+input {
+	accel_profile  = "adaptive"
+	follow_mouse   = 1
+	kb_layout      = mango, mango, mango, us
+	kb_variant     = swedish, basic, german, basic
+	kb_options     = lv3:switch,compose:ralt
+	repeat_delay   = 360 # 180
+	repeat_rate    = 35
+	sensitivity    = 0.8
+	natural_scroll = yes
+
+	touchpad {
+		disable_while_typing = yes
+		natural_scroll       = yes
+	}
+}
+
+general {
+	border_size         = 2
+	col.active_border   = rgb(FAA14F)
+	col.inactive_border = rgb(64727D)
+	gaps_in             = 5
+	gaps_out            = 10
+}
+
+cursor {
+	inactive_timeout = 3
+}
+
+decoration {
+	blur {
+		enabled = yes
+		size    = 1
+	}
+
+	dim_inactive = yes
+	dim_strength = 0.1
+	rounding     = 0
+
+	shadow {
+		offset       = 4 6
+		range        = 20
+		render_power = 4
+	}
+}
+
+animations {
+	enabled   = yes
+	animation = windows,    1, 3, default, slide
+	animation = border,     1, 2, default
+	animation = fade,       1, 1, default
+	animation = workspaces, 1, 3, default, slide
+}
+
+gestures {
+	gesture = 4, horizontal, workspace
+	workspace_swipe_distance           = 400
+	workspace_swipe_min_speed_to_force = 10
+}
+
+misc {
+	disable_hyprland_logo = true
+	disable_splash_rendering = true
+	enable_swallow = false
+	swallow_regex = ^(foot)$
+	vfr = true
+}
+
+$modkey = SUPER
+
+# WM behavior
+bind = $modkey, F, fullscreen, 0
+bind = $modkey, Q, killactive
+bind = $modkey SHIFT, F, togglefloating
+
+# Global programs
+__bind(C, qalculate-gtk)
+__bind(E, emacsclient -ca emacs)
+__bind(M, foot aerc)
+__bind(W, firefox)
+__bind(Z, woomer)
+__bind(return, foot)
+__bind(space, fuzzel -I --log-level=warning --show-actions)
+__bind(     , print, scst)
+__bind(SHIFT, print, scst -f)
+
+# Prompt-/Dmenu-style programs
+__submap(prompt, P, [
+	__subbind(K, chkb)
+	__subbind(M, woman)
+	__subbind(P, vlt get)
+	__subbind(T, chtz)
+	__subbind(U, uni)
+	__subbind(W, nmgui)
+])
+
+# Change focused window
+bind = $modkey, H,     movefocus, l
+bind = $modkey, J,     movefocus, d
+bind = $modkey, K,     movefocus, u
+bind = $modkey, L,     movefocus, r
+bind = $modkey, left,  movefocus, l
+bind = $modkey, down,  movefocus, d
+bind = $modkey, up,    movefocus, u
+bind = $modkey, right, movefocus, r
+
+# Switch workspaces with modkey + [0-9]
+bind = $modkey, 1, workspace,  1
+bind = $modkey, 2, workspace,  2
+bind = $modkey, 3, workspace,  3
+bind = $modkey, 4, workspace,  4
+bind = $modkey, 5, workspace,  5
+bind = $modkey, 6, workspace,  6
+bind = $modkey, 7, workspace,  7
+bind = $modkey, 8, workspace,  8
+bind = $modkey, 9, workspace,  9
+bind = $modkey, 0, workspace, 10
+bind = $modkey SHIFT, 1, workspace,  1
+bind = $modkey SHIFT, 2, workspace,  2
+bind = $modkey SHIFT, 3, workspace,  3
+bind = $modkey SHIFT, 4, workspace,  4
+bind = $modkey SHIFT, 5, workspace,  5
+bind = $modkey SHIFT, 6, workspace,  6
+bind = $modkey SHIFT, 7, workspace,  7
+bind = $modkey SHIFT, 8, workspace,  8
+bind = $modkey SHIFT, 9, workspace,  9
+bind = $modkey SHIFT, 0, workspace, 10
+
+# Move active window to a workspace with modkey + SHIFT + [0-9]
+bind = $modkey CONTROL, 1, movetoworkspace,  1
+bind = $modkey CONTROL, 2, movetoworkspace,  2
+bind = $modkey CONTROL, 3, movetoworkspace,  3
+bind = $modkey CONTROL, 4, movetoworkspace,  4
+bind = $modkey CONTROL, 5, movetoworkspace,  5
+bind = $modkey CONTROL, 6, movetoworkspace,  6
+bind = $modkey CONTROL, 7, movetoworkspace,  7
+bind = $modkey CONTROL, 8, movetoworkspace,  8
+bind = $modkey CONTROL, 9, movetoworkspace,  9
+bind = $modkey CONTROL, 0, movetoworkspace, 10
+bind = $modkey CONTROL SHIFT, 1, movetoworkspace,  1
+bind = $modkey CONTROL SHIFT, 2, movetoworkspace,  2
+bind = $modkey CONTROL SHIFT, 3, movetoworkspace,  3
+bind = $modkey CONTROL SHIFT, 4, movetoworkspace,  4
+bind = $modkey CONTROL SHIFT, 5, movetoworkspace,  5
+bind = $modkey CONTROL SHIFT, 6, movetoworkspace,  6
+bind = $modkey CONTROL SHIFT, 7, movetoworkspace,  7
+bind = $modkey CONTROL SHIFT, 8, movetoworkspace,  8
+bind = $modkey CONTROL SHIFT, 9, movetoworkspace,  9
+bind = $modkey CONTROL SHIFT, 0, movetoworkspace, 10
+
+# Media keys
+__binde(, xf86audiomute,        amixer -q sset Master toggle)
+__binde(, xf86audiolowervolume, amixer -q sset Master 5%-)
+__binde(, xf86audioraisevolume, amixer -q sset Master 5%+)
+
+__binde(,     xf86monbrightnessup,   lux -I 5)
+__bind(SHIFT, xf86monbrightnessup,   lux -S 50)
+__binde(,     xf86monbrightnessdown, lux -D 5)
+__bind(SHIFT, xf86monbrightnessdown, lux -s 0)
+
+__binde(, xf86audioplay, playerctl play-pause)
+__binde(, xf86audionext, playerctl next)
+__binde(, xf86audioprev, playerctl previous)
+
+# Settings key on Framework laptop
+__binde(, xf86audiomedia,
+          foot sh -c 'cd ~/.config/hypr && nvim hyprland.conf.in')
+
+# Scroll through existing workspaces with modkey + scroll
+bind = $modkey, mouse_down, workspace, e+1
+bind = $modkey, mouse_up,   workspace, e-1
+
+# Move/resize windows with modkey + LMB/RMB and dragging
+bindm = $modkey, mouse:272, movewindow
+bindm = $modkey, mouse:273, resizewindow
+
+# Open manpages in floating windows
+windowrule {
+	name = centered-pdfs
+	match:class = ^(org\.pwmt\.zathura)$
+
+	float  = yes
+	center = yes
+	size = window_w window_h
+}
+
+windowrule {
+	name = centered-calculator
+	match:class = qalculate-gtk
+
+	float  = yes
+	center = yes
+	size   = 50% 50%
+}
