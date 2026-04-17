@@ -1,19 +1,26 @@
-#!/usr/local/bin/andy
+#!/bin/sh
 
-func upload file {
-	test $file != '-' || set file /dev/stdin
-	curl (
-		--retry-all-errors
-		-X POST
-		-H "Authorization: $TOKEN"
-		-F "data=@$file"
-		https://paste.thomasvoss.com
-	)
+upload()
+{
+	link="$(curl -sS --retry 5 --retry-all-errors -X POST \
+		-H "Authorization: $TOKEN" -F "data=@$1" https://paste.thomasvoss.com)"
+	if [ -z "$2" ]
+	then
+		printf '%s\n' "$link"
+	else
+		printf '%s: %s\n' "$1" "$link"
+	fi
 }
 
-set TOKEN `vlt raw Miscellaneous 'Mpaste (Key)'
-test $#args -ge 2 || set args $args -
-for $args[1..] {
-	async upload $_
-}
-wait
+readonly TOKEN="$(vlt raw Miscellaneous 'Mpaste (Key)')"
+
+if [ $# -le 1 ]
+then
+	upload "${1:-/dev/stdin}"
+else
+	for arg in "$@"
+	do
+		upload "$arg" echo &
+	done
+	wait
+fi
