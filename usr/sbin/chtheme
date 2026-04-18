@@ -1,17 +1,15 @@
 #!/bin/sh
 
 case "$1" in
-true)
-	theme=prefer-dark
+dark)
 	killall -USR1 foot
 	;;
-false)
-	theme=prefer-light
+light)
 	killall -USR2 foot
 	;;
 *)
-	>&2 printf 'Usage: %s true|false\n' "${0##*/}"
+	>&2 printf 'Usage: %s light|dark\n' "${0##*/}"
 	exit 1
 esac
 
-gsettings set org.gnome.desktop.interface color-scheme $theme
+gsettings set org.gnome.desktop.interface color-scheme prefer-$theme
