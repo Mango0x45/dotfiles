@@ -1,6 +1,7 @@
 spawn-at-startup "dbus-update-activation-environment --all"
 spawn-at-startup "gentoo-pipewire-launcher"
 spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "emacs" "--daemon"
 spawn-at-startup "foot" "--server"
 spawn-at-startup "chbr" "cache"
 
