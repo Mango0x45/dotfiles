@@ -2,6 +2,10 @@
 
 (use-package tramp
   :custom
+  (tramp-auto-save-directory
+   (expand-file-name "tramp/auto-save/" mm-cache-directory))
+  (tramp-persistency-file-name
+   (expand-file-name "tramp/persistency.el" mm-cache-directory))
   (tramp-default-method "ssh")
   (tramp-use-ssh-controlmaster-options nil)
   (remote-file-name-inhibit-cache nil))

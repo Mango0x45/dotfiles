@@ -18,7 +18,9 @@
             (prin1 directories (current-buffer))
             (write-file project-list-file))
           (project--read-project-list))
-      (warn "The REPODIR environment variable is not set."))))
+      (warn "The REPODIR environment variable is not set.")))
+  :custom
+  (project-list-file (expand-file-name "projects" mm-data-directory)))
 
 
 ;;; Version Control Support

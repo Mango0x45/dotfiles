@@ -2,6 +2,20 @@
 
 (require 'treesit)
 
+;;; Use XDG Directories
+
+(defconst mm-treesit-directory
+  (expand-file-name "tree-sitter/" mm-data-directory))
+(add-to-list 'treesit-extra-load-path mm-treesit-directory)
+
+(defun mm-treesit--install-into-xdg-directory (func lang &optional directory)
+  (make-directory mm-treesit-directory :parents)
+  (funcall func lang (or directory mm-treesit-directory)))
+
+(advice-add 'treesit-install-language-grammar
+            :around #'mm-treesit--install-into-xdg-directory)
+
+
 ;;; Tree-Sitter Variables
 
 (defvar mm-treesit-language-remap-alist

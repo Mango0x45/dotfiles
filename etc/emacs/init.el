@@ -24,6 +24,11 @@
 
 ;;; Package Management
 
+(use-package url
+  :custom
+  (url-configuration-directory (expand-file-name "url/" mm-cache-directory))
+  (url-cache-directory (expand-file-name "url/cache/" mm-cache-directory)))
+
 (setopt
  package-user-dir (expand-file-name "pkg" mm-data-directory)
  package-gnupghome-dir (or (getenv "GNUPGHOME")
@@ -125,6 +130,7 @@
 
 (use-package bookmark
   :custom
+  (bookmark-default-file (expand-file-name "bookmarks" mm-data-directory))
   (bookmark-save-flag 0))
 
 

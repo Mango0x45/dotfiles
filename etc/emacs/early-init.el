@@ -20,17 +20,22 @@
   (expand-file-name "emacs/" (xdg-data-home))
   "The XDG-conformant data directory that Emacs should use.")
 
+(defconst mm-state-directory
+  (expand-file-name "emacs/" (xdg-state-home))
+  "The XDG-conformant state directory that Emacs should use.")
+
 (dolist (directory (list mm-cache-directory
                          mm-config-directory
-                         mm-data-directory))
+                         mm-data-directory
+                         mm-state-directory))
   (make-directory directory :parents))
 
-(setopt user-emacs-directory (concat mm-cache-directory "/")
-        auto-save-list-file-prefix (expand-file-name
-                                    "auto-save-list-"
-                                    mm-cache-directory)
-        backup-directory-alist `(("." . ,(expand-file-name
-                                          "backups" mm-cache-directory))))
+(setopt auto-save-file-name-transforms
+        `((".*" ,(expand-file-name "auto-save/" mm-state-directory) t))
+        auto-save-list-file-prefix
+        (expand-file-name "auto-save-list/.saves-" mm-state-directory)
+        backup-directory-alist
+        `(("." . ,(expand-file-name "backups/" mm-state-directory))))
 
 (when (native-comp-available-p)
   (startup-redirect-eln-cache
@@ -92,7 +97,7 @@
 
 ;;; Set Load Paths
 
-(dolist (directory '("." "modules" "user-lisp"))
+(dolist (directory '("modules" "user-lisp"))
   (add-to-list 'load-path (expand-file-name directory mm-config-directory)))
 (setopt custom-theme-directory (expand-file-name "themes" mm-config-directory))
 

@@ -194,7 +194,9 @@ those should be listed in `mm-editing-indentation-settings-alist'."
               mm-add-cursor-to-next-thing mm-transpose-cursor-regions)
   :init
   (with-eval-after-load 'multiple-cursors-core
-    (keymap-unset mc/keymap "<return>" :remove)))
+    (keymap-unset mc/keymap "<return>" :remove))
+  :custom
+  (mc/list-file (expand-file-name "mc-lists.el" mm-config-directory)))
 
 
 ;;; Increment Numbers

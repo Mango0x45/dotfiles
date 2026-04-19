@@ -113,11 +113,12 @@
 
 (use-package savehist-mode
   :hook (after-init . savehist-mode)
+  :config
+  (add-to-list 'savehist-additional-variables 'kill-ring)
   :custom
   (history-length 200)
   (history-delete-duplicates t)
-  :config
-  (add-to-list 'savehist-additional-variables 'kill-ring))
+  (savehist-file (expand-file-name "savehist" mm-state-directory)))
 
 
 ;;; Enhanced Replacements for Builtins
