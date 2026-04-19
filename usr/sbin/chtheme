@@ -1,15 +1,25 @@
 #!/bin/sh
 
-case "$1" in
-dark)
-	killall -USR1 foot
-	;;
-light)
-	killall -USR2 foot
-	;;
-*)
-	>&2 printf 'Usage: %s light|dark\n' "${0##*/}"
-	exit 1
-esac
+docmd()
+{
+	case "$1" in
+	dark)
+		killall -USR1 foot
+		gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+		;;
+	light)
+		killall -USR2 foot
+		gsettings set org.gnome.desktop.interface color-scheme prefer-light
+		;;
+	sync)
+		x="$(gsettings get org.gnome.desktop.interface color-scheme)"
+		x="${x#\'prefer-}"
+		docmd "${x%\'}"
+		;;
+	*)
+		>&2 printf 'Usage: %s light|dark|sync\n' "${0##*/}"
+		exit 1
+	esac
+}
 
-gsettings set org.gnome.desktop.interface color-scheme prefer-$theme
+docmd "$1"
