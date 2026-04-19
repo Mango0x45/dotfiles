@@ -12,7 +12,8 @@ export LC_NUMERIC="nl_NL.UTF-8"
 case "$(hostname)" in
 mangobox)
 	export BROWSER="firefox-bin"
-	export MANPAGER="manpager" ;;
+	export MANPAGER="manpager"
+	export TERM="foot-direct" ;;
 mango-os)
 	export MANPAGER="nvimpager" ;;
 esac
