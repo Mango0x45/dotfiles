@@ -1,0 +1,62 @@
+set backupdir=~/var/lib/vim/backup//
+set directory=~/var/lib/vim/swap//
+set undodir=~/var/lib/vim/undo//
+
+set nocompatible
+filetype plugin indent on
+syntax on
+
+set encoding=utf-8
+set updatetime=300
+set clipboard=unnamedplus
+set mouse=a
+set backspace=indent,eol,start
+
+set number
+set relativenumber
+set cursorline
+set showmatch
+set termguicolors
+set laststatus=2
+set signcolumn=yes
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set noexpandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set smartindent
+
+if exists('&t_SI')
+	let &t_SI = "\<Esc>[6 q"
+	let &t_SR = "\<Esc>[4 q"
+	let &t_EI = "\<Esc>[2 q"
+endif
+
+function! SetThemeFromSystem()
+	let l:darkp = 0
+
+	if has('mac') || has('macunix')
+		let l:theme = system('defaults read -g AppleInterfaceStyle 2>/dev/null')
+		if l:theme =~? 'Dark'
+			let l:darkp = 1
+		endif
+	elseif has('unix')
+		let l:theme = system('gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null')
+		if l:theme =~? 'prefer-dark'
+			let l:darkp = 1
+		endif
+	endif
+
+	if l:darkp
+		colorscheme mango-dark
+	else
+		colorscheme mango-light
+	endif
+endfunction
+
+call SetThemeFromSystem()
