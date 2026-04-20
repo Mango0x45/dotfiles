@@ -223,6 +223,9 @@ automatically mapped to their correct display colors."
  `(font-lock-number-face
    ,(mango-dark-theme-spec
      :foreground 'orange-main))
+ `(font-lock-string-face
+   ,(mango-dark-theme-spec
+     :foreground 'orange-main))
 
  ;; Org Mode
  `(org-quote
