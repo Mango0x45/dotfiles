@@ -3,18 +3,18 @@ Create Both
 Expunge Both
 SyncState *
 
-# mail@thomasvoss.com
+# mail@tvoss.eu
 
 IMAPStore default-remote
 Host imap.migadu.com
-User mail@thomasvoss.com
-PassCmd "vlt raw Email mail@thomasvoss.com"
+User mail@tvoss.eu
+PassCmd "vlt raw Email mail@tvoss.eu"
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 MaildirStore default-local
-Path ~/mail/mail@thomasvoss.com/
-Inbox ~/mail/mail@thomasvoss.com/Inbox
+Path ~/mail/mail@tvoss.eu/
+Inbox ~/mail/mail@tvoss.eu/Inbox
 SubFolders Verbatim
 
 Channel default
@@ -22,42 +22,23 @@ Far :default-remote:
 Near :default-local:
 Patterns *
 
-# mail@euro-cash.eu
+# mail@tvoss.eu
 
-IMAPStore eurocash-admin-remote
+IMAPStore srv-security-remote
 Host imap.migadu.com
-User mail@euro-cash.eu
-PassCmd "vlt raw Email mail@euro-cash.eu"
+User security@tvoss.eu
+PassCmd "vlt raw Email security@tvoss.eu"
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-MaildirStore eurocash-admin-local
-Path ~/mail/mail@euro-cash.eu/
-Inbox ~/mail/mail@euro-cash.eu/Inbox
+MaildirStore srv-security-local
+Path ~/mail/security@tvoss.eu/
+Inbox ~/mail/security@tvoss.eu/Inbox
 SubFolders Verbatim
 
-Channel eurocash-admin
-Far :eurocash-admin-remote:
-Near :eurocash-admin-local:
-Patterns *
-
-# bugs@euro-cash.eu
-
-IMAPStore eurocash-bugs-remote
-Host imap.migadu.com
-User bugs@euro-cash.eu
-PassCmd "vlt raw Email bugs@euro-cash.eu"
-TLSType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
-
-MaildirStore eurocash-bugs-local
-Path ~/mail/bugs@euro-cash.eu/
-Inbox ~/mail/bugs@euro-cash.eu/Inbox
-SubFolders Verbatim
-
-Channel eurocash-bugs
-Far :eurocash-bugs-remote:
-Near :eurocash-bugs-local:
+Channel srv-security
+Far :srv-security-remote:
+Near :srv-security-local:
 Patterns *
 
 # thomasvoss@live.com
@@ -65,7 +46,7 @@ Patterns *
 IMAPStore legacy-remote
 Host outlook.office365.com
 User thomasvoss@live.com
-PassCmd "~/opt/mutt_oauth2/mutt_oauth2.py ~/.cache/mutt-oauth2-outlook.token"
+PassCmd "~/opt/mutt_oauth2/mutt_oauth2.py ~/var/cache/mutt-oauth2-outlook.token"
 Port 993
 AuthMechs XOAUTH2
 TLSType IMAPS

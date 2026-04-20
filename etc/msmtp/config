@@ -7,23 +7,16 @@ tls_trust_file /etc/ssl/certs/ca-certificates.crt
 account default
 host smtp.migadu.com
 port 465
-from mail@thomasvoss.com
-user mail@thomasvoss.com
-passwordeval vlt raw Email mail@thomasvoss.com
+from mail@tvoss.eu
+user mail@tvoss.eu
+passwordeval vlt raw Email mail@tvoss.eu
 
-account eurocash-admin
+account default
 host smtp.migadu.com
 port 465
-from mail@euro-cash.eu
-user mail@euro-cash.eu
-passwordeval vlt raw Email mail@euro-cash.eu
-
-account eurocash-bugs
-host smtp.migadu.com
-port 465
-from bugs@euro-cash.eu
-user bugs@euro-cash.eu
-passwordeval vlt raw Email bugs@euro-cash.eu
+from security@tvoss.eu
+user security@tvoss.eu
+passwordeval vlt raw Email security@tvoss.eu
 
 account legacy
 host smtp.office365.com
