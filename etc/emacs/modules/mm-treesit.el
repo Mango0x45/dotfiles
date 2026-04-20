@@ -72,6 +72,8 @@
            "https://github.com/tree-sitter/tree-sitter-javascript")
           (json
            "https://github.com/tree-sitter/tree-sitter-json")
+          (kdl
+           "https://github.com/tree-sitter-grammars/tree-sitter-kdl")
           (markdown
            "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
            "split_parser" "tree-sitter-markdown/src")
