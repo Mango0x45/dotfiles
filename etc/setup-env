@@ -10,7 +10,7 @@ export MANSECT="3,2,1,8,5,7,4,6,3p,1p,0p"
 export MANPAGER="less"
 export LC_NUMERIC="nl_NL.UTF-8"
 case "$(hostname)" in
-mangobox)
+desktop.tvoss.eu)
 	export BROWSER="firefox-bin"
 	export MANPAGER="manpager"
 	export TERM="foot-direct" ;;
