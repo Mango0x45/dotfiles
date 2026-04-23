@@ -1,6 +1,7 @@
 set backupdir=~/var/lib/vim/backup//
 set directory=~/var/lib/vim/swap//
 set undodir=~/var/lib/vim/undo//
+set viminfofile=~/var/lib/vim/viminfo
 
 set nocompatible
 filetype plugin indent on
