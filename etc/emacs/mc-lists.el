@@ -58,6 +58,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        display-line-numbers-mode
         e/align-regexp
         e/sort-dwim
         ef-sort-dwim
