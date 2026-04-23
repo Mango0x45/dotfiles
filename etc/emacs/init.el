@@ -8,7 +8,7 @@
 ;; The ‘eval’ is required in the case that this file is byte-compiled.
 (if mm-humanwave-p
     (eval '(setq inhibit-startup-echo-area-message "thomasvoss"))
-  (eval '(setq inhibit-startup-echo-area-message "thomas")))
+  (eval '(setq inhibit-startup-echo-area-message "tvoss")))
 
 ;; Require helpers used by the rest of the config
 (require 'mm-lib)
