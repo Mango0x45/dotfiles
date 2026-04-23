@@ -2,7 +2,6 @@ spawn-at-startup "dbus-update-activation-environment --all"
 spawn-at-startup "gentoo-pipewire-launcher"
 spawn-at-startup "qs" "-c" "noctalia-shell"
 spawn-at-startup "emacs" "--daemon"
-spawn-at-startup "foot" "--server"
 spawn-at-startup "chbr" "cache"
 
 // https://yalter.github.io/niri/Configuration:-Input
@@ -307,10 +306,10 @@ binds {
 	}
 
 	Mod+Return hotkey-overlay-title="Terminal" {
-		spawn "footclient"
+		spawn "foot"
 	}
 	Mod+Ctrl+Return hotkey-overlay-title="Terminal (Scratch)" {
-		spawn "footclient" "-a" "foot-floating"
+		spawn "foot" "-a" "foot-floating"
 	}
 	Mod+Space hotkey-overlay-title="App Launcher" {
 		spawn "fuzzel" "-I" "--log-level=warning" "--show-actions"
