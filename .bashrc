@@ -2,10 +2,6 @@
 [[ $- != *i* ]] && return
 
 [ -f ~/etc/setup-env ] && . ~/etc/setup-env
-# for f in /etc/bashrc /etc/bash/bashrc ~/etc/setup-env
-# do
-# 	[ -f $f ] && . $f
-# done
 
 shopt -s histappend
 export HISTCONTROL=ignoredups:erasedups
@@ -51,19 +47,7 @@ alias se=sudoedit
 alias e="$VISUAL"
 alias z='2>/dev/null zathura --fork "$@"'
 
-__ps1_newline() {
-	local _ y x _
-	local RESET="\e[0m"
-	local HL="\e[30;47m"
-
-	IFS='[;' read -p $'\e[6n' -d R -rs _ y x _
-	[[ "$x" != 1 ]] && printf "${HL}␀\n${RESET}"
-}
-
-PS1="\$(__ps1_newline)"'\[\e[96;1m\]\u \[\e[39m\]\W \[\e[96m\]〉\[\e[0m\]'
-
-command -v fzf >/dev/null && eval "$(fzf --bash)"
-command -v niri >/dev/null && eval "$(niri completions bash)"
+PS1='\[\e[96;1m\]\u@\h \[\e[39m\]\W \[\e[96m\]$ \[\e[0m\]'
 
 if [ -d "$NVM_DIR" ]
 then
@@ -72,3 +56,4 @@ then
 fi
 
 stty -ixon -ixoff
+ufetch
